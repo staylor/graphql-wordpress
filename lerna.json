@@ -4,16 +4,16 @@
     "packages/*"
   ],
   "commands": {
-  "publish": {
-    "ignore": [
-      "packages/wp-graphql-middleware"
-    ]
+    "publish": {
+      "ignore": [
+        "packages/wp-graphql-middleware"
+      ]
+    },
+    "bootstrap": {
+      "ignore": [
+        "packages/wp-graphql-middleware"
+      ]
+    }
   },
-  "bootstrap": {
-    "ignore": [
-      "packages/wp-graphql-middleware"
-    ]
-  }
-},
-  "version": "0.0.0"
+  "version": "0.0.1-0"
 }

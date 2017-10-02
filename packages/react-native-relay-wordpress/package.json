@@ -1,17 +1,33 @@
 {
   "name": "@wonderboymusic/react-native-relay-wordpress",
-  "version": "0.1.0",
+  "version": "0.0.1-0",
   "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/staylor/graphql-wordpress/packages/react-native-relay-wordpress"
   },
   "devDependencies": {
-    "babel-plugin-relay": "^1.1.0",
-    "jest-expo": "~19.0.0",
-    "react-native-scripts": "1.0.0",
-    "react-test-renderer": "16.0.0-alpha.12",
-    "relay-compiler": "next"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-plugin-relay": "^1.4.1",
+    "eslint": "^4.7.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-kyt": "^0.4.0",
+    "eslint-config-prettier": "^2.5.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.3.0",
+    "flow-bin": "^0.55.0",
+    "jest-expo": "^21.0.2",
+    "prettier": "^1.7.0",
+    "prettier-eslint": "^8.1.1",
+    "prettier-eslint-cli": "^4.3.2",
+    "react-native-scripts": "^1.5.0",
+    "react-test-renderer": "^16.0.0",
+    "relay-compiler": "^1.4.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -20,16 +36,17 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
+    "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"**/__generated__/**\" --write",
     "relay": "relay-compiler --src ./src --schema ./tools/schema.graphql"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^19.0.0",
-    "react": "16.0.0-alpha.12",
-    "react-native": "^0.46.1",
-    "react-relay": "1.2.0-rc.1",
-    "react-router-native": "^4.1.1"
+    "expo": "^21.0.2",
+    "react": "^16.0.0",
+    "react-native": "^0.48.4",
+    "react-relay": "^1.4.1",
+    "react-router-native": "^4.2.0"
   }
 }
