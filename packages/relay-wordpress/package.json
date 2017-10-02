@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/relay-wordpress",
-  "version": "0.0.1-0",
+  "version": "0.0.1-1",
   "description": "Headless WordPress isomorphic Relay app",
   "main": "index.js",
   "private": true,
@@ -11,7 +11,7 @@
   "author": "Scott Taylor <scott.c.taylor@mac.com>",
   "license": "MIT",
   "dependencies": {
-    "@wonderboymusic/graphql-wordpress-components": "^0.0.1-0",
+    "@wonderboymusic/graphql-wordpress-components": "^0.0.1-1",
     "base-64": "^0.1.0",
     "compression": "^1.7.1",
     "debounce": "^1.0.2",
