@@ -3,7 +3,6 @@
   "version": "0.0.1-1",
   "description": "GraphQL server for the WordPress REST API",
   "main": "index.js",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/staylor/graphql-wordpress"

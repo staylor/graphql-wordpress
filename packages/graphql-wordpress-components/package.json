@@ -5,7 +5,6 @@
   "main": "lib/index.js",
   "author": "Scott Taylor",
   "license": "MIT",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/staylor/graphql-wordpress/packages/graphql-wordpress-components"

@@ -1,7 +1,6 @@
 {
   "name": "@wonderboymusic/react-native-relay-wordpress",
   "version": "0.0.1-1",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/staylor/graphql-wordpress/packages/react-native-relay-wordpress"
