@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "eslint-config-kyt"
+  ],
+  "plugins": [
+    "prettier",
+    "jsx-a11y",
+    "import",
+    "jest"
+  ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+  "rules": {
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+  },
+  "env": {
+    "jasmine": true,
+    "jest": true
+  }
+}

@@ -1,0 +1,17 @@
+#import "./Settings_settings.graphql"
+#import "./NavMenu_navMenu.graphql"
+#import "./Sidebar_sidebar.graphql"
+
+query App_Query($menuID: ID!, $sidebarID: ID!) {
+  viewer {
+    settings {
+      ...Settings_settings
+    }
+    navMenu(id: $menuID) {
+      ...NavMenu_navMenu
+    }
+    sidebar(id: $sidebarID) {
+      ...Sidebar_sidebar
+    }
+  }
+}

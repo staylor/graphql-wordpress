@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment CRUD: delete Test delete 1`] = `
+Object {
+  "status": "delete",
+}
+`;

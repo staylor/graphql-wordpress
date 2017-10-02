@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test enum values POST_ORDERBY values 1`] = `
+Array [
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "DATE",
+    "value": "date",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "RELEVANCE",
+    "value": "relevance",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "ID",
+    "value": "id",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "INCLUDE",
+    "value": "include",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "TITLE",
+    "value": "title",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "SLUG",
+    "value": "slug",
+  },
+]
+`;

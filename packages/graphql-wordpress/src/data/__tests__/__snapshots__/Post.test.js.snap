@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Post data access Get backup endpoint 1`] = `"graphql/v1/posts"`;
+
+exports[`Test Post data access Get endpoint 1`] = `"graphql/v1/posts"`;
+
+exports[`Test Post data access Load Post collection 1`] = `
+Object {
+  "items": Array [
+    Post {
+      "id": 1,
+    },
+    Post {
+      "id": 2,
+    },
+    Post {
+      "id": 3,
+    },
+    Post {
+      "id": 4,
+    },
+    Post {
+      "id": 5,
+    },
+  ],
+  "total": 5,
+}
+`;

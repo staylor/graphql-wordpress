@@ -1,0 +1,11 @@
+#import "./Comment_comment.graphql"
+
+fragment Walker_comments on CommentConnection {
+  edges {
+    node {
+      id
+      parent
+      ...Comment_comment
+    }
+  }
+}

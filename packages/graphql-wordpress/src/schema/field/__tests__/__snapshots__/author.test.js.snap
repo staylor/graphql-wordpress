@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test author field 1`] = `"User"`;
+
+exports[`Test schema type field definition Test resolve author field 1`] = `
+User {
+  "id": 1,
+}
+`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NavMenu data access Get backup endpoint 1`] = `"graphql/v1/nav-menus"`;
+
+exports[`Test NavMenu data access Get endpoint 1`] = `"graphql/v1/nav-menus"`;

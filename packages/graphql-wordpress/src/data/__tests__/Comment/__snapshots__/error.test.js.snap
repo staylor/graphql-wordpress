@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment CRUD Errors Test create error 1`] = `
+Object {
+  "comment": null,
+  "cookies": null,
+  "status": "Error testing comment CRUD.",
+}
+`;
+
+exports[`Test Comment CRUD Errors Test delete error 1`] = `
+Object {
+  "status": "Error testing comment CRUD.",
+}
+`;
+
+exports[`Test Comment CRUD Errors Test update error 1`] = `
+Object {
+  "comment": null,
+  "cookies": null,
+  "status": "Error testing comment CRUD.",
+}
+`;

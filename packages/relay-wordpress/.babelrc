@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "babel-preset-kyt-react",
+    "stage-0",
+    "flow"
+  ],
+  "plugins": [
+    "relay",
+    "babel-plugin-transform-decorators-legacy",
+    "babel-plugin-transform-class-properties",
+    ["module-resolver", {
+      "root": ["./src", "./types"]
+    }]
+  ]
+}

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Tag type Test fields 1`] = `
+Array [
+  "id",
+  "description",
+  "link",
+  "name",
+  "slug",
+  "taxonomy",
+  "count",
+  "meta",
+]
+`;
+
+exports[`Test Tag type Test name 1`] = `"Tag"`;

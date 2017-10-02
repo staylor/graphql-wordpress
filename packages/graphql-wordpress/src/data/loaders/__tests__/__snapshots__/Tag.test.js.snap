@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Tag loader Load a tag 1`] = `"VGFnOjEz"`;
+
+exports[`Test Tag loader Load a tag 2`] = `
+Tag {
+  "id": 13,
+}
+`;
+
+exports[`Test Tag loader Load a tag by slug 1`] = `
+Tag {
+  "slug": "dirty-projectors",
+}
+`;
+
+exports[`Test Tag loader Load tags 1`] = `
+Array [
+  Tag {
+    "id": 13,
+  },
+  Tag {
+    "id": 17,
+  },
+]
+`;

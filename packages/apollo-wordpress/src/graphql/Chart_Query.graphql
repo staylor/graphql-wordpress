@@ -1,0 +1,23 @@
+query Chart_Query {
+  viewer {
+    chart {
+      title
+      copyright
+      updated
+      authorName
+      authorUri
+      items {
+        title
+        artist
+        releaseDate
+        releaseDateFormatted
+        url
+        copyright
+        images {
+          url
+          height
+        }
+      }
+    }
+  }
+}

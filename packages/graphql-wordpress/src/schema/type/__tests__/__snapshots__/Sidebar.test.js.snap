@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Sidebar type Test fields 1`] = `
+Array [
+  "id",
+  "name",
+  "description",
+  "classname",
+  "beforeWidget",
+  "afterWidget",
+  "beforeTitle",
+  "afterTitle",
+  "widgets",
+]
+`;
+
+exports[`Test Sidebar type Test name 1`] = `"Sidebar"`;
+
+exports[`Test Sidebar type Test resolve name 1`] = `"cool-widget"`;

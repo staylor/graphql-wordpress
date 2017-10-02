@@ -1,0 +1,16 @@
+server {
+  listen       80;
+  server_name  graphql.highforthis.com;
+  root         /var/www/graphql.highforthis.com/public_html;
+  access_log   /var/www/graphql.highforthis.com/logs/access.log;
+  error_log    /var/www/graphql.highforthis.com/logs/error.log;
+
+  location / {
+    try_files $uri @proxy;
+  }
+
+  location @proxy {
+    proxy_pass http://graphql.highforthis.com:8080;
+    proxy_set_header Host $host;
+  }
+}

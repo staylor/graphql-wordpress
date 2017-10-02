@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test rendered field 1`] = `"String"`;

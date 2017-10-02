@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test enum values MEDIA_TYPE values 1`] = `
+Array [
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "IMAGE",
+    "value": "image",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "VIDEO",
+    "value": "video",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "AUDIO",
+    "value": "audio",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "APPLICATION",
+    "value": "application",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "FILE",
+    "value": "file",
+  },
+]
+`;

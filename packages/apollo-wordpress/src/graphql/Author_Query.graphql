@@ -1,0 +1,13 @@
+#import "./Archive_posts.graphql"
+
+query Author_Query($id: ID!) {
+  viewer {
+    author(id: $id) {
+      id
+      name
+    }
+    posts(author: $id, after: $cursor, first: $count) {
+      ...Archive_posts
+    }
+  }
+}

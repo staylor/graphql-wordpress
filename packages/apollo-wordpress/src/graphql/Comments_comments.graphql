@@ -1,0 +1,5 @@
+#import "./Walker_comments.graphql"
+
+fragment Comments_comments on CommentConnection {
+  ...Walker_comments
+}

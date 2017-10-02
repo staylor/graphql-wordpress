@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment loader Load a comment 1`] = `"Q29tbWVudDoxMw=="`;
+
+exports[`Test Comment loader Load a comment 2`] = `
+Comment {
+  "id": 13,
+}
+`;

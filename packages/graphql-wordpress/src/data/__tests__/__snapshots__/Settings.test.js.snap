@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Settings data access Get backup endpoint 1`] = `"graphql/v1/settings"`;
+
+exports[`Test Settings data access Get endpoint 1`] = `"graphql/v1/settings"`;

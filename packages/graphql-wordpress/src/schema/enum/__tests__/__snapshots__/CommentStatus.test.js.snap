@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test enum values COMMENT_STATUS values 1`] = `
+Array [
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "OPEN",
+    "value": "open",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "CLOSED",
+    "value": "closed",
+  },
+]
+`;

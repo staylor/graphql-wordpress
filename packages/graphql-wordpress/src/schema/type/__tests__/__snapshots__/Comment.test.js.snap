@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment type Test fields 1`] = `
+Array [
+  "id",
+  "author",
+  "date",
+  "dateGMT",
+  "content",
+  "link",
+  "post",
+  "parent",
+  "authorName",
+  "authorUrl",
+  "authorHash",
+  "status",
+  "type",
+  "authorAvatarUrls",
+  "meta",
+]
+`;
+
+exports[`Test Comment type Test name 1`] = `"Comment"`;
+
+exports[`Test Comment type Test resolve avatars 1`] = `
+Array [
+  Object {
+    "size": "thumbnail",
+    "url": "https://scott.com/avi.jpg",
+  },
+]
+`;
+
+exports[`Test Comment type Test resolve parent 1`] = `"Q29tbWVudDo2OQ=="`;
+
+exports[`Test Comment type Test resolve post 1`] = `"UG9zdDoxMw=="`;

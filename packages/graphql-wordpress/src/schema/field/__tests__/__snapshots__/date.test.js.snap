@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test date fields 1`] = `"String"`;
+
+exports[`Test schema type field definition Test date fields 2`] = `"String"`;
+
+exports[`Test schema type field definition Test modified fields 1`] = `"String"`;
+
+exports[`Test schema type field definition Test modified fields 2`] = `"String"`;

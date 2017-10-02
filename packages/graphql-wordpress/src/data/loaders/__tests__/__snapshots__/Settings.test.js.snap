@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Settings loader Load settings 1`] = `"U2V0dGluZ3M6bWU="`;
+
+exports[`Test Settings loader Load settings 2`] = `
+Settings {
+  "slug": "graphql/v1/settings",
+}
+`;

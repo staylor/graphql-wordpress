@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Category type Test fields 1`] = `
+Array [
+  "id",
+  "description",
+  "link",
+  "name",
+  "slug",
+  "taxonomy",
+  "count",
+  "meta",
+  "parent",
+]
+`;
+
+exports[`Test Category type Test name 1`] = `"Category"`;
+
+exports[`Test Category type Test resolve parent 1`] = `
+Category {
+  "id": 69,
+}
+`;

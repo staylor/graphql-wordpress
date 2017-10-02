@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NavMenu queries GraphQL should return a Nav Menu by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "navMenu": Object {
+        "items": Array [
+          Object {
+            "dataID": "Q2F0ZWdvcnk6NA==",
+            "dataSlug": "watch-this",
+            "order": 4,
+            "parent": null,
+            "title": "Watch This",
+            "type": "taxonomy",
+            "typeName": "category",
+            "typeSlug": "music",
+            "url": "https://highforthis.com/music/watch-this/",
+          },
+          Object {
+            "dataID": "Q2F0ZWdvcnk6NA==",
+            "dataSlug": "watch-this",
+            "order": 4,
+            "parent": null,
+            "title": "Watch This",
+            "type": "taxonomy",
+            "typeName": "category",
+            "typeSlug": "music",
+            "url": "https://highforthis.com/music/watch-this/",
+          },
+        ],
+        "name": "Main Nav",
+      },
+    },
+  },
+}
+`;

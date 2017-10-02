@@ -1,0 +1,1112 @@
+input AddCommentInput {
+  author_email: String!
+  author_name: String!
+  content: String!
+  post: ID!
+  author_url: String
+  parent: ID
+  clientMutationId: String
+}
+
+type AddCommentPayload {
+  status: String
+  comment: Comment
+  cookies: String
+  clientMutationId: String
+}
+
+# An object.
+type Audio implements MediaInterface {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+
+  # The author object of the item.
+  author: User
+
+  # Meta fields.
+  meta: [Meta]
+  description: Description
+  caption: Caption
+
+  # Alternative text to display when attachment is not displayed.
+  alt_text: String
+  media_type: MEDIA_TYPE
+
+  # The attachment MIME type.
+  mime_type: String
+
+  # URL to the original attachment file.
+  source_url: String
+
+  # The ID for the associated post of the attachment.
+  post: ID!
+  media_details: AudioDetails
+}
+
+# The details for the media.
+type AudioDetails {
+  title: String
+}
+
+# Avatar info.
+type Avatar {
+  size: Int
+  url: String
+}
+
+# The caption for the object.
+type Caption {
+  # HTML for the object, transformed for display.
+  rendered: String
+}
+
+# A unique identifier for a post.
+type Category implements TermInterface, Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The object description.
+  description: String
+
+  # URL to the object.
+  link: String
+
+  # HTML title for the object.
+  name: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type attribution for the term.
+  taxonomy: Taxonomy
+
+  # Number of published posts for the term.
+  count: Int
+
+  # Meta fields.
+  meta: [Meta]
+
+  # The parent term ID.
+  parent: Category
+}
+
+# iTunes chart data.
+type Chart {
+  # Chart title.
+  title: String
+
+  # Chart copyright notice.
+  copyright: String
+
+  # Last updated timestamp.
+  updated: String
+
+  # Chart author name.
+  authorName: String
+
+  # Chart author URI.
+  authorUri: String
+
+  # Chart items.
+  items: [ChartItem]
+}
+
+# An item in the iTunes chart.
+type ChartItem {
+  # Album title.
+  title: String
+
+  # Artist title.
+  artist: String
+
+  # Album release date in ISO format.
+  releaseDate: String
+
+  # Album release date, formatted for display.
+  releaseDateFormatted: String
+
+  # Album URL.
+  url: String
+
+  # Chart copyright notice.
+  copyright: String
+
+  # Item images.
+  images: [ChartItemImage]
+}
+
+# iTunes chart item image.
+type ChartItemImage {
+  # Image URL.
+  url: String
+
+  # Image height.
+  height: Int
+}
+
+# An object.
+type Comment {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The author object of the item.
+  author: User
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  content: Content
+
+  # URL to the object.
+  link: String
+
+  # The ID of the associated post object.
+  post: ID
+
+  # The ID for the parent of the object.
+  parent: ID
+
+  # Display name for the object author.
+  author_name: String
+
+  # URL for the object author.
+  author_url: String
+
+  # Hashed representation of the comment author.
+  author_hash: String
+
+  # State of the object.
+  status: String
+
+  # Type of Comment for the object.
+  type: String
+
+  # Avatar URLs for the object author.
+  author_avatar_urls: [Avatar]
+
+  # Meta fields.
+  meta: [Meta]
+}
+
+# Sort collection by object attribute.
+enum COMMENT_ORDERBY {
+  ID
+  INCLUDE
+  DATE
+  DATE_GMT
+  POST
+  PARENT
+  TYPE
+}
+
+# Whether or not comments are open on the object.
+enum COMMENT_STATUS {
+  OPEN
+  CLOSED
+}
+
+# A connection to a list of items.
+type CommentConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [CommentEdge]
+}
+
+# An edge in a connection.
+type CommentEdge {
+  # The item at the end of the edge
+  node: Comment
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# The content for the object.
+type Content {
+  # HTML for the object, transformed for display.
+  rendered: String
+
+  # Content for the object, as it exists in the database.
+  raw: String
+
+  # Whether the field is protected with a password.
+  protected: Boolean
+}
+
+input DeleteCommentInput {
+  id: ID!
+  token: String!
+  post: String!
+  clientMutationId: String
+}
+
+type DeleteCommentPayload {
+  status: String
+  clientMutationId: String
+}
+
+# The description for the object.
+type Description {
+  # HTML for the object, transformed for display.
+  rendered: String
+}
+
+# The excerpt for the object.
+type Excerpt {
+  # HTML for the object, transformed for display.
+  rendered: String
+
+  # Content for the object, as it exists in the database.
+  raw: String
+
+  # Whether the field is protected with a password.
+  protected: Boolean
+}
+
+# The format for the object.
+enum FORMAT {
+  STANDARD
+  ASIDE
+  CHAT
+  GALLERY
+  LINK
+  IMAGE
+  QUOTE
+  STATUS
+  VIDEO
+  AUDIO
+}
+
+# The globally unique identifier for the object.
+type Guid {
+  # HTML for the object, transformed for display.
+  rendered: String
+}
+
+# An object.
+type Image implements MediaInterface {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+
+  # The author object of the item.
+  author: User
+
+  # Meta fields.
+  meta: [Meta]
+  description: Description
+  caption: Caption
+
+  # Alternative text to display when attachment is not displayed.
+  alt_text: String
+  media_type: MEDIA_TYPE
+
+  # The attachment MIME type.
+  mime_type: String
+
+  # URL to the original attachment file.
+  source_url: String
+
+  # The ID for the associated post of the attachment.
+  post: ID!
+  media_details: ImageDetails
+}
+
+# The details for the media.
+type ImageDetails {
+  width: Int
+  height: Int
+  file: String
+  sizes: [MediaSize]
+}
+
+type Labels {
+  singular: String
+  plural: String
+}
+
+union Media = Image | Audio | Video
+
+# Attachment type.
+enum MEDIA_TYPE {
+  IMAGE
+  VIDEO
+  AUDIO
+  APPLICATION
+  FILE
+}
+
+interface MediaInterface {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+  meta: [Meta]
+  author: User
+  description: Description
+  caption: Caption
+
+  # Alternative text to display when attachment is not displayed.
+  alt_text: String
+  media_type: MEDIA_TYPE
+
+  # The attachment MIME type.
+  mime_type: String
+
+  # URL to the original attachment file.
+  source_url: String
+
+  # The ID for the associated post of the attachment.
+  post: ID!
+}
+
+# The details for the media size.
+type MediaSize {
+  name: String
+  width: Int
+  height: Int
+  file: String
+  mime_type: String
+  source_url: String
+}
+
+# A metadata field for an object.
+type Meta {
+  # Name for the metadata field.
+  name: String
+
+  # Value for the metadata field.
+  value: String
+}
+
+# WordPress API mutations
+type Mutation {
+  addComment(input: AddCommentInput!): AddCommentPayload
+  updateComment(input: UpdateCommentInput!): UpdateCommentPayload
+  deleteComment(input: DeleteCommentInput!): DeleteCommentPayload
+}
+
+# A nav menu.
+type NavMenu implements Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # HTML title for the object.
+  name: String
+
+  # The object description.
+  description: String
+
+  # Items associated with the menu.
+  items: [NavMenuItem]
+}
+
+# A nav menu item.
+type NavMenuItem {
+  # Menu item ID.
+  id: ID
+
+  # Menu item that this item is a child of.
+  parent: ID
+
+  # The order that this item appears in the menu.
+  order: Int
+
+  # The classification of object.
+  type: String
+
+  # The type of object within a classification.
+  typeName: String
+
+  # The rewrite slug for the object type.
+  typeSlug: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  dataSlug: String
+
+  # Unique identifier for the object.
+  dataID: ID
+
+  # The item url.
+  url: String
+
+  # The display name for the item.
+  title: String
+
+  # The target for the item.
+  target: String
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Order sort attribute ascending or descending.
+enum ORDER {
+  ASC
+  DESC
+}
+
+# An object.
+type Page implements PostInterface, Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  content: Content
+  excerpt: Excerpt
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+
+  # The author object of the item.
+  author: User
+
+  # The featured media for the object.
+  featuredMedia: Media
+
+  # Meta fields.
+  meta: [Meta]
+
+  # The ID for the parent of the object.
+  parent: Page
+
+  # The order of the object in relation to other object of its type.
+  menu_order: Int
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# Whether or not the object can be pinged.
+enum PING_STATUS {
+  OPEN
+  CLOSED
+}
+
+# A read-only post object.
+type Post implements PostInterface, Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  content: Content
+  excerpt: Excerpt
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+  format: FORMAT
+
+  # The author object of the item.
+  author: User
+
+  # The featured media for the object.
+  featuredMedia: Media
+
+  # Meta fields.
+  meta: [Meta]
+
+  # Whether or not the object should be treated as sticky.
+  sticky: Boolean
+
+  # The terms assigned to the object in the category taxonomy.
+  categories: [Category]
+
+  # The terms assigned to the object in the post_tag taxonomy.
+  tags: [Tag]
+
+  # A list of results
+  comments(
+    # Limit result set to resources assigned to a specific post id.
+    post: ID
+
+    # Limit result set to resources assigned to a specific post slug.
+    slug: String
+
+    # Sort collection by object attribute.
+    orderby: COMMENT_ORDERBY
+
+    # Order sort attribute ascending or descending.
+    order: ORDER
+    after: String
+    first: Int
+    before: String
+    last: Int
+  ): CommentConnection
+}
+
+# Sort collection by object attribute.
+enum POST_ORDERBY {
+  DATE
+  RELEVANCE
+  ID
+  INCLUDE
+  TITLE
+  SLUG
+}
+
+# A connection to a list of items.
+type PostConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [PostEdge]
+}
+
+# An edge in a connection.
+type PostEdge {
+  # The item at the end of the edge
+  node: Post
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+interface PostInterface {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  content: Content
+  excerpt: Excerpt
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+  meta: [Meta]
+  author: User
+  featuredMedia: Media
+}
+
+# WordPress Relay App queries
+type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  viewer: Viewer
+}
+
+# Information that can be used to create pretty permalinks.
+type Rewrite {
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+}
+
+# .
+type Settings {
+  # Site title.
+  title: String
+
+  # Site tagline.
+  description: String
+
+  # A city in the same timezone as you.
+  timezone: String
+
+  # Site locale code.
+  language: String
+}
+
+# A widget area.
+type Sidebar implements Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # HTML title for the object.
+  name: String
+
+  # The object description.
+  description: String
+
+  # Extra CSS class to assign to the sidebar in the Widgets interface.
+  classname: String
+
+  # HTML content to prepend to each widget's HTML output when assigned to this sidebar.
+  before_widget: String
+
+  # HTML content to append to each widget's HTML output when assigned to this sidebar.
+  after_widget: String
+
+  # HTML content to prepend to the sidebar title when displayed.
+  before_title: String
+
+  # HTML content to append to the sidebar title when displayed.
+  after_title: String
+
+  # HTML widgets associated with the sidebar.
+  widgets: [Widget]
+}
+
+# A unique identifier for a post.
+type Tag implements TermInterface, Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The object description.
+  description: String
+
+  # URL to the object.
+  link: String
+
+  # HTML title for the object.
+  name: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type attribution for the term.
+  taxonomy: Taxonomy
+
+  # Number of published posts for the term.
+  count: Int
+
+  # Meta fields.
+  meta: [Meta]
+}
+
+# A taxonomy type.
+type Taxonomy {
+  # Unique identifier for the object.
+  id: ID!
+
+  # Identifier for the object.
+  name: String
+
+  # The object description.
+  description: String
+
+  # Types associated with the taxonomy.
+  types: [String]
+
+  # Whether or not the taxonomy should have children.
+  hierarchical: Boolean
+
+  # Information that can be used to create pretty permalinks.
+  rewrite: Rewrite
+  labels: Labels
+}
+
+# Term fields.
+interface TermInterface {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The object description.
+  description: String
+
+  # URL to the object.
+  link: String
+
+  # HTML title for the object.
+  name: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+  count: Int
+  taxonomy: Taxonomy
+  meta: [Meta]
+}
+
+# The title for an object.
+type Title {
+  # HTML for the object, transformed for display.
+  rendered: String
+}
+
+input UpdateCommentInput {
+  id: ID!
+  content: String!
+  token: String!
+  clientMutationId: String
+}
+
+type UpdateCommentPayload {
+  status: String
+  comment: Comment
+  cookies: String
+  clientMutationId: String
+}
+
+# An object.
+type User implements Node {
+  # Unique identifier for the object.
+  id: ID!
+
+  # HTML title for the object.
+  name: String
+
+  # The object description.
+  description: String
+
+  # URL to the object.
+  link: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Avatar URLs for the user.
+  avatar_urls: [Avatar]
+}
+
+# An object.
+type Video implements MediaInterface {
+  # Unique identifier for the object.
+  id: ID!
+
+  # The date the object was published, in the timezone of the site.
+  date: String
+
+  # The date the object was published, as GMT.
+  date_gmt: String
+  guid: Guid
+
+  # The date the object was modified, in the timezone of the site.
+  modified: String
+
+  # The date the object was modified, as GMT.
+  modified_gmt: String
+
+  # An alphanumeric identifier for the object unique to its type.
+  slug: String
+
+  # Type of Post for the object.
+  type: String
+
+  # URL to the object.
+  link: String
+  title: Title
+  comment_status: COMMENT_STATUS
+  ping_status: PING_STATUS
+
+  # The theme file to use to display the object.
+  template: String
+
+  # The author object of the item.
+  author: User
+
+  # Meta fields.
+  meta: [Meta]
+  description: Description
+  caption: Caption
+
+  # Alternative text to display when attachment is not displayed.
+  alt_text: String
+  media_type: MEDIA_TYPE
+
+  # The attachment MIME type.
+  mime_type: String
+
+  # URL to the original attachment file.
+  source_url: String
+
+  # The ID for the associated post of the attachment.
+  post: ID!
+  media_details: VideoDetails
+}
+
+# The details for the media.
+type VideoDetails {
+  title: String
+}
+
+type Viewer {
+  # The ID of an object
+  id: ID!
+  post(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): Post
+  page(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): Page
+  media(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): Media
+  category(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): Category
+  tag(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): Tag
+  author(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): User
+  navMenu(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): NavMenu
+  sidebar(
+    # Unique identifier for the object.
+    id: ID
+
+    # An alphanumeric identifier for the object unique to its type.
+    slug: String
+  ): Sidebar
+  term(slug: String!, taxonomy: String!): TermInterface
+
+  # A list of results
+  posts(
+    # Limit result set to items that are sticky.
+    sticky: Boolean
+
+    # Limit result set to items that are from a certain year.
+    year: Int
+
+    # Limit result set to items that are from a certain month.
+    month: Int
+
+    # Limit result set to items that are from a certain day.
+    day: Int
+
+    # Limit results to those matching a string.
+    search: String
+
+    # Limit result set to items assigned to specific author.
+    author: ID
+
+    # Limit result set to items with one or more specific slugs (value or comma-separated values).
+    slug: String
+
+    # Limit result set to all items that have the specified term assigned in the categories taxonomy.
+    category: String
+
+    # Limit result set to all items that have the specified terms assigned in the categories taxonomy.
+    categories: String
+
+    # Limit result set to all items that have the specified term assigned in the tags taxonomy.
+    tag: String
+
+    # Limit result set to all items that have the specified terms assigned in the tags taxonomy.
+    tags: String
+
+    # Limit result set to all items that have the specified term assigned in the also-specified taxonomy.
+    term: String
+
+    # Limit result set to all items that have the also-specified term assigned in this taxonomy.
+    taxonomy: String
+
+    # Sort collection by object attribute.
+    orderby: POST_ORDERBY
+
+    # Order sort attribute ascending or descending.
+    order: ORDER
+    after: String
+    first: Int
+    before: String
+    last: Int
+  ): PostConnection
+  settings: Settings
+  chart: Chart
+}
+
+# A widget.
+type Widget {
+  # Identifier for widget.
+  id: String
+
+  # HTML title for the object.
+  name: String
+
+  # The object description.
+  description: String
+
+  # CSS class for the widget.
+  classname: String
+  content: Content
+}

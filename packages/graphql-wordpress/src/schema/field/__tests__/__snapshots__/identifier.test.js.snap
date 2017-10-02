@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test globalIdField field 1`] = `"ID!"`;
+
+exports[`Test schema type field definition Test globalIdField field 2`] = `"TW9ja0RhdGE6ODY3NTM5"`;
+
+exports[`Test schema type field definition Test guid field 1`] = `"Guid"`;
+
+exports[`Test schema type field definition Test id field 1`] = `"ID"`;
+
+exports[`Test schema type field definition Test link field 1`] = `"String"`;
+
+exports[`Test schema type field definition Test name field 1`] = `"String"`;
+
+exports[`Test schema type field definition Test slug field 1`] = `"String"`;

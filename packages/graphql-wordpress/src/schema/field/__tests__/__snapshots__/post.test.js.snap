@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test format field 1`] = `"FORMAT"`;
+
+exports[`Test schema type field definition Test sticky field 1`] = `"Boolean"`;
+
+exports[`Test schema type field definition Test template field 1`] = `"String"`;
+
+exports[`Test schema type field definition Test type field 1`] = `"String"`;

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Post type Test fields 1`] = `
+Array [
+  "id",
+  "date",
+  "dateGMT",
+  "guid",
+  "modified",
+  "modifiedGMT",
+  "slug",
+  "type",
+  "link",
+  "title",
+  "content",
+  "excerpt",
+  "commentStatus",
+  "pingStatus",
+  "template",
+  "format",
+  "author",
+  "featuredMedia",
+  "meta",
+  "sticky",
+  "categories",
+  "tags",
+  "comments",
+]
+`;
+
+exports[`Test Post type Test name 1`] = `"Post"`;
+
+exports[`Test Post type Test resolve categories 1`] = `
+Array [
+  Category {
+    "id": 69,
+  },
+]
+`;
+
+exports[`Test Post type Test resolve tags 1`] = `
+Array [
+  Tag {
+    "id": 69,
+  },
+]
+`;

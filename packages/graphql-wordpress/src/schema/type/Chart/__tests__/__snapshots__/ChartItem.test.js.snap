@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test ChartItem type Test fields 1`] = `
+Array [
+  "title",
+  "artist",
+  "releaseDate",
+  "releaseDateFormatted",
+  "url",
+  "copyright",
+  "images",
+]
+`;
+
+exports[`Test ChartItem type Test name 1`] = `"ChartItem"`;
+
+exports[`Test ChartItem type Test resolve artist 1`] = `"Lorde"`;
+
+exports[`Test ChartItem type Test resolve copyright 1`] = `"Big Boy Records"`;
+
+exports[`Test ChartItem type Test resolve images 1`] = `
+Array [
+  Object {
+    "height": 80,
+    "url": "https://scott.com/avi.jpg",
+  },
+]
+`;
+
+exports[`Test ChartItem type Test resolve releaseDate 1`] = `"2017-04-20T04:20:00"`;
+
+exports[`Test ChartItem type Test resolve releaseDateFormatted 1`] = `"April 20, 2017"`;
+
+exports[`Test ChartItem type Test resolve title 1`] = `"Melodrama"`;
+
+exports[`Test ChartItem type Test resolve url 1`] = `"https://scott.com"`;

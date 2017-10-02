@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment CRUD: update Test update 1`] = `
+Object {
+  "comment": Comment {
+    "id": 13,
+    "post": 1,
+  },
+  "cookies": "foo=bar",
+  "status": "update",
+}
+`;

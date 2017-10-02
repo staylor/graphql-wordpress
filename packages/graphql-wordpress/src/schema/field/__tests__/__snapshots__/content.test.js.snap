@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test content field 1`] = `"Content"`;
+
+exports[`Test schema type field definition Test excerpt field 1`] = `"Excerpt"`;
+
+exports[`Test schema type field definition Test title field 1`] = `"Title"`;

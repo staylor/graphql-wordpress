@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Term queries GraphQL should return a category by slug and taxonomy 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "term": Object {
+        "count": 200,
+        "description": "",
+        "name": "Watch This",
+        "slug": "watch-this",
+        "taxonomy": Object {
+          "rewrite": Object {
+            "slug": "category",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Term queries GraphQL should return a tag by slug and taxonomy 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "term": Object {
+        "count": 3,
+        "description": "",
+        "name": "285 Kent",
+        "slug": "285-kent",
+        "taxonomy": Object {
+          "rewrite": Object {
+            "slug": "tag",
+          },
+        },
+      },
+    },
+  },
+}
+`;

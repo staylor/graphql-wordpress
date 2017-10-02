@@ -1,0 +1,5 @@
+fragment Settings_settings on Settings {
+  title
+  description
+  language
+}

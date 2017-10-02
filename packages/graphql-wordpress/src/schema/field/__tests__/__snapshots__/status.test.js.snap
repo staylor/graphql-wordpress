@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test commentStatus field 1`] = `"COMMENT_STATUS"`;
+
+exports[`Test schema type field definition Test pingStatus field 1`] = `"PING_STATUS"`;

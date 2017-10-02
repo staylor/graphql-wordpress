@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test count field 1`] = `"Int"`;
+
+exports[`Test schema type field definition Test taxonomy field 1`] = `"Taxonomy"`;
+
+exports[`Test schema type field definition Test taxonomy field resolver 1`] = `
+Taxonomy {
+  "slug": "tag",
+}
+`;

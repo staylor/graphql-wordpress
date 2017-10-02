@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test enum values ORDER values 1`] = `
+Array [
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "ASC",
+    "value": "asc",
+  },
+  Object {
+    "deprecationReason": undefined,
+    "description": undefined,
+    "isDeprecated": false,
+    "name": "DESC",
+    "value": "desc",
+  },
+]
+`;

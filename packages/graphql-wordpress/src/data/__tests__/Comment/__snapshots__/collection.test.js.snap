@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment data access Get backup endpoint 1`] = `"graphql/v1/comments"`;
+
+exports[`Test Comment data access Get endpoint 1`] = `"graphql/v1/comments"`;
+
+exports[`Test Comment data access Load Comment collection 1`] = `
+Object {
+  "items": Array [
+    Comment {
+      "id": 1,
+    },
+    Comment {
+      "id": 2,
+    },
+    Comment {
+      "id": 3,
+    },
+    Comment {
+      "id": 4,
+    },
+    Comment {
+      "id": 5,
+    },
+  ],
+  "total": 5,
+}
+`;

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Media queries GraphQL should return a media by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "media": Object {
+        "mediaDetails": Object {
+          "sizes": Array [
+            Object {
+              "name": "thumbnail",
+              "sourceUrl": "https://scott.com/image.jpg",
+            },
+            Object {
+              "name": "thumbnail",
+              "sourceUrl": "https://scott.com/image.jpg",
+            },
+          ],
+        },
+        "post": "UG9zdDoyNzIz",
+        "sourceUrl": "https://scott.com/image.jpg",
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Media queries GraphQL should return a media by slug 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "media": Object {
+        "mediaDetails": Object {
+          "sizes": Array [
+            Object {
+              "name": "thumbnail",
+              "sourceUrl": "https://scott.com/image.jpg",
+            },
+            Object {
+              "name": "thumbnail",
+              "sourceUrl": "https://scott.com/image.jpg",
+            },
+          ],
+        },
+        "post": "UG9zdDoyNzIz",
+        "sourceUrl": "https://scott.com/image.jpg",
+      },
+    },
+  },
+}
+`;

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Page loader Load a page 1`] = `"UGFnZToxMw=="`;
+
+exports[`Test Page loader Load a page 2`] = `
+Page {
+  "id": 13,
+}
+`;
+
+exports[`Test Page loader Load a page by slug 1`] = `
+Page {
+  "slug": "go-to-this",
+}
+`;

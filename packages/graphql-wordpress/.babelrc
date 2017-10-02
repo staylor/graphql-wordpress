@@ -1,0 +1,24 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-runtime",
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "jest": "./jest",
+        "data": "./src/data",
+        "schema": "./src/schema",
+        "type": "./src/schema/type",
+        "connection": "./src/schema/connection",
+        "enum": "./src/schema/enum",
+        "interface": "./src/schema/interface",
+        "query": "./src/schema/query",
+        "mutation": "./src/schema/mutation",
+        "field": "./src/schema/field"
+      }
+    }]
+  ]
+}

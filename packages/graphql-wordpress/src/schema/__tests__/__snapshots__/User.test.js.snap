@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Author queries GraphQL should return a user by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "author": Object {
+        "avatarUrls": Array [
+          Object {
+            "size": 48,
+            "url": "https://scott.com/avatar",
+          },
+          Object {
+            "size": 48,
+            "url": "https://scott.com/avatar",
+          },
+        ],
+        "description": "I like Mexican food.",
+        "link": "Hello World",
+        "name": "Scott Taylor",
+        "slug": "admin",
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Author queries GraphQL should return a user by slug 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "author": Object {
+        "avatarUrls": Array [
+          Object {
+            "size": 48,
+            "url": "https://scott.com/avatar",
+          },
+          Object {
+            "size": 48,
+            "url": "https://scott.com/avatar",
+          },
+        ],
+        "description": "I like Mexican food.",
+        "link": "Hello World",
+        "name": "Scott Taylor",
+        "slug": "admin",
+      },
+    },
+  },
+}
+`;

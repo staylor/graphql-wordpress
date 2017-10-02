@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Post queries GraphQL should return a post by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "post": Object {
+        "content": Object {
+          "rendered": "https://www.youtube.com/watch?v=2IG5f50olZA",
+        },
+        "date": "2017-01-05T11:55:08",
+        "slug": "dirty-projectors-little-bubble",
+        "tags": Array [
+          Object {
+            "name": "Dirty Projectors",
+          },
+          Object {
+            "name": "Dirty Projectors",
+          },
+        ],
+        "title": Object {
+          "rendered": "Dirty Projectors - Little Bubble",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Post queries GraphQL should return a post by slug 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "post": Object {
+        "content": Object {
+          "rendered": "https://www.youtube.com/watch?v=2IG5f50olZA",
+        },
+        "date": "2017-01-05T11:55:08",
+        "slug": "dirty-projectors-little-bubble",
+        "tags": Array [
+          Object {
+            "name": "Dirty Projectors",
+          },
+          Object {
+            "name": "Dirty Projectors",
+          },
+        ],
+        "title": Object {
+          "rendered": "Dirty Projectors - Little Bubble",
+        },
+      },
+    },
+  },
+}
+`;

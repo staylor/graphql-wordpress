@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test meta field 1`] = `"[Meta]"`;
+
+exports[`Test schema type field definition Test meta field resolver 1`] = `
+Array [
+  Object {
+    "name": "taco",
+    "value": "bell",
+  },
+  Object {
+    "name": "doritos",
+    "value": "loco",
+  },
+]
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NavMenu queries GraphQL should return a Sidebar by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "sidebar": Object {
+        "widgets": Array [
+          Object {
+            "classname": "cool-widget",
+            "content": Object {
+              "rendered": "This is a bunch of <blink>WIDGET</blink> content.",
+            },
+          },
+          Object {
+            "classname": "cool-widget",
+            "content": Object {
+              "rendered": "This is a bunch of <blink>WIDGET</blink> content.",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;

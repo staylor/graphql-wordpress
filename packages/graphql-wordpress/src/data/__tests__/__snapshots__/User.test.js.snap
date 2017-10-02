@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test User data access Get backup endpoint 1`] = `"wp/v2/users"`;
+
+exports[`Test User data access Get endpoint 1`] = `"wp/v2/users"`;

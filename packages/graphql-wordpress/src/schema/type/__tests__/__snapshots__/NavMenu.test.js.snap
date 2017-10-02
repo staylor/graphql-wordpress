@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NavMenu type Test fields 1`] = `
+Array [
+  "id",
+  "name",
+  "description",
+  "items",
+]
+`;
+
+exports[`Test NavMenu type Test name 1`] = `"NavMenu"`;

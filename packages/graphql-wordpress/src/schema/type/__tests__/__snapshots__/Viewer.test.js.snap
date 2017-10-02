@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Viewer type Test fields 1`] = `
+Array [
+  "id",
+  "post",
+  "page",
+  "media",
+  "category",
+  "tag",
+  "author",
+  "navMenu",
+  "sidebar",
+  "term",
+  "posts",
+  "settings",
+  "chart",
+]
+`;
+
+exports[`Test Viewer type Test name 1`] = `"Viewer"`;
+
+exports[`Test Viewer type Test resolve category via term 1`] = `
+Category {
+  "slug": "watch-this",
+}
+`;
+
+exports[`Test Viewer type Test resolve chart 1`] = `
+Chart {
+  "slug": "https://itunes.apple.com/us/rss/topalbums/limit=25/explicit=true/json",
+}
+`;
+
+exports[`Test Viewer type Test resolve post via id and item resolver 1`] = `
+Post {
+  "id": 13,
+}
+`;
+
+exports[`Test Viewer type Test resolve post via slug and item resolver 1`] = `
+Post {
+  "slug": "this-is-a-post",
+}
+`;
+
+exports[`Test Viewer type Test resolve settings 1`] = `
+Settings {
+  "slug": "graphql/v1/settings",
+}
+`;
+
+exports[`Test Viewer type Test resolve tag via term 1`] = `
+Tag {
+  "slug": "dirty-projectors",
+}
+`;

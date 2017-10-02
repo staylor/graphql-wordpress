@@ -1,0 +1,7 @@
+fragment Embed_node on Embed {
+  title
+  thumbnailUrl
+  html
+  width
+  height
+}

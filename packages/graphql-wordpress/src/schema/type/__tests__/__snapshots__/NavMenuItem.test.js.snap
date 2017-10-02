@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NavMenuItem type Test fields 1`] = `
+Array [
+  "id",
+  "parent",
+  "order",
+  "type",
+  "typeName",
+  "typeSlug",
+  "dataSlug",
+  "dataID",
+  "url",
+  "title",
+  "target",
+]
+`;
+
+exports[`Test NavMenuItem type Test name 1`] = `"NavMenuItem"`;
+
+exports[`Test NavMenuItem type Test resolve dataID 1`] = `"TmF2TWVudUl0ZW06NA=="`;
+
+exports[`Test NavMenuItem type Test resolve dataID null 1`] = `null`;
+
+exports[`Test NavMenuItem type Test resolve dataSlug 1`] = `"watch-this"`;
+
+exports[`Test NavMenuItem type Test resolve id 1`] = `"TmF2TWVudUl0ZW06MTM="`;
+
+exports[`Test NavMenuItem type Test resolve parent 1`] = `"TmF2TWVudUl0ZW06MTM="`;
+
+exports[`Test NavMenuItem type Test resolve parent null 1`] = `null`;
+
+exports[`Test NavMenuItem type Test resolve typeName 1`] = `"category"`;
+
+exports[`Test NavMenuItem type Test resolve typeSlug 1`] = `"music"`;

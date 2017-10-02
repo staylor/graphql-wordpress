@@ -1,0 +1,11 @@
+fragment Image_image on Media {
+  ... on Image {
+    sourceUrl
+    mediaDetails {
+      sizes {
+        name
+        sourceUrl
+      }
+    }
+  }
+}

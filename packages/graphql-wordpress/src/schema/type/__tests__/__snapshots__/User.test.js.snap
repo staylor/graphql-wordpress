@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test User type Test fields 1`] = `
+Array [
+  "id",
+  "name",
+  "description",
+  "link",
+  "slug",
+  "avatarUrls",
+]
+`;
+
+exports[`Test User type Test name 1`] = `"User"`;
+
+exports[`Test User type Test resolve avatars 1`] = `
+Array [
+  Object {
+    "size": "thumbnail",
+    "url": "https://scott.com/avi.jpg",
+  },
+]
+`;

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Post loader Load a post 1`] = `"UG9zdDoxMw=="`;
+
+exports[`Test Post loader Load a post 2`] = `
+Post {
+  "id": 13,
+}
+`;
+
+exports[`Test Post loader Load a post by slug 1`] = `
+Post {
+  "slug": "whatever",
+}
+`;

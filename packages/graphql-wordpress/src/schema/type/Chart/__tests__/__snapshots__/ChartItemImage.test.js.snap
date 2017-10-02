@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test ChartItem type Test fields 1`] = `
+Array [
+  "url",
+  "height",
+]
+`;
+
+exports[`Test ChartItem type Test name 1`] = `"ChartItemImage"`;
+
+exports[`Test ChartItem type Test resolve height 1`] = `80`;
+
+exports[`Test ChartItem type Test resolve url 1`] = `"https://scott.com/image.jpg"`;

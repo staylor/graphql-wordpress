@@ -1,0 +1,103 @@
+#import "./Embed_node.graphql"
+#import "./Element_node.graphql"
+
+fragment ContentNode_content on ContentNode {
+  __typename
+  ... on Embed {
+    ...Embed_node
+  }
+  ... on Text {
+    text
+  }
+  ... on Element {
+    ...Element_node
+    children {
+      ... on Embed {
+        ...Embed_node
+      }
+      ... on Text {
+        text
+      }
+      ... on Element {
+        ...Element_node
+        children {
+          ... on Embed {
+            ...Embed_node
+          }
+          ... on Text {
+            text
+          }
+          ... on Element {
+            ...Element_node
+            children {
+              ... on Embed {
+                ...Embed_node
+              }
+              ... on Text {
+                text
+              }
+              ... on Element {
+                ...Element_node
+                children {
+                  ... on Embed {
+                    ...Embed_node
+                  }
+                  ... on Text {
+                    text
+                  }
+                  ... on Element {
+                    ...Element_node
+                    children {
+                      ... on Embed {
+                        ...Embed_node
+                      }
+                      ... on Text {
+                        text
+                      }
+                      ... on Element {
+                        ...Element_node
+                        children {
+                          ... on Embed {
+                            ...Embed_node
+                          }
+                          ... on Text {
+                            text
+                          }
+                          ... on Element {
+                            ...Element_node
+                            children {
+                              ... on Embed {
+                                ...Embed_node
+                              }
+                              ... on Text {
+                                text
+                              }
+                              ... on Element {
+                                ...Element_node
+                                children {
+                                  ... on Embed {
+                                    ...Embed_node
+                                  }
+                                  ... on Text {
+                                    text
+                                  }
+                                  ... on Element {
+                                    ...Element_node
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

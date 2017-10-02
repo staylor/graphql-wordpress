@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Media data access Get backup endpoint 1`] = `"wp/v2/media"`;
+
+exports[`Test Media data access Get endpoint 1`] = `"wp/v2/media"`;

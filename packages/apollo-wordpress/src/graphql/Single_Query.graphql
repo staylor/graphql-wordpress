@@ -1,0 +1,38 @@
+#import "./ContentNode_content.graphql"
+#import "./Media_media.graphql"
+#import "./Comments_comments.graphql"
+
+query Single_Query($slug: String!, $commentCount: Int) {
+  viewer {
+    post(slug: $slug) {
+      id
+      slug
+      date
+      title {
+        raw
+      }
+      content {
+        data {
+          ...ContentNode_content
+        }
+      }
+      excerpt {
+        raw
+      }
+      featuredMedia {
+        ...Media_media
+        ... on Image {
+          sourceUrl
+        }
+      }
+      tags {
+        id
+        name
+        slug
+      }
+      comments(slug: $slug, first: $commentCount) {
+        ...Comments_comments
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Node queries GraphQL should return a node by NavMenu ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "NavMenu",
+      "id": "1",
+    },
+  },
+}
+`;
+
+exports[`Test Node queries GraphQL should return a node by category ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "Category",
+      "id": "1",
+    },
+  },
+}
+`;
+
+exports[`Test Node queries GraphQL should return a node by page ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "Page",
+      "id": "1",
+    },
+  },
+}
+`;
+
+exports[`Test Node queries GraphQL should return a node by post ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "Post",
+      "id": "1",
+    },
+  },
+}
+`;
+
+exports[`Test Node queries GraphQL should return a node by sidebar ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "Sidebar",
+      "id": "1",
+    },
+  },
+}
+`;
+
+exports[`Test Node queries GraphQL should return a node by tag ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "Tag",
+      "id": "1",
+    },
+  },
+}
+`;
+
+exports[`Test Node queries GraphQL should return a node by user ID 1`] = `
+Object {
+  "data": Object {
+    "node": Object {
+      "__typename": "User",
+      "id": "1",
+    },
+  },
+}
+`;

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Tag queries GraphQL should return a tag by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "tag": Object {
+        "count": 3,
+        "description": "",
+        "meta": null,
+        "name": "285 Kent",
+        "slug": "285-kent",
+        "taxonomy": Object {
+          "rewrite": Object {
+            "slug": "tag",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Tag queries GraphQL should return a tag by slug 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "tag": Object {
+        "count": 3,
+        "description": "",
+        "meta": null,
+        "name": "285 Kent",
+        "slug": "285-kent",
+        "taxonomy": Object {
+          "rewrite": Object {
+            "slug": "tag",
+          },
+        },
+      },
+    },
+  },
+}
+`;

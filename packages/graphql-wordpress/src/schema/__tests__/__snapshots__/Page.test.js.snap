@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Post queries GraphQL should return a page by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "page": Object {
+        "content": Object {
+          "rendered": "A bunch of content about concerts.",
+        },
+        "slug": "go-to-this",
+        "title": Object {
+          "rendered": "Go To This",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Post queries GraphQL should return a page by slug 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "page": Object {
+        "content": Object {
+          "rendered": "A bunch of content about concerts.",
+        },
+        "slug": "go-to-this",
+        "title": Object {
+          "rendered": "Go To This",
+        },
+      },
+    },
+  },
+}
+`;

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test User loader Load a user 1`] = `"VXNlcjox"`;
+
+exports[`Test User loader Load a user 2`] = `
+User {
+  "id": 1,
+}
+`;
+
+exports[`Test User loader Load a user by slug 1`] = `
+User {
+  "slug": "admin",
+}
+`;

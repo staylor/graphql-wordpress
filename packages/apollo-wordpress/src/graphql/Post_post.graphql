@@ -1,0 +1,24 @@
+#import "./ContentNode_content.graphql"
+#import "./Media_media.graphql"
+#import "./PostLink_post.graphql"
+
+fragment Post_post on Post {
+  id
+  slug
+  date
+  title {
+    raw
+  }
+  content {
+    data {
+      ...ContentNode_content
+    }
+  }
+  excerpt {
+    raw
+  }
+  featuredMedia {
+    ...Media_media
+  }
+  ...PostLink_post
+}

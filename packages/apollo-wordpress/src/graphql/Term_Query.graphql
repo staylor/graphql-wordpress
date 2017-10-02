@@ -1,0 +1,23 @@
+#import "./Archive_posts.graphql"
+
+query Term_Query($slug: String!, $taxonomy: String!, $cursor: String, $count: Int) {
+  viewer {
+    term(slug: $slug, taxonomy: $taxonomy) {
+      id
+      name
+      slug
+      taxonomy {
+        rewrite {
+          slug
+        }
+        labels {
+          singular
+          plural
+        }
+      }
+    }
+    posts(term: $slug, taxonomy: $taxonomy, after: $cursor, first: $count) {
+      ...Archive_posts
+    }
+  }
+}

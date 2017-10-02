@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Chart type Test fields 1`] = `
+Array [
+  "title",
+  "copyright",
+  "updated",
+  "authorName",
+  "authorUri",
+  "items",
+]
+`;
+
+exports[`Test Chart type Test name 1`] = `"Chart"`;
+
+exports[`Test Chart type Test resolve authorName 1`] = `"iTunes"`;
+
+exports[`Test Chart type Test resolve authorUri 1`] = `"https://scott.com"`;
+
+exports[`Test Chart type Test resolve copyright 1`] = `"Whatever ©"`;
+
+exports[`Test Chart type Test resolve items 1`] = `
+Array [
+  Object {
+    "title": "Melodrama by Lorde",
+  },
+]
+`;
+
+exports[`Test Chart type Test resolve title 1`] = `"Hot 100"`;
+
+exports[`Test Chart type Test resolve updated 1`] = `"2017-04-20T04:20:00"`;

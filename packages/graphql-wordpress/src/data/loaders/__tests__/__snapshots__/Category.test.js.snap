@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Category loader Load a category 1`] = `"Q2F0ZWdvcnk6MTM="`;
+
+exports[`Test Category loader Load a category 2`] = `
+Category {
+  "id": 13,
+}
+`;
+
+exports[`Test Category loader Load a category by slug 1`] = `
+Category {
+  "slug": "watch-this",
+}
+`;
+
+exports[`Test Category loader Load categories 1`] = `
+Array [
+  Category {
+    "id": 13,
+  },
+  Category {
+    "id": 17,
+  },
+]
+`;

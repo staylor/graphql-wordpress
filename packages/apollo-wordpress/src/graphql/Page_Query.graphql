@@ -1,0 +1,25 @@
+#import "./ContentNode_content.graphql"
+#import "./Media_media.graphql"
+
+query Page_Query($slug: String!) {
+  viewer {
+    page(slug: $slug) {
+      id
+      slug
+      title {
+        raw
+      }
+      content {
+        data {
+          ...ContentNode_content
+        }
+      }
+      featuredMedia {
+        ... on Image {
+          sourceUrl
+        }
+        ...Media_media
+      }
+    }
+  }
+}

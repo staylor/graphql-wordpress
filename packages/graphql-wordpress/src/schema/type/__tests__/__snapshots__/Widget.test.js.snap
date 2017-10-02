@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Widget type Test fields 1`] = `
+Array [
+  "id",
+  "name",
+  "description",
+  "classname",
+  "content",
+]
+`;
+
+exports[`Test Widget type Test name 1`] = `"Widget"`;

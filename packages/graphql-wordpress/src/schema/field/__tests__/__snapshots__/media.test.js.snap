@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test schema type field definition Test altText field 1`] = `"String"`;
+
+exports[`Test schema type field definition Test caption field 1`] = `"Caption"`;
+
+exports[`Test schema type field definition Test description field 1`] = `"Description"`;
+
+exports[`Test schema type field definition Test featuredMedia field 1`] = `"Media"`;
+
+exports[`Test schema type field definition Test featuredMedia field resolver 1`] = `
+Media {
+  "id": 69,
+}
+`;
+
+exports[`Test schema type field definition Test mediaType field 1`] = `"MEDIA_TYPE"`;
+
+exports[`Test schema type field definition Test mimeType field 1`] = `"String"`;
+
+exports[`Test schema type field definition Test sourceUrl field 1`] = `"String"`;

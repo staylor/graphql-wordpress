@@ -1,0 +1,6 @@
+#import "./Image_image.graphql"
+
+fragment Media_media on Media {
+  __typename
+  ...Image_image
+}

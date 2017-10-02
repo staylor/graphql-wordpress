@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Sidebar loader Load a Sidebar 1`] = `"U2lkZWJhcjo="`;
+
+exports[`Test Sidebar loader Load a Sidebar 2`] = `
+Sidebar {
+  "slug": "main-nav",
+}
+`;

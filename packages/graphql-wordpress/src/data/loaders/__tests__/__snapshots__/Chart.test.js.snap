@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Chart loader Load a chart 1`] = `"Q2hhcnQ6bWU="`;
+
+exports[`Test Chart loader Load a chart 2`] = `
+Chart {
+  "slug": "https://itunes.apple.com/us/rss/topalbums/limit=25/explicit=true/json",
+}
+`;

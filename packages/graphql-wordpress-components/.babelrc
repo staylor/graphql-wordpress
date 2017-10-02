@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "babel-preset-kyt-react",
+    "flow"
+  ],
+  "plugins": [
+    "emotion",
+    "babel-plugin-transform-flow-strip-types",
+    "babel-plugin-transform-class-properties"
+  ]
+}

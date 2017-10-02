@@ -1,0 +1,11 @@
+#import "./Comment_comment.graphql"
+
+mutation AddComment_Mutation($input: AddCommentInput!) {
+  addComment(input: $input) {
+    comment {
+      ...Comment_comment
+    }
+    cookies
+    status
+  }
+}

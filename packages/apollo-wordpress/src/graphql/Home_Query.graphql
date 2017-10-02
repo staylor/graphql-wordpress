@@ -1,0 +1,27 @@
+#import "./Archive_posts.graphql"
+
+query Home_Query(
+  $stickiesTotal: Int
+  $watchThisTotal: Int
+  $readThisTotal: Int
+  $listenToThisTotal: Int
+) {
+  viewer {
+    stickies: posts(sticky: true, first: $stickiesTotal) {
+      ...Archive_posts
+    }
+    readThis: posts(
+      category: "read-this"
+      sticky: false
+      first: $readThisTotal
+    ) {
+      ...Archive_posts
+    }
+    watchThis: posts(category: "watch-this", first: $watchThisTotal) {
+      ...Archive_posts
+    }
+    listenToThis: posts(category: "listen-to-this", first: $listenToThisTotal) {
+      ...Archive_posts
+    }
+  }
+}

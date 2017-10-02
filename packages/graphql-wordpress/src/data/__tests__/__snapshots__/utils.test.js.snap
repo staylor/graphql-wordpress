@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test data fetching Data is returned 1`] = `
+Object {
+  "data": Object {
+    "body": Array [
+      Object {
+        "id": 1,
+      },
+      Object {
+        "id": 2,
+      },
+      Object {
+        "id": 3,
+      },
+      Object {
+        "id": 4,
+      },
+      Object {
+        "id": 5,
+      },
+    ],
+    "headers": Object {
+      "x-wp-total": 5,
+    },
+  },
+}
+`;

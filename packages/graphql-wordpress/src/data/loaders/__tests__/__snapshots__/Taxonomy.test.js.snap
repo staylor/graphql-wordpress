@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Taxonomy loader Load a taxonomy 1`] = `"VGF4b25vbXk6dGFn"`;
+
+exports[`Test Taxonomy loader Load a taxonomy 2`] = `
+Taxonomy {
+  "slug": "tag",
+}
+`;

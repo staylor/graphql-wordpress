@@ -1,0 +1,9 @@
+fragment Sidebar_sidebar on Sidebar {
+  widgets {
+    id
+    classname
+    content {
+      rendered
+    }
+  }
+}

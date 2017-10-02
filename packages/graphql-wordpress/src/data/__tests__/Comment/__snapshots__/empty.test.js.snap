@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Comment CRUD: Empty response Test create response 1`] = `
+Object {
+  "comment": null,
+  "cookies": null,
+  "status": "new",
+}
+`;
+
+exports[`Test Comment CRUD: Empty response Test delete response 1`] = `
+Object {
+  "status": "unknown",
+}
+`;
+
+exports[`Test Comment CRUD: Empty response Test update response 1`] = `
+Object {
+  "comment": null,
+  "cookies": null,
+  "status": "update",
+}
+`;

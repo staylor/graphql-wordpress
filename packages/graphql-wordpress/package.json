@@ -1,0 +1,87 @@
+{
+  "name": "@wonderboymusic/graphql-wordpress",
+  "version": "0.0.1",
+  "description": "GraphQL server for the WordPress REST API",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staylor/graphql-wordpress"
+  },
+  "author": "staylor",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.18.1",
+    "cli-color": "^1.2.0",
+    "cookie-parser": "^1.4.3",
+    "dataloader": "^1.3.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "express-graphql": "^0.6.11",
+    "forever": "^0.15.3",
+    "graphql": "^0.11.3",
+    "graphql-relay": "^0.5.2",
+    "graphql-tools": "^1.2.2",
+    "redis": "^2.8.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "response-time": "^2.3.2"
+  },
+  "devDependencies": {
+    "babel-jest": "^21.0.2",
+    "eslint": "^4.6.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-kyt": "^0.4.0",
+    "eslint-config-prettier": "^2.4.0",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^21.1.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-react": "^7.3.0",
+    "jest-cli": "^21.1.0",
+    "nodemon": "^1.12.0",
+    "prettier": "^1.7.0",
+    "prettier-eslint": "^8.1.0",
+    "prettier-eslint-cli": "^4.3.2"
+  },
+  "scripts": {
+    "build": "rm -rf build && babel --ignore __tests__,__mocks__ src -d build",
+    "dev": "nodemon --delay 2 --exec babel-node src/server.js",
+    "start": "node build/server.js",
+    "prod": "npm run build && forever start build/server.js",
+    "test": "jest",
+    "update-schema": "babel-node updateSchema.js",
+    "clear-cache": "redis-cli FLUSHALL",
+    "prettier": "prettier-eslint \"src/**/*.js\" --write"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageDirectory": "<rootDir>/public/coverage",
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/build/",
+      "<rootDir>/jest/",
+      "<rootDir>/src/server",
+      "<rootDir>/src/middleware/"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/"
+    ]
+  }
+}

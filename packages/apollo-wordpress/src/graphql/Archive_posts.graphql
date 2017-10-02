@@ -1,0 +1,16 @@
+#import "./Post_post.graphql"
+
+fragment Archive_posts on PostConnection {
+  edges {
+    node {
+      ...Post_post
+    }
+    cursor
+  }
+  pageInfo {
+    startCursor
+    endCursor
+    hasNextPage
+    hasPreviousPage
+  }
+}

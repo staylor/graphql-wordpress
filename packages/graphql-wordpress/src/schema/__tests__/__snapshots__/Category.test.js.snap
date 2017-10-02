@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Category queries GraphQL should return a category by ID 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "category": Object {
+        "count": 200,
+        "description": "",
+        "meta": null,
+        "name": "Watch This",
+        "parent": null,
+        "slug": "watch-this",
+        "taxonomy": Object {
+          "rewrite": Object {
+            "slug": "category",
+          },
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Category queries GraphQL should return a category by slug 1`] = `
+Object {
+  "data": Object {
+    "viewer": Object {
+      "category": Object {
+        "count": 200,
+        "description": "",
+        "meta": null,
+        "name": "Watch This",
+        "parent": null,
+        "slug": "watch-this",
+        "taxonomy": Object {
+          "rewrite": Object {
+            "slug": "category",
+          },
+        },
+      },
+    },
+  },
+}
+`;

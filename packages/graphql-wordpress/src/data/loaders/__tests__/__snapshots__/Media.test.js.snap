@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Media loader Load a media item 1`] = `"TWVkaWE6MTM="`;
+
+exports[`Test Media loader Load a media item 2`] = `
+Media {
+  "id": 13,
+}
+`;

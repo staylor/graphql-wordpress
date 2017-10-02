@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Taxonomy type Test fields 1`] = `
+Array [
+  "id",
+  "name",
+  "description",
+  "types",
+  "hierarchical",
+  "rewrite",
+  "labels",
+]
+`;
+
+exports[`Test Taxonomy type Test name 1`] = `"Taxonomy"`;
+
+exports[`Test Taxonomy type Test resolve name 1`] = `"category"`;
