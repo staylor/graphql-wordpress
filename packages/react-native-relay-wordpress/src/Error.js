@@ -26,9 +26,7 @@ export default class Error extends Component {
     const { error } = this.props;
     return (
       <View style={styles.container}>
-        <Text>
-          {error.message}
-        </Text>
+        <Text>{error.message}</Text>
         {this.props.children}
       </View>
     );

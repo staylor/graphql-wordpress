@@ -18,15 +18,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ navMenu, settings: { title, description } }) =>
+export default ({ navMenu, settings: { title, description } }) => (
   <View style={styles.header}>
     <Link to="/" underlayColor="#fff">
-      <Text style={styles.title}>
-        {title}
-      </Text>
+      <Text style={styles.title}>{title}</Text>
     </Link>
-    <Text style={styles.description}>
-      {description}
-    </Text>
+    <Text style={styles.description}>{description}</Text>
     <NavMenu navMenu={navMenu} />
-  </View>;
+  </View>
+);

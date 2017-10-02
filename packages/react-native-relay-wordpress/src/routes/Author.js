@@ -12,9 +12,7 @@ export default createPaginationContainer(
     const title = `Author Archive: ${author.name}`;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          {title}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         <Archive {...{ posts, relay }} />
       </View>
     );

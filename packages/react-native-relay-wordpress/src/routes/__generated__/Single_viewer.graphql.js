@@ -106,7 +106,7 @@ const fragment /*: ConcreteFragment*/ = {
                   "kind": "ScalarField",
                   "alias": "imageUrl",
                   "args": null,
-                  "name": "source_url",
+                  "name": "sourceUrl",
                   "storageKey": null
                 },
                 {

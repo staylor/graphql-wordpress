@@ -72,7 +72,7 @@ export default createFragmentContainer(
         props.style.paddingLeft = 10;
         props.style.paddingRight = 10;
       // eslint-disable-next-line
-      case 'strong':
+      case "strong":
         props.style.fontWeight = 'bold';
         break;
 

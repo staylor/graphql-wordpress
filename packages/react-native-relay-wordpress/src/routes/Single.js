@@ -42,30 +42,31 @@ const styles = StyleSheet.create({
 });
 
 export default createFragmentContainer(
-  ({ viewer: { post } }) =>
+  ({ viewer: { post } }) => (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {post.title.raw}
-      </Text>
+      <Text style={styles.title}>{post.title.raw}</Text>
       <ScrollView style={styles.container}>
         {post.featuredMedia &&
-          post.featuredMedia.imageUrl &&
-          <ResponsiveImage style={styles.image} featuredMedia={post.featuredMedia} />}
+          post.featuredMedia.imageUrl && (
+            <ResponsiveImage style={styles.image} featuredMedia={post.featuredMedia} />
+          )}
         <Content style={styles.content} content={post.content.data} />
-        {post.tags &&
+        {post.tags && (
           <View style={styles.tags}>
             <Text style={styles.tagLabel}>Tags: </Text>
-            {post.tags.map((tag, i) =>
+            {post.tags.map((tag, i) => (
               <Link key={tag.id} to={`/tag/${tag.slug}`}>
                 <Text style={styles.tag}>
                   {tag.name}
                   {i + 1 === post.tags.length ? null : ', '}
                 </Text>
               </Link>
-            )}
-          </View>}
+            ))}
+          </View>
+        )}
       </ScrollView>
-    </View>,
+    </View>
+  ),
   graphql`
     fragment Single_viewer on Viewer {
       post(id: $id) {
@@ -76,7 +77,7 @@ export default createFragmentContainer(
         }
         featuredMedia {
           ... on Image {
-            imageUrl: source_url
+            imageUrl: sourceUrl
             ...ResponsiveImage_featuredMedia
           }
         }

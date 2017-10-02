@@ -30,21 +30,21 @@ const styles = StyleSheet.create({
 });
 
 export default createFragmentContainer(
-  ({ viewer: { page } }) =>
+  ({ viewer: { page } }) => (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {page.title.raw}
-      </Text>
+      <Text style={styles.title}>{page.title.raw}</Text>
       {page.featuredMedia &&
-        page.featuredMedia.source_url &&
-        <View style={styles.imageWrap}>
-          <Image
-            style={styles.image}
-            source={{ uri: page.featuredMedia.source_url }}
-            resizeMode="contain"
-          />
-        </View>}
-    </View>,
+        page.featuredMedia.source_url && (
+          <View style={styles.imageWrap}>
+            <Image
+              style={styles.image}
+              source={{ uri: page.featuredMedia.source_url }}
+              resizeMode="contain"
+            />
+          </View>
+        )}
+    </View>
+  ),
   graphql`
     fragment Page_viewer on Viewer {
       page(slug: $slug) {
@@ -54,7 +54,7 @@ export default createFragmentContainer(
         }
         featuredMedia {
           ... on Image {
-            source_url
+            sourceUrl
           }
         }
       }

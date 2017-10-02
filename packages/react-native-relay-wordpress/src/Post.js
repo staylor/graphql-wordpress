@@ -30,13 +30,14 @@ export default createFragmentContainer(
       <View style={styles.container}>
         <PostLink post={post} style={styles.link}>
           {post.featuredMedia &&
-            post.featuredMedia.imageUrl &&
-            <ResponsiveImage featuredMedia={post.featuredMedia} />}
-          {excerpt && excerpt.raw
-            ? <Text style={styles.excerpt} numberOfLines={3}>
-                {excerpt.raw}
-              </Text>
-            : <Content content={content} />}
+            post.featuredMedia.imageUrl && <ResponsiveImage featuredMedia={post.featuredMedia} />}
+          {excerpt && excerpt.raw ? (
+            <Text style={styles.excerpt} numberOfLines={3}>
+              {excerpt.raw}
+            </Text>
+          ) : (
+            <Content content={content} />
+          )}
         </PostLink>
       </View>
     );
@@ -57,7 +58,7 @@ export default createFragmentContainer(
       }
       featuredMedia {
         ... on Image {
-          imageUrl: source_url
+          imageUrl: sourceUrl
           ...ResponsiveImage_featuredMedia
         }
       }

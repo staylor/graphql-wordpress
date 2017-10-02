@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "eslint-config-kyt"
+  ],
+  
+  "parser": "babel-eslint"
+}

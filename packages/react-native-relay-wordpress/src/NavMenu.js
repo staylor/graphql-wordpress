@@ -44,9 +44,7 @@ class NavMenu extends Component {
 
           return (
             <Link key={id} to={path} underlayColor="#eee">
-              <Text style={styles.link}>
-                {title}
-              </Text>
+              <Text style={styles.link}>{title}</Text>
             </Link>
           );
         })}

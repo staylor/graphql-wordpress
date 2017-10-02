@@ -18,14 +18,13 @@ const styles = StyleSheet.create({
 });
 
 export default createFragmentContainer(
-  ({ viewer }) =>
+  ({ viewer }) => (
     <View style={styles.container}>
       <SectionList
         keyExtractor={item => item.cursor}
-        renderSectionHeader={({ section }) =>
-          <Text style={styles.sectionHeader}>
-            {section.title}
-          </Text>}
+        renderSectionHeader={({ section }) => (
+          <Text style={styles.sectionHeader}>{section.title}</Text>
+        )}
         renderItem={({ item: { node } }) => <Post post={node} />}
         sections={[
           { data: viewer.stickies.edges, title: 'Latest' },
@@ -43,7 +42,8 @@ export default createFragmentContainer(
           },
         ]}
       />
-    </View>,
+    </View>
+  ),
   graphql`
     fragment Home_viewer on Viewer {
       stickies: posts(sticky: true, first: $stickiesTotal) {

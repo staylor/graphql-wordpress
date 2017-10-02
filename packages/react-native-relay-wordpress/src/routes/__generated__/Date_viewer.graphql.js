@@ -124,6 +124,13 @@ const fragment /*: ConcreteFragment*/ = {
                   "kind": "FragmentSpread",
                   "name": "Post_post",
                   "args": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "args": null,
+                  "name": "__typename",
+                  "storageKey": null
                 }
               ],
               "storageKey": null

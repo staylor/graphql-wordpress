@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 2c1a60c666c53e9f6201f66062492a79
+ * @relayHash afbe5208634ca197301ccde211e3d4d6
  */
 
 /* eslint-disable */
@@ -17,7 +17,6 @@ export type DeleteComment_MutationVariables = {|
     clientMutationId?: ?string;
   };
 |};
-
 export type DeleteComment_MutationResponse = {|
   +deleteComment: ?{|
     +status: ?string;

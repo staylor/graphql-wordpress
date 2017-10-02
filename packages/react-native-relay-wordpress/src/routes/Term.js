@@ -12,9 +12,7 @@ export default createPaginationContainer(
     const title = `${term.taxonomy.labels.singular}: ${term.name}`;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          {title}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         <Archive {...{ posts, relay }} />
       </View>
     );

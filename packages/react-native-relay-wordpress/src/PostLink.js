@@ -11,9 +11,7 @@ export default createFragmentContainer(
     return (
       <Link to={url} underlayColor="#eee">
         <View>
-          <Text style={style}>
-            {post.title.raw}
-          </Text>
+          <Text style={style}>{post.title.raw}</Text>
           {children}
         </View>
       </Link>

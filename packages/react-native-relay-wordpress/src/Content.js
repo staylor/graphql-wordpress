@@ -70,11 +70,7 @@ class Content extends Component {
       ...rest
     } = this.props;
 
-    return (
-      <View {...rest}>
-        {this.parseNodes(content)}
-      </View>
-    );
+    return <View {...rest}>{this.parseNodes(content)}</View>;
   }
 }
 
@@ -82,22 +78,22 @@ export default createFragmentContainer(
   Content,
   graphql`
     fragment Content_content on ContentNode @relay(plural: true) {
-      ...Content_content_data @inline
+      ...Content_content_data @relay(mask: false)
       ... on Element {
         children {
-          ...Content_content_data @inline
+          ...Content_content_data @relay(mask: false)
           ... on Element {
             children {
-              ...Content_content_data @inline
+              ...Content_content_data @relay(mask: false)
               ... on Element {
                 children {
-                  ...Content_content_data @inline
+                  ...Content_content_data @relay(mask: false)
                   ... on Element {
                     children {
-                      ...Content_content_data @inline
+                      ...Content_content_data @relay(mask: false)
                       ... on Element {
                         children {
-                          ...Content_content_data @inline
+                          ...Content_content_data @relay(mask: false)
                         }
                       }
                     }

@@ -5,7 +5,7 @@
   ],
   "plugins": [
     "emotion",
-    "babel-plugin-transform-flow-strip-types",
-    "babel-plugin-transform-class-properties"
+    "transform-flow-strip-types",
+    "transform-class-properties"
   ]
 }

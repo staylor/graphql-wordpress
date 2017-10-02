@@ -61,7 +61,7 @@ const renderProp = (RenderComponent, query, prepareVariables = null) => routePro
 
 /* eslint-disable react/prop-types */
 
-export default () =>
+export default () => (
   <QueryRenderer
     environment={environment}
     query={WrapperQuery}
@@ -124,4 +124,5 @@ export default () =>
         </View>
       );
     }}
-  />;
+  />
+);

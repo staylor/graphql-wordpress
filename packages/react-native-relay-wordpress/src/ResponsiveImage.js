@@ -29,8 +29,8 @@ export default createFragmentContainer(
   },
   graphql`
     fragment ResponsiveImage_featuredMedia on Image {
-      source_url
-      media_details {
+      sourceUrl
+      mediaDetails {
         width
         height
       }
