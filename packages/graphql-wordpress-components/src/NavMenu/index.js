@@ -1,12 +1,11 @@
 import url from 'url';
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 import { Link } from 'found';
 import responsive from '../responsive';
 import { sortOrderedHierarchy } from '../walker';
 
-export const NavWrapper = withTheme(styled.nav`
+export const NavWrapper = styled.nav`
   display: block;
   margin: ${p => p.theme.padding / 2}px 0;
 
@@ -39,9 +38,9 @@ export const NavWrapper = withTheme(styled.nav`
   & ul li:hover > ul {
     display: block;
   }
-`);
+`;
 
-export const Level = withTheme(styled.ul`
+export const Level = styled.ul`
   list-style: none;
   margin: 0 0 0 ${p => p.theme.padding / 2 * -1}px;
 
@@ -61,11 +60,11 @@ export const Level = withTheme(styled.ul`
       top: 0;
     }
   }
-`);
+`;
 
 export const NavItem = styled.li`display: inline-block;`;
 
-export const SubNavItem = withTheme(styled(Link)`
+export const SubNavItem = styled(Link)`
   background: ${p => p.theme.colors.subnav.background};
   border-bottom: 1px dotted ${p => p.theme.colors.subnav.detail};
   color: ${p => p.theme.colors.dark};
@@ -75,7 +74,7 @@ export const SubNavItem = withTheme(styled(Link)`
   line-height: 20px;
   padding: ${p => p.theme.padding / 2}px ${p => p.theme.padding}px;
   width: 168px;
-`);
+`;
 
 type NavMenuItem = {
   id: string,

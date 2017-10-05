@@ -1,9 +1,8 @@
 // @flow
 import React from 'react';
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 
-export const LoadMore = withTheme(styled.button`
+export const LoadMore = styled.button`
   appearance: none;
   background: ${p => p.theme.colors.white};
   border: 1px solid ${p => p.theme.colors.detail};
@@ -25,7 +24,7 @@ export const LoadMore = withTheme(styled.button`
     color: ${p => p.theme.colors.black};
     outline: 0 none;
   }
-`);
+`;
 
 type Edge = {
   node: Object,

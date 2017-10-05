@@ -10,12 +10,13 @@
     "url": "https://github.com/staylor/graphql-wordpress/packages/graphql-wordpress-components"
   },
   "dependencies": {
-    "babel-plugin-emotion": "^7.3.2",
-    "emotion": "^7.3.2",
+    "babel-plugin-emotion": "^8.0.2",
+    "emotion": "^8.0.2",
+    "emotion-server": "^8.0.2",
+    "emotion-theming": "^8.0.2",
     "found": "^0.3.4",
     "react": "^16.0.0",
-    "react-emotion": "^7.3.2",
-    "theming": "^1.1.0"
+    "react-emotion": "^8.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -35,7 +36,7 @@
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
     "flow-bin": "^0.56.0",
-    "prettier": "^1.7.3",
+    "prettier": "^1.7.4",
     "prettier-eslint": "^8.2.0",
     "prettier-eslint-cli": "^4.4.0",
     "rimraf": "^2.6.2"

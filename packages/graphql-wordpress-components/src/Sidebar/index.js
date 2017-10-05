@@ -2,14 +2,13 @@
 import React from 'react';
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 import theme from '../theme';
 import { uppercaseHeader } from '../';
 
-export const Widget = withTheme(styled.li`margin: 0 0 ${p => p.theme.padding * 2}px;`);
+export const Widget = styled.li`margin: 0 0 ${p => p.theme.padding * 2}px;`;
 
 export const title = css`
-  composes: ${uppercaseHeader};
+  ${uppercaseHeader};
   margin: 0 0 ${theme.padding}px;
 `;
 

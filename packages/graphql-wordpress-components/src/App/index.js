@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'react-emotion';
-import { ThemeProvider, withTheme } from 'theming';
+import { ThemeProvider } from 'emotion-theming';
 import theme from '../theme';
 import responsive from '../responsive';
 import '../global';
@@ -10,20 +10,20 @@ import Sidebar from '../Sidebar';
 
 export { Header, Sidebar };
 
-export const PageWrapper = withTheme(styled.div`
+export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
   margin: 0 auto;
   max-width: ${p => p.theme.contentWidth}px;
   padding: 0 ${p => p.theme.padding}px;
-`);
+`;
 
-export const Content = withTheme(styled.div`
+export const Content = styled.div`
   padding: ${p => p.theme.padding}px 0;
   ${responsive.desktop} {
     display: flex;
     margin-right: ${p => p.theme.padding}px;
   }
-`);
+`;
 
 export const Primary = styled.section`${responsive.desktop} {flex: 4;}`;
 
@@ -36,10 +36,10 @@ export const Secondary = styled.section`
   }
 `;
 
-const StyledFooter = withTheme(styled.footer`
+const StyledFooter = styled.footer`
   padding: ${p => p.theme.padding}px 0;
   text-align: center;
-`);
+`;
 
 export const Footer = () => (
   <StyledFooter>

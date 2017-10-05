@@ -1,6 +1,5 @@
 import { css, hydrate } from 'emotion';
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 import theme from './theme';
 import Error from './Error';
 import Loading from './Loading';
@@ -19,11 +18,11 @@ export const uppercaseHeader = css`
 `;
 
 export const Heading = styled.h2`
-  composes: ${uppercaseHeader};
+  ${uppercaseHeader};
   margin-bottom: 40px;
 `;
 
-export const ContentSection = withTheme(styled.section`
+export const ContentSection = styled.section`
   & h2 {
     font-family: ${p => p.theme.fonts.futura};
     font-size: 24px;
@@ -35,7 +34,7 @@ export const ContentSection = withTheme(styled.section`
   & p {
     margin: 0 0 ${p => p.theme.padding}px;
   }
-`);
+`;
 
 export const button = css`
   border: 1px solid ${theme.colors.dark};
@@ -47,17 +46,17 @@ export const button = css`
   text-transform: uppercase;
 `;
 
-export const SubmitButton = withTheme(styled.button`
-  composes: ${button};
+export const SubmitButton = styled.button`
+  ${button};
   background: ${p => p.theme.colors.dark};
   color: ${p => p.theme.colors.white};
-`);
+`;
 
-export const ResetButton = withTheme(styled.button`
-  composes: ${button};
+export const ResetButton = styled.button`
+  ${button};
   background: ${p => p.theme.colors.white};
   color: ${p => p.theme.colors.dark};
-`);
+`;
 
 export const formField = css`
   border: 1px solid ${theme.colors.detail};

@@ -1,8 +1,7 @@
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 import { clear } from '../global';
 
-export const Title = withTheme(styled.h1`
+export const Title = styled.h1`
   font-family: ${p => p.theme.fonts.futura};
   font-size: 36px;
   font-weight: bold;
@@ -13,12 +12,12 @@ export const Title = withTheme(styled.h1`
     color: ${p => p.theme.colors.dark};
     text-decoration: none;
   }
-`);
+`;
 
 export const List = styled.ol`list-style: decimal;`;
 
 export const Item = styled.li`
-  composes: ${clear};
+  ${clear};
   display: list-item;
   margin: 10px 0 10px 20px;
   padding: 0 0 0 7px;

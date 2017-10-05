@@ -1,9 +1,8 @@
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 
-export const Article = withTheme(styled.article`margin: 0 0 ${p => p.theme.padding}px;`);
+export const Article = styled.article`margin: 0 0 ${p => p.theme.padding}px;`;
 
-export const Title = withTheme(styled.h1`
+export const Title = styled.h1`
   font-family: ${p => p.theme.fonts.futura};
   font-size: 18px;
   line-height: 24px;
@@ -13,10 +12,10 @@ export const Title = withTheme(styled.h1`
     color: ${p => p.theme.colors.subhead};
     text-decoration: none;
   }
-`);
+`;
 
-export const Content = withTheme(styled.section`
+export const Content = styled.section`
   & p {
     margin: 0 0 ${p => p.theme.padding}px;
   }
-`);
+`;

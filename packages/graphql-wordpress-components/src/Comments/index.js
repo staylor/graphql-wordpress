@@ -1,6 +1,5 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 import { button } from '../';
 import { clear } from '../global';
 import theme from '../theme';
@@ -8,14 +7,14 @@ import responsive from '../responsive';
 
 // Comments
 
-export const CommentsWrapper = withTheme(styled.aside`
+export const CommentsWrapper = styled.aside`
   margin-top: ${p => p.theme.padding * 3}px;
   max-width: 100%;
 
   ${responsive.tablet} {
     width: 450px;
   }
-`);
+`;
 
 // Walker
 
@@ -31,12 +30,12 @@ export const CommentForm = styled.form`
 
 export const Field = styled.p`margin: 5px 0;`;
 
-export const Label = withTheme(styled.label`
+export const Label = styled.label`
   display: block;
   font-family: ${p => p.theme.fonts.futura};
   font-size: 16px;
   line-height: 20px;
-`);
+`;
 
 export const submit = css`
   font-size: 16px;
@@ -53,12 +52,12 @@ export const reset = css`
 `;
 
 // Comment
-export const CommentWrapper = withTheme(styled.div`
+export const CommentWrapper = styled.div`
   border-bottom: 1px solid ${p => p.theme.colors.detail};
   position: relative;
-`);
+`;
 
-export const Meta = styled.div`composes: ${clear};`;
+export const Meta = styled.div`${clear};`;
 
 export const Image = styled.img`
   float: left;
@@ -93,7 +92,7 @@ export const Actions = styled.div`margin: 5px 0;`;
 
 export const activeReply = css`color: ${theme.colors.pink};`;
 
-export const EditButton = withTheme(styled.button`
+export const EditButton = styled.button`
   background: transparent;
   border: 1px solid ${p => p.theme.colors.detail};
   cursor: pointer;
@@ -107,29 +106,29 @@ export const EditButton = withTheme(styled.button`
   &:focus {
     outline: 0 none;
   }
-`);
+`;
 
-export const Author = withTheme(styled.span`
+export const Author = styled.span`
   display: block;
   text-transform: uppercase;
 
   & a {
     color: ${p => p.theme.colors.dark};
   }
-`);
+`;
 export const Time = styled.span`display: block;`;
 
 // Comment Edit
 export const EditForm = styled.form`margin: 0 0 20px;`;
 
-export const EditCancelButton = withTheme(styled.button`
-  composes: ${button};
+export const EditCancelButton = styled.button`
+  ${button};
   background: ${p => p.theme.colors.white};
   color: ${p => p.theme.colors.dark};
   margin: 0 5px;
-`);
+`;
 
-export const DeleteButton = withTheme(styled.button`
+export const DeleteButton = styled.button`
   background: transparent;
   border: 0 none;
   color: ${p => p.theme.colors.pink};
@@ -139,4 +138,4 @@ export const DeleteButton = withTheme(styled.button`
   &:hover {
     text-decoration: underline;
   }
-`);
+`;

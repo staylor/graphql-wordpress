@@ -3,6 +3,7 @@
   "packages": [
     "packages/*"
   ],
+  "npmClient": "yarn",
   "commands": {
     "publish": {
       "ignore": [

@@ -1,14 +1,13 @@
 import React from 'react';
 import { css, keyframes } from 'emotion';
 import styled from 'react-emotion';
-import { withTheme } from 'theming';
 import theme from '../theme';
 
-export const Container = withTheme(styled.div`
+export const Container = styled.div`
   background: ${p => p.theme.colors.white};
   min-height: 400px;
   padding: 200px 0 0;
-`);
+`;
 
 const Wrap = styled.div`
   height: 40px;
@@ -38,9 +37,9 @@ const bouncing = css`
   animation: ${bounce} 2s infinite ease-in-out;
 `;
 
-const Bounce1 = styled.div`composes: ${bouncing};`;
+const Bounce1 = styled.div`${bouncing};`;
 const Bounce2 = styled.div`
-  composes: ${bouncing};
+  ${bouncing};
   animation-delay: -1s;
 `;
 

@@ -1,4 +1,4 @@
-import { extractCritical } from 'emotion/server';
+import { extractCritical } from 'emotion-server';
 
 // eslint-disable-next-line
 export { extractCritical };
