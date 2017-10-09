@@ -4,7 +4,11 @@ import debounce from 'debounce';
 import { graphql, createRefetchContainer } from 'react-relay';
 import Helmet from 'react-helmet';
 import { ContentWrapper, Heading, Loading } from '@wonderboymusic/graphql-wordpress-components';
-import { SearchBox, SearchInput, A11Y } from '@wonderboymusic/graphql-wordpress-components/lib/Search';
+import {
+  SearchBox,
+  SearchInput,
+  A11Y,
+} from '@wonderboymusic/graphql-wordpress-components/lib/Search';
 import { LoadMore } from '@wonderboymusic/graphql-wordpress-components/lib/Archive';
 import SearchQuery from 'queries/Search';
 import Archive from 'containers/Archive';

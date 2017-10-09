@@ -37,7 +37,9 @@ const bouncing = css`
   animation: ${bounce} 2s infinite ease-in-out;
 `;
 
-const Bounce1 = styled.div`${bouncing};`;
+const Bounce1 = styled.div`
+  ${bouncing};
+`;
 const Bounce2 = styled.div`
   ${bouncing};
   animation-delay: -1s;

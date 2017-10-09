@@ -62,7 +62,9 @@ export const Level = styled.ul`
   }
 `;
 
-export const NavItem = styled.li`display: inline-block;`;
+export const NavItem = styled.li`
+  display: inline-block;
+`;
 
 export const SubNavItem = styled(Link)`
   background: ${p => p.theme.colors.subnav.background};

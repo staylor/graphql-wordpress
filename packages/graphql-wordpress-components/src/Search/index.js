@@ -1,6 +1,8 @@
 import styled from 'react-emotion';
 
-export const SearchBox = styled.section`margin-bottom: 40px;`;
+export const SearchBox = styled.section`
+  margin-bottom: 40px;
+`;
 
 export const SearchInput = styled.input`
   border: 1px solid ${p => p.theme.colors.detail};
@@ -11,4 +13,6 @@ export const SearchInput = styled.input`
   width: 100%;
 `;
 
-export const A11Y = styled.label`display: none;`;
+export const A11Y = styled.label`
+  display: none;
+`;

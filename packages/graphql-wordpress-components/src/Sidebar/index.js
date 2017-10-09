@@ -5,7 +5,9 @@ import styled from 'react-emotion';
 import theme from '../theme';
 import { uppercaseHeader } from '../';
 
-export const Widget = styled.li`margin: 0 0 ${p => p.theme.padding * 2}px;`;
+export const Widget = styled.li`
+  margin: 0 0 ${p => p.theme.padding * 2}px;
+`;
 
 export const title = css`
   ${uppercaseHeader};

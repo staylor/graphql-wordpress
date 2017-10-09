@@ -28,7 +28,7 @@ app.use(express.static('public'));
 
 app.use('/graphql', bodyParser.json(), async (req, res, next) => {
   // Apollo
-  if (req.body.id && req.get('x-app-name') === 'wp-apollo-app') {
+  if (req.body.id && req.get('x-app-name') === 'apollo-wordpress') {
     const queries = Object.keys(persistedQueries).reduce(
       (memo, key) => Object.assign({}, memo, { [persistedQueries[key]]: key }),
       {}
@@ -39,7 +39,7 @@ app.use('/graphql', bodyParser.json(), async (req, res, next) => {
   }
 
   // Relay Modern
-  if (req.body.id && req.get('x-app-name') === 'wp-relay-app') {
+  if (req.body.id && req.get('x-app-name') === 'relay-wordpress') {
     console.log(`Hydrating Query: ${req.body.id}`);
     const client = getClient();
     const query = await client.hgetAsync(HASH_KEY, req.body.id);

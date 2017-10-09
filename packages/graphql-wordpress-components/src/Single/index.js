@@ -3,7 +3,9 @@ import styled from 'react-emotion';
 import { Link } from 'found';
 import responsive from '../responsive';
 
-export const iframe = css`margin: 0 0 20px;`;
+export const iframe = css`
+  margin: 0 0 20px;
+`;
 
 export const Title = styled.h1`
   font-family: ${p => p.theme.fonts.futura};

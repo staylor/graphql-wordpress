@@ -6,8 +6,12 @@ import Loading from './Loading';
 
 export { hydrate, Error, Loading };
 
-export const ContentWrapper = styled.div`max-width: 740px;`;
-export const ArticleWrapper = styled.article`max-width: 740px;`;
+export const ContentWrapper = styled.div`
+  max-width: 740px;
+`;
+export const ArticleWrapper = styled.article`
+  max-width: 740px;
+`;
 
 export const uppercaseHeader = css`
   font-family: ${theme.fonts.futura};

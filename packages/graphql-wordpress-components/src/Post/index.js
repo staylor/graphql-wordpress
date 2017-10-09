@@ -1,6 +1,8 @@
 import styled from 'react-emotion';
 
-export const Article = styled.article`margin: 0 0 ${p => p.theme.padding}px;`;
+export const Article = styled.article`
+  margin: 0 0 ${p => p.theme.padding}px;
+`;
 
 export const Title = styled.h1`
   font-family: ${p => p.theme.fonts.futura};

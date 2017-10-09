@@ -4,7 +4,11 @@ import Helmet from 'react-helmet';
 import { graphql } from 'react-relay';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
-import { ArticleWrapper, ContentSection, Error } from '@wonderboymusic/graphql-wordpress-components';
+import {
+  ArticleWrapper,
+  ContentSection,
+  Error,
+} from '@wonderboymusic/graphql-wordpress-components';
 import { iframe, Title, Meta, Tag } from '@wonderboymusic/graphql-wordpress-components/lib/Single';
 import FragmentContainer from 'decorators/FragmentContainer';
 import Media from 'containers/Media';

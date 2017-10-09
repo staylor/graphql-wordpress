@@ -39,7 +39,7 @@ type ArchiveProps = {
 };
 
 const Archive = ({ edges, component: Post, canLoadMore = false, loadMore }: ArchiveProps) => [
-  <ul key={'ul'}>
+  <ul key="ul">
     {edges.map(({ cursor, node }) => (
       <li key={cursor}>
         <Post post={node} />
@@ -47,7 +47,7 @@ const Archive = ({ edges, component: Post, canLoadMore = false, loadMore }: Arch
     ))}
   </ul>,
   canLoadMore && (
-    <LoadMore key={'button'} onClick={loadMore}>
+    <LoadMore key="button" onClick={loadMore}>
       MORE
     </LoadMore>
   ),

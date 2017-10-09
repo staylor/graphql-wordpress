@@ -2,7 +2,12 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { graphql, createFragmentContainer } from 'react-relay';
-import { ArticleWrapper, Heading, ContentSection, Error } from '@wonderboymusic/graphql-wordpress-components';
+import {
+  ArticleWrapper,
+  Heading,
+  ContentSection,
+  Error,
+} from '@wonderboymusic/graphql-wordpress-components';
 import Media from 'containers/Media';
 import ContentNode from 'components/ContentNode';
 import { SITE_URL } from 'utils/constants';

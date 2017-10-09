@@ -3,7 +3,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withCookies } from 'react-cookie';
 import { SubmitButton, ResetButton, formField } from '@wonderboymusic/graphql-wordpress-components';
-import { CommentForm, Field, Label, submit, reset } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
+import {
+  CommentForm,
+  Field,
+  Label,
+  submit,
+  reset,
+} from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import AddCommentMutation from 'mutations/AddComment';
 import {
   AUTHOR_NAME_COOKIE,

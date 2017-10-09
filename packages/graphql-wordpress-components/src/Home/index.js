@@ -9,8 +9,12 @@ export const HomeWrapper = styled.div`
     margin-right: ${p => p.theme.padding * 1.5}px;
   }
 `;
-export const HomeSection = styled.section`margin: 0 0 40px;`;
-export const HomeHeader = styled.h2`${uppercaseHeader};`;
+export const HomeSection = styled.section`
+  margin: 0 0 40px;
+`;
+export const HomeHeader = styled.h2`
+  ${uppercaseHeader};
+`;
 
 export const ColumnA = styled.div`
   ${responsive.tablet} {

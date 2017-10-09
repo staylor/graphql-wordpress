@@ -18,20 +18,24 @@ import TermQuery from 'queries/Term';
 import ErrorBoundary from 'components/ErrorBoundary';
 
 const getComponent = loader => (location, cb) =>
-  loader().then(module => module.default).catch(error => {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    cb(error, null);
-  });
+  loader()
+    .then(module => module.default)
+    .catch(error => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      cb(error, null);
+    });
 
 export const historyMiddlewares = [queryMiddleware];
 
 const renderProp = ({ Component, props }: { Component: any, props: Props }) =>
-  Component && props
-    ? <ErrorBoundary>
-        <Component {...props} />
-      </ErrorBoundary>
-    : <Loading />;
+  Component && props ? (
+    <ErrorBoundary>
+      <Component {...props} />
+    </ErrorBoundary>
+  ) : (
+    <Loading />
+  );
 
 /* eslint-disable global-require */
 

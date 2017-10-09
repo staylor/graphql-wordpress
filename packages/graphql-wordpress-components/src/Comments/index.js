@@ -18,8 +18,12 @@ export const CommentsWrapper = styled.aside`
 
 // Walker
 
-export const nested = css`margin: 20px 0 20px 20px;`;
-export const ListItem = styled.li`margin: 10px 0 20px;`;
+export const nested = css`
+  margin: 20px 0 20px 20px;
+`;
+export const ListItem = styled.li`
+  margin: 10px 0 20px;
+`;
 
 // Form
 
@@ -28,7 +32,9 @@ export const CommentForm = styled.form`
   width: 300px;
 `;
 
-export const Field = styled.p`margin: 5px 0;`;
+export const Field = styled.p`
+  margin: 5px 0;
+`;
 
 export const Label = styled.label`
   display: block;
@@ -57,7 +63,9 @@ export const CommentWrapper = styled.div`
   position: relative;
 `;
 
-export const Meta = styled.div`${clear};`;
+export const Meta = styled.div`
+  ${clear};
+`;
 
 export const Image = styled.img`
   float: left;
@@ -88,9 +96,13 @@ export const Reply = styled.button`
   }
 `;
 
-export const Actions = styled.div`margin: 5px 0;`;
+export const Actions = styled.div`
+  margin: 5px 0;
+`;
 
-export const activeReply = css`color: ${theme.colors.pink};`;
+export const activeReply = css`
+  color: ${theme.colors.pink};
+`;
 
 export const EditButton = styled.button`
   background: transparent;
@@ -116,10 +128,14 @@ export const Author = styled.span`
     color: ${p => p.theme.colors.dark};
   }
 `;
-export const Time = styled.span`display: block;`;
+export const Time = styled.span`
+  display: block;
+`;
 
 // Comment Edit
-export const EditForm = styled.form`margin: 0 0 20px;`;
+export const EditForm = styled.form`
+  margin: 0 0 20px;
+`;
 
 export const EditCancelButton = styled.button`
   ${button};

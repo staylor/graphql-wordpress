@@ -14,7 +14,9 @@ export const Title = styled.h1`
   }
 `;
 
-export const List = styled.ol`list-style: decimal;`;
+export const List = styled.ol`
+  list-style: decimal;
+`;
 
 export const Item = styled.li`
   ${clear};
