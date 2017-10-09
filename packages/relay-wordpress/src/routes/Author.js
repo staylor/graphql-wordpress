@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { graphql, createPaginationContainer } from 'react-relay';
-import { ContentWrapper, Heading } from 'wp-styled-components';
+import { ContentWrapper, Heading } from '@wonderboymusic/graphql-wordpress-components';
 import Archive from 'containers/Archive';
 import AuthorQuery from 'queries/Author';
 import type { AuthorProps } from 'relay-wordpress';

@@ -25,7 +25,11 @@ export const Content = styled.div`
   }
 `;
 
-export const Primary = styled.section`${responsive.desktop} {flex: 4;}`;
+export const Primary = styled.section`
+  ${responsive.desktop} {
+    flex: 4;
+  }
+`;
 
 export const Secondary = styled.section`
   display: block;

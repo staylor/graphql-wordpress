@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-relay';
-import ResponsiveImage from 'wp-styled-components/lib/Image';
+import ResponsiveImage from '@wonderboymusic/graphql-wordpress-components/lib/Image';
 import FragmentContainer from 'decorators/FragmentContainer';
 import type { ImageProps } from 'relay-wordpress';
 

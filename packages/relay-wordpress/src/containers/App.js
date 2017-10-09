@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-relay';
 import { routerShape } from 'found/lib/PropTypes';
-import AppComponent from 'wp-styled-components/lib/App';
+import AppComponent from '@wonderboymusic/graphql-wordpress-components/lib/App';
 import FragmentContainer from 'decorators/FragmentContainer';
 import IntlProvider from 'decorators/IntlProvider';
 import Settings from 'components/Settings';

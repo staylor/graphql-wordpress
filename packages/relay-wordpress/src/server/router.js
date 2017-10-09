@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { extractCritical } from 'wp-styled-components/lib/server';
+import { extractCritical } from '@wonderboymusic/graphql-wordpress-components/lib/server';
 import { getFarceResult } from 'found/lib/server';
 import { Resolver } from 'found-relay';
 import { CookiesProvider } from 'react-cookie';

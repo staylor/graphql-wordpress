@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { Heading } from 'wp-styled-components';
-import { CommentsWrapper } from 'wp-styled-components/lib/Comments';
+import { Heading } from '@wonderboymusic/graphql-wordpress-components';
+import { CommentsWrapper } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import Walker from 'components/Comments/Walker';
 import type { CommentsProps } from 'relay-wordpress';
 

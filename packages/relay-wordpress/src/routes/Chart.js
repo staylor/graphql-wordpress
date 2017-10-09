@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
-import { ArticleWrapper, Error } from 'wp-styled-components';
-import { Title, List, Item, Image } from 'wp-styled-components/lib/Chart';
+import { ArticleWrapper, Error } from '@wonderboymusic/graphql-wordpress-components';
+import { Title, List, Item, Image } from '@wonderboymusic/graphql-wordpress-components/lib/Chart';
 import type { ChartProps } from 'relay-wordpress';
 
 const Chart = ({ viewer: { chart } }: ChartProps) => {

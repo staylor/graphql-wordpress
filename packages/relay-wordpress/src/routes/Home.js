@@ -8,7 +8,7 @@ import {
   ColumnA,
   ColumnB,
   MoreIn,
-} from 'wp-styled-components/lib/Home';
+} from '@wonderboymusic/graphql-wordpress-components/lib/Home';
 import Archive from 'containers/Archive';
 import type { HomeProps } from 'relay-wordpress';
 

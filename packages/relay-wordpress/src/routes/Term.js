@@ -2,7 +2,7 @@
 import React from 'react';
 import { graphql, createPaginationContainer } from 'react-relay';
 import Helmet from 'react-helmet';
-import { ContentWrapper, Heading, Error } from 'wp-styled-components';
+import { ContentWrapper, Heading, Error } from '@wonderboymusic/graphql-wordpress-components';
 import TermQuery from 'queries/Term';
 import Archive from 'containers/Archive';
 import { SITE_URL } from 'utils/constants';

@@ -6,7 +6,7 @@ import queryMiddleware from 'farce/lib/queryMiddleware';
 import createRender from 'found/lib/createRender';
 import makeRouteConfig from 'found/lib/makeRouteConfig';
 import Route from 'found/lib/Route';
-import { Loading } from 'wp-styled-components';
+import { Loading } from '@wonderboymusic/graphql-wordpress-components';
 import AppQuery from 'queries/App';
 import HomeQuery from 'queries/Home';
 import SingleQuery from 'queries/Single';
@@ -18,24 +18,20 @@ import TermQuery from 'queries/Term';
 import ErrorBoundary from 'components/ErrorBoundary';
 
 const getComponent = loader => (location, cb) =>
-  loader()
-    .then(module => module.default)
-    .catch(error => {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      cb(error, null);
-    });
+  loader().then(module => module.default).catch(error => {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    cb(error, null);
+  });
 
 export const historyMiddlewares = [queryMiddleware];
 
 const renderProp = ({ Component, props }: { Component: any, props: Props }) =>
-  Component && props ? (
-    <ErrorBoundary>
-      <Component {...props} />
-    </ErrorBoundary>
-  ) : (
-    <Loading />
-  );
+  Component && props
+    ? <ErrorBoundary>
+        <Component {...props} />
+      </ErrorBoundary>
+    : <Loading />;
 
 /* eslint-disable global-require */
 

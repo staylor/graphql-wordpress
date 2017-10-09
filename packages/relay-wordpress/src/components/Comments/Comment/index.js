@@ -14,7 +14,7 @@ import {
   Actions,
   EditButton,
   DeleteButton,
-} from 'wp-styled-components/lib/Comments';
+} from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import FragmentContainer from 'decorators/FragmentContainer';
 import withIntl from 'decorators/withIntl';
 import { AUTHOR_EMAIL_COOKIE } from 'components/Comments/constants';

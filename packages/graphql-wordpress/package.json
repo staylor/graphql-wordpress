@@ -26,7 +26,6 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.1",
     "express-graphql": "^0.6.11",
-    "forever": "^0.15.3",
     "graphql": "^0.11.6",
     "graphql-relay": "^0.5.2",
     "graphql-tools": "^1.2.3",
@@ -52,17 +51,20 @@
     "nodemon": "^1.12.1",
     "prettier": "^1.7.3",
     "prettier-eslint": "^8.2.0",
-    "prettier-eslint-cli": "^4.4.0"
+    "prettier-eslint-cli": "^4.4.0",
+    "rimraf": "^2.6.2"
   },
   "scripts": {
-    "build": "rm -rf build && babel --ignore __tests__,__mocks__ src -d build",
-    "dev": "nodemon --delay 2 --exec babel-node src/server.js",
+    "clean": "rimraf lib",
+    "build": "npm run clean && babel --ignore __tests__,__mocks__ src -d build",
     "start": "node build/server.js",
-    "prod": "npm run build && forever start build/server.js",
+    "dev": "nodemon --delay 2 --exec babel-node src/server.js",
+    "prod": "npm run build && pm2 start --name \"graphql-wordpress\" build/server.js",
     "test": "jest",
     "update-schema": "babel-node updateSchema.js",
     "clear-cache": "redis-cli FLUSHALL",
-    "prettier": "prettier-eslint \"src/**/*.js\" --write"
+    "prettier": "prettier-eslint \"src/**/*.js\" --write",
+    "prepare": "npm run build"
   },
   "jest": {
     "collectCoverage": true,

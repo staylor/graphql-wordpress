@@ -6,8 +6,9 @@
   ],
   "plugins": [
     "relay",
-    "babel-plugin-transform-decorators-legacy",
-    "babel-plugin-transform-class-properties",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-flow-strip-types",
     ["module-resolver", {
       "root": ["./src", "./types"]
     }]

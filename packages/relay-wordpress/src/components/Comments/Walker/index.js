@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { ListItem, nested } from 'wp-styled-components/lib/Comments';
+import { ListItem, nested } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import Form from 'components/Comments/Form';
 import Comment from 'components/Comments/Comment';
 import { sortHierarchy } from 'utils/walker';

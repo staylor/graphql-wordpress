@@ -404,9 +404,9 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-emotion@^8.0.2, babel-plugin-emotion@^8.0.2-11:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-8.0.2.tgz#0d674bd480c69e6b2d3affccfb654d6f97c6bf04"
+babel-plugin-emotion@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-8.0.4.tgz#e7935423a44a4182137f0e63b89c7bdf0ac80e39"
   dependencies:
     babel-generator "^6.26.0"
     babel-macros "^1.0.2"
@@ -1312,15 +1312,15 @@ emoji-regex@^6.1.0:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-6.5.1.tgz#9baea929b155565c11ea41c6626eaa65cef992c2"
 
-emotion-server@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/emotion-server/-/emotion-server-8.0.2.tgz#73a1bd425f7a68e94dc8cb886e6c70f15b025dab"
+emotion-server@^8.0.5:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/emotion-server/-/emotion-server-8.0.5.tgz#41980a4c1d8494c8eb708ab1a5d8d8ccc6875aa0"
   dependencies:
     emotion-utils "^8.0.2-7"
 
-emotion-theming@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/emotion-theming/-/emotion-theming-8.0.2.tgz#502345591571ec4809fd976a6275a779b107b8eb"
+emotion-theming@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/emotion-theming/-/emotion-theming-8.0.4.tgz#63bb121ee7961e5f56ff69803f9d86319cc14446"
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
@@ -1328,12 +1328,13 @@ emotion-utils@^8.0.2-7:
   version "8.0.2-7"
   resolved "https://registry.yarnpkg.com/emotion-utils/-/emotion-utils-8.0.2-7.tgz#83f55c6d1ace6b47d02454755bfba97938812d6a"
 
-emotion@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/emotion/-/emotion-8.0.2.tgz#6455f588e4d4193a7ff0e27414a990f8f194938e"
+emotion@^8.0.5:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/emotion/-/emotion-8.0.5.tgz#bf7ab53554b95da88151bb5dc50a3b5795d0aa02"
   dependencies:
-    babel-plugin-emotion "^8.0.2-11"
+    babel-plugin-emotion "^8.0.4"
     emotion-utils "^8.0.2-7"
+    stylis-plugin-emotion "^8.0.5"
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -1377,17 +1378,17 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-config-airbnb-base@^11.3.0:
-  version "11.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.3.1.tgz#c0ab108c9beed503cb999e4c60f4ef98eda0ed30"
+eslint-config-airbnb-base@^12.0.2:
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-12.0.2.tgz#45fea317d71b8f1da323c730f3a8471988757793"
   dependencies:
     eslint-restricted-globals "^0.1.1"
 
-eslint-config-airbnb@^15.1.0:
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-15.1.0.tgz#fd432965a906e30139001ba830f58f73aeddae8e"
+eslint-config-airbnb@^16.0.0:
+  version "16.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-16.0.0.tgz#21e81476ab7f5f27c1a900ff415cac9e1e12f3ed"
   dependencies:
-    eslint-config-airbnb-base "^11.3.0"
+    eslint-config-airbnb-base "^12.0.2"
 
 eslint-config-kyt@^0.4.0:
   version "0.4.0"
@@ -2900,11 +2901,11 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-emotion@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-8.0.2.tgz#abe74825d116fca9bab65e6c97729915e07f9cd5"
+react-emotion@^8.0.5:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-8.0.5.tgz#a86cd56995d7806691112f62102f0eeee23cf32b"
   dependencies:
-    babel-plugin-emotion "^8.0.2-11"
+    babel-plugin-emotion "^8.0.4"
     emotion-utils "^8.0.2-7"
 
 react-redux@^5.0.5:
@@ -3311,6 +3312,10 @@ strip-json-comments@1.0.x:
 strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+
+stylis-plugin-emotion@^8.0.5:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/stylis-plugin-emotion/-/stylis-plugin-emotion-8.0.5.tgz#81c1700c5002e41c26620d1e78855516d564938a"
 
 supports-color@^2.0.0:
   version "2.0.0"

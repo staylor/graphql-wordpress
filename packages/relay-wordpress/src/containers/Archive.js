@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ArchiveComponent from 'wp-styled-components/lib/Archive';
+import ArchiveComponent from '@wonderboymusic/graphql-wordpress-components/lib/Archive';
 import Post from 'components/Post';
 import type { ArchiveProps } from 'relay-wordpress';
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-relay';
 import { routerShape } from 'found/lib/PropTypes';
-import { Article, Title, Content } from 'wp-styled-components/lib/Post';
+import { Article, Title, Content } from '@wonderboymusic/graphql-wordpress-components/lib/Post';
 import FragmentContainer from 'decorators/FragmentContainer';
 import Media from 'containers/Media';
 import ContentNode from 'components/ContentNode';

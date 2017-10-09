@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
-import { embed } from 'wp-styled-components';
+import { embed } from '@wonderboymusic/graphql-wordpress-components';
 
 export default createFragmentContainer(
   ({ node, onEmbedClick = null }) => {

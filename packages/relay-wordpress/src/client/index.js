@@ -4,7 +4,7 @@ import BrowserProtocol from 'farce/lib/BrowserProtocol';
 import createInitialFarceRouter from 'found/lib/createInitialFarceRouter';
 import { Resolver } from 'found-relay';
 import { CookiesProvider } from 'react-cookie';
-import { hydrate } from 'wp-styled-components';
+import { hydrate } from '@wonderboymusic/graphql-wordpress-components';
 import { historyMiddlewares, render, routeConfig } from 'routes';
 import createEnviroment from 'relay/environment';
 
