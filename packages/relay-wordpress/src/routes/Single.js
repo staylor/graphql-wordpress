@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-relay';
 import { Link } from 'found';
@@ -57,9 +57,7 @@ import type { SingleProps, Embed } from 'relay-wordpress';
     }
   }
 `)
-export default class Single extends Component {
-  props: SingleProps;
-
+export default class Single extends React.Component<SingleProps> {
   onEmbedClick = (data: Embed) => (e: Event & { currentTarget: HTMLElement }) => {
     const maxWidth = 740;
     e.preventDefault();

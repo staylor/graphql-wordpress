@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 import Helmet from 'react-helmet';
 import withIntl from 'decorators/withIntl';
 import { SITE_URL, SITE_DESCRIPTION, TWITTER_USERNAME, TWITTER_CREATOR } from 'utils/constants';
 import type { SettingsProps } from 'relay-wordpress';
 
 @withIntl
-export default class Settings extends Component {
-  props: SettingsProps;
-
+export default class Settings extends React.Component<SettingsProps> {
   render() {
     const { settings, intl: { locale } } = this.props;
 

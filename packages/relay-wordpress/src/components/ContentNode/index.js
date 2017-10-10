@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { graphql } from 'react-relay';
 import FragmentContainer from 'decorators/FragmentContainer';
 import type { ContentNodeProps } from 'relay-wordpress';
@@ -68,9 +68,7 @@ export const dataFragment = graphql`
     }
   }
 `)
-export default class ContentNode extends Component {
-  props: ContentNodeProps;
-
+export default class ContentNode extends React.Component<ContentNodeProps> {
   static defaultProps = {
     onEmbedClick: null,
   };

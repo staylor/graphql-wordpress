@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 import { graphql } from 'react-relay';
 import { routerShape } from 'found/lib/PropTypes';
 import AppComponent from '@wonderboymusic/graphql-wordpress-components/lib/App';
@@ -42,9 +43,7 @@ import type { AppProps } from 'relay-wordpress';
   }
 `)
 @IntlProvider
-export default class App extends Component {
-  props: AppProps;
-
+export default class App extends React.Component<AppProps> {
   static defaultProps = {
     children: null,
   };
@@ -53,7 +52,9 @@ export default class App extends Component {
     router: routerShape.isRequired,
   };
 
-  constructor(props, context) {
+  removeTransitionHook = () => null;
+
+  constructor(props: AppProps, context: any) {
     super(props, context);
 
     this.removeTransitionHook = props.router.addTransitionHook(this.onTransition);

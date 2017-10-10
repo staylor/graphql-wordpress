@@ -1,14 +1,12 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import { ListItem, nested } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import Form from 'components/Comments/Form';
 import Comment from 'components/Comments/Comment';
 import { sortHierarchy } from 'utils/walker';
-import type { CommentsProps } from 'relay-wordpress';
+import type { CommentsProps, CommentsState } from 'relay-wordpress';
 
-export default class CommentsWalker extends Component {
-  props: CommentsProps;
-
+export default class CommentsWalker extends React.Component<CommentsProps, CommentsState> {
   static defaultProps = {
     comments: null,
   };

@@ -40,10 +40,19 @@ declare module 'relay-wordpress' {
     height: number,
   };
 
+  declare type EmbedProps = {
+    node: Embed,
+    onEmbedClick?: () => void,
+  };
+
   declare type Element = {
     tagName: string,
     attributes: Array<Meta>,
     children: Array<Text | Embed | Element>,
+  };
+
+  declare type ElementProps = {
+    node: Element,
   };
 
   declare type ContentNode = Text | Embed | Element;
@@ -161,6 +170,17 @@ declare module 'relay-wordpress' {
     |},
   };
 
+  declare type PostLinkProps = {
+    post: {
+      id: string,
+      title: {|
+        raw: string,
+      |},
+      date: string,
+    },
+    children: any,
+  };
+
   // Page
 
   declare type PageProps = {
@@ -178,6 +198,11 @@ declare module 'relay-wordpress' {
       posts: Connection<Post> | null,
     |},
     relay: RelayRefetchProp,
+  };
+
+  declare type SearchState = {
+    fetching: boolean,
+    term: string,
   };
 
   // Date
@@ -282,7 +307,11 @@ declare module 'relay-wordpress' {
 
   declare type CommentsProps = {
     post: string,
-    comments: Connection<Comment>,
+    comments?: Connection<Comment>,
+  };
+
+  declare type CommentsState = {
+    replyTo: string,
   };
 
   declare type AuthorAvatar = {
@@ -296,6 +325,10 @@ declare module 'relay-wordpress' {
     onEditSubmit: () => void,
   };
 
+  declare type EditCommentState = {
+    content: string,
+  };
+
   declare type CommentProps = {
     cookies: any,
     active: boolean,
@@ -305,10 +338,23 @@ declare module 'relay-wordpress' {
     relay: Object,
   };
 
+  declare type CommentState = {
+    editing: boolean,
+  };
+
   declare type CommentFormProps = {
     cookies: any,
     post: string,
     replyTo: string,
     setReplyTo: () => void,
+  };
+
+  declare type CommentFormState = {
+    comment: {
+      authorName: string,
+      authorEmail: string,
+      authorUrl: string,
+      content: string,
+    },
   };
 }

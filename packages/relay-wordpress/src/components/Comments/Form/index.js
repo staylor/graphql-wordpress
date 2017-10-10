@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { withCookies } from 'react-cookie';
 import { SubmitButton, ResetButton, formField } from '@wonderboymusic/graphql-wordpress-components';
@@ -16,7 +16,7 @@ import {
   AUTHOR_EMAIL_COOKIE,
   AUTHOR_URL_COOKIE,
 } from 'components/Comments/constants';
-import type { CommentFormProps } from 'relay-wordpress';
+import type { CommentFormProps, CommentFormState } from 'relay-wordpress';
 
 const fields = {
   authorName: { name: 'Name', cookie: AUTHOR_NAME_COOKIE },
@@ -37,12 +37,10 @@ const getDefaultState = props => {
 };
 
 @withCookies
-export default class Form extends Component {
+export default class Form extends React.Component<CommentFormProps, CommentFormState> {
   static contextTypes = {
     relay: PropTypes.object,
   };
-
-  props: CommentFormProps;
 
   static defaultProps = {
     replyTo: null,

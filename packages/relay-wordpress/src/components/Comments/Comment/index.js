@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 import md5 from 'md5';
 import { graphql } from 'react-relay';
 import { withCookies } from 'react-cookie';
@@ -19,7 +20,7 @@ import FragmentContainer from 'decorators/FragmentContainer';
 import withIntl from 'decorators/withIntl';
 import { AUTHOR_EMAIL_COOKIE } from 'components/Comments/constants';
 import DeleteCommentMutation from 'mutations/DeleteComment';
-import type { CommentProps } from 'relay-wordpress';
+import type { CommentProps, CommentState } from 'relay-wordpress';
 import EditComment from './Edit';
 
 /* eslint-disable react/no-danger */
@@ -46,9 +47,7 @@ import EditComment from './Edit';
 `)
 @withIntl
 @withCookies
-export default class Comment extends Component {
-  props: CommentProps;
-
+export default class Comment extends React.Component<CommentProps, CommentState> {
   editToken = null;
 
   state = {

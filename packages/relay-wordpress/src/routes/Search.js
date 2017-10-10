@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import debounce from 'debounce';
 import { graphql, createRefetchContainer } from 'react-relay';
 import Helmet from 'react-helmet';
@@ -14,13 +14,11 @@ import SearchQuery from 'queries/Search';
 import Archive from 'containers/Archive';
 import { SITE_URL } from 'utils/constants';
 import type { Variables } from 'react-relay';
-import type { SearchProps } from 'relay-wordpress';
+import type { SearchProps, SearchState } from 'relay-wordpress';
 
 const PAGE_SIZE = 10;
 
-class Search extends Component {
-  props: SearchProps;
-
+class Search extends React.Component<SearchProps, SearchState> {
   state = {
     fetching: false,
     term: '',

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 import { graphql } from 'react-relay';
 import { routerShape } from 'found/lib/PropTypes';
 import { Article, Title, Content } from '@wonderboymusic/graphql-wordpress-components/lib/Post';
@@ -30,14 +31,14 @@ import PostLink from './PostLink';
     ...PostLink_post
   }
 `)
-export default class Post extends Component {
+export default class Post extends React.Component<PostProps> {
   props: PostProps;
 
   static contextTypes = {
     router: routerShape.isRequired,
   };
 
-  onEmbedClick = () => e => {
+  onEmbedClick = () => (e: Event) => {
     e.preventDefault();
 
     const { id, date } = this.props.post;

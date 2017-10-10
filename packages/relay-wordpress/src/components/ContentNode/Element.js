@@ -1,5 +1,7 @@
+// @flow
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
+import type { ElementProps } from 'relay-wordpress';
 
 const attrMap = {
   allowfullscreen: 'allowFullScreen',
@@ -28,19 +30,21 @@ const attrMap = {
 
 const camelize = name => attrMap[name] || name;
 
-export default createFragmentContainer(
-  ({ node, children }) => {
-    const props = (node.attributes || []).reduce((memo, { name, value }) => {
-      if (name === 'class') {
-        memo.className = value;
-      } else {
-        memo[camelize(name)] = value;
-      }
-      return memo;
-    }, {});
+const Element = ({ node, children }: ElementProps) => {
+  const props = (node.attributes || []).reduce((memo, { name, value }) => {
+    if (name === 'class') {
+      memo.className = value;
+    } else {
+      memo[camelize(name)] = value;
+    }
+    return memo;
+  }, {});
 
-    return React.createElement(node.tagName, props, children);
-  },
+  return React.createElement(node.tagName, props, children);
+};
+
+export default createFragmentContainer(
+  Element,
   graphql`
     fragment Element_node on Element {
       tagName

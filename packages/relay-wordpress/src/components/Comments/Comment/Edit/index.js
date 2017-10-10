@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { formField } from '@wonderboymusic/graphql-wordpress-components';
 import {
@@ -8,24 +8,22 @@ import {
   EditCancelButton,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import UpdateCommentMutation from 'mutations/UpdateComment';
-import type { EditCommentProps } from 'relay-wordpress';
+import type { EditCommentProps, EditCommentState } from 'relay-wordpress';
 
-export default class Edit extends Component {
+export default class Edit extends React.Component<EditCommentProps, EditCommentState> {
   static contextTypes = {
     relay: PropTypes.object,
   };
 
-  props: EditCommentProps;
-
-  constructor(props) {
-    super(props);
+  constructor(props, context: { relay: Object }) {
+    super(props, context);
 
     this.state = {
       content: props.comment.content.raw,
     };
   }
 
-  onEdit = e => {
+  onEdit = (e: Event) => {
     e.preventDefault();
 
     this.props.onEditSubmit();
@@ -41,7 +39,7 @@ export default class Edit extends Component {
     UpdateCommentMutation.commit(this.context.relay.environment, variables, this.props.comment);
   };
 
-  onChange = e => {
+  onChange = (e: Event & { target: HTMLInputElement }) => {
     this.setState({
       [e.target.name]: e.target.value,
     });

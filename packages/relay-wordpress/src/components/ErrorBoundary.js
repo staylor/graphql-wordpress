@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+// @flow
+import * as React from 'react';
 
-/* eslint-disable react/prop-types */
-
-export default class ErrorBoundary extends Component {
-  constructor(props) {
+export default class ErrorBoundary extends React.Component<*, *> {
+  constructor(props: any) {
     super(props);
     this.state = { hasError: false };
   }
 
-  componentDidCatch(error, info) {
-    // Display fallback UI
+  componentDidCatch(error: any, info: any) {
     this.setState({ hasError: true });
-    // You can also log the error to an error reporting service
+    // eslint-disable-next-line no-console
     console.log(error, info);
   }
 
