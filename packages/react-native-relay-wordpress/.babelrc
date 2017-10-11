@@ -1,7 +1,6 @@
 {
   "presets": [
     "babel-preset-expo",
-    "babel-preset-kyt-react",
     "flow"
   ],
   "plugins": [
