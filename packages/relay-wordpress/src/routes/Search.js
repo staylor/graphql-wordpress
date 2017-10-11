@@ -13,8 +13,20 @@ import { LoadMore } from '@wonderboymusic/graphql-wordpress-components/lib/Archi
 import SearchQuery from 'queries/Search';
 import Archive from 'containers/Archive';
 import { SITE_URL } from 'utils/constants';
-import type { Variables } from 'react-relay';
-import type { SearchProps, SearchState } from 'relay-wordpress';
+import type { RelayRefetchProp, Variables } from 'react-relay';
+import type { Connection, Post } from 'relay-wordpress';
+
+type SearchProps = {
+  viewer: {|
+    posts: Connection<Post> | null,
+  |},
+  relay: RelayRefetchProp,
+};
+
+type SearchState = {
+  fetching: boolean,
+  term: string,
+};
 
 const PAGE_SIZE = 10;
 

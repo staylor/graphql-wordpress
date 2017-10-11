@@ -11,7 +11,15 @@ import {
 import Media from 'containers/Media';
 import ContentNode from 'components/ContentNode';
 import { SITE_URL } from 'utils/constants';
-import type { PageProps } from 'relay-wordpress';
+import type { Singular } from 'relay-wordpress';
+
+type PageProps = {
+  viewer: {|
+    page: Singular & {
+      slug: string,
+    },
+  |},
+};
 
 const Page = ({ viewer: { page } }: PageProps) => {
   if (!page) {

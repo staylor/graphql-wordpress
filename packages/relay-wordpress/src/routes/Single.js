@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import { graphql } from 'react-relay';
+import { graphql, createFragmentContainer } from 'react-relay';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
 import {
@@ -10,54 +10,27 @@ import {
   Error,
 } from '@wonderboymusic/graphql-wordpress-components';
 import { iframe, Title, Meta, Tag } from '@wonderboymusic/graphql-wordpress-components/lib/Single';
-import FragmentContainer from 'decorators/FragmentContainer';
 import Media from 'containers/Media';
 import ContentNode from 'components/ContentNode';
 import Comments from 'components/Comments';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
-import type { SingleProps, Embed } from 'relay-wordpress';
+import type { Singular, PostTag, Connection, Comment, Embed } from 'relay-wordpress';
 
-@FragmentContainer(graphql`
-  fragment Single_viewer on Viewer {
-    post(id: $id) {
-      id
-      date
-      title {
-        raw
-      }
-      content {
-        data {
-          ...ContentNode_content
-        }
-      }
-      excerpt {
-        raw
-      }
-      featuredMedia {
-        ...Media_media
-        ... on Image {
-          sourceUrl
-        }
-      }
-      tags {
-        id
-        name
-        slug
-      }
-      comments(post: $id, first: 100) @connection(key: "Single_post_comments") {
-        edges {
-          node {
-            id
-            parent
-            ...Comment_comment
-          }
-        }
-      }
-    }
-  }
-`)
-export default class Single extends React.Component<SingleProps> {
+type SingleProps = {
+  viewer: {|
+    post: Singular & {
+      date: string,
+      excerpt: {|
+        raw: string,
+      |},
+      tags: Array<PostTag>,
+      comments: Connection<Comment>,
+    },
+  |},
+};
+
+class Single extends React.Component<SingleProps> {
   onEmbedClick = (data: Embed) => (e: Event & { currentTarget: HTMLElement }) => {
     const maxWidth = 740;
     e.preventDefault();
@@ -139,3 +112,46 @@ export default class Single extends React.Component<SingleProps> {
     );
   }
 }
+
+export default createFragmentContainer(
+  Single,
+  graphql`
+    fragment Single_viewer on Viewer {
+      post(id: $id) {
+        id
+        date
+        title {
+          raw
+        }
+        content {
+          data {
+            ...ContentNode_content
+          }
+        }
+        excerpt {
+          raw
+        }
+        featuredMedia {
+          ...Media_media
+          ... on Image {
+            sourceUrl
+          }
+        }
+        tags {
+          id
+          name
+          slug
+        }
+        comments(post: $id, first: 100) @connection(key: "Single_post_comments") {
+          edges {
+            node {
+              id
+              parent
+              ...Comment_comment
+            }
+          }
+        }
+      }
+    }
+  `
+);

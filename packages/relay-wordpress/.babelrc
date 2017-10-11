@@ -1,13 +1,13 @@
 {
   "presets": [
     "babel-preset-kyt-react",
-    "stage-0",
     "flow"
   ],
   "plugins": [
     "relay",
     "transform-decorators-legacy",
     "transform-class-properties",
+    "transform-object-rest-spread",
     "transform-flow-strip-types",
     ["module-resolver", {
       "root": ["./src", "./types"]

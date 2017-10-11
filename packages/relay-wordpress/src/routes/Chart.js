@@ -3,7 +3,36 @@ import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { ArticleWrapper, Error } from '@wonderboymusic/graphql-wordpress-components';
 import { Title, List, Item, Image } from '@wonderboymusic/graphql-wordpress-components/lib/Chart';
-import type { ChartProps } from 'relay-wordpress';
+
+type ChartImage = {|
+  url: string,
+  height: number,
+|};
+
+type ChartItem = {|
+  title: string,
+  artist: string,
+  releaseDate: string,
+  releaseDateFormatted: string,
+  url: string,
+  copyright: string,
+  images: Array<ChartImage>,
+|};
+
+type ITunesChart = {|
+  title: string,
+  copyright: string,
+  updated: string,
+  authorName: string,
+  authorUri: string,
+  items: Array<ChartItem>,
+|};
+
+type ChartProps = {
+  viewer: {|
+    chart: ITunesChart,
+  |},
+};
 
 const Chart = ({ viewer: { chart } }: ChartProps) => {
   if (!chart) {

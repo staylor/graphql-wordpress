@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import md5 from 'md5';
-import { graphql } from 'react-relay';
+import { graphql, createFragmentContainer } from 'react-relay';
 import { withCookies } from 'react-cookie';
 import {
   CommentWrapper,
@@ -16,38 +16,31 @@ import {
   EditButton,
   DeleteButton,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
-import FragmentContainer from 'decorators/FragmentContainer';
-import withIntl from 'decorators/withIntl';
+import { injectIntl } from 'react-intl';
+import type { intlShape } from 'react-intl';
 import { AUTHOR_EMAIL_COOKIE } from 'components/Comments/constants';
 import DeleteCommentMutation from 'mutations/DeleteComment';
-import type { CommentProps, CommentState } from 'relay-wordpress';
+import type { Comment as CommentType } from 'relay-wordpress';
 import EditComment from './Edit';
+
+type CommentProps = {
+  cookies: any,
+  active: boolean,
+  setReplyTo: () => void,
+  comment: CommentType,
+  intl: intlShape,
+  relay: Object,
+};
+
+type CommentState = {
+  editing: boolean,
+};
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/forbid-prop-types */
 
-@FragmentContainer(graphql`
-  fragment Comment_comment on Comment {
-    id
-    authorName
-    authorUrl
-    authorHash
-    date
-    content {
-      rendered
-      raw
-    }
-    authorAvatarUrls {
-      size
-      url
-    }
-    parent
-    post
-  }
-`)
-@withIntl
 @withCookies
-export default class Comment extends React.Component<CommentProps, CommentState> {
+class Comment extends React.Component<CommentProps, CommentState> {
   editToken = null;
 
   state = {
@@ -148,3 +141,26 @@ export default class Comment extends React.Component<CommentProps, CommentState>
     );
   }
 }
+
+export default createFragmentContainer(
+  injectIntl(Comment),
+  graphql`
+    fragment Comment_comment on Comment {
+      id
+      authorName
+      authorUrl
+      authorHash
+      date
+      content {
+        rendered
+        raw
+      }
+      authorAvatarUrls {
+        size
+        url
+      }
+      parent
+      post
+    }
+  `
+);

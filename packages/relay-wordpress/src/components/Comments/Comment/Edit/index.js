@@ -8,7 +8,17 @@ import {
   EditCancelButton,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import UpdateCommentMutation from 'mutations/UpdateComment';
-import type { EditCommentProps, EditCommentState } from 'relay-wordpress';
+import type { Comment } from 'relay-wordpress';
+
+type EditCommentProps = {
+  comment: Comment,
+  token: string,
+  onEditSubmit: () => void,
+};
+
+type EditCommentState = {
+  content: string,
+};
 
 export default class Edit extends React.Component<EditCommentProps, EditCommentState> {
   static contextTypes = {

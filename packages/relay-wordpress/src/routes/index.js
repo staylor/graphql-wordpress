@@ -1,6 +1,4 @@
 // @flow
-import type { Props } from 'relay-wordpress';
-
 import React from 'react';
 import queryMiddleware from 'farce/lib/queryMiddleware';
 import createRender from 'found/lib/createRender';
@@ -28,7 +26,7 @@ const getComponent = loader => (location, cb) =>
 
 export const historyMiddlewares = [queryMiddleware];
 
-const renderProp = ({ Component, props }: { Component: any, props: Props }) =>
+const renderProp = ({ Component, props }: { Component: any, props: Object }) =>
   Component && props ? (
     <ErrorBoundary>
       <Component {...props} />

@@ -10,7 +10,16 @@ import {
   MoreIn,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Home';
 import Archive from 'containers/Archive';
-import type { HomeProps } from 'relay-wordpress';
+import type { Connection, Post } from 'relay-wordpress';
+
+type HomeProps = {
+  viewer: {|
+    readThis: Connection<Post>,
+    watchThis: Connection<Post>,
+    listenToThis: Connection<Post>,
+    stickies: Connection<Post>,
+  |},
+};
 
 const Home = ({ viewer: { readThis, watchThis, listenToThis, stickies } }: HomeProps) => (
   <HomeWrapper>

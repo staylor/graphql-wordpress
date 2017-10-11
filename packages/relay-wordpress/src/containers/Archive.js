@@ -2,29 +2,33 @@
 import * as React from 'react';
 import ArchiveComponent from '@wonderboymusic/graphql-wordpress-components/lib/Archive';
 import Post from 'components/Post';
-import type { ArchiveProps } from 'relay-wordpress';
+import type { RelayPaginationProp } from 'react-relay';
+import type { Connection, Post as PostType } from 'relay-wordpress';
 
-export default class Archive extends React.Component<ArchiveProps> {
-  render() {
-    const { relay, posts } = this.props;
-    return (
-      <ArchiveComponent
-        edges={posts.edges}
-        component={Post}
-        canLoadMore={relay && relay.hasMore()}
-        loadMore={() => {
-          if (!relay || relay.isLoading()) {
-            return;
+type ArchiveProps = {
+  posts: Connection<PostType>,
+  relay: RelayPaginationProp,
+};
+
+export default function Archive(props: ArchiveProps) {
+  const { relay = null, posts } = props;
+  return (
+    <ArchiveComponent
+      edges={posts.edges}
+      component={Post}
+      canLoadMore={relay && relay.hasMore()}
+      loadMore={() => {
+        if (!relay || relay.isLoading()) {
+          return;
+        }
+
+        relay.loadMore(10, e => {
+          if (e) {
+            // eslint-disable-next-line no-console
+            console.log(e);
           }
-
-          relay.loadMore(10, e => {
-            if (e) {
-              // eslint-disable-next-line no-console
-              console.log(e);
-            }
-          });
-        }}
-      />
-    );
-  }
+        });
+      }}
+    />
+  );
 }

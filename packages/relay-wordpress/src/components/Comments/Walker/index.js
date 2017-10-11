@@ -4,7 +4,11 @@ import { ListItem, nested } from '@wonderboymusic/graphql-wordpress-components/l
 import Form from 'components/Comments/Form';
 import Comment from 'components/Comments/Comment';
 import { sortHierarchy } from 'utils/walker';
-import type { CommentsProps, CommentsState } from 'relay-wordpress';
+import type { CommentsProps } from 'relay-wordpress';
+
+type CommentsState = {
+  replyTo: string,
+};
 
 export default class CommentsWalker extends React.Component<CommentsProps, CommentsState> {
   static defaultProps = {
@@ -58,7 +62,7 @@ export default class CommentsWalker extends React.Component<CommentsProps, Comme
     }
 
     const { comments: { edges } } = this.props;
-    this.sorted = sortHierarchy(edges);
+    this.sorted = sortHierarchy(edges.map(edge => edge.node));
     this.level = 0;
     return [
       this.walk(this.sorted.top),

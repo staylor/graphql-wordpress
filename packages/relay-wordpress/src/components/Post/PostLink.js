@@ -3,7 +3,17 @@ import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { Link } from 'found';
 import { dateRegex } from 'utils/regex';
-import type { PostLinkProps } from 'relay-wordpress';
+
+type PostLinkProps = {
+  post: {
+    id: string,
+    title: {|
+      raw: string,
+    |},
+    date: string,
+  },
+  children: any,
+};
 
 const PostLink = ({ children, post: { id, date, title } }: PostLinkProps) => {
   const [, year, month, day] = dateRegex.exec(date);

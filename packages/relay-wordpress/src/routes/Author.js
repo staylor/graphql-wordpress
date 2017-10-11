@@ -4,7 +4,19 @@ import { graphql, createPaginationContainer } from 'react-relay';
 import { ContentWrapper, Heading } from '@wonderboymusic/graphql-wordpress-components';
 import Archive from 'containers/Archive';
 import AuthorQuery from 'queries/Author';
-import type { AuthorProps } from 'relay-wordpress';
+import type { RelayPaginationProp } from 'react-relay';
+import type { Connection, Post } from 'relay-wordpress';
+
+type AuthorProps = {
+  viewer: {|
+    author: {
+      id: string,
+      name: string,
+    },
+    posts: Connection<Post>,
+  |},
+  relay: RelayPaginationProp,
+};
 
 const Author = ({ viewer: { author, posts }, relay }: AuthorProps) => (
   <ContentWrapper>

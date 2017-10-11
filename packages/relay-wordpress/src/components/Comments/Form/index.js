@@ -16,7 +16,22 @@ import {
   AUTHOR_EMAIL_COOKIE,
   AUTHOR_URL_COOKIE,
 } from 'components/Comments/constants';
-import type { CommentFormProps, CommentFormState } from 'relay-wordpress';
+
+type CommentFormProps = {
+  cookies: any,
+  post: string,
+  replyTo: string,
+  setReplyTo: () => void,
+};
+
+type CommentFormState = {
+  comment: {
+    authorName: string,
+    authorEmail: string,
+    authorUrl: string,
+    content: string,
+  },
+};
 
 const fields = {
   authorName: { name: 'Name', cookie: AUTHOR_NAME_COOKIE },

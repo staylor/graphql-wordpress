@@ -1,49 +1,23 @@
 // @flow
 import * as React from 'react';
-import { graphql } from 'react-relay';
+import { graphql, createFragmentContainer } from 'react-relay';
 import { routerShape } from 'found/lib/PropTypes';
 import AppComponent from '@wonderboymusic/graphql-wordpress-components/lib/App';
-import FragmentContainer from 'decorators/FragmentContainer';
 import IntlProvider from 'decorators/IntlProvider';
 import Settings from 'components/Settings';
-import type { AppProps } from 'relay-wordpress';
 
-@FragmentContainer(graphql`
-  fragment App_viewer on Viewer {
-    settings {
-      title
-      description
-      language
-    }
-    navMenu(id: $menuID) {
-      id
-      name
-      items {
-        id
-        title
-        url
-        parent
-        order
-        type
-        typeName
-        typeSlug
-        dataSlug
-        dataID
-      }
-    }
-    sidebar(id: $sidebarID) {
-      widgets {
-        id
-        classname
-        content {
-          rendered
-        }
-      }
-    }
-  }
-`)
+type AppProps = {
+  viewer: {
+    settings: Object,
+    navMenu: Object,
+    sidebar: Object,
+  },
+  children: any,
+  router: any,
+};
+
 @IntlProvider
-export default class App extends React.Component<AppProps> {
+class App extends React.Component<AppProps> {
   static defaultProps = {
     children: null,
   };
@@ -87,3 +61,41 @@ export default class App extends React.Component<AppProps> {
     ];
   }
 }
+
+export default createFragmentContainer(
+  App,
+  graphql`
+    fragment App_viewer on Viewer {
+      settings {
+        title
+        description
+        language
+      }
+      navMenu(id: $menuID) {
+        id
+        name
+        items {
+          id
+          title
+          url
+          parent
+          order
+          type
+          typeName
+          typeSlug
+          dataSlug
+          dataID
+        }
+      }
+      sidebar(id: $sidebarID) {
+        widgets {
+          id
+          classname
+          content {
+            rendered
+          }
+        }
+      }
+    }
+  `
+);

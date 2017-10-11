@@ -28,8 +28,7 @@ export default ({
 <head>
 <meta charset="utf-8" />
 ${helmet.title.toString()}
-<script src="//use.typekit.net/tts4dcv.js"></script>
-<script>try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="https://use.typekit.net/tts4dcv.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="shortcut icon" href="/icons/favicon.ico" />

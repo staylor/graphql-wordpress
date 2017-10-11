@@ -6,7 +6,20 @@ import { ContentWrapper, Heading } from '@wonderboymusic/graphql-wordpress-compo
 import DateQuery from 'queries/Date';
 import Archive from 'containers/Archive';
 import { SITE_URL } from 'utils/constants';
-import type { DateProps } from 'relay-wordpress';
+import type { RelayPaginationProp } from 'react-relay';
+import type { Connection, Post } from 'relay-wordpress';
+
+type DateProps = {
+  viewer: {|
+    posts: Connection<Post>,
+  |},
+  params: {
+    month: string | number,
+    day: string | number,
+    year: string | number,
+  },
+  relay: RelayPaginationProp,
+};
 
 const DateRoute = ({ params, viewer: { posts }, relay }: DateProps) => {
   const values = [params.month, params.day, params.year].filter(value => value);

@@ -1,7 +1,11 @@
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import Image from 'containers/Image';
-import type { MediaProps } from 'relay-wordpress';
+
+type MediaProps = {
+  crop: string,
+  media: Object,
+};
 
 const Media = ({ media, crop = 'large' }: MediaProps) => {
   switch (media.__typename) {

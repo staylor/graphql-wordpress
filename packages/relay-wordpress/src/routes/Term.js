@@ -6,7 +6,16 @@ import { ContentWrapper, Heading, Error } from '@wonderboymusic/graphql-wordpres
 import TermQuery from 'queries/Term';
 import Archive from 'containers/Archive';
 import { SITE_URL } from 'utils/constants';
-import type { TermProps } from 'relay-wordpress';
+import type { RelayPaginationProp } from 'react-relay';
+import type { Term as TermType, Connection, Post } from 'relay-wordpress';
+
+type TermProps = {
+  viewer: {|
+    term: TermType,
+    posts: Connection<Post>,
+  |},
+  relay: RelayPaginationProp,
+};
 
 const Term = ({ viewer: { term, posts }, relay }: TermProps) => {
   if (!term) {

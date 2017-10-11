@@ -1,7 +1,12 @@
 // @flow
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
-import type { ElementProps } from 'relay-wordpress';
+import type { Element as ElementType } from 'relay-wordpress';
+
+type ElementProps = {
+  node: ElementType,
+  children: any,
+};
 
 const attrMap = {
   allowfullscreen: 'allowFullScreen',

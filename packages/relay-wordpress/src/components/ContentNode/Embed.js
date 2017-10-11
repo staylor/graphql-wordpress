@@ -2,9 +2,14 @@
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { embed } from '@wonderboymusic/graphql-wordpress-components';
-import type { EmbedProps } from 'relay-wordpress';
+import type { Embed as EmbedType } from 'relay-wordpress';
 
-const Embed = ({ node, onEmbedClick = null }: EmbedProps) => {
+type EmbedProps = {
+  node: EmbedType,
+  onEmbedClick: any,
+};
+
+const Embed = ({ node, onEmbedClick }: EmbedProps) => {
   const onClick = onEmbedClick ? onEmbedClick(node) : null;
   const thumbnailUrl = node.thumbnailUrl.replace('hqdefault', 'maxresdefault');
   return (

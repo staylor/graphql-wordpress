@@ -1,11 +1,4 @@
 declare module 'relay-wordpress' {
-  declare type Props = {};
-
-  declare type HierarchyItem = {
-    parent: String,
-    node: Object,
-  };
-
   declare type Edge<T> = {
     node: T,
     cursor: string,
@@ -40,73 +33,13 @@ declare module 'relay-wordpress' {
     height: number,
   };
 
-  declare type EmbedProps = {
-    node: Embed,
-    onEmbedClick?: () => void,
-  };
-
   declare type Element = {
     tagName: string,
     attributes: Array<Meta>,
     children: Array<Text | Embed | Element>,
   };
 
-  declare type ElementProps = {
-    node: Element,
-  };
-
   declare type ContentNode = Text | Embed | Element;
-
-  declare type ContentNodeProps = {
-    content: Array<ContentNode>,
-    component: any,
-    onEmbedClick: () => void,
-  };
-
-  declare type ArchiveProps = {
-    posts: Connection<Post>,
-    relay?: RelayPaginationProp,
-  };
-
-  declare type MediaProps = {
-    crop: string,
-    media: Object,
-  };
-
-  declare type ImageSize = {
-    name: string,
-    sourceUrl: string,
-  };
-
-  declare type ImageProps = {
-    sourceUrl: string,
-    mediaDetails: {
-      sizes: Array<ImageSize>,
-    },
-  };
-
-  // App
-
-  declare type AppProps = {
-    viewer: {
-      settings: Object,
-      navMenu: Object,
-      sidebar: Object,
-    },
-    children: any,
-    router: any,
-  };
-
-  // Settings
-
-  declare type SettingsProps = {
-    intl: intlShape,
-    settings: {
-      title: string,
-      description: string,
-      language: string,
-    },
-  };
 
   // Post
 
@@ -116,21 +49,6 @@ declare module 'relay-wordpress' {
     content: Object,
     excerpt: Object,
     featuredMedia: Object,
-  };
-
-  declare type PostProps = {
-    post: Post,
-  };
-
-  // Home
-
-  declare type HomeProps = {
-    viewer: {|
-      readThis: Connection<Post>,
-      watchThis: Connection<Post>,
-      listenToThis: Connection<Post>,
-      stickies: Connection<Post>,
-    |},
   };
 
   // Singular
@@ -157,81 +75,6 @@ declare module 'relay-wordpress' {
     slug: string,
   |};
 
-  declare type SingleProps = {
-    viewer: {|
-      post: Singular & {
-        date: string,
-        excerpt: {|
-          raw: string,
-        |},
-        tags: Array<PostTag>,
-        comments: Connection<Comment>,
-      },
-    |},
-  };
-
-  declare type PostLinkProps = {
-    post: {
-      id: string,
-      title: {|
-        raw: string,
-      |},
-      date: string,
-    },
-    children: any,
-  };
-
-  // Page
-
-  declare type PageProps = {
-    viewer: {|
-      page: Singular & {
-        slug: string,
-      },
-    |},
-  };
-
-  // Search
-
-  declare type SearchProps = {
-    viewer: {|
-      posts: Connection<Post> | null,
-    |},
-    relay: RelayRefetchProp,
-  };
-
-  declare type SearchState = {
-    fetching: boolean,
-    term: string,
-  };
-
-  // Date
-
-  declare type DateProps = {
-    viewer: {|
-      posts: Connection<Post>,
-    |},
-    params: {
-      month: string | number,
-      day: string | number,
-      year: string | number,
-    },
-    relay: RelayPaginationProp,
-  };
-
-  // Author
-
-  declare type AuthorProps = {
-    viewer: {|
-      author: {
-        id: string,
-        name: string,
-      },
-      posts: Connection<Post>,
-    |},
-    relay: RelayPaginationProp,
-  };
-
   // Term
 
   declare type Term = {|
@@ -249,46 +92,12 @@ declare module 'relay-wordpress' {
     |},
   |};
 
-  declare type TermProps = {
-    viewer: {|
-      term: Term,
-      posts: Connection<Post>,
-    |},
-    relay: RelayPaginationProp,
-  };
-
-  declare type ChartImage = {|
-    url: string,
-    height: number,
-  |};
-
-  // Charts
-  declare type ChartItem = {|
-    title: string,
-    artist: string,
-    releaseDate: string,
-    releaseDateFormatted: string,
-    url: string,
-    copyright: string,
-    images: Array<ChartImage>,
-  |};
-
-  declare type ITunesChart = {|
-    title: string,
-    copyright: string,
-    updated: string,
-    authorName: string,
-    authorUri: string,
-    items: Array<ChartItem>,
-  |};
-
-  declare type ChartProps = {
-    viewer: {|
-      chart: ITunesChart,
-    |},
-  };
-
   // Comments
+
+  declare type AuthorAvatar = {
+    size: number,
+    url: string,
+  };
 
   declare type Comment = {
     id: string,
@@ -303,58 +112,5 @@ declare module 'relay-wordpress' {
     authorAvatarUrls: Array<AuthorAvatar>,
     parent: string,
     post: string,
-  };
-
-  declare type CommentsProps = {
-    post: string,
-    comments?: Connection<Comment>,
-  };
-
-  declare type CommentsState = {
-    replyTo: string,
-  };
-
-  declare type AuthorAvatar = {
-    size: number,
-    url: string,
-  };
-
-  declare type EditCommentProps = {
-    comment: Comment,
-    token: string,
-    onEditSubmit: () => void,
-  };
-
-  declare type EditCommentState = {
-    content: string,
-  };
-
-  declare type CommentProps = {
-    cookies: any,
-    active: boolean,
-    setReplyTo: () => void,
-    comment: Comment,
-    intl: intlShape,
-    relay: Object,
-  };
-
-  declare type CommentState = {
-    editing: boolean,
-  };
-
-  declare type CommentFormProps = {
-    cookies: any,
-    post: string,
-    replyTo: string,
-    setReplyTo: () => void,
-  };
-
-  declare type CommentFormState = {
-    comment: {
-      authorName: string,
-      authorEmail: string,
-      authorUrl: string,
-      content: string,
-    },
   };
 }

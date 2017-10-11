@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { graphql } from 'react-relay';
-import FragmentContainer from 'decorators/FragmentContainer';
-import type { ContentNodeProps } from 'relay-wordpress';
+import { graphql, createFragmentContainer } from 'react-relay';
+import type { ContentNode as ContentNodeType } from 'relay-wordpress';
 import Element from './Element';
 import Embed from './Embed';
+
+type ContentNodeProps = {
+  content: Array<ContentNodeType>,
+  component: any,
+  onEmbedClick: () => void,
+};
 
 /* eslint-disable react/prop-types, react/forbid-prop-types */
 
@@ -23,52 +28,7 @@ export const dataFragment = graphql`
   }
 `;
 
-@FragmentContainer(graphql`
-  fragment ContentNode_content on ContentNode @relay(plural: true) {
-    ...ContentNode_content_data @relay(mask: false)
-    ... on Element {
-      children {
-        ...ContentNode_content_data @relay(mask: false)
-        ... on Element {
-          children {
-            ...ContentNode_content_data @relay(mask: false)
-            ... on Element {
-              children {
-                ...ContentNode_content_data @relay(mask: false)
-                ... on Element {
-                  children {
-                    ...ContentNode_content_data @relay(mask: false)
-                    ... on Element {
-                      children {
-                        ...ContentNode_content_data @relay(mask: false)
-                        ... on Element {
-                          children {
-                            ...ContentNode_content_data @relay(mask: false)
-                            ... on Element {
-                              children {
-                                ...ContentNode_content_data @relay(mask: false)
-                                ... on Element {
-                                  children {
-                                    ...ContentNode_content_data @relay(mask: false)
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`)
-export default class ContentNode extends React.Component<ContentNodeProps> {
+class ContentNode extends React.Component<ContentNodeProps> {
   static defaultProps = {
     onEmbedClick: null,
   };
@@ -116,3 +76,52 @@ export default class ContentNode extends React.Component<ContentNodeProps> {
     return <ContentComponent {...rest}>{this.parseNodes(content)}</ContentComponent>;
   }
 }
+
+export default createFragmentContainer(
+  ContentNode,
+  graphql`
+    fragment ContentNode_content on ContentNode @relay(plural: true) {
+      ...ContentNode_content_data @relay(mask: false)
+      ... on Element {
+        children {
+          ...ContentNode_content_data @relay(mask: false)
+          ... on Element {
+            children {
+              ...ContentNode_content_data @relay(mask: false)
+              ... on Element {
+                children {
+                  ...ContentNode_content_data @relay(mask: false)
+                  ... on Element {
+                    children {
+                      ...ContentNode_content_data @relay(mask: false)
+                      ... on Element {
+                        children {
+                          ...ContentNode_content_data @relay(mask: false)
+                          ... on Element {
+                            children {
+                              ...ContentNode_content_data @relay(mask: false)
+                              ... on Element {
+                                children {
+                                  ...ContentNode_content_data @relay(mask: false)
+                                  ... on Element {
+                                    children {
+                                      ...ContentNode_content_data @relay(mask: false)
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+);
