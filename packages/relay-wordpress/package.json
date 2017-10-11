@@ -37,7 +37,7 @@
     "universal-cookie-express": "^2.1.0"
   },
   "scripts": {
-    "dev": "npm run persist-queries && GQL_HOST=http://localhost:8080 kyt dev",
+    "dev": "npm run persist-queries && GQL_HOST=http://localhost:8080 kyt dev -C kyt.dev.js",
     "prod": "npm run build && npm run persist-queries && pm2 start --name \"relay-wordpress\" npm -- start",
     "build": "kyt build -C kyt.prod.js",
     "start": "kyt start",
