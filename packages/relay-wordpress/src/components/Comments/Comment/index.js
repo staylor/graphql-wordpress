@@ -26,7 +26,7 @@ import EditComment from './Edit';
 type CommentProps = {
   cookies: any,
   active: boolean,
-  setReplyTo: () => void,
+  setReplyTo: (id: string) => void,
   comment: CommentType,
   intl: intlShape,
   relay: Object,
@@ -47,9 +47,9 @@ class Comment extends React.Component<CommentProps, CommentState> {
     editing: false,
   };
 
-  onClick = id => {
+  onClick = (id: string) => {
     if (this.props.active) {
-      this.props.setReplyTo(null);
+      this.props.setReplyTo('');
     } else {
       this.props.setReplyTo(id);
     }

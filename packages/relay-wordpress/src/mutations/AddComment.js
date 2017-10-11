@@ -1,4 +1,6 @@
+// @flow
 import { graphql, commitMutation } from 'react-relay';
+import type { Environment, Variables } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 import md5 from 'md5';
 import { newlineRegex } from 'utils/regex';
@@ -27,7 +29,7 @@ const AddCommentMutation = graphql`
   }
 `;
 
-const commit = (environment, variables, onCompleted = null) => {
+const commit = (environment: Environment, variables: Variables, onCompleted: any = null) => {
   const optimisticResponse = {
     addComment: {
       comment: {

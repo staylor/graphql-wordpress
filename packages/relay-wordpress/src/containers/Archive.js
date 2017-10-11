@@ -7,11 +7,11 @@ import type { Connection, Post as PostType } from 'relay-wordpress';
 
 type ArchiveProps = {
   posts: Connection<PostType>,
-  relay: RelayPaginationProp,
+  relay?: RelayPaginationProp,
 };
 
 export default function Archive(props: ArchiveProps) {
-  const { relay = null, posts } = props;
+  const { relay, posts } = props;
   return (
     <ArchiveComponent
       edges={posts.edges}
@@ -32,3 +32,7 @@ export default function Archive(props: ArchiveProps) {
     />
   );
 }
+
+Archive.defaultProps = {
+  relay: null,
+};

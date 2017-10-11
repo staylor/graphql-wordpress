@@ -1,6 +1,7 @@
-const { ConnectionHandler, ViewerHandler } = require('relay-runtime');
+// @flow
+import { ConnectionHandler, ViewerHandler } from 'relay-runtime';
 
-export default function handlerProvider(handle) {
+export default function handlerProvider(handle: string) {
   switch (handle) {
     // Augment (or remove from) this list:
     case 'connection':

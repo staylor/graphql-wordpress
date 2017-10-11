@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BrowserProtocol from 'farce/lib/BrowserProtocol';
@@ -24,6 +25,7 @@ import createEnviroment from 'relay/environment';
       resolver,
       render,
     });
+    // $FlowFixMe
     ReactDOM.hydrate(
       <CookiesProvider>
         <Router resolver={resolver} />

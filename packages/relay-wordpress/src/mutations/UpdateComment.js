@@ -1,4 +1,7 @@
+// @flow
 import { graphql, commitMutation } from 'react-relay';
+import type { Environment, Variables } from 'react-relay';
+import type { Comment } from 'relay-wordpress';
 import { newlineRegex } from 'utils/regex';
 
 const UpdateCommentMutation = graphql`
@@ -24,7 +27,12 @@ const UpdateCommentMutation = graphql`
   }
 `;
 
-const commit = (environment, variables, comment, onCompleted) => {
+const commit = (
+  environment: Environment,
+  variables: Variables,
+  comment: Comment,
+  onCompleted: any
+) => {
   const content = {
     rendered: `<p>${variables.input.content.replace(newlineRegex, '<br />')}</p>`,
     raw: variables.input.content,

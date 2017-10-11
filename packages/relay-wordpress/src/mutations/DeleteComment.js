@@ -1,4 +1,6 @@
+// @flow
 import { graphql, commitMutation } from 'react-relay';
+import type { Environment, Variables } from 'react-relay';
 import { ConnectionHandler } from 'relay-runtime';
 
 const DeleteCommentMutation = graphql`
@@ -9,7 +11,7 @@ const DeleteCommentMutation = graphql`
   }
 `;
 
-const commit = (environment, { comment, token }, onCompleted) => {
+const commit = (environment: Environment, { comment, token }: Variables, onCompleted: any) => {
   const optimisticResponse = {
     deleteComment: {
       status: 'pending',

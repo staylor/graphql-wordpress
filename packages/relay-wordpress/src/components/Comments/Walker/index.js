@@ -4,29 +4,35 @@ import { ListItem, nested } from '@wonderboymusic/graphql-wordpress-components/l
 import Form from 'components/Comments/Form';
 import Comment from 'components/Comments/Comment';
 import { sortHierarchy } from 'utils/walker';
-import type { CommentsProps } from 'relay-wordpress';
+import type { Connection, Comment as CommentType } from 'relay-wordpress';
+
+type CommentsWalkerProps = {
+  post: string,
+  comments: Connection<CommentType>,
+};
 
 type CommentsState = {
   replyTo: string,
 };
 
-export default class CommentsWalker extends React.Component<CommentsProps, CommentsState> {
+// $FlowFixMe
+export default class CommentsWalker extends React.Component<CommentsWalkerProps, CommentsState> {
   static defaultProps = {
     comments: null,
   };
 
   state = {
-    replyTo: null,
+    replyTo: '',
   };
 
-  setReplyTo = id => {
+  setReplyTo = (id: string = ''): ListItem => {
     this.setState({ replyTo: id });
   };
 
-  sorted = null;
+  sorted = {};
   level = 0;
 
-  parseComment(comment) {
+  parseComment(comment: CommentType) {
     const { id } = comment;
     if (this.sorted[id]) {
       this.level += 1;
@@ -43,7 +49,7 @@ export default class CommentsWalker extends React.Component<CommentsProps, Comme
     );
   }
 
-  walk(node) {
+  walk(node: any): any {
     return (
       <ul key={`level-${this.level}`} className={this.level ? nested : null}>
         {node.map(child => {
@@ -57,18 +63,17 @@ export default class CommentsWalker extends React.Component<CommentsProps, Comme
   }
 
   render() {
-    if (!this.props.comments) {
-      return <Form post={this.props.post} setReplyTo={this.setReplyTo} />;
+    const { post, comments } = this.props;
+    if (!comments) {
+      return <Form post={post} setReplyTo={this.setReplyTo} />;
     }
 
-    const { comments: { edges } } = this.props;
-    this.sorted = sortHierarchy(edges.map(edge => edge.node));
+    const nodes = comments.edges.map(({ node }): Comment => node);
+    this.sorted = sortHierarchy(nodes);
     this.level = 0;
     return [
       this.walk(this.sorted.top),
-      !this.state.replyTo && (
-        <Form key="form" post={this.props.post} setReplyTo={this.setReplyTo} />
-      ),
+      !this.state.replyTo && <Form key="form" post={post} setReplyTo={this.setReplyTo} />,
     ];
   }
 }

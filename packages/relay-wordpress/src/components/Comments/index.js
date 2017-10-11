@@ -7,10 +7,10 @@ import type { Connection, Comment } from 'relay-wordpress';
 
 type CommentsProps = {
   post: string,
-  comments: Connection<Comment>,
+  comments?: Connection<Comment>,
 };
 
-export default function Comments({ post, comments = null }: CommentsProps) {
+export default function Comments({ post, comments }: CommentsProps) {
   return (
     <CommentsWrapper>
       <Heading>Comments</Heading>
@@ -18,3 +18,7 @@ export default function Comments({ post, comments = null }: CommentsProps) {
     </CommentsWrapper>
   );
 }
+
+Comments.defaultProps = {
+  comments: null,
+};

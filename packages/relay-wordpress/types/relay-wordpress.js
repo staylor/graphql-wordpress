@@ -12,7 +12,7 @@ declare module 'relay-wordpress' {
   };
 
   declare type Connection<T> = {
-    edges: Array<Edge<T>>,
+    edges?: ?Array<Edge<T>>,
     pageInfo: PageInfo,
   };
 

@@ -8,6 +8,7 @@ import {
   EditCancelButton,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import UpdateCommentMutation from 'mutations/UpdateComment';
+import type { RelayContext } from 'react-relay';
 import type { Comment } from 'relay-wordpress';
 
 type EditCommentProps = {
@@ -25,7 +26,11 @@ export default class Edit extends React.Component<EditCommentProps, EditCommentS
     relay: PropTypes.object,
   };
 
-  constructor(props, context: { relay: Object }) {
+  static defaultProps = {
+    onEditSubmit: () => null,
+  };
+
+  constructor(props: EditCommentProps, context: { relay: RelayContext }) {
     super(props, context);
 
     this.state = {

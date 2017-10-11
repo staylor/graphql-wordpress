@@ -41,6 +41,9 @@ const fields = {
 
 const getDefaultState = props => {
   const state = {
+    authorName: '',
+    authorEmail: '',
+    authorUrl: '',
     content: '',
   };
 
@@ -51,17 +54,17 @@ const getDefaultState = props => {
   return state;
 };
 
-@withCookies
-export default class Form extends React.Component<CommentFormProps, CommentFormState> {
+class Form extends React.Component<CommentFormProps, CommentFormState> {
   static contextTypes = {
     relay: PropTypes.object,
   };
 
   static defaultProps = {
+    cookies: null,
     replyTo: null,
   };
 
-  constructor(props) {
+  constructor(props: CommentFormProps) {
     super(props);
 
     this.state = {
@@ -69,7 +72,7 @@ export default class Form extends React.Component<CommentFormProps, CommentFormS
     };
   }
 
-  onClick = e => {
+  onClick = (e: Event & { currentTarget: HTMLInputElement }) => {
     e.preventDefault();
     e.currentTarget.blur();
 
@@ -91,7 +94,7 @@ export default class Form extends React.Component<CommentFormProps, CommentFormS
     });
   };
 
-  onChange = e => {
+  onChange = (e: Event & { target: HTMLInputElement }) => {
     this.setState({
       comment: {
         ...this.state.comment,
@@ -101,7 +104,7 @@ export default class Form extends React.Component<CommentFormProps, CommentFormS
   };
 
   onCancel = () => {
-    this.props.setReplyTo(null);
+    this.props.setReplyTo();
   };
 
   render() {
@@ -150,3 +153,5 @@ export default class Form extends React.Component<CommentFormProps, CommentFormS
     );
   }
 }
+
+export default withCookies(Form);

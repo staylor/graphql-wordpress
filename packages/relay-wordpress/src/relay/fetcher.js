@@ -1,6 +1,9 @@
+// @flow
 // import RelayQueryResponseCache from 'relay-runtime/lib/RelayQueryResponseCache';
 import md5 from 'md5';
 import 'isomorphic-fetch';
+import type { Variables } from 'react-relay';
+import type { ConcreteBatch } from 'relay-runtime';
 
 const isClient = typeof document !== 'undefined';
 
@@ -15,9 +18,9 @@ const getServerCache = id => {
   return payload;
 };
 
-export default function createFetch(url, requestCache = {}) {
-  return async function fetchQuery(batch, variables) {
-    const vars = { variables };
+export default function createFetch(url: string, requestCache: Object = {}) {
+  return async function fetchQuery(batch: ConcreteBatch, variables: Variables) {
+    const vars = { variables, query: null, id: null };
     if (batch.query.operation === 'mutation') {
       vars.query = batch.text;
     } else {
