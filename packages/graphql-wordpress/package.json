@@ -59,7 +59,7 @@
     "dev": "nodemon --delay 2 --exec babel-node src/server.js",
     "prod": "npm run build && npm run start",
     "build": "npm run clean && babel --ignore __tests__,__mocks__ src -d build",
-    "start": "pm2 start --name \"graphql-wordpress\" build/server.js -i 1",
+    "start": "NODE_ENV=production pm2 start --name \"graphql-wordpress\" build/server.js -i 1",
     "test": "jest",
     "update-schema": "babel-node updateSchema.js",
     "clear-cache": "redis-cli FLUSHALL",
