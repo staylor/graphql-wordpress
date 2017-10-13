@@ -1,0 +1,5 @@
+git init
+git remote add -f origin https://github.com/staylor/graphql-wordpress
+git config core.sparseCheckout true
+echo "packages/graphql-wordpress/" >> .git/info/sparse-checkout
+git pull origin master
