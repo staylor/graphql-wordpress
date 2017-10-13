@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/apollo-wordpress",
-  "version": "0.0.2-2",
+  "version": "0.0.2-3",
   "description": "Headless WordPress isomorphic Apollo app",
   "main": "index.js",
   "repository": {
