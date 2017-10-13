@@ -38,9 +38,9 @@
   },
   "scripts": {
     "dev": "npm run persist-queries && GQL_HOST=http://localhost:8080 kyt dev -C kyt.dev.js",
-    "prod": "npm run build && npm run persist-queries && pm2 start --name \"relay-wordpress\" npm -- start",
+    "prod": "GQL_HOST=http://localhost:8080 npm run build && npm run persist-queries && npm run start",
     "build": "kyt build -C kyt.prod.js",
-    "start": "GQL_HOST=http://localhost:8080 node build/server/main.js",
+    "start": "pm2 start --name \"relay-wordpress\" build/server/main.js -i 0",
     "relay": "relay-compiler --src ./src --schema ./tools/schema.graphql && npm run clear-cache",
     "persist-queries": "babel-node ./tools/persistedQueries",
     "clear-cache": "redis-cli FLUSHALL && npm run persist-queries",

@@ -40,9 +40,9 @@
   },
   "scripts": {
     "dev": "GQL_HOST=http://localhost:8080 kyt dev",
-    "prod": "npm run build && pm2 start --name \"apollo-wordpress\" npm -- start",
+    "prod": "GQL_HOST=http://localhost:8080 npm run build && npm run start",
     "build": "kyt build -C kyt.prod.js",
-    "start": "GQL_HOST=http://localhost:8080 node build/server/main.js",
+    "start": "pm2 start --name \"apollo-wordpress\" build/server/main.js -i 0",
     "persist-queries": "persistgraphql src src/apollo/queries.json --add_typename",
     "prettier": "prettier-eslint \"src/**/*.js\" --write"
   },
