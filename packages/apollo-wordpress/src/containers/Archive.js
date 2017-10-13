@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ArchiveComponent from 'wp-styled-components/lib/Archive';
+import ArchiveComponent from '@wonderboymusic/graphql-wordpress-components/lib/Archive';
 import Post from 'components/Post';
 
 export default class Archive extends Component {

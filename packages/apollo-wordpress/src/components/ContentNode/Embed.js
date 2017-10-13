@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { embed } from 'wp-styled-components';
+import { embed } from '@wonderboymusic/graphql-wordpress-components';
 
 export default function Embed({ node, onEmbedClick = null }) {
   const onClick = onEmbedClick ? onEmbedClick(node) : null;

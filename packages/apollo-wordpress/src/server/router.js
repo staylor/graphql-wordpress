@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { getFarceResult } from 'found/lib/server';
 import { CookiesProvider } from 'react-cookie';
-import { extractCritical } from 'wp-styled-components/lib/server';
+import { extractCritical } from '@wonderboymusic/graphql-wordpress-components/lib/server';
 import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo';
 import template from 'server/template';
 import { historyMiddlewares, render, routeConfig } from 'routes';
@@ -26,9 +26,11 @@ export default ({ manifestJSBundle, mainJSBundle, vendorJSBundle, mainCSSBundle 
       return;
     }
 
+    const port = parseInt(KYT.SERVER_PORT, 10);
+    const uri = `http://localhost:${port}/graphql`;
     const client = new ApolloClient({
       ssrMode: true,
-      networkInterface,
+      networkInterface: networkInterface(uri),
       fragmentMatcher,
     });
 

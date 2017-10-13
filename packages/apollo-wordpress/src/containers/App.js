@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { routerShape } from 'found/lib/PropTypes';
-import AppComponent from 'wp-styled-components/lib/App';
+import AppComponent from '@wonderboymusic/graphql-wordpress-components/lib/App';
 import IntlProvider from 'decorators/IntlProvider';
 import AppQuery from 'graphql/App_Query.graphql';
 import Settings from 'components/Settings';

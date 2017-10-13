@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { routerShape } from 'found/lib/PropTypes';
-import { Article, Title, Content } from 'wp-styled-components/lib/Post';
+import { Article, Title, Content } from '@wonderboymusic/graphql-wordpress-components/lib/Post';
 import Media from 'containers/Media';
 import ContentNode from 'components/ContentNode';
 import { dateRegex } from 'utils/regex';

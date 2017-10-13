@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Image from 'wp-styled-components/lib/Image';
+import Image from '@wonderboymusic/graphql-wordpress-components/lib/Image';
 
 const Media = ({ media, crop = null }) => {
   switch (media.__typename) {

@@ -14,7 +14,7 @@ import {
   activeReply,
   Actions,
   EditButton,
-} from 'wp-styled-components/lib/Comments';
+} from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import withIntl from 'decorators/withIntl';
 import EditComment from './Edit';
 import DeleteButton from './DeleteButton';

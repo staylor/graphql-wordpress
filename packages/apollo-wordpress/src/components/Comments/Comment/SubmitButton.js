@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { SubmitButton as Button } from 'wp-styled-components';
+import { SubmitButton as Button } from '@wonderboymusic/graphql-wordpress-components';
 import UpdateCommentMutation from 'graphql/UpdateComment_Mutation.graphql';
 import { newlineRegex } from 'utils/regex';
 import { CommentType } from 'components/Comments/types';

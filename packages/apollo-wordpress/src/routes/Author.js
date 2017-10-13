@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { ContentWrapper, Heading, Error, Loading } from 'wp-styled-components';
+import { ContentWrapper, Heading, Error, Loading } from '@wonderboymusic/graphql-wordpress-components';
 import Archive from 'containers/Archive';
 import AuthorQuery from 'graphql/Author_Query.graphql';
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListItem, nested } from 'wp-styled-components/lib/Comments';
+import { ListItem, nested } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import { sortHierarchy } from 'utils/walker';
 import Form from './Form';
 import Comment from './Comment';

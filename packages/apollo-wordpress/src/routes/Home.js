@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { Error, Loading } from 'wp-styled-components';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-components';
 import {
   HomeWrapper,
   HomeSection,
@@ -9,7 +9,7 @@ import {
   ColumnA,
   ColumnB,
   MoreIn,
-} from 'wp-styled-components/lib/Home';
+} from '@wonderboymusic/graphql-wordpress-components/lib/Home';
 import Archive from 'containers/Archive';
 import HomeQuery from 'graphql/Home_Query.graphql';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { hydrate } from 'wp-styled-components';
+import { hydrate } from '@wonderboymusic/graphql-wordpress-components';
 import createInitialBrowserRouter from 'found/lib/createInitialBrowserRouter';
 import { CookiesProvider } from 'react-cookie';
 import { historyMiddlewares, render, routeConfig } from 'routes';
@@ -16,7 +16,7 @@ import fragmentMatcher from 'apollo/fragmentMatcher';
     const client = new ApolloClient({
       // eslint-disable-next-line no-underscore-dangle
       initialState: window.__APOLLO_STATE__,
-      networkInterface,
+      networkInterface: networkInterface('/graphql'),
       fragmentMatcher,
     });
 

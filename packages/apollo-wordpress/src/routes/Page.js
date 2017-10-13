@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
-import { ArticleWrapper, Heading, ContentSection, Error, Loading } from 'wp-styled-components';
+import { ArticleWrapper, Heading, ContentSection, Error, Loading } from '@wonderboymusic/graphql-wordpress-components';
 import ContentNode from 'components/ContentNode';
 import Media from 'containers/Media';
 import PageQuery from 'graphql/Page_Query.graphql';
