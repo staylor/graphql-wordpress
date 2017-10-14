@@ -2,6 +2,7 @@
   "presets": ["babel-preset-expo"],
   "plugins": [
     "transform-class-properties",
+    "transform-object-rest-spread",
     ["module-resolver", {
       "root": ["./src", "./types"]
     }]
