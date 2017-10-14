@@ -1,0 +1,442 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "OBJECT",
+        "name": "Query",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "ID",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Node",
+        "possibleTypes": [
+          {
+            "name": "Post"
+          },
+          {
+            "name": "User"
+          },
+          {
+            "name": "Category"
+          },
+          {
+            "name": "Tag"
+          },
+          {
+            "name": "Page"
+          },
+          {
+            "name": "NavMenu"
+          },
+          {
+            "name": "Sidebar"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Viewer",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "String",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Post",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "PostInterface",
+        "possibleTypes": [
+          {
+            "name": "Post"
+          },
+          {
+            "name": "Page"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Guid",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Title",
+        "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "ContentNode",
+        "possibleTypes": [
+          {
+            "name": "Element"
+          },
+          {
+            "name": "Text"
+          },
+          {
+            "name": "Embed"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Element",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Meta",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Text",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Embed",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Int",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Content",
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Excerpt",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "COMMENT_STATUS",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "PING_STATUS",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "User",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Avatar",
+        "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "Media",
+        "possibleTypes": [
+          {
+            "name": "Image"
+          },
+          {
+            "name": "Audio"
+          },
+          {
+            "name": "Video"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Image",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "MediaInterface",
+        "possibleTypes": [
+          {
+            "name": "Image"
+          },
+          {
+            "name": "Audio"
+          },
+          {
+            "name": "Video"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Description",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Caption",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "MEDIA_TYPE",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ImageDetails",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MediaSize",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Audio",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AudioDetails",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Video",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "VideoDetails",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "FORMAT",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Category",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "TermInterface",
+        "possibleTypes": [
+          {
+            "name": "Category"
+          },
+          {
+            "name": "Tag"
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Taxonomy",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Rewrite",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Labels",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Tag",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "COMMENT_ORDERBY",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ORDER",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CommentConnection",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PageInfo",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CommentEdge",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Comment",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Page",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "NavMenu",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "NavMenuItem",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Sidebar",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Widget",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "POST_ORDERBY",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PostConnection",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PostEdge",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Settings",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Chart",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ChartItem",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ChartItemImage",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Mutation",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AddCommentInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AddCommentPayload",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UpdateCommentInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UpdateCommentPayload",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeleteCommentInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeleteCommentPayload",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Schema",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Type",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "__TypeKind",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Field",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__InputValue",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__EnumValue",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Directive",
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "__DirectiveLocation",
+        "possibleTypes": null
+      }
+    ]
+  }
+}

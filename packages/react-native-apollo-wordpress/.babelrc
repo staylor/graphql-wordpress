@@ -1,5 +1,11 @@
 {
   "presets": ["babel-preset-expo"],
+  "plugins": [
+    "transform-class-properties",
+    ["module-resolver", {
+      "root": ["./src", "./types"]
+    }]
+  ],
   "env": {
     "development": {
       "plugins": ["transform-react-jsx-source"]

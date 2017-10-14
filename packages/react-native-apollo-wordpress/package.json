@@ -1,8 +1,31 @@
 {
   "name": "@wonderboymusic/react-native-apollo-wordpress",
   "version": "0.0.2-6",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staylor/graphql-wordpress"
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-module-resolver": "3.0.0-beta.5",
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-config-kyt": "^0.4.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-import-resolver-babel-module": "4.0.0-beta.5",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
     "jest-expo": "^21.0.2",
+    "prettier": "^1.7.4",
+    "prettier-eslint": "^8.2.1",
+    "prettier-eslint-cli": "^4.4.0",
     "react-native-scripts": "1.5.0",
     "react-test-renderer": "16.0.0-alpha.12"
   },
@@ -12,7 +35,8 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"**/__generated__/**\" --write"
   },
   "jest": {
     "preset": "jest-expo"
@@ -20,6 +44,7 @@
   "dependencies": {
     "expo": "^21.0.0",
     "react": "16.0.0-alpha.12",
-    "react-native": "^0.48.4"
+    "react-native": "^0.48.4",
+    "react-router-native": "^4.2.0"
   }
 }
