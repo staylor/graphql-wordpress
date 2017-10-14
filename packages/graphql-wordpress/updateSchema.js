@@ -33,31 +33,33 @@ const queries = {
   fragmentMatcher: fragmentMatcherQuery,
 };
 
-(async () => {
+(() => {
   console.log('Generating files:');
-  await Promise.all(
-    Object.keys(queries).map(async name => {
-      console.log(queries[name]);
-      const result = await graphql(Schema, queries[name]);
-      if (result.errors) {
-        console.error('ERROR introspecting schema: ', JSON.stringify(result.errors, null, 2));
-      } else {
-        const data = JSON.stringify(result.data, null, 2);
+  Object.keys(queries).map(async name => {
+    const result = await graphql(Schema, queries[name]);
+    if (result.errors) {
+      console.error('ERROR introspecting schema: ', JSON.stringify(result.errors, null, 2));
+    } else {
+      const data = JSON.stringify(result.data, null, 2);
 
-        fs.writeFileSync(path.join(__dirname, `generated/${name}.json`), data);
-        packages.forEach(pkg => {
-          fs.writeFileSync(path.join(__dirname, `../${pkg}/tools/${name}.json`), data);
-        });
-      }
-    })
-  );
+      console.log(`generated/${name}.json`);
+      fs.writeFileSync(path.join(__dirname, `generated/${name}.json`), data);
+      packages.forEach(pkg => {
+        const file = `../${pkg}/tools/${name}.json`;
+        console.log(file);
+        fs.writeFileSync(path.join(__dirname, file), data);
+      });
+    }
+  });
 })();
 
 const printed = printSchema(Schema);
 
-// Save user readable type system shorthand of schema
+console.log('generated/schema.graphql');
 fs.writeFileSync(path.join(__dirname, 'generated/schema.graphql'), printed);
 
 packages.forEach(pkg => {
-  fs.writeFileSync(path.join(__dirname, `../${pkg}/tools/schema.graphql`), printed);
+  const file = `../${pkg}/tools/schema.graphql`;
+  console.log(file);
+  fs.writeFileSync(path.join(__dirname, file), printed);
 });
