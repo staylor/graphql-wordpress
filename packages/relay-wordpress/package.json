@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/relay-wordpress",
-  "version": "0.0.2-6",
+  "version": "0.0.2-7",
   "description": "Headless WordPress isomorphic Relay app",
   "main": "index.js",
   "repository": {
