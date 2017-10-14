@@ -1,0 +1,7 @@
+fragment Element_node on Element {
+  tagName
+  attributes {
+    name
+    value
+  }
+}

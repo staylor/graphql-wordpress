@@ -1,0 +1,7 @@
+fragment ResponsiveImage_featuredMedia on Image {
+  sourceUrl
+  mediaDetails {
+    width
+    height
+  }
+}

@@ -1,0 +1,51 @@
+#import "./Post_post.graphql"
+
+query Home_Query(
+  $stickiesTotal: Int = 2
+  $watchThisTotal: Int = 5
+  $readThisTotal: Int = 5
+  $listenToThisTotal: Int = 5
+) {
+  viewer {
+    stickies: posts(sticky: true, first: $stickiesTotal) {
+      edges {
+        node {
+          id
+          ...Post_post
+        }
+        cursor
+      }
+    }
+    readThis: posts(
+      category: "read-this"
+      sticky: false
+      first: $readThisTotal
+    ) {
+      edges {
+        node {
+          id
+          ...Post_post
+        }
+        cursor
+      }
+    }
+    watchThis: posts(category: "watch-this", first: $watchThisTotal) {
+      edges {
+        node {
+          id
+          ...Post_post
+        }
+        cursor
+      }
+    }
+    listenToThis: posts(category: "listen-to-this", first: $listenToThisTotal) {
+      edges {
+        node {
+          id
+          ...Post_post
+        }
+        cursor
+      }
+    }
+  }
+}

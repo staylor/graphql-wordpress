@@ -1,0 +1,25 @@
+#import "./Post_post.graphql"
+
+query Author_Query($id: ID!) {
+  viewer {
+    author(id: $id) {
+      id
+      name
+    }
+    posts(author: $id, after: $cursor, first: $count) {
+      edges {
+        node {
+          id
+          ...Post_post
+        }
+        cursor
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+  }
+}

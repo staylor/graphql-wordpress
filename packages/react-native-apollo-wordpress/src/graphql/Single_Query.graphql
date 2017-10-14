@@ -1,0 +1,30 @@
+#import "./ResponsiveImage_featuredMedia.graphql"
+#import "./Content_content.graphql"
+
+query Single_Query($id: ID!) {
+  viewer {
+    post(id: $id) {
+      id
+      date
+      title {
+        raw
+      }
+      featuredMedia {
+        ... on Image {
+          imageUrl: sourceUrl
+          ...ResponsiveImage_featuredMedia
+        }
+      }
+      content {
+        data {
+          ...Content_content
+        }
+      }
+      tags {
+        id
+        name
+        slug
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+fragment PostLink_post on Post {
+  id
+  date
+  title {
+    raw
+  }
+}

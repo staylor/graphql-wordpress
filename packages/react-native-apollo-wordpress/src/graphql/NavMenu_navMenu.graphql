@@ -1,0 +1,16 @@
+fragment NavMenu_navMenu on NavMenu {
+  id
+  name
+  items {
+    id
+    title
+    url
+    parent
+    order
+    type
+    typeName
+    typeSlug
+    dataSlug
+    dataID
+  }
+}

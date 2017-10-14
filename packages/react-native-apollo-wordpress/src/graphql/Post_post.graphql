@@ -1,0 +1,25 @@
+#import "./Content_content.graphql"
+#import "./ResponsiveImage_featuredMedia.graphql"
+#import "./PostLink_post.graphql"
+
+fragment Post_post on Post {
+  id
+  title {
+    raw
+  }
+  content {
+    data {
+      ...Content_content
+    }
+  }
+  excerpt {
+    raw
+  }
+  featuredMedia {
+    ... on Image {
+      imageUrl: sourceUrl
+      ...ResponsiveImage_featuredMedia
+    }
+  }
+  ...PostLink_post
+}

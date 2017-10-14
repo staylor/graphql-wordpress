@@ -1,0 +1,15 @@
+query Page_Query($slug: String!) {
+  viewer {
+    page(slug: $slug) {
+      date
+      title {
+        raw
+      }
+      featuredMedia {
+        ... on Image {
+          sourceUrl
+        }
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@
   "plugins": [
     "transform-class-properties",
     "transform-object-rest-spread",
+    "inline-import-graphql-ast",
     ["module-resolver", {
       "root": ["./src", "./types"]
     }]

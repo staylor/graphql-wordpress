@@ -1,0 +1,15 @@
+#import "./Embed_node.graphql"
+#import "./Element_node.graphql"
+
+fragment Content_content_data on ContentNode {
+  __typename
+  ... on Embed {
+    ...Embed_node
+  }
+  ... on Text {
+    text
+  }
+  ... on Element {
+    ...Element_node
+  }
+}

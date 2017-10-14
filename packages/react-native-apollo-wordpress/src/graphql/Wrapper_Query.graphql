@@ -1,0 +1,14 @@
+#import "./NavMenu_navMenu.graphql"
+
+query Wrapper_Query($menuID: ID!) {
+  viewer {
+    settings {
+      title
+      description
+      language
+    }
+    navMenu(id: $menuID) {
+      ...NavMenu_navMenu
+    }
+  }
+}
