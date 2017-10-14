@@ -13,5 +13,5 @@ This is a common package used by my GraphQL-powered apps: [relay-wordpress](http
 ## Install
 
 You need a GraphQL server that is serving the schema exposed by [graphql-wordpress](https://github.com/staylor/graphql-wordpress/tree/master/packages/graphql-wordpress).
-That server needs to point at your WordPress install (see `.env`) that has the [GraphQL Middleware plugin](https://github.com/staylor/graphql-wordpress/tree/master/packages/wp-graphql-middleware) installed.
+That server needs to point at your WordPress install (see `.env`) that has the [GraphQL Middleware plugin](https://github.com/staylor/graphql-wordpress/tree/master/packages/graphql-wordpress-middleware) installed.
 You can clone one of the above, Relay or Apollo, projects to start hacking.
