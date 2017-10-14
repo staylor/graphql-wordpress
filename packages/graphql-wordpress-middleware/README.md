@@ -3,7 +3,7 @@ Extend the WordPress API with data to build headless themes with Relay and Graph
 
 ## Installation
 
-This code is still in active development. Clone this repo in your `wp-content/plugins` directory, then activate the plugin in your WordPress admin. `git pull` to receive updates.
+This code is still in active development. Clone this package into your `wp-content/plugins` directory, then activate the plugin in your WordPress admin. `git pull` to receive updates.
 
 ## REST API Extensions
 
@@ -69,7 +69,9 @@ Would it not be better to show a Preview of the embed and then activate it when 
 <figure>
   <img src={thumbnail_url} />
   <figcaption>{oEmbed_title}</figcaption>
-  <script type="application/json">{...the_JSON_response_from_the_oembed_provider}</script>
+  <script type="application/json">{
+    // the_JSON_response_from_the_oembed_provider...
+  }</script>
 </figure>
 ```
 ### What about existing embeds?
@@ -84,12 +86,12 @@ These commands are not turned on by default, as they are still in active develop
 
 ```YAML
 require:
-  - wp-content/plugins/wp-graphql-middleware/vendor/autoload.php
-  - wp-content/plugins/wp-graphql-middleware/cli.php
+  - wp-content/plugins/graphql-wordpress-middleware/vendor/autoload.php
+  - wp-content/plugins/graphql-wordpress-middleware/cli.php
 ```
 
 ## Feedback
 
-I built this plugin for personal use. I am writing a headless theme using [Relay Modern](https://facebook.github.io/relay/docs/relay-modern.html). If you find bugs (you will), and want to let me know:  
-* File a GitHub Issue [above](https://github.com/staylor/wp-graphql-middleware/issues/new)
+If you find bugs (you will), and want to let me know:  
+* File a GitHub Issue [above](https://github.com/staylor/graphql-wordpress/issues/new)
 * @ me on [Twitter](https://twitter.com/wonderboymusic).
