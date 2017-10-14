@@ -7,12 +7,12 @@
   "commands": {
     "publish": {
       "ignore": [
-        "packages/wp-graphql-middleware"
+        "packages/graphql-wordpress-middleware"
       ]
     },
     "bootstrap": {
       "ignore": [
-        "packages/wp-graphql-middleware"
+        "packages/graphql-wordpress-middleware"
       ]
     }
   },

@@ -1,0 +1,28 @@
+{
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "prefer-dist": true,
+    "sort-packages": true
+  },
+  "name": "staylor/wp-graphql-middleware",
+  "description": "WordPress GraphQL Middleware",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Scott Taylor",
+      "email": "scott.c.taylor@mac.com"
+    }
+  ],
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "GraphQL\\": "lib"
+    },
+    "files": ["lib/functions.php", "lib/rest-api.php"]
+  },
+  "require": {
+    "masterminds/html5": "^2.2"
+  }
+}
