@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { View, Text } from 'react-native';
 import { Link } from 'react-router-native';
-import { dateRegex } from './utils/regex';
+import { dateRegex } from 'utils/regex';
 
 export default createFragmentContainer(
   ({ post, children, style = null }) => {

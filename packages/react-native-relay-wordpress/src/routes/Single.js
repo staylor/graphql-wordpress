@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
-import ResponsiveImage from '../ResponsiveImage';
-import Content from '../Content';
+import ResponsiveImage from 'components/ResponsiveImage';
+import Content from 'components/Content';
 
 const styles = StyleSheet.create({
   container: {

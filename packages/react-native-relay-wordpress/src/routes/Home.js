@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { StyleSheet, Text, View, SectionList } from 'react-native';
-import Post from '../Post';
+import Post from 'components/Post';
 
 /* eslint-disable react/prop-types */
 

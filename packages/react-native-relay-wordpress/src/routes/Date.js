@@ -1,9 +1,9 @@
 import React from 'react';
 import { graphql, createPaginationContainer } from 'react-relay';
 import { Text, View } from 'react-native';
-import DateQuery from '../queries/Date';
-import Archive from '../Archive';
-import styles from '../styles/archive';
+import DateQuery from 'queries/Date';
+import Archive from 'components/Archive';
+import styles from 'styles/archive';
 
 /* eslint-disable react/prop-types */
 

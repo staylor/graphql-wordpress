@@ -2,22 +2,22 @@ import React from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Route, Switch } from 'react-router-native';
 import { QueryRenderer } from 'react-relay';
-import environment from './relay/environment';
-import WrapperQuery from './queries/Wrapper';
-import Header from './Header';
-import Home from './routes/Home';
-import HomeQuery from './queries/Home';
-import Single from './routes/Single';
-import SingleQuery from './queries/Single';
-import Date from './routes/Date';
-import DateQuery from './queries/Date';
-import Term from './routes/Term';
-import TermQuery from './queries/Term';
-import Author from './routes/Author';
-import AuthorQuery from './queries/Author';
-import Page from './routes/Page';
-import PageQuery from './queries/Page';
-import Error from './Error';
+import environment from 'relay/environment';
+import WrapperQuery from 'queries/Wrapper';
+import Header from 'components/Header';
+import Home from 'routes/Home';
+import HomeQuery from 'queries/Home';
+import Single from 'routes/Single';
+import SingleQuery from 'queries/Single';
+import Date from 'routes/Date';
+import DateQuery from 'queries/Date';
+import Term from 'routes/Term';
+import TermQuery from 'queries/Term';
+import Author from 'routes/Author';
+import AuthorQuery from 'queries/Author';
+import Page from 'routes/Page';
+import PageQuery from 'queries/Page';
+import Error from 'components/Error';
 
 const styles = StyleSheet.create({
   container: {

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
-import { sortOrderedHierarchy } from './utils/walker';
+import { sortOrderedHierarchy } from 'utils/walker';
 
 /* eslint-disable react/prop-types */
 
@@ -36,7 +36,7 @@ class NavMenu extends Component {
           } else {
             const urlObj = url.parse(itemUrl);
             if (urlObj.path === '/') {
-              path = urlObj.path;
+              path = '/';
             } else {
               path = urlObj.path.replace(/\/$/, '');
             }

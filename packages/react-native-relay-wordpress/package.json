@@ -1,20 +1,23 @@
 {
   "name": "@wonderboymusic/react-native-relay-wordpress",
   "version": "0.0.2-6",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/staylor/graphql-wordpress/packages/react-native-relay-wordpress"
+    "url": "https://github.com/staylor/graphql-wordpress"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.0",
+    "babel-plugin-module-resolver": "^3.0.0-beta.5",
     "babel-plugin-relay": "^1.4.1",
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "eslint": "^4.7.1",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-config-kyt": "^0.4.0",
     "eslint-config-prettier": "^2.5.0",
+    "eslint-import-resolver-babel-module": "4.0.0-beta.5",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
