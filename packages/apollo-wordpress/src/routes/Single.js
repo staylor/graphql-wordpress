@@ -47,9 +47,8 @@ export default class Single extends Component {
     const maxWidth = 740;
     e.preventDefault();
 
-    let width = data.width;
-    let height = data.height;
-    let html = data.html;
+    let { width, height, html } = data;
+
     if (html.indexOf('<iframe') === 0) {
       html = html.replace(/<iframe /, `<iframe class="${iframe}" `);
       if (width < maxWidth) {

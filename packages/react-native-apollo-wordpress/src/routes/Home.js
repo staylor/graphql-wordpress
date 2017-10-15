@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
 })
 export default class Home extends Component {
   render() {
-    const { data: { loading, error } } = this.props;
+    const { data: { loading, error = null } } = this.props;
     if (error) {
-      return <Error />;
+      return <Error error={error} />;
     } else if (loading) {
       return <Loading />;
     }

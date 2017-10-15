@@ -1,5 +1,7 @@
 {
   "expo": {
+    "name": "Apollo WordPress",
+    "slug": "apollo-wordpress",
     "sdkVersion": "21.0.0"
   }
 }

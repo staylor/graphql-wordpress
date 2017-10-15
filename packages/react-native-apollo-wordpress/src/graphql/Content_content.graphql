@@ -17,6 +17,21 @@ fragment Content_content on ContentNode {
                   ... on Element {
                     children {
                       ...Content_content_data
+                      ... on Element {
+                        children {
+                          ...Content_content_data
+                          ... on Element {
+                            children {
+                              ...Content_content_data
+                              ... on Element {
+                                children {
+                                  ...Content_content_data
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }

@@ -8,7 +8,6 @@ import Home from 'routes/Home';
 import Single from 'routes/Single';
 import Date from 'routes/Date';
 import Term from 'routes/Term';
-import Author from 'routes/Author';
 import Page from 'routes/Page';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
@@ -49,11 +48,10 @@ export default class Wrapper extends Component {
         <Header {...{ settings, navMenu }} />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/music/:slug" component={Term} />
-          <Route path="/tag/:slug" component={Term} />
-          <Route path="/author/:id" component={Author} />
-          <Route path="/:year(\d+)/:month(\d+)/:day(\d+)/:id" component={Single} />
-          <Route path=":year(\d+)/:month(\d+)?/:day(\d+)?" component={Date} />
+          <Route path="/:year(\d{4})/:month(\d{2})/:day(\d{2})/:id" component={Single} />
+          <Route path="/:category(music)/:slug" component={Term} />
+          <Route path="/:tag(tag)/:slug" component={Term} />
+          <Route path="/:year(\d{4})/:month(\d{2})?/:day(\d{2})?" component={Date} />
           <Route path="/:slug" component={Page} />
         </Switch>
       </View>

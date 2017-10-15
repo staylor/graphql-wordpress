@@ -9,12 +9,26 @@ import styles from 'styles/archive';
 
 /* eslint-disable react/prop-types */
 
-@graphql(TermQuery, { options: () => ({ variables: {} }) })
+@graphql(TermQuery, {
+  options: ({ match: { params: { slug, tag = null } } }) => {
+    let taxonomy = 'category';
+    if (tag) {
+      taxonomy = 'tag';
+    }
+    return {
+      variables: {
+        slug,
+        taxonomy,
+        count: 10,
+      },
+    };
+  },
+})
 export default class Term extends Component {
   render() {
-    const { data: { loading, error } } = this.props;
+    const { data: { loading, error = null } } = this.props;
     if (error) {
-      return <Error />;
+      return <Error error={error} />;
     } else if (loading) {
       return <Loading />;
     }

@@ -1,5 +1,7 @@
 {
   "expo": {
+    "name": "Relay WordPress",
+    "slug": "relay-wordpress",
     "sdkVersion": "21.0.0"
   }
 }

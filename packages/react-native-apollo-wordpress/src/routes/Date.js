@@ -28,9 +28,9 @@ import styles from 'styles/archive';
 })
 export default class Date extends Component {
   render() {
-    const { data: { loading, error } } = this.props;
+    const { data: { loading, error = null } } = this.props;
     if (error) {
-      return <Error />;
+      return <Error error={error} />;
     } else if (loading) {
       return <Loading />;
     }

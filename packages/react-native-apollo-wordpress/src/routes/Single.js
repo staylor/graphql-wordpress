@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
-import SingleQuery from 'graphql/Page_Query.graphql';
+import SingleQuery from 'graphql/Single_Query.graphql';
 import ResponsiveImage from 'components/ResponsiveImage';
 import Content from 'components/Content';
 import Error from 'components/Error';
@@ -47,18 +47,17 @@ const styles = StyleSheet.create({
 });
 
 @graphql(SingleQuery, {
-  options: ({ match: { params: { slug } } }) => ({
+  options: ({ match: { params: { id } } }) => ({
     variables: {
-      slug,
-      commentCount: 100,
+      id,
     },
   }),
 })
 export default class Single extends Component {
   render() {
-    const { data: { loading, error } } = this.props;
+    const { data: { loading, error = null } } = this.props;
     if (error) {
-      return <Error />;
+      return <Error error={error} />;
     } else if (loading) {
       return <Loading />;
     }

@@ -43,9 +43,9 @@ const styles = StyleSheet.create({
 })
 export default class Page extends Component {
   render() {
-    const { data: { loading, error } } = this.props;
+    const { data: { loading, error = null } } = this.props;
     if (error) {
-      return <Error />;
+      return <Error error={error} />;
     } else if (loading) {
       return <Loading />;
     }
@@ -60,7 +60,7 @@ export default class Page extends Component {
             <View style={styles.imageWrap}>
               <Image
                 style={styles.image}
-                source={{ uri: page.featuredMedia.source_url }}
+                source={{ uri: page.featuredMedia.sourceUrl }}
                 resizeMode="contain"
               />
             </View>
