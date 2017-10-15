@@ -1,0 +1,44 @@
+{
+  "name": "@wonderboymusic/graphql-wordpress-native-components",
+  "version": "0.0.2-8",
+  "description": "Native components for Graphql-powered WordPress",
+  "main": "lib/index.js",
+  "repository": "https://github.com/staylor/graphql-wordpress/packages/graphql-wordpress-native-components",
+  "author": "Scott Taylor",
+  "license": "MIT",
+  "dependencies": {
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.48.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-plugin-module-resolver": "^3.0.0-beta.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "babel-preset-kyt-react": "^0.2.0",
+    "eslint": "^4.7.1",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-config-kyt": "^0.4.0",
+    "eslint-config-prettier": "^2.5.0",
+    "eslint-import-resolver-babel-module": "4.0.0-beta.5",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.3.0",
+    "prettier": "^1.7.4",
+    "prettier-eslint": "^8.1.1",
+    "prettier-eslint-cli": "^4.3.2",
+    "rimraf": "^2.6.2"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "npm run clean && babel --ignore __tests__,__mocks__ src -d lib",
+    "watch": "npm run clean && babel -w --ignore __tests__,__mocks__ src -d lib",
+    "prettier": "prettier-eslint \"src/**/*.js\" --write",
+    "prepare": "npm run build"
+  }
+}

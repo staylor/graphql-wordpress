@@ -45,6 +45,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@wonderboymusic/graphql-wordpress-native-components": "^0.0.2-8",
     "expo": "^21.0.0",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^1.4.16",

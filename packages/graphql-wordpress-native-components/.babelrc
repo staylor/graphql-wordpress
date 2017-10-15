@@ -1,0 +1,13 @@
+{
+  "presets": [
+    "babel-preset-kyt-react"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "transform-react-jsx-source",
+    ["module-resolver", {
+      "root": ["./src", "./types"]
+    }]
+  ]
+}
