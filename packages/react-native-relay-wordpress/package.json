@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/react-native-relay-wordpress",
-  "version": "0.0.2-9",
+  "version": "0.0.2-10",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -48,7 +48,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@wonderboymusic/graphql-wordpress-native-components": "^0.0.2-9",
+    "@wonderboymusic/graphql-wordpress-native-components": "^0.0.2-10",
     "expo": "^21.0.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.48.4",
