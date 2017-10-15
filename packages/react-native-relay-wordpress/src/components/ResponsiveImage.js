@@ -4,11 +4,11 @@ import { Image, Dimensions } from 'react-native';
 
 export default createFragmentContainer(
   ({ featuredMedia, style = null }) => {
-    if (!featuredMedia || !featuredMedia.source_url) {
+    if (!featuredMedia || !featuredMedia.sourceUrl) {
       return null;
     }
 
-    const { width: imageWidth, height: imageHeight } = featuredMedia.media_details;
+    const { width: imageWidth, height: imageHeight } = featuredMedia.mediaDetails;
     const responsiveWidth = Dimensions.get('window').width;
     const responsiveHeight = responsiveWidth * imageHeight / imageWidth;
 
@@ -22,7 +22,7 @@ export default createFragmentContainer(
           },
           style,
         ]}
-        source={{ uri: featuredMedia.source_url }}
+        source={{ uri: featuredMedia.sourceUrl }}
         resizeMode={Image.resizeMode.contain}
       />
     );

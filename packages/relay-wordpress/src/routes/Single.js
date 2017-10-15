@@ -91,7 +91,7 @@ class Single extends React.Component<SingleProps> {
             </Link>
           </Meta>
         </header>
-        {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
+        {featuredMedia && <Media media={featuredMedia} crop="large" />}
         <ContentNode
           component={ContentSection}
           content={content}

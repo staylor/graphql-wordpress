@@ -31,7 +31,7 @@ const Home = ({ viewer: { readThis, watchThis, listenToThis, stickies } }: HomeP
       <HomeSection>
         <HomeHeader>Read This</HomeHeader>
         <Archive posts={readThis} />
-        <MoreIn to={'/music/read-this'}>
+        <MoreIn to="/music/read-this">
           More posts in <em>Read This</em> »
         </MoreIn>
       </HomeSection>
@@ -40,14 +40,14 @@ const Home = ({ viewer: { readThis, watchThis, listenToThis, stickies } }: HomeP
       <HomeSection>
         <HomeHeader>Watch This</HomeHeader>
         <Archive posts={watchThis} />
-        <MoreIn to={'/music/watch-this'}>
+        <MoreIn to="/music/watch-this">
           More posts in <em>Watch This</em> »
         </MoreIn>
       </HomeSection>
       <HomeSection>
         <HomeHeader>Listen to This</HomeHeader>
         <Archive posts={listenToThis} />
-        <MoreIn to={'/music/listen-to-this'}>
+        <MoreIn to="/music/listen-to-this">
           More posts in <em>Listen To This</em> »
         </MoreIn>
       </HomeSection>

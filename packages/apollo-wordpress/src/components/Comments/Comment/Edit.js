@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formField } from '@wonderboymusic/graphql-wordpress-components';
-import { EditForm, EditCancelButton } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
+import {
+  EditForm,
+  EditCancelButton,
+} from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import { CommentType } from '../types';
 import SubmitButton from './SubmitButton';
 

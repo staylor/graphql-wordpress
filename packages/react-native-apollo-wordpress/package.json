@@ -47,6 +47,7 @@
   "dependencies": {
     "expo": "^21.0.0",
     "react": "16.0.0-alpha.12",
+    "react-apollo": "^1.4.16",
     "react-native": "^0.48.4",
     "react-router-native": "^4.2.0"
   }

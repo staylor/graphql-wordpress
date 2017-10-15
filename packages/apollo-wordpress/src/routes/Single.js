@@ -4,7 +4,12 @@ import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
-import { ArticleWrapper, ContentSection, Error, Loading } from '@wonderboymusic/graphql-wordpress-components';
+import {
+  ArticleWrapper,
+  ContentSection,
+  Error,
+  Loading,
+} from '@wonderboymusic/graphql-wordpress-components';
 import { iframe, Title, Meta, Tag } from '@wonderboymusic/graphql-wordpress-components/lib/Single';
 import ContentNode from 'components/ContentNode';
 import Media from 'containers/Media';
@@ -113,7 +118,7 @@ export default class Single extends Component {
             </Link>
           </Meta>
         </header>
-        {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
+        {featuredMedia && <Media media={featuredMedia} crop="large" />}
         <ContentNode
           component={ContentSection}
           content={content}

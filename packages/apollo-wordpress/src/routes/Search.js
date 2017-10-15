@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import debounce from 'debounce';
-import { ContentWrapper, Heading, Error, Loading } from '@wonderboymusic/graphql-wordpress-components';
-import { SearchBox, SearchInput, A11Y } from '@wonderboymusic/graphql-wordpress-components/lib/Search';
+import {
+  ContentWrapper,
+  Heading,
+  Error,
+  Loading,
+} from '@wonderboymusic/graphql-wordpress-components';
+import {
+  SearchBox,
+  SearchInput,
+  A11Y,
+} from '@wonderboymusic/graphql-wordpress-components/lib/Search';
 import Archive from 'containers/Archive';
 import SearchQuery from 'graphql/Search_Query.graphql';
 import { SITE_URL } from 'utils/constants';
