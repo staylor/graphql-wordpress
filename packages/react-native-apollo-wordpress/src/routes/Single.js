@@ -5,8 +5,7 @@ import { Link } from 'react-router-native';
 import SingleQuery from 'graphql/Single_Query.graphql';
 import ResponsiveImage from 'components/ResponsiveImage';
 import Content from 'components/Content';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-native-components';
 
 /* eslint-disable react/prop-types */
 

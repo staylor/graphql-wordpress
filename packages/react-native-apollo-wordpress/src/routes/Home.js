@@ -3,8 +3,7 @@ import { graphql } from 'react-apollo';
 import { StyleSheet, Text, View, SectionList } from 'react-native';
 import HomeQuery from 'graphql/Home_Query.graphql';
 import Post from 'components/Post';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-native-components';
 
 /* eslint-disable react/prop-types */
 

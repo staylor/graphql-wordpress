@@ -9,8 +9,7 @@ import Single from 'routes/Single';
 import Date from 'routes/Date';
 import Term from 'routes/Term';
 import Page from 'routes/Page';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-native-components';
 
 const styles = StyleSheet.create({
   container: {

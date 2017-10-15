@@ -3,9 +3,8 @@ import { graphql } from 'react-apollo';
 import { Text, View } from 'react-native';
 import TermQuery from 'graphql/Term_Query.graphql';
 import Archive from 'components/Archive';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
-import styles from 'styles/archive';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-native-components';
+import styles from '@wonderboymusic/graphql-wordpress-native-components/lib/styles/archive';
 
 /* eslint-disable react/prop-types */
 

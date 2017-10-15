@@ -3,7 +3,7 @@ import { graphql, createPaginationContainer } from 'react-relay';
 import { Text, View } from 'react-native';
 import DateQuery from 'queries/Date';
 import Archive from 'components/Archive';
-import styles from 'styles/archive';
+import styles from '@wonderboymusic/graphql-wordpress-native-components/lib/styles/archive';
 
 /* eslint-disable react/prop-types */
 

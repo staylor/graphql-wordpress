@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { StyleSheet, View, Text } from 'react-native';
-import Element from './Element';
-import Embed from './Embed';
+import Element from 'containers/Element';
+import Embed from 'containers/Embed';
 
 /* eslint-disable react/prop-types, react/forbid-prop-types */
 

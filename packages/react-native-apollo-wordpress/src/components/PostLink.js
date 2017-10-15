@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Link } from 'react-router-native';
-import { dateRegex } from 'utils/regex';
+import { dateRegex } from '@wonderboymusic/graphql-wordpress-native-components/lib/utils/regex';
 
 /* eslint-disable react/prop-types */
 

@@ -14,16 +14,17 @@ export default class Error extends Component {
   static propTypes = {
     error: PropTypes.shape({
       message: PropTypes.string,
-    }).isRequired,
+    }),
     children: PropTypes.node,
   };
 
   static defaultProps = {
+    error: null,
     children: null,
   };
 
   render() {
-    const { error } = this.props;
+    const { error = { message: '' } } = this.props;
     return (
       <View style={styles.container}>
         <Text>{error.message}</Text>

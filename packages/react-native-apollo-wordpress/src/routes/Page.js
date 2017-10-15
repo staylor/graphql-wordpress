@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import PageQuery from 'graphql/Page_Query.graphql';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-native-components';
 
 /* eslint-disable react/prop-types */
 

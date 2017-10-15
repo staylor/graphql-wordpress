@@ -2,7 +2,7 @@ import url from 'url';
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
-import { sortOrderedHierarchy } from 'utils/walker';
+import { sortOrderedHierarchy } from '@wonderboymusic/graphql-wordpress-native-components/lib/utils/walker';
 
 /* eslint-disable react/prop-types */
 

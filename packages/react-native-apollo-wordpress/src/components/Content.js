@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Element from './Element';
-import Embed from './Embed';
+import Element from '@wonderboymusic/graphql-wordpress-native-components/lib/Element';
+import Embed from '@wonderboymusic/graphql-wordpress-native-components/lib/Embed';
 
 /* eslint-disable react/prop-types, react/forbid-prop-types */
 

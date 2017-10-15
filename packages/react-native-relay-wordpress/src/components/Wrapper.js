@@ -17,19 +17,12 @@ import Author from 'routes/Author';
 import AuthorQuery from 'queries/Author';
 import Page from 'routes/Page';
 import PageQuery from 'queries/Page';
-import Error from 'components/Error';
+import { Error, Loading } from '@wonderboymusic/graphql-wordpress-native-components';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
-    backgroundColor: '#fff',
-  },
-
-  appLoading: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#fff',
   },
 });
@@ -46,11 +39,7 @@ const renderProp = (RenderComponent, query, prepareVariables = null) => routePro
         }
 
         if (!props) {
-          return (
-            <View style={styles.appLoading}>
-              <ActivityIndicator size="large" color="#000" />
-            </View>
-          );
+          return <Loading />;
         }
 
         return <RenderComponent {...routeProps} {...props} />;
