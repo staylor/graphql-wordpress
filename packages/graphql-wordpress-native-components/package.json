@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/graphql-wordpress-native-components",
-  "version": "0.0.2-10",
+  "version": "0.0.2-11",
   "description": "Native components for Graphql-powered WordPress",
   "main": "lib/index.js",
   "repository": "https://github.com/staylor/graphql-wordpress/packages/graphql-wordpress-native-components",
@@ -17,7 +17,6 @@
     "babel-plugin-module-resolver": "^3.0.0-beta.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "babel-preset-kyt-react": "^0.2.0",
     "eslint": "^4.7.1",
     "eslint-config-airbnb": "^16.0.0",
