@@ -1,7 +1,7 @@
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import QuerySubscription from './QuerySubscription';
 
-export default ({ routes, environment, url }) => {
+export default async ({ routes, environment, url }) => {
   const matches = matchRoutes(routes, url);
   const { createOperationSelector, getOperation } = environment.unstable_internal;
   const subscriptions = matches.reduce((memo, match) => {
