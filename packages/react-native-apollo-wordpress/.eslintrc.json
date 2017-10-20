@@ -8,8 +8,6 @@
     "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
   },
 
-  "parser": "babel-eslint",
-
   "settings": {
     "import/resolver": {
       "babel-module": {}

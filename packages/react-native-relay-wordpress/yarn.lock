@@ -2358,9 +2358,9 @@ eslint-config-airbnb@^16.1.0:
   dependencies:
     eslint-config-airbnb-base "^12.1.0"
 
-eslint-config-kyt@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-kyt/-/eslint-config-kyt-0.4.0.tgz#6b327418d41d977544fbbc037f8f1f9130897576"
+eslint-config-kyt@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-kyt/-/eslint-config-kyt-0.5.0.tgz#73f6f0c4139dab7e1f5f3f13a78ebd8b8147a5a4"
 
 eslint-config-prettier@^2.5.0:
   version "2.6.0"

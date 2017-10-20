@@ -8,7 +8,7 @@ import Schema from 'schema';
 import getClient, { HASH_KEY } from 'data/client';
 import getLoaders from 'data/loaders';
 import persistedQueries from '../generated/queries.json';
-import queryLogger from './middleware/queryLogger';
+// import queryLogger from './middleware/queryLogger';
 
 /* eslint-disable no-console */
 
@@ -49,7 +49,7 @@ app.use('/graphql', bodyParser.json(), async (req, res, next) => {
 });
 
 // uncomment this to output incoming query and request headers
-app.use(queryLogger());
+// app.use(queryLogger());
 
 app.use('/graphql', (req, res, next) =>
   graphQLHTTP(request => ({

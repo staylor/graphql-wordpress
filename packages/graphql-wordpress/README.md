@@ -1,4 +1,5 @@
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?maxAge=2592000)](https://github.com/prettier/prettier)
+[![npm (scoped)](https://img.shields.io/npm/v/@wonderboymusic/graphql-wordpress.svg)]()
 
 # graphql-wordpress
 WordPress REST API exposed via GraphQL
@@ -7,7 +8,8 @@ WordPress REST API exposed via GraphQL
 
 Take a look: http://graphql.highforthis.com/graphql
 
-This is mega-alpha, but also an RFC. Browse the docs on the right to create a query on the left (which also supports autocomplete). Here's a query to try out:
+Browse the docs on the right to create a query on the left (which also supports autocomplete).
+Here's a query to try out:
 
 A single item:
 ```
@@ -71,10 +73,6 @@ Facebook has open-sourced [GraphQL](http://graphql.org/) along with a reference 
 
 ## Why do this?
 
-Facebook has also open-sourced [Relay](https://facebook.github.io/relay/). As the Relay docs state: "simply declare your data requirements using GraphQL and let Relay figure out how and when to fetch your data." This is compelling when working with React and building an isomorphic/universal JS app.
+Facebook has also open-sourced [Relay](https://facebook.github.io/relay/). It or [Apollo](http://dev.apollodata.com/) can be used to create GraphQL-powered React apps. As the Relay docs state: "simply declare your data requirements using GraphQL and let Relay figure out how and when to fetch your data." This is compelling when working with React and building an isomorphic/universal JS app.
 
-`graphql-wordpress` is a step towards making isomorphic apps written in JS use data from a WordPress instance, via read-only data from the REST API, easy and painless. You don't have to worry about fetching data. Relay's data requirements are declarative - the complicated bits are resolved for you.
-
-## Ok, what is next?
-
-There will be changes to this project to support Relay idioms, and there will be a companion project that bootstraps Relay on top of [kyt](https://github.com/nytimes/kyt), React, Relay, React Router, CSS Modules, and Webpack - all tools needed to make awesome isomorphic apps.
+`graphql-wordpress` is a step towards making isomorphic apps written in JS use data from a WordPress instance, via data from the REST API, easy and painless. You don't have to worry about fetching data. Relay's data requirements are declarative - the complicated bits are resolved for you.

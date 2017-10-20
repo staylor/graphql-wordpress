@@ -1,6 +1,6 @@
 {
   "presets": [
-    "babel-preset-kyt-react",
+    "kyt-react",
     "flow"
   ],
   "plugins": [

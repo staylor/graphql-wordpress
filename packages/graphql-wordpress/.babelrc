@@ -1,10 +1,12 @@
 {
   "presets": [
-    "es2015",
-    "stage-0"
+    "kyt-core"
   ],
   "plugins": [
-    "transform-runtime",
+    "transform-class-properties",
+    "transform-es2015-modules-commonjs",
+    "transform-object-rest-spread",
+    "transform-regenerator",
     ["module-resolver", {
       "root": ["./"],
       "alias": {
