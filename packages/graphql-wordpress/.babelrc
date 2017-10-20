@@ -1,6 +1,6 @@
 {
   "presets": [
-    "kyt-core"
+    ["kyt-core", {"modules": true}]
   ],
   "plugins": [
     "transform-class-properties",

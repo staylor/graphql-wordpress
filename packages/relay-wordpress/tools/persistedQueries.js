@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import redis from 'redis';
-import md5 from 'md5';
-import bluebird from 'bluebird';
+const fs = require('fs');
+const path = require('path');
+const redis = require('redis');
+const md5 = require('md5');
+const bluebird = require('bluebird');
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);

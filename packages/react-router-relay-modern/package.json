@@ -1,0 +1,36 @@
+{
+  "name": "@wonderboymusic/react-router-relay-modern",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "is-promise": "^2.1.0",
+    "react": "^16.0.0",
+    "react-router": "^4.2.0",
+    "react-router-config": "^1.0.0-beta.4",
+    "react-router-dom": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-kyt-react": "^0.3.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-kyt": "^0.5.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "flow-bin": "^0.57.3",
+    "prettier": "^1.7.4",
+    "prettier-eslint": "^8.2.1",
+    "prettier-eslint-cli": "^4.4.0"
+  }
+}

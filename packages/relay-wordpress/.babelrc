@@ -1,6 +1,6 @@
 {
   "presets": [
-    "kyt-react",
+    ["kyt-react", {"modules": true}],
     "flow"
   ],
   "plugins": [
