@@ -1,6 +1,6 @@
 // @flow
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
-import createFetch from 'relay/fetcher';
+import createFetch from './fetcher';
 
 function createEnviroment(url: string, requestCache: Object = {}) {
   const recordSource = new RecordSource();

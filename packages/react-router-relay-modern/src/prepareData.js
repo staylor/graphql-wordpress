@@ -1,4 +1,5 @@
-import { matchRoutes, renderRoutes } from 'react-router-config';
+import { matchRoutes } from 'react-router-config';
+import { isResolved, checkResolved } from './utils';
 import QuerySubscription from './QuerySubscription';
 
 export default async ({ routes, environment, url }) => {

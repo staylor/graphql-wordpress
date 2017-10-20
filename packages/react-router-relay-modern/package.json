@@ -5,10 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "is-promise": "^2.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "md5": "^2.2.1",
     "react": "^16.0.0",
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "relay-runtime": "^1.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

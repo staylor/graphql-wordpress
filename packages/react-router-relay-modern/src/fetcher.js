@@ -2,8 +2,7 @@
 // import RelayQueryResponseCache from 'relay-runtime/lib/RelayQueryResponseCache';
 import md5 from 'md5';
 import 'isomorphic-fetch';
-import type { Variables } from 'react-relay';
-import type { ConcreteBatch } from 'relay-runtime';
+import type { Variables, ConcreteBatch } from 'relay-runtime';
 
 const isClient = typeof document !== 'undefined';
 

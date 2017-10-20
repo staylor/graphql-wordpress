@@ -7,7 +7,7 @@ export default class QuerySubscription {
   readyState = {
     error: null,
     props: null,
-    retry: null
+    retry: null,
   };
 
   listeners = [];
@@ -19,7 +19,7 @@ export default class QuerySubscription {
 
     this.relayContext = {
       environment: this.environment,
-      variables: this.operation.variables
+      variables: this.operation.variables,
     };
   }
 
@@ -33,7 +33,7 @@ export default class QuerySubscription {
         this.pendingRequest = this.environment
           .execute({
             operation: this.operation,
-            cacheConfig: this.cacheConfig
+            cacheConfig: this.cacheConfig,
           })
           .finally(() => {
             this.pendingRequest = null;
@@ -48,10 +48,7 @@ export default class QuerySubscription {
 
               this.onChange(snapshot);
 
-              this.rootSubscription = this.environment.subscribe(
-                snapshot,
-                this.onChange
-              );
+              this.rootSubscription = this.environment.subscribe(snapshot, this.onChange);
 
               resolve();
             },
@@ -61,11 +58,11 @@ export default class QuerySubscription {
                 error,
                 props: null,
                 // $FIXME: Use default readyState when retrying.
-                retry: this.retry
+                retry: this.retry,
               });
 
               resolve();
-            }
+            },
           });
       });
     }
@@ -85,7 +82,7 @@ export default class QuerySubscription {
     this.updateReadyState({
       error: null,
       props: snapshot.data,
-      retry: this.retry
+      retry: this.retry,
     });
   };
 

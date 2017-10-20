@@ -15,6 +15,6 @@ export function checkResolved(value) {
     value,
     new Promise(resolve => {
       setImmediate(resolve, UNRESOLVED);
-    })
+    }),
   ]);
 }
