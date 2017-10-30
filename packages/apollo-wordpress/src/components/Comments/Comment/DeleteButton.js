@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { DeleteButton as Button } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
-import DeleteCommentMutation from 'graphql/DeleteComment_Mutation.graphql';
+import DeleteCommentMutation from 'graphql/mutation/DeleteComment.graphql';
 import { CommentType } from '../types';
 
 @graphql(DeleteCommentMutation)

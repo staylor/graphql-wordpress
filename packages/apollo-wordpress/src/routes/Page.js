@@ -11,7 +11,7 @@ import {
 } from '@wonderboymusic/graphql-wordpress-components';
 import ContentNode from 'components/ContentNode';
 import Media from 'containers/Media';
-import PageQuery from 'graphql/Page_Query.graphql';
+import PageQuery from 'graphql/query/Page.graphql';
 import { SITE_URL } from 'utils/constants';
 
 /* eslint-disable react/no-danger */

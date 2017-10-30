@@ -12,7 +12,7 @@ import {
   reset,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
 import { newlineRegex } from 'utils/regex';
-import AddCommentMutation from 'graphql/AddComment_Mutation.graphql';
+import AddCommentMutation from 'graphql/mutation/AddComment.graphql';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from './constants';
 
 const fields = {

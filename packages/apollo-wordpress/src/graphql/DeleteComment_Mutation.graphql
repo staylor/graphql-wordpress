@@ -1,5 +1,0 @@
-mutation DeleteComment_Mutation($input: DeleteCommentInput!) {
-  deleteComment(input: $input) {
-    status
-  }
-}

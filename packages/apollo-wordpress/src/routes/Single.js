@@ -15,7 +15,7 @@ import ContentNode from 'components/ContentNode';
 import Media from 'containers/Media';
 import Comments from 'components/Comments';
 import { COMMENTS_PER_PAGE } from 'components/Comments/constants';
-import SingleQuery from 'graphql/Single_Query.graphql';
+import SingleQuery from 'graphql/query/Single.graphql';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
 

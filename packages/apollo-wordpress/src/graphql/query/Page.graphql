@@ -1,7 +1,7 @@
-#import "./ContentNode_content.graphql"
-#import "./Media_media.graphql"
+#import "../fragment/ContentNode_content.graphql"
+#import "../fragment/Media_media.graphql"
 
-query Page_Query($slug: String!) {
+query Page($slug: String!) {
   viewer {
     page(slug: $slug) {
       id

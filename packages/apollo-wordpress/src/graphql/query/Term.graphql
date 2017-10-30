@@ -1,6 +1,6 @@
-#import "./Archive_posts.graphql"
+#import "../fragment/Archive_posts.graphql"
 
-query Term_Query($slug: String!, $taxonomy: String!, $cursor: String, $count: Int) {
+query Term($slug: String!, $taxonomy: String!, $cursor: String, $count: Int) {
   viewer {
     term(slug: $slug, taxonomy: $taxonomy) {
       id

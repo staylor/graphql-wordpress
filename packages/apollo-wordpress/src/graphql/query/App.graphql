@@ -1,8 +1,8 @@
-#import "./Settings_settings.graphql"
-#import "./NavMenu_navMenu.graphql"
-#import "./Sidebar_sidebar.graphql"
+#import "../fragment/Settings_settings.graphql"
+#import "../fragment/NavMenu_navMenu.graphql"
+#import "../fragment/Sidebar_sidebar.graphql"
 
-query App_Query($menuID: ID!, $sidebarID: ID!) {
+query App($menuID: ID!, $sidebarID: ID!) {
   viewer {
     settings {
       ...Settings_settings

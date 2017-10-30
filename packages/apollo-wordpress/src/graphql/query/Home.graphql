@@ -1,6 +1,6 @@
-#import "./Archive_posts.graphql"
+#import "../fragment/Archive_posts.graphql"
 
-query Home_Query(
+query Home(
   $stickiesTotal: Int
   $watchThisTotal: Int
   $readThisTotal: Int

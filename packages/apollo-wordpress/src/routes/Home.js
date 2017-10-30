@@ -11,7 +11,7 @@ import {
   MoreIn,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Home';
 import Archive from 'containers/Archive';
-import HomeQuery from 'graphql/Home_Query.graphql';
+import HomeQuery from 'graphql/query/Home.graphql';
 
 @graphql(HomeQuery, {
   options: {

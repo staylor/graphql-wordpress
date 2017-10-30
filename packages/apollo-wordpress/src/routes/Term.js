@@ -9,7 +9,7 @@ import {
   Loading,
 } from '@wonderboymusic/graphql-wordpress-components';
 import Archive from 'containers/Archive';
-import TermQuery from 'graphql/Term_Query.graphql';
+import TermQuery from 'graphql/query/Term.graphql';
 import { SITE_URL } from 'utils/constants';
 
 @graphql(TermQuery, {

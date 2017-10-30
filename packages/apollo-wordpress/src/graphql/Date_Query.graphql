@@ -1,9 +1,0 @@
-#import "./Archive_posts.graphql"
-
-query Date_Query($year: Int!, $month: Int, $day: Int, $cursor: String, $count: Int) {
-  viewer {
-    posts(year: $year, month: $month, day: $day, after: $cursor, first: $count) {
-      ...Archive_posts
-    }
-  }
-}

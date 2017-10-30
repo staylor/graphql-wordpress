@@ -1,6 +1,6 @@
-#import "./Archive_posts.graphql"
+#import "../fragment/Archive_posts.graphql"
 
-query Author_Query($id: ID!) {
+query Author($id: ID!, $cursor: String, $count: Int) {
   viewer {
     author(id: $id) {
       id

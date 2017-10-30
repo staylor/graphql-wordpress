@@ -9,7 +9,7 @@ import {
   Loading,
 } from '@wonderboymusic/graphql-wordpress-components';
 import Archive from 'containers/Archive';
-import DateQuery from 'graphql/Date_Query.graphql';
+import DateQuery from 'graphql/query/Date.graphql';
 import { SITE_URL } from 'utils/constants';
 
 /* eslint-disable react/prefer-stateless-function */

@@ -1,4 +1,4 @@
-query Chart_Query {
+query Chart {
   viewer {
     chart {
       title

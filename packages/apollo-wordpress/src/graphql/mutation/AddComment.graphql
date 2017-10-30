@@ -1,6 +1,6 @@
-#import "./Comment_comment.graphql"
+#import "../fragment/Comment_comment.graphql"
 
-mutation AddComment_Mutation($input: AddCommentInput!) {
+mutation AddComment($input: AddCommentInput!) {
   addComment(input: $input) {
     comment {
       ...Comment_comment

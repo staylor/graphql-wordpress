@@ -1,6 +1,6 @@
-#import "./Archive_posts.graphql"
+#import "../fragment/Archive_posts.graphql"
 
-query Search_Query($search: String, $count: Int, $cursor: String) {
+query Search($search: String, $count: Int, $cursor: String) {
   viewer {
     posts(search: $search, first: $count, after: $cursor) {
       ...Archive_posts

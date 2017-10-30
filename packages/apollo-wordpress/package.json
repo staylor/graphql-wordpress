@@ -45,9 +45,12 @@
     "build": "kyt build -C kyt.prod.js",
     "start": "forever start build/server/main.js",
     "persist-queries": "persistgraphql src src/apollo/queries.json --add_typename",
-    "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write"
+    "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
+    "types-ts": "apollo-codegen generate src/graphql/**/*.graphql --schema tools/schema.json --target typescript --output src/types/index.ts",
+    "types-flow": "apollo-codegen generate src/graphql/**/*.graphql --schema tools/schema.json --target flow --output src/types/index.js"
   },
   "devDependencies": {
+    "apollo-codegen": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.0",

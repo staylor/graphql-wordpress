@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Heading } from '@wonderboymusic/graphql-wordpress-components';
 import { CommentsWrapper } from '@wonderboymusic/graphql-wordpress-components/lib/Comments';
-import SingleQuery from 'graphql/Single_Query.graphql';
+import SingleQuery from 'graphql/query/Single.graphql';
 import Walker from './Walker';
 import { CommentConnectionType } from './types';
 import { COMMENTS_PER_PAGE } from './constants';

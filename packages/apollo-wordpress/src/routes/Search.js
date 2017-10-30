@@ -15,7 +15,7 @@ import {
   A11Y,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Search';
 import Archive from 'containers/Archive';
-import SearchQuery from 'graphql/Search_Query.graphql';
+import SearchQuery from 'graphql/query/Search.graphql';
 import { SITE_URL } from 'utils/constants';
 
 @graphql(SearchQuery, {

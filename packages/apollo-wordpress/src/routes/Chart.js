@@ -10,7 +10,7 @@ import {
   Error,
   Loading,
 } from '@wonderboymusic/graphql-wordpress-components/lib/Chart';
-import ChartQuery from 'graphql/Chart_Query.graphql';
+import ChartQuery from 'graphql/query/Chart.graphql';
 
 @graphql(ChartQuery)
 export default class Chart extends Component {

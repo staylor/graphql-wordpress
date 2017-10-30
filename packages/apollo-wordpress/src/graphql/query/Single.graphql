@@ -1,8 +1,8 @@
-#import "./ContentNode_content.graphql"
-#import "./Media_media.graphql"
-#import "./Comments_comments.graphql"
+#import "../fragment/ContentNode_content.graphql"
+#import "../fragment/Media_media.graphql"
+#import "../fragment/Comments_comments.graphql"
 
-query Single_Query($slug: String!, $commentCount: Int) {
+query Single($slug: String!, $commentCount: Int) {
   viewer {
     post(slug: $slug) {
       id
