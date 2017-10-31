@@ -1,0 +1,15 @@
+{
+  "presets": [
+    ["kyt-react", {"modules": true}],
+    "flow"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "transform-flow-strip-types",
+    ["module-resolver", {
+      "root": ["./src", "./types"]
+    }]
+  ]
+}

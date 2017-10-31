@@ -1,0 +1,57 @@
+{
+  "name": "@wonderboymusic/draft",
+  "version": "0.0.2-10",
+  "description": "Editor",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staylor/graphql-wordpress/packages/draft"
+  },
+  "author": "Scott Taylor <scott.c.taylor@mac.com>",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.1",
+    "express": "^4.16.2",
+    "forever": "^0.15.3",
+    "kyt": "^0.9.0",
+    "morgan": "^1.9.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "scripts": {
+    "dev": "kyt dev -C kyt.dev.js",
+    "prod": "npm run build && npm run start",
+    "build": "kyt build -C kyt.prod.js",
+    "start": "forever start build/server/main.js",
+    "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-module-resolver": "^3.0.0-beta.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-kyt-react": "^0.3.0",
+    "enzyme": "^3.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-kyt": "^0.5.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-import-resolver-babel-module": "^4.0.0-beta.5",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "flow-bin": "^0.57.3",
+    "prettier": "^1.7.4",
+    "prettier-eslint": "^8.2.1",
+    "prettier-eslint-cli": "^4.4.0",
+    "react-test-renderer": "^16.0.0"
+  }
+}
