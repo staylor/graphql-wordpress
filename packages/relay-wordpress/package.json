@@ -13,7 +13,7 @@
     "@wonderboymusic/graphql-wordpress-components": "^0.0.2-13",
     "base-64": "^0.1.0",
     "compression": "^1.7.1",
-    "debounce": "^1.0.2",
+    "debounce": "^1.1.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "farce": "^0.2.2",

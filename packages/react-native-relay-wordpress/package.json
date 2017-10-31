@@ -15,7 +15,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
-    "eslint": "^4.7.1",
+    "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-kyt": "^0.5.0",
     "eslint-config-prettier": "^2.5.0",
@@ -26,12 +26,12 @@
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.3.0",
     "flow-bin": "^0.57.3",
-    "jest-expo": "^22.0.0",
+    "jest-expo": "^22.0.1",
     "prettier": "^1.7.4",
     "prettier-eslint": "^8.1.1",
     "prettier-eslint-cli": "^4.3.2",
     "react-native-scripts": "1.5.0",
-    "react-test-renderer": "16.0.0-alpha.12",
+    "react-test-renderer": "16.0.0-beta.5",
     "relay-compiler": "^1.4.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -48,9 +48,9 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^21.0.0",
-    "react": "16.0.0-alpha.12",
-    "react-native": "^0.48.4",
+    "expo": "^22.0.0",
+    "react": "16.0.0-beta.5",
+    "react-native": "^0.49.5",
     "react-relay": "^1.4.1",
     "react-router-native": "^4.2.0"
   }
