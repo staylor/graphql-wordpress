@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/graphql-wordpress",
-  "version": "0.0.2-11",
+  "version": "0.0.2-12",
   "description": "GraphQL server for the WordPress REST API",
   "main": "index.js",
   "repository": {

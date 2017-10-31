@@ -1,6 +1,6 @@
 {
   "name": "@wonderboymusic/graphql-wordpress-native-components",
-  "version": "0.0.2-11",
+  "version": "0.0.2-12",
   "description": "Native components for Graphql-powered WordPress",
   "main": "lib/index.js",
   "repository": "https://github.com/staylor/graphql-wordpress/packages/graphql-wordpress-native-components",
