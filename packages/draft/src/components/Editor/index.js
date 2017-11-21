@@ -17,6 +17,10 @@ export default class Editor extends Component {
 
   onChange = editorState => {
     this.setState({ editorState });
+    // eslint-disable-next-line react/prop-types
+    if (this.props.onChange) {
+      this.props.onChange(this.getContent());
+    }
   };
 
   getContent() {
@@ -24,7 +28,7 @@ export default class Editor extends Component {
   }
 
   render() {
-    const { content, ...rest } = this.props;
+    const { content, onChange, ...rest } = this.props;
 
     return <DraftEditor {...rest} editorState={this.state.editorState} onChange={this.onChange} />;
   }

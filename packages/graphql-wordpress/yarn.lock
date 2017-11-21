@@ -130,9 +130,9 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-apollo-utilities@^0.1.1-0:
-  version "0.1.1-1"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.1.1-1.tgz#a637c2a5b49e06f20dd9adf7c55ec1ff69a97592"
+apollo-utilities@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.1.tgz#34b4df0bd6ed71d0afaa7c62489173dca5d07e92"
 
 append-transform@^0.4.0:
   version "0.4.0"
@@ -1913,9 +1913,9 @@ eslint-config-kyt@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/eslint-config-kyt/-/eslint-config-kyt-0.5.0.tgz#73f6f0c4139dab7e1f5f3f13a78ebd8b8147a5a4"
 
-eslint-config-prettier@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-2.6.0.tgz#f21db0ebb438ad678fb98946097c4bb198befccc"
+eslint-config-prettier@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-2.7.0.tgz#7bbfef66ad783277836f4ea556e68b9bcc9da4d0"
   dependencies:
     get-stdin "^5.0.1"
 
@@ -2684,11 +2684,11 @@ graphql-relay@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.5.3.tgz#56a78ac07c87d89795a34db6b8e9681b827be5b5"
 
-graphql-tools@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.6.1.tgz#9f6d1600951a05b18b83c52986c42eee4fd3cb1b"
+graphql-tools@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.7.2.tgz#03104a155b15f8441b0e5a7113b12b9512341a9e"
   dependencies:
-    apollo-utilities "^0.1.1-0"
+    apollo-utilities "^1.0.1"
     deprecated-decorator "^0.1.6"
     uuid "^3.1.0"
 
