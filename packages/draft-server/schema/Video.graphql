@@ -13,7 +13,7 @@ type Video {
 }
 
 extend type Query {
-  videos(lastCreatedAt: Float, limit: Int): [Video!]
+  videos(limit: Int): [Video!]
   video(id: ObjID!): Video
 }
 
