@@ -16,40 +16,61 @@ function getPlaylistUrl(playlistId) {
   return requestURL.href;
 }
 
+let db;
+
+function updateVideo({ contentDetails, snippet }) {
+  const data = {
+    dataId: contentDetails.videoId,
+    dataType: 'youtube',
+    dataPlaylistIds: [PLAYLIST_ID],
+    publishedAt: contentDetails.videoPublishedAt,
+    title: snippet.title,
+    position: snippet.position,
+    updatedAt: Date.now(),
+  };
+
+  data.thumbnails = Object.keys(snippet.thumbnails).map(thumb => snippet.thumbnails[thumb]);
+
+  return new Promise((resolve, reject) => {
+    db
+      .collection('video')
+      .update(
+        { dataId: data.dataId },
+        { $set: data, $setOnInsert: { createdAt: Date.now(), tags: [] } },
+        { upsert: true },
+        updateErr => {
+          if (updateErr) {
+            reject(updateErr);
+            return;
+          }
+          resolve(data.dataId);
+        }
+      );
+  });
+}
+
 (async () => {
   const playlistUrl = getPlaylistUrl(PLAYLIST_ID);
   console.log(playlistUrl);
   const result = await fetch(playlistUrl).then(response => response.json());
 
-  MongoClient.connect(uri, (err, db) => {
-    result.items.forEach(({ snippet, contentDetails }, i) => {
-      const data = {
-        dataId: contentDetails.videoId,
-        dataType: 'youtube',
-        dataPlaylistIds: [PLAYLIST_ID],
-        publishedAt: contentDetails.videoPublishedAt,
-        title: snippet.title,
-        position: snippet.position,
-        updatedAt: Date.now(),
-      };
-
-      data.thumbnails = Object.keys(snippet.thumbnails).map(thumb => snippet.thumbnails[thumb]);
-
-      db
-        .collection('video')
-        .update(
-          { dataId: contentDetails.videoId },
-          { $set: data, $setOnInsert: { createdAt: Date.now(), tags: [] } },
-          { upsert: true },
-          updateErr => {
-            if (updateErr) {
-              console.log(updateErr);
-            }
-            console.log(i);
+  MongoClient.connect(uri, (err, conn) => {
+    db = conn;
+    const cursor = db.collection('video').find({ dataPlaylistIds: PLAYLIST_ID }, { dataId: 1 });
+    cursor
+      .toArray()
+      .then(ids => ids.map(({ dataId }) => dataId))
+      .then(ids => {
+        Promise.all(result.items.map(updateVideo)).then(dataIds => {
+          const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
+          if (orphans.length) {
+            console.log('Orphans', orphans);
+            db.collection('video').remove({ dataId: { $in: orphans } });
+          } else {
+            console.log('Lists are the same.');
           }
-        );
-    });
-
-    db.close();
+          db.close();
+        });
+      });
   });
 })();
