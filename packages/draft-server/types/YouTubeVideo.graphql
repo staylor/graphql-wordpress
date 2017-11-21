@@ -1,0 +1,7 @@
+type YouTubeVideo {
+  videoId: String
+  publishedAt: String
+  title: String
+  thumbnails: YouTubeThumbnails
+  position: Int
+}
