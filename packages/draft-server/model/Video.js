@@ -1,11 +1,10 @@
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
 
-export default class YouTubeVideo {
+export default class Video {
   constructor(context) {
     this.context = context;
-    this.collection = context.db.collection('youTubeVideo');
-    this.pubsub = context.pubsub;
+    this.collection = context.db.collection('video');
     this.loader = new DataLoader(ids => findByIds(this.collection, ids));
   }
 
@@ -15,14 +14,12 @@ export default class YouTubeVideo {
 
   all({ limit = 10 }) {
     return this.collection
-      .find({})
-      .sort({ createdAt: 1 })
+      .find({
+        dataType: 'youtube',
+      })
+      .sort({ publishedAt: -1 })
       .limit(limit)
       .toArray();
-  }
-
-  thumbnails(youTubeVideo) {
-    return this.context.YouTubeThumbnails.findOneById(youTubeVideo.thumbnailsId);
   }
 
   async insert(doc) {
@@ -31,7 +28,6 @@ export default class YouTubeVideo {
       updatedAt: Date.now(),
     });
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
-    this.pubsub.publish('youTubeVideoInserted', await this.findOneById(id));
     return id;
   }
 
@@ -45,14 +41,12 @@ export default class YouTubeVideo {
       }
     );
     this.loader.clear(id);
-    this.pubsub.publish('youTubeVideoUpdated', await this.findOneById(id));
     return ret;
   }
 
   async removeById(id) {
     const ret = this.collection.remove({ _id: id });
     this.loader.clear(id);
-    this.pubsub.publish('youTubeVideoRemoved', id);
     return ret;
   }
 }

@@ -1,0 +1,10 @@
+type Video {
+  dataId: String
+  dataType: String
+  dataPlaylistIds: [String]
+  publishedAt: String
+  title: String
+  thumbnails: [VideoThumbnail]
+  position: Int
+  tags: [String]
+}

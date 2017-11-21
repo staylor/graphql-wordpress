@@ -9,25 +9,12 @@ const typeDefs = [
   `
   scalar ObjID
   type Query {
-    # A placeholder, please ignore
-    __placeholder: Int
+    id: ObjID
   }
   type Mutation {
-    # A placeholder, please ignore
-    __placeholder: Int
+    id: ObjID
   }
-  type Subscription {
-    # A placeholder, please ignore
-    __placeholder: Int
-  }
-  type YouTubeThumbnails {
-    default: YouTubeThumbnail
-    media: YouTubeThumbnail
-    high: YouTubeThumbnail
-    standard: YouTubeThumbnail
-    maxres: YouTubeThumbnail
-  }
-  type YouTubeThumbnail {
+  type VideoThumbnail {
     url: String
     width: Int
     height: Int
@@ -37,4 +24,4 @@ const typeDefs = [
 
 export default typeDefs;
 
-typeDefs.push(requireGraphQL('./YouTubeVideo.graphql'));
+typeDefs.push(requireGraphQL('./Video.graphql'));

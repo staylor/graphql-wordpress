@@ -6,7 +6,7 @@ import denodeify from 'denodeify';
 
 const dbpath = `${__dirname}/db`;
 
-const { PORT = 3000, MONGO_PORT = parseInt(PORT, 10) + 2, MONGO_URL } = process.env;
+const { PORT = 8080, MONGO_PORT = parseInt(PORT, 10) + 2, MONGO_URL } = process.env;
 
 // Taken from https://github.com/meteor/meteor/blob/debug-circle-timeout-promise-await/tools/utils/mongo-exit-codes.js
 const MONGO_CODES = {

@@ -24,5 +24,5 @@ resolvers.ObjID = new GraphQLScalarType({
 
 export default resolvers;
 
-import youTubeVideoResolvers from './YouTubeVideo';
-merge(resolvers, youTubeVideoResolvers);
+import videoResolvers from './Video';
+merge(resolvers, videoResolvers);

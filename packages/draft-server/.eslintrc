@@ -5,5 +5,8 @@
   },
   "extends": [
     "eslint-config-kyt"
-  ]
+  ],
+  "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }]  
+  }
 }

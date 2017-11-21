@@ -8,5 +8,5 @@ export default function addModelsToContext(context) {
   return newContext;
 }
 
-import YouTubeVideo from './YouTubeVideo';
-models.YouTubeVideo = YouTubeVideo;
+import Video from './Video';
+models.Video = Video;

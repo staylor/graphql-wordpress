@@ -1,0 +1,40 @@
+type Video {
+  id: ObjID!
+  dataId: String
+  dataType: String
+  dataPlaylistIds: [String]
+  publishedAt: String
+  title: String
+  thumbnails: [VideoThumbnail]
+  position: Int
+  tags: [String]
+  createdAt: Float!
+  updatedAt: Float!
+}
+
+extend type Query {
+  videos(lastCreatedAt: Float, limit: Int): [Video!]
+  video(id: ObjID!): Video
+}
+
+input CreateVideoInput {
+  dataId: String
+  dataType: String
+  publishedAt: String
+  title: String
+  position: Int
+}
+
+input UpdateVideoInput {
+  dataId: String
+  dataType: String
+  publishedAt: String
+  title: String
+  position: Int
+}
+
+extend type Mutation {
+  createVideo(input: CreateVideoInput!): Video
+  updateVideo(id: ObjID!, input: UpdateVideoInput!): Video
+  removeVideo(id: ObjID!): Boolean
+}
