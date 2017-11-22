@@ -4,11 +4,27 @@ const fetch = require('node-fetch');
 
 const uri = 'mongodb://127.0.0.1:27017/highforthis';
 
+const API_HOST = 'https://www.googleapis.com';
+const API_PATH = '/youtube/v3/playlistItems';
 const API_KEY = 'AIzaSyAch46nW70rKFjPjkkqzdui76npzV6bLEQ';
-const PLAYLIST_ID = 'PLsfCTX0EqVcv2t3KPBP9rbYxExJbrcc-1';
+
+const PLAYLISTS = {
+  2006: 'PLsfCTX0EqVcv6Ho87sX0U3jntxTPox7Ze',
+  2007: 'PLsfCTX0EqVctvkpywF3w5NP4fqqwGoP3c',
+  2008: 'PLsfCTX0EqVcug5unsFGXDep18EPSZRjKg',
+  2009: 'PLsfCTX0EqVcvI3uMJrW3aY0lDUl_4XJcj',
+  2010: 'PLsfCTX0EqVcvrjKQOtwr8YSJVMaYMUGLx',
+  2011: 'PLsfCTX0EqVcu_PEsjNwXS7UyZW3IT3NcK',
+  2012: 'PLsfCTX0EqVcunx1XmBWLoDp-ehtvHx7Eo',
+  2013: 'PLsfCTX0EqVcv4hx7p0BmxW7_wgLYw1Y8z',
+  2014: 'PLsfCTX0EqVcvb_W59xx-MUrgqTOi_IZ2R',
+  2015: 'PLsfCTX0EqVcuZ8pz_IPXI1fzwwX9h3-AR',
+  2016: 'PLsfCTX0EqVcv1fJg5nlLYbguhqUnDSs-K',
+  2017: 'PLsfCTX0EqVcv2t3KPBP9rbYxExJbrcc-1',
+};
 
 function getPlaylistUrl(playlistId) {
-  const requestURL = new URL('/youtube/v3/playlistItems', 'https://www.googleapis.com');
+  const requestURL = new URL(API_PATH, API_HOST);
   requestURL.searchParams.set('playlistId', playlistId);
   requestURL.searchParams.set('maxResults', 50);
   requestURL.searchParams.set('part', 'snippet,contentDetails');
@@ -18,11 +34,11 @@ function getPlaylistUrl(playlistId) {
 
 let db;
 
-function updateVideo({ contentDetails, snippet }) {
+function updateVideo({ contentDetails, snippet }, playlistId) {
   const data = {
     dataId: contentDetails.videoId,
     dataType: 'youtube',
-    dataPlaylistIds: [PLAYLIST_ID],
+    dataPlaylistIds: [playlistId],
     publishedAt: contentDetails.videoPublishedAt,
     title: snippet.title,
     position: snippet.position,
@@ -49,28 +65,33 @@ function updateVideo({ contentDetails, snippet }) {
   });
 }
 
-(async () => {
-  const playlistUrl = getPlaylistUrl(PLAYLIST_ID);
+async function fetchPlaylist(playlistId) {
+  const playlistUrl = getPlaylistUrl(playlistId);
   console.log(playlistUrl);
   const result = await fetch(playlistUrl).then(response => response.json());
+  const cursor = db.collection('video').find({ dataPlaylistIds: playlistId }, { dataId: 1 });
+  return cursor
+    .toArray()
+    .then(ids => ids.map(({ dataId }) => dataId))
+    .then(ids =>
+      Promise.all(result.items.map(item => updateVideo(item, playlistId))).then(dataIds => {
+        const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
+        if (orphans.length) {
+          console.log('Orphans', orphans);
+          db.collection('video').remove({ dataId: { $in: orphans } });
+        } else {
+          console.log('Lists are the same.');
+        }
+      })
+    );
+}
 
-  MongoClient.connect(uri, (err, conn) => {
-    db = conn;
-    const cursor = db.collection('video').find({ dataPlaylistIds: PLAYLIST_ID }, { dataId: 1 });
-    cursor
-      .toArray()
-      .then(ids => ids.map(({ dataId }) => dataId))
-      .then(ids => {
-        Promise.all(result.items.map(updateVideo)).then(dataIds => {
-          const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
-          if (orphans.length) {
-            console.log('Orphans', orphans);
-            db.collection('video').remove({ dataId: { $in: orphans } });
-          } else {
-            console.log('Lists are the same.');
-          }
-          db.close();
-        });
-      });
-  });
-})();
+MongoClient.connect(uri, (err, conn) => {
+  db = conn;
+
+  Promise.all(
+    Object.keys(PLAYLISTS)
+      .map(key => PLAYLISTS[key])
+      .map(fetchPlaylist)
+  ).then(() => db.close());
+});
