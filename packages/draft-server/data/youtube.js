@@ -2,11 +2,14 @@ const { MongoClient } = require('mongodb');
 const { URL } = require('url');
 const fetch = require('node-fetch');
 
-const uri = 'mongodb://127.0.0.1:27017/highforthis';
+/* eslint-disable no-console */
+
+const MONGO_URI = 'mongodb://127.0.0.1:27017/highforthis';
 
 const API_HOST = 'https://www.googleapis.com';
 const API_PATH = '/youtube/v3/playlistItems';
 const API_KEY = 'AIzaSyAch46nW70rKFjPjkkqzdui76npzV6bLEQ';
+const PER_PAGE = 50;
 
 const PLAYLISTS = {
   2001: 'PLsfCTX0EqVcuH1w88lovS2eJQILp5u5Pn',
@@ -28,16 +31,54 @@ const PLAYLISTS = {
   2017: 'PLsfCTX0EqVcv2t3KPBP9rbYxExJbrcc-1',
 };
 
-function getPlaylistUrl(playlistId) {
+const playlistMap = Object.keys(PLAYLISTS).reduce((memo, year) => {
+  memo[PLAYLISTS[year]] = year;
+  return memo;
+}, {});
+
+let db;
+
+function getPlaylistUrl(playlistId, pageToken = null) {
   const requestURL = new URL(API_PATH, API_HOST);
   requestURL.searchParams.set('playlistId', playlistId);
-  requestURL.searchParams.set('maxResults', 50);
+  requestURL.searchParams.set('maxResults', PER_PAGE);
   requestURL.searchParams.set('part', 'snippet,contentDetails');
   requestURL.searchParams.set('key', API_KEY);
+  if (pageToken) {
+    requestURL.searchParams.set('pageToken', pageToken);
+  }
   return requestURL.href;
 }
 
-let db;
+async function fetchPlaylistItems(playlistId) {
+  return new Promise((resolve, reject) => {
+    let items = [];
+
+    const fetchPage = (pageToken = null) => {
+      const playlistUrl = getPlaylistUrl(playlistId, pageToken);
+      // console.log(playlistUrl);
+      fetch(playlistUrl)
+        .catch(e => {
+          if (items.length) {
+            resolve(items);
+          } else {
+            reject(e);
+          }
+        })
+        .then(response => response.json())
+        .then(result => {
+          items = items.concat(result.items);
+          if (result.nextPageToken) {
+            fetchPage(result.nextPageToken);
+          } else {
+            resolve(items);
+          }
+        });
+    };
+
+    fetchPage();
+  });
+}
 
 function updateVideo({ contentDetails, snippet }, playlistId) {
   const data = {
@@ -62,41 +103,41 @@ function updateVideo({ contentDetails, snippet }, playlistId) {
         updateErr => {
           if (updateErr) {
             reject(updateErr);
-            return;
+          } else {
+            resolve(data.dataId);
           }
-          resolve(data.dataId);
         }
       );
   });
 }
 
 async function fetchPlaylist(playlistId) {
-  const playlistUrl = getPlaylistUrl(playlistId);
-  console.log(playlistUrl);
-  const result = await fetch(playlistUrl).then(response => response.json());
+  const items = await fetchPlaylistItems(playlistId);
   const cursor = db.collection('video').find({ dataPlaylistIds: playlistId }, { dataId: 1 });
+  const year = playlistMap[playlistId];
   return cursor
     .toArray()
     .then(ids => ids.map(({ dataId }) => dataId))
     .then(ids =>
-      Promise.all(result.items.map(item => updateVideo(item, playlistId))).then(dataIds => {
-        const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
-        if (orphans.length) {
-          console.log('Orphans', orphans);
-          db.collection('video').remove({ dataId: { $in: orphans } });
+      Promise.all(items.map(item => updateVideo(item, playlistId))).then(dataIds => {
+        if (ids.length) {
+          const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
+          if (orphans.length) {
+            console.log('Orphans in:', year, '-', orphans);
+            db.collection('video').remove({ dataId: { $in: orphans } });
+          } else {
+            console.log('No changes to:', year);
+          }
         } else {
-          console.log('Lists are the same.');
+          console.log('Imported', items.length, 'items from', year);
         }
+        return dataIds;
       })
     );
 }
 
-MongoClient.connect(uri, (err, conn) => {
+MongoClient.connect(MONGO_URI, (err, conn) => {
   db = conn;
 
-  Promise.all(
-    Object.keys(PLAYLISTS)
-      .map(key => PLAYLISTS[key])
-      .map(fetchPlaylist)
-  ).then(() => db.close());
+  Promise.all(Object.keys(playlistMap).map(fetchPlaylist)).then(() => db.close());
 });
