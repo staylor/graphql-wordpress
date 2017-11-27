@@ -9,6 +9,11 @@ const API_PATH = '/youtube/v3/playlistItems';
 const API_KEY = 'AIzaSyAch46nW70rKFjPjkkqzdui76npzV6bLEQ';
 
 const PLAYLISTS = {
+  2001: 'PLsfCTX0EqVcuH1w88lovS2eJQILp5u5Pn',
+  2002: 'PLsfCTX0EqVctQbNSkN0FPp69E-yqS4aku',
+  2003: 'PLsfCTX0EqVcs9O5E1bRwOyRPofShAtMiq',
+  2004: 'PLsfCTX0EqVcth93WL7EnEVWtuY84247FX',
+  2005: 'PLsfCTX0EqVcvqAbZTEZklzZTS-ClYv5K8',
   2006: 'PLsfCTX0EqVcv6Ho87sX0U3jntxTPox7Ze',
   2007: 'PLsfCTX0EqVctvkpywF3w5NP4fqqwGoP3c',
   2008: 'PLsfCTX0EqVcug5unsFGXDep18EPSZRjKg',
