@@ -12,12 +12,17 @@ export default class Video {
     return this.loader.load(id);
   }
 
-  all({ limit = 10 }) {
+  count() {
+    return this.collection.count();
+  }
+
+  all({ limit = 10, offset = 0 }) {
     return this.collection
       .find({
         dataType: 'youtube',
       })
       .sort({ publishedAt: -1 })
+      .skip(offset)
       .limit(limit)
       .toArray();
   }

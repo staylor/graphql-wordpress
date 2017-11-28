@@ -1,73 +1,56 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Route } from 'react-router';
 import { injectGlobal } from 'emotion';
-import styled from 'react-emotion';
-import debounce from 'debounce';
-import Editor from 'components/Editor';
+import { ThemeProvider } from 'emotion-theming';
+import theme from 'styles/theme';
+import Videos from 'components/Videos';
+import { PageWrapper, Content, Primary, Secondary, Footer } from './styled';
 
-// eslint-disable-next-line no-unused-expressions
+// eslint-disable-next-line
 injectGlobal`
   body {
-    font-family: sans-serif;
+    background: ${theme.colors.background};
+    color: ${theme.colors.dark};
+    font-family: ${theme.fonts.body};
+    font-size: 13px;
+    line-height: 18px;
+    padding: 0 ${theme.padding}px;
+    text-rendering: optimizeLegibility;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+
+  a {
+    color: ${theme.colors.pink};
+  }
+
+  blockquote {
+    margin: 0 ${theme.padding}px;
+  }
+
+  em {
+    text-decoration: underline;
+  }
+
+  strong {
+    font-weight: ${theme.weightBold};
   }
 `;
 
-const Field = styled.div`
-  border: 1px solid #eee;
-  display: block;
-  margin: 10px 0;
-  padding: 5px;
-`;
-
-export default class App extends Component {
-  textarea = null;
-  title = null;
-  content = null;
-
-  state = {
-    showEditor: false,
-  };
-
-  componentDidMount() {
-    requestAnimationFrame(() => {
-      this.setState({ showEditor: true });
-    });
-  }
-
-  onClick = e => {
-    e.preventDefault();
-
-    console.log(this.title);
-  };
-
-  titleChange = debounce(title => {
-    this.title = title;
-  }, 200);
-
-  contentChange = debounce(content => {
-    this.content = content;
-  }, 200);
-
-  render() {
-    if (this.state.showEditor) {
-      return (
-        <div>
-          <Field>
-            <Editor onChange={this.titleChange} placeholder="Title" />
-          </Field>
-          <Field>
-            <Editor onChange={this.contentChange} placeholder="Post goes here..." />
-          </Field>
-          <button onClick={this.onClick}>Click Me</button>
-          <textarea
-            css={`display: block; margin: 20px 0;`}
-            ref={textarea => {
-              this.textarea = textarea;
-            }}
-          />
-        </div>
-      );
-    }
-
-    return <div />;
-  }
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <PageWrapper>
+        <Content>
+          <Primary>
+            <Route exact path="/" component={Videos} />
+          </Primary>
+          <Secondary>SECONDARY</Secondary>
+        </Content>
+        <Footer />
+      </PageWrapper>
+    </ThemeProvider>
+  );
 }

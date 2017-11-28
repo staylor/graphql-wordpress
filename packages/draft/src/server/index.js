@@ -1,4 +1,5 @@
 import express from 'express';
+import proxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
 import path from 'path';
@@ -21,6 +22,20 @@ app.use(morgan('combined'));
 
 // Setup the public directory so that we can server static assets.
 app.use(express.static(path.join(process.cwd(), KYT.PUBLIC_DIR)));
+
+// use a local GQL server by default
+const gqlHost = process.env.GQL_HOST || 'http://localhost:8080';
+
+const gqlPath = process.env.GQL_PATH || '/graphql';
+
+// proxy to the graphql server
+app.use(
+  gqlPath,
+  proxy({
+    target: gqlHost,
+    changeOrigin: true,
+  })
+);
 
 app.use(
   router({

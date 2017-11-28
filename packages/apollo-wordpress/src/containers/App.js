@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import { routerShape } from 'found/lib/PropTypes';
 import AppComponent from '@wonderboymusic/graphql-wordpress-components/lib/App';
 import IntlProvider from 'decorators/IntlProvider';
-import AppQuery from 'graphql/App_Query.graphql';
+import AppQuery from 'graphql/query/App.graphql';
 import Settings from 'components/Settings';
 
 @graphql(AppQuery, {

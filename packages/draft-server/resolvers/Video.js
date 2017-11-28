@@ -1,3 +1,5 @@
+import { parseConnection } from '../utils/collection';
+
 const resolvers = {
   Video: {
     id(video) {
@@ -5,8 +7,8 @@ const resolvers = {
     },
   },
   Query: {
-    videos(root, { limit }, { Video }) {
-      return Video.all({ limit });
+    async videos(root, args, { Video }) {
+      return parseConnection(Video, args);
     },
 
     video(root, { id }, { Video }) {

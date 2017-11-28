@@ -1,14 +1,6 @@
-// @flow
 import React from 'react';
 import styled from 'react-emotion';
-import { ThemeProvider } from 'emotion-theming';
-import theme from '../theme';
-import responsive from '../responsive';
-import '../global';
-import Header from '../Header';
-import Sidebar from '../Sidebar';
-
-export { Header, Sidebar };
+import responsive from 'styles/responsive';
 
 export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
@@ -49,30 +41,6 @@ export const Footer = () => (
   <StyledFooter>
     © Scott Taylor ...&nbsp; Brooklyn, NY ...{' '}
     <a href="https://twitter.com/wonderboymusic">@wonderboymusic</a>&nbsp; ... Powered by GraphQL /
-    React / WordPress / Emotion
+    React / Emotion
   </StyledFooter>
 );
-
-type AppProps = {
-  settings: Object,
-  navMenu: Object,
-  sidebar: Object,
-  children: any,
-};
-
-export default function App({ settings, navMenu, sidebar, children }: AppProps) {
-  return (
-    <ThemeProvider theme={theme}>
-      <PageWrapper>
-        <Header {...{ settings, navMenu }} />
-        <Content>
-          <Primary>{children}</Primary>
-          <Secondary>
-            <Sidebar sidebar={sidebar} />
-          </Secondary>
-        </Content>
-        <Footer />
-      </PageWrapper>
-    </ThemeProvider>
-  );
-}

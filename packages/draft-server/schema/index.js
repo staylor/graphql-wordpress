@@ -14,10 +14,11 @@ const typeDefs = [
   type Mutation {
     id: ObjID
   }
-  type VideoThumbnail {
-    url: String
-    width: Int
-    height: Int
+  type PageInfo {
+    startCursor: String,
+    endCursor: String,
+    hasPreviousPage: Boolean,
+    hasNextPage: Boolean
   }
 `,
 ];
