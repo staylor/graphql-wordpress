@@ -17,14 +17,18 @@ export function offsetToCursor(offset) {
 }
 
 export async function parseConnection(Model, connectionArgs) {
-  const { first = 10, after = null, last = null, before = null } = connectionArgs;
+  const { first = 10, after = null, last = 10, before = null } = connectionArgs;
   const args = { offset: 0, limit: 10 };
-  if (first) {
+  if (connectionArgs.first) {
     args.limit = first;
+  } else if (connectionArgs.last) {
+    args.limit = last;
   }
 
   if (after) {
     args.offset = cursorToOffset(after) + 1;
+  } else if (before) {
+    args.offset = cursorToOffset(before) - args.limit;
   }
 
   const count = await Model.count();
@@ -36,11 +40,11 @@ export async function parseConnection(Model, connectionArgs) {
     const afterOffset = after ? cursorToOffset(after) : -1;
     let startOffset = Math.max(args.offset - 1, afterOffset, -1) + 1;
     let endOffset = Math.min(sliceEnd, beforeOffset, arrayLength);
-    if (first) {
+    if (connectionArgs.first) {
       endOffset = Math.min(endOffset, startOffset + first);
     }
 
-    if (last) {
+    if (connectionArgs.last) {
       startOffset = Math.max(startOffset, endOffset - last);
     }
 
