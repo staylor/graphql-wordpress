@@ -48,6 +48,7 @@
     "lodash": "^4.17.4",
     "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.33",
-    "nodeify": "^1.0.1"
+    "nodeify": "^1.0.1",
+    "slugify": "^1.2.6"
   }
 }

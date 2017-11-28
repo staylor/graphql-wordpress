@@ -59,6 +59,7 @@ export async function parseConnection(Model, connectionArgs) {
     const upperBound = before ? beforeOffset : arrayLength;
 
     return {
+      count,
       edges,
       pageInfo: {
         startCursor: firstEdge ? firstEdge.cursor : null,

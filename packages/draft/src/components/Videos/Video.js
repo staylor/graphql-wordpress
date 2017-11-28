@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
+import { Link } from 'react-router';
 import { Embed, Title, iframeClass, thumb640Class, thumb480Class } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -51,7 +52,9 @@ export default class Video extends Component {
     }
 
     return [
-      <Title key="title">{video.title}</Title>,
+      <Title key="title">
+        <Link to={`/video/${video.dataId}/${video.slug}`}>{video.title}</Link>
+      </Title>,
       <Embed key="embed" width={thumb ? thumb.width : maxWidth} onClick={this.onClick(thumb)}>
         {thumb && <img src={thumb.url} alt={video.title} className={thumb && thumb.className} />}
         <figcaption>{video.title}</figcaption>
@@ -65,6 +68,7 @@ Video.fragments = {
     fragment Video_video on Video {
       dataId
       title
+      slug
       thumbnails {
         width
         height

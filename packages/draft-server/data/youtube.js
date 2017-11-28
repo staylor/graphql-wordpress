@@ -1,6 +1,7 @@
 const { MongoClient } = require('mongodb');
 const { URL } = require('url');
 const fetch = require('node-fetch');
+const slugify = require('slugify');
 
 /* eslint-disable no-console */
 
@@ -32,7 +33,7 @@ const PLAYLISTS = {
 };
 
 const playlistMap = Object.keys(PLAYLISTS).reduce((memo, year) => {
-  memo[PLAYLISTS[year]] = year;
+  memo[PLAYLISTS[year]] = parseInt(year, 10);
   return memo;
 }, {});
 
@@ -85,6 +86,7 @@ function updateVideo({ contentDetails, snippet }, playlistId) {
     dataId: contentDetails.videoId,
     dataType: 'youtube',
     dataPlaylistIds: [playlistId],
+    year: playlistMap[playlistId],
     publishedISO: contentDetails.videoPublishedAt,
     publishedAt: new Date(contentDetails.videoPublishedAt).getTime(),
     title: snippet.title,
@@ -95,20 +97,29 @@ function updateVideo({ contentDetails, snippet }, playlistId) {
   data.thumbnails = Object.keys(snippet.thumbnails).map(thumb => snippet.thumbnails[thumb]);
 
   return new Promise((resolve, reject) => {
-    db
-      .collection('video')
-      .update(
-        { dataId: data.dataId },
-        { $set: data, $setOnInsert: { createdAt: Date.now(), tags: [] } },
-        { upsert: true },
-        updateErr => {
-          if (updateErr) {
-            reject(updateErr);
-          } else {
-            resolve(data.dataId);
-          }
+    db.collection('video').update(
+      { dataId: data.dataId },
+      {
+        $set: data,
+        $setOnInsert: {
+          createdAt: Date.now(),
+          tags: [],
+          slug: slugify(snippet.title, {
+            lower: true,
+            // eslint-disable-next-line
+            remove: /[#,$*_+~.()\[\]'"!\-:@]/g,
+          }),
+        },
+      },
+      { upsert: true },
+      updateErr => {
+        if (updateErr) {
+          reject(updateErr);
+        } else {
+          resolve(data.dataId);
         }
-      );
+      }
+    );
   });
 }
 

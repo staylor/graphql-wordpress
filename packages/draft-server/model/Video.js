@@ -21,7 +21,7 @@ export default class Video {
       .find({
         dataType: 'youtube',
       })
-      .sort({ publishedAt: -1 })
+      .sort({ year: -1, publishedAt: -1 })
       .skip(offset)
       .limit(limit)
       .toArray();

@@ -4249,6 +4249,10 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
+slugify@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.2.6.tgz#98c8f7e3c78f06af71e44670d8086715d86fc528"
+
 sntp@1.x.x:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/sntp/-/sntp-1.0.9.tgz#6541184cc90aeea6c6e7b35e2659082443c66198"

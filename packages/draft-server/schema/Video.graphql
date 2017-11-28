@@ -25,6 +25,7 @@ type VideoEdge {
 }
 
 type VideoConnection {
+  count: Int
   edges: [VideoEdge]
   pageInfo: PageInfo
 }
