@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Video from './Video';
-import { Wrapper, LoadMore } from './styled';
+import { LoadMore } from './styled';
 
 /* eslint-disable react/prop-types */
 
 @graphql(
   gql`
-    query TestQuery($first: Int, $after: String) {
+    query VideosQuery($first: Int, $after: String) {
       videos(first: $first, after: $after) {
         edges {
           node {
@@ -64,10 +64,10 @@ export default class Videos extends Component {
     }
 
     return (
-      <Wrapper>
+      <Fragment>
         {videos.edges.map(edge => <Video key={edge.node.id} video={edge.node} />)}
         {videos.pageInfo.hasNextPage && <LoadMore onClick={this.loadMore}>MORE</LoadMore>}
-      </Wrapper>
+      </Fragment>
     );
   }
 }

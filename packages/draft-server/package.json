@@ -31,7 +31,8 @@
     "node-fetch": "^1.7.3",
     "nodemon": "^1.12.1",
     "prettier": "^1.8.2",
-    "prettier-eslint-cli": "^4.4.0"
+    "prettier-eslint-cli": "^4.4.0",
+    "puppeteer": "^0.13.0"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",

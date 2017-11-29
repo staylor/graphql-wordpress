@@ -12,15 +12,19 @@ export default class Video {
     return this.loader.load(id);
   }
 
+  findOneBySlug(slug) {
+    return this.collection.findOne({
+      slug,
+    });
+  }
+
   count() {
     return this.collection.count();
   }
 
   all({ limit = 10, offset = 0 }) {
     return this.collection
-      .find({
-        dataType: 'youtube',
-      })
+      .find({})
       .sort({ year: -1, publishedAt: -1 })
       .skip(offset)
       .limit(limit)

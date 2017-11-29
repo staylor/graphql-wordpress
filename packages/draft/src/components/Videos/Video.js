@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Embed, Title, iframeClass, thumb640Class, thumb480Class } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -45,21 +45,21 @@ export default class Video extends Component {
   };
 
   render() {
-    const { video } = this.props;
+    const { video, link = true } = this.props;
     const thumb = findThumb(video.thumbnails);
     if (!thumb) {
       console.log(video.dataId);
     }
 
-    return [
-      <Title key="title">
-        <Link to={`/video/${video.dataId}/${video.slug}`}>{video.title}</Link>
-      </Title>,
-      <Embed key="embed" width={thumb ? thumb.width : maxWidth} onClick={this.onClick(thumb)}>
-        {thumb && <img src={thumb.url} alt={video.title} className={thumb && thumb.className} />}
-        <figcaption>{video.title}</figcaption>
-      </Embed>,
-    ];
+    return (
+      <Fragment>
+        <Title>{link ? <Link to={`/video/${video.slug}`}>{video.title}</Link> : video.title}</Title>
+        <Embed width={thumb ? thumb.width : maxWidth} onClick={this.onClick(thumb)}>
+          {thumb && <img src={thumb.url} alt={video.title} className={thumb && thumb.className} />}
+          <figcaption>{video.title}</figcaption>
+        </Embed>
+      </Fragment>
+    );
   }
 }
 

@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 import { merge } from 'lodash';
+import videoResolvers from './Video';
 
 const resolvers = {};
 
@@ -24,5 +25,4 @@ resolvers.ObjID = new GraphQLScalarType({
 
 export default resolvers;
 
-import videoResolvers from './Video';
 merge(resolvers, videoResolvers);

@@ -11,8 +11,11 @@ const resolvers = {
       return parseConnection(Video, args);
     },
 
-    video(root, { id }, { Video }) {
-      return Video.findOneById(id);
+    video(root, { id, slug }, { Video }) {
+      if (id) {
+        return Video.findOneById(id);
+      }
+      return Video.findOneBySlug(slug);
     },
   },
   Mutation: {

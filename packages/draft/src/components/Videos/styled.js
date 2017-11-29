@@ -2,11 +2,6 @@ import { css } from 'emotion';
 import styled from 'react-emotion';
 import theme from 'styles/theme';
 
-export const Wrapper = styled.section`
-  max-width: 100%;
-  width: 640px;
-`;
-
 export const Title = styled.h1`
   font-family: ${p => p.theme.fonts.futura};
   font-size: 18px;

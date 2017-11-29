@@ -136,7 +136,9 @@ async function fetchPlaylist(playlistId) {
           const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
           if (orphans.length) {
             console.log('Orphans in:', year, '-', orphans);
-            db.collection('video').remove({ dataId: { $in: orphans } });
+            db.collection('video').remove({ dataId: { $in: orphans }, playlistIds: playlistId });
+          } else if (dataIds.length > ids.length) {
+            console.log('Added', dataIds.length - ids.length, 'items to', year);
           } else {
             console.log('No changes to:', year);
           }

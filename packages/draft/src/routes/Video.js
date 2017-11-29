@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Video from './Video';
+import Video from 'components/Videos/Video';
 
 /* eslint-disable react/prop-types */
 
 @graphql(
   gql`
-    query VideoQuery($id: String) {
-      video(id: $id) {
-        id
+    query VideoQuery($slug: String) {
+      video(slug: $slug) {
         ...Video_video
       }
     }
     ${Video.fragments.video}
   `,
   {
-    options: () => ({
-      variables: { first: 10 },
+    options: ({ match: { params } }) => ({
+      variables: { slug: params.slug },
     }),
   }
 )
-export default class Video extends Component {
+export default class VideoRoute extends Component {
   render() {
     const { data: { loading, video } } = this.props;
 
@@ -29,6 +28,6 @@ export default class Video extends Component {
       return null;
     }
 
-    return <Video key={video.id} video={video} />;
+    return <Video link={false} video={video} />;
   }
 }

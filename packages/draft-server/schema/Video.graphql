@@ -1,6 +1,7 @@
 type Video {
   id: ObjID!
   dataId: String
+  slug: String
   dataType: String
   dataPlaylistIds: [String]
   publishedAt: Float!
@@ -32,7 +33,7 @@ type VideoConnection {
 
 extend type Query {
   videos(first: Int, after: String, last: Int, before: String): VideoConnection
-  video(id: ObjID!): Video
+  video(id: ObjID, slug: String): Video
 }
 
 input CreateVideoInput {

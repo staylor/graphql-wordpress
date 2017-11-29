@@ -1,10 +1,20 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Switch, Route, Link } from 'react-router-dom';
 import { injectGlobal } from 'emotion';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
-import Videos from 'components/Videos';
-import { PageWrapper, Content, Primary, Secondary, Footer } from './styled';
+import Home from 'routes/Home';
+import Video from 'routes/Video';
+import {
+  PageWrapper,
+  Header,
+  Title,
+  Content,
+  Primary,
+  PrimaryWrapper,
+  Secondary,
+  Footer,
+} from './styled';
 
 // eslint-disable-next-line
 injectGlobal`
@@ -43,13 +53,27 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <PageWrapper>
+        <Header>
+          <Title>
+            <Link to="/">High for This.</Link>
+          </Title>
+        </Header>
         <Content>
           <Primary>
-            <Route exact path="/" component={Videos} />
+            <PrimaryWrapper>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/video/:slug" component={Video} />
+              </Switch>
+            </PrimaryWrapper>
           </Primary>
           <Secondary>SECONDARY</Secondary>
         </Content>
-        <Footer />
+        <Footer>
+          © Scott Taylor ...&nbsp; Brooklyn, NY ...{' '}
+          <a href="https://twitter.com/wonderboymusic">@wonderboymusic</a>&nbsp; ... Powered by
+          GraphQL / React / Emotion
+        </Footer>
       </PageWrapper>
     </ThemeProvider>
   );
