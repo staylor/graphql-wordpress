@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'react-emotion';
 
+export const Heading = styled.h2`
+  display: block;
+  font-family: ${p => p.theme.fonts.futura};
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 32px;
+  margin: 0 0 ${p => p.theme.padding}px;
+`;
+
 export const Table = styled.table`
   border-collapse: collapse;
   margin: ${p => p.theme.padding}px 0;

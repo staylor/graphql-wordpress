@@ -18,8 +18,8 @@ export default class Video {
     });
   }
 
-  count() {
-    return this.collection.count();
+  count(criteria = {}) {
+    return this.collection.find(criteria).count();
   }
 
   all({ limit = 10, offset = 0, year = null }) {

@@ -31,7 +31,7 @@ export default function App() {
             <PrimaryWrapper>
               <Switch>
                 <Route path="/video/:slug" component={Video} />
-                <Route path="/videos/:year(\d{4})" component={Videos} />
+                <Route path="/videos/:year(\d{4})?" component={Videos} />
                 <Route exact path="/" component={Home} />
               </Switch>
             </PrimaryWrapper>

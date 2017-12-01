@@ -31,7 +31,7 @@ export async function parseConnection(Model, connectionArgs) {
     args.offset = cursorToOffset(before) - args.limit;
   }
 
-  const count = await Model.count();
+  const count = await Model.count({ ...rest });
 
   return Model.all(args).then(items => {
     const arrayLength = count;
@@ -40,12 +40,11 @@ export async function parseConnection(Model, connectionArgs) {
     const afterOffset = after ? cursorToOffset(after) : -1;
     let startOffset = Math.max(args.offset - 1, afterOffset, -1) + 1;
     let endOffset = Math.min(sliceEnd, beforeOffset, arrayLength);
-    if (connectionArgs.first) {
-      endOffset = Math.min(endOffset, startOffset + first);
-    }
 
     if (connectionArgs.last) {
       startOffset = Math.max(startOffset, endOffset - last);
+    } else {
+      endOffset = startOffset + first;
     }
 
     const edges = items.map((value, index) => ({

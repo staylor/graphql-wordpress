@@ -48,10 +48,9 @@ export default class Videos extends Component {
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         const mergedResult = {
-          ...previousResult,
+          ...fetchMoreResult,
           videos: {
-            ...previousResult.videos,
-            ...fetchMoreResult,
+            ...fetchMoreResult.videos,
             edges: previousResult.videos.edges.concat(fetchMoreResult.videos.edges),
           },
         };
