@@ -18,8 +18,7 @@ export const Title = styled.h1`
 
 export const Embed = styled.figure`
   cursor: pointer;
-  display: inline-block;
-  height: auto !important;
+  display: block;
   margin: 0 0 ${p => p.theme.padding}px;
   max-width: 100%;
   overflow: hidden;
