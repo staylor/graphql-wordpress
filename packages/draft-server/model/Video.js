@@ -22,9 +22,14 @@ export default class Video {
     return this.collection.count();
   }
 
-  all({ limit = 10, offset = 0 }) {
+  all({ limit = 10, offset = 0, year = null }) {
+    const criteria = {};
+    if (year) {
+      criteria.year = parseInt(year, 10);
+    }
+
     return this.collection
-      .find({})
+      .find(criteria)
       .sort({ year: -1, publishedAt: -1 })
       .skip(offset)
       .limit(limit)

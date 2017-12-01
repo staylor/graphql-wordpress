@@ -32,7 +32,13 @@ type VideoConnection {
 }
 
 extend type Query {
-  videos(first: Int, after: String, last: Int, before: String): VideoConnection
+  videos(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    year: Int
+  ): VideoConnection
   video(id: ObjID, slug: String): Video
 }
 

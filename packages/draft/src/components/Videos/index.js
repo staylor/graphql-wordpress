@@ -9,8 +9,8 @@ import Video from './Video';
 
 @graphql(
   gql`
-    query VideosQuery($first: Int, $after: String) {
-      videos(first: $first, after: $after) {
+    query VideosQuery($first: Int, $after: String, $year: Int) {
+      videos(first: $first, after: $after, year: $year) {
         edges {
           node {
             id

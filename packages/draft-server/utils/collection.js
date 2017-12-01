@@ -17,8 +17,8 @@ export function offsetToCursor(offset) {
 }
 
 export async function parseConnection(Model, connectionArgs) {
-  const { first = 10, after = null, last = 10, before = null } = connectionArgs;
-  const args = { offset: 0, limit: 10 };
+  const { first = 10, after = null, last = 10, before = null, ...rest } = connectionArgs;
+  const args = { offset: 0, limit: 10, ...rest };
   if (connectionArgs.first) {
     args.limit = first;
   } else if (connectionArgs.last) {
