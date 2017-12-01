@@ -41,7 +41,7 @@ export default class Video extends Component {
     iframe.frameBorder = 0;
     iframe.src = `https://www.youtube.com/embed/${this.props.video.dataId}?autoplay=1`;
 
-    e.currentTarget.outerHTML = iframe.outerHTML;
+    e.currentTarget.innerHTML = iframe.outerHTML;
   };
 
   render() {
