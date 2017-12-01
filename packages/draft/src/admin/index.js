@@ -7,7 +7,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'isomorphic-fetch';
-import App from 'routes/App';
+import Admin from 'routes/Admin';
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: '/graphql', fetch }),
@@ -20,8 +20,8 @@ if (window.__emotion) {
 
 ReactDOM.hydrate(
   <ApolloProvider client={client}>
-    <BrowserRouter>
-      <App />
+    <BrowserRouter basename="/admin">
+      <Admin />
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('main')

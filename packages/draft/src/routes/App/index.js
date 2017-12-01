@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import { injectGlobal } from 'emotion';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
-import Home from 'routes/Home';
-import Video from 'routes/Video';
+import 'styles/inject';
+import Home from './Home';
+import Videos from './Videos';
+import Video from './Video';
 import {
   PageWrapper,
   Header,
@@ -15,39 +16,6 @@ import {
   Secondary,
   Footer,
 } from './styled';
-
-// eslint-disable-next-line
-injectGlobal`
-  body {
-    background: ${theme.colors.background};
-    color: ${theme.colors.dark};
-    font-family: ${theme.fonts.body};
-    font-size: 13px;
-    line-height: 18px;
-    padding: 0 ${theme.padding}px;
-    text-rendering: optimizeLegibility;
-  }
-
-  iframe {
-    max-width: 100%;
-  }
-
-  a {
-    color: ${theme.colors.pink};
-  }
-
-  blockquote {
-    margin: 0 ${theme.padding}px;
-  }
-
-  em {
-    text-decoration: underline;
-  }
-
-  strong {
-    font-weight: ${theme.weightBold};
-  }
-`;
 
 export default function App() {
   return (
@@ -62,8 +30,9 @@ export default function App() {
           <Primary>
             <PrimaryWrapper>
               <Switch>
-                <Route exact path="/" component={Home} />
                 <Route path="/video/:slug" component={Video} />
+                <Route path="/videos/:year(\d{4})" component={Videos} />
+                <Route exact path="/" component={Home} />
               </Switch>
             </PrimaryWrapper>
           </Primary>

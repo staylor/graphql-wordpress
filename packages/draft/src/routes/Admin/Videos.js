@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
-import { LoadMore } from 'styles/utils';
-import Video from './Video';
+import { Grid, Row, CellHeading, Cell, LoadMore } from 'styles/utils';
+import { Heading } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -14,16 +15,16 @@ import Video from './Video';
         edges {
           node {
             id
-            ...Video_video
+            title
           }
           cursor
         }
         pageInfo {
+          endCursor
           hasNextPage
         }
       }
     }
-    ${Video.fragments.video}
   `,
   {
     options: ({ match: { params } }) => {
@@ -70,7 +71,21 @@ export default class Videos extends Component {
 
     return (
       <Fragment>
-        {videos.edges.map(edge => <Video key={edge.node.id} video={edge.node} />)}
+        <Heading>Videos</Heading>
+        <Grid>
+          <Row>
+            <CellHeading />
+            <CellHeading>Title</CellHeading>
+          </Row>
+          {videos.edges.map(edge => (
+            <Row key={edge.node.id}>
+              <Cell>
+                <Link to={`/video/${edge.node.id}`}>Edit</Link>
+              </Cell>
+              <Cell>{edge.node.title}</Cell>
+            </Row>
+          ))}
+        </Grid>
         {videos.pageInfo.hasNextPage && <LoadMore onClick={this.loadMore}>MORE</LoadMore>}
       </Fragment>
     );

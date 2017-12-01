@@ -15,6 +15,7 @@ export default ({
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="//use.typekit.net/tts4dcv.js"></script>
 <script>try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
 <link rel="stylesheet" href="${draftCSS}" />
 ${css ? `<style>${css}</style>` : ''}
 <script>window.__emotion = ${JSON.stringify(ids)};</script>

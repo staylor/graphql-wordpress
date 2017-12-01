@@ -5,6 +5,8 @@ import theme from 'styles/theme';
 export const Title = styled.h1`
   font-family: ${p => p.theme.fonts.futura};
   font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.75px;
   line-height: 24px;
   margin: 0 0 ${p => p.theme.padding}px;
 
@@ -18,7 +20,7 @@ export const Embed = styled.figure`
   cursor: pointer;
   display: inline-block;
   height: auto !important;
-  margin: 0 0 20px;
+  margin: 0 0 ${p => p.theme.padding}px;
   max-width: 100%;
   overflow: hidden;
   position: relative;
@@ -70,6 +72,19 @@ export const Embed = styled.figure`
   }
 `;
 
+export const ThumbWrapper = styled.figure`
+  margin: 0 0 ${p => p.theme.padding}px;
+  max-width: 100%;
+  overflow: hidden;
+
+  & img {
+    height: auto;
+    max-width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+`;
+
 export const iframeClass = css`
   margin: 0 0 20px;
 `;
@@ -80,29 +95,5 @@ export const thumb640Class = css`
 `;
 
 export const thumb480Class = css`
-  margin: -35px 0;
-`;
-
-export const LoadMore = styled.button`
-  appearance: none;
-  background: ${p => p.theme.colors.white};
-  border: 1px solid ${p => p.theme.colors.detail};
-  box-sizing: border-box;
-  color: ${p => p.theme.colors.inactive};
-  cursor: pointer;
-  font-size: 16px;
-  height: 32px;
-  line-height: 16px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 400ms;
-  width: 80px;
-
-  &:hover,
-  &:active,
-  &:focus {
-    border: 1px solid ${p => p.theme.colors.black};
-    color: ${p => p.theme.colors.black};
-    outline: 0 none;
-  }
+  margin: -49px 0;
 `;

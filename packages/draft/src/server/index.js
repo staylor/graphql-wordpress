@@ -3,7 +3,10 @@ import proxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
 import path from 'path';
-import router from 'server/router';
+import appRouter from 'server/router/app';
+import adminRouter from 'server/router/admin';
+import apolloClient from 'server/router/apolloClient';
+import serveResponse from 'server/router/serve';
 
 process.env.TZ = 'America/New_York';
 
@@ -37,12 +40,16 @@ app.use(
   })
 );
 
-app.use(
-  router({
+const getAssets = entry => (req, res, next) => {
+  res.locals.assets = {
     manifestJSBundle: clientAssets['manifest.js'],
-    mainJSBundle: clientAssets['main.js'],
+    mainJSBundle: clientAssets[`${entry}.js`],
     vendorJSBundle: clientAssets['vendor.js'],
-  })
-);
+  };
+  next();
+};
+
+app.use('/admin', getAssets('admin'), apolloClient, adminRouter, serveResponse);
+app.use(getAssets('main'), apolloClient, appRouter, serveResponse);
 
 app.listen(parseInt(KYT.SERVER_PORT, 10));

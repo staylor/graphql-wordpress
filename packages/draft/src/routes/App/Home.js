@@ -3,10 +3,10 @@ import Videos from 'components/Videos';
 
 /* eslint-disable react/prop-types */
 
-export default function HomeRoute() {
+export default function HomeRoute(props) {
   return (
     <Fragment>
-      <Videos />
+      <Videos {...props} />
     </Fragment>
   );
 }

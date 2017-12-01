@@ -8,12 +8,16 @@ export const PageWrapper = styled.div`
   padding: ${p => p.theme.padding}px;
 `;
 
-export const Header = styled.header``;
+export const Header = styled.header`
+  padding: ${p => p.theme.padding}px 0;
+`;
 
 export const Title = styled.h1`
   display: block;
   font-family: ${p => p.theme.fonts.futura};
   font-size: 54px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   line-height: 54px;
   margin: 0;
 

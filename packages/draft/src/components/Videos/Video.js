@@ -47,9 +47,6 @@ export default class Video extends Component {
   render() {
     const { video, link = true } = this.props;
     const thumb = findThumb(video.thumbnails);
-    if (!thumb) {
-      console.log(video.dataId);
-    }
 
     return (
       <Fragment>
