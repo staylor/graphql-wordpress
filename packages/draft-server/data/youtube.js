@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 const { URL } = require('url');
 const fetch = require('node-fetch');
-const slugify = require('slugify');
+const slugify = require('../utils/slugify');
 
 /* eslint-disable no-console */
 
@@ -103,12 +103,9 @@ function updateVideo({ contentDetails, snippet }, playlistId) {
         $set: data,
         $setOnInsert: {
           createdAt: Date.now(),
+          updatedAt: Date.now(),
           tags: [],
-          slug: slugify(snippet.title, {
-            lower: true,
-            // eslint-disable-next-line
-            remove: /[#,$*_+~.()\[\]'"!\-:@]/g,
-          }),
+          slug: slugify(snippet.title),
         },
       },
       { upsert: true },

@@ -1,5 +1,6 @@
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
+import slugify from '../utils/slugify';
 
 export default class Video {
   constructor(context) {
@@ -41,6 +42,12 @@ export default class Video {
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
+    if (!docToInsert.slug) {
+      docToInsert.slug = slugify(docToInsert.title);
+    }
+    if (!docToInsert.tags) {
+      docToInsert.tags = [];
+    }
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     return id;
   }

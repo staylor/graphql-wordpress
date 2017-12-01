@@ -4,6 +4,7 @@ type Video {
   slug: String
   dataType: String
   dataPlaylistIds: [String]
+  year: Int
   publishedAt: Float!
   publishedISO: String
   title: String
@@ -44,18 +45,28 @@ extend type Query {
 
 input CreateVideoInput {
   dataId: String
+  slug: String!
   dataType: String
-  publishedAt: String
-  title: String
+  dataPlaylistIds: [String]
+  year: Int!
+  publishedAt: Float!
+  publishedISO: String
+  title: String!
   position: Int
+  tags: [String]
 }
 
 input UpdateVideoInput {
   dataId: String
+  slug: String
   dataType: String
-  publishedAt: String
+  dataPlaylistIds: [String]
+  year: Int
+  publishedAt: Float
+  publishedISO: String
   title: String
   position: Int
+  tags: [String]
 }
 
 extend type Mutation {

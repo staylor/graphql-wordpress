@@ -38,26 +38,6 @@ export const Heading = styled.h2`
   margin: 0 0 ${p => p.theme.padding}px;
 `;
 
-export const Field = styled.p`
-  display: block;
-  margin: 0 0 ${p => p.theme.padding}px;
-`;
-
-export const FieldName = styled.strong`
-  display: block;
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  line-height: 20px;
-`;
-
-export const FieldValue = styled.span`
-  display: block;
-  font-size: 16px;
-  line-height: 20px;
-`;
-
 export const NavLink = styled(RRNavLink)`
   display: block;
   font-size: 20px;
@@ -79,4 +59,12 @@ export const Nav = styled.nav`
 
 export const Content = styled.section`
   flex: 4;
+`;
+
+export const Button = styled.button`
+  background: ${p => p.theme.colors.white};
+  cursor: pointer;
+  display: block;
+  padding: 4px 10px;
+  font-size: 18px;
 `;
