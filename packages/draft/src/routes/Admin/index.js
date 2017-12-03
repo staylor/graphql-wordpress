@@ -28,6 +28,7 @@ export default function Admin() {
           </Nav>
           <Content>
             <Switch>
+              <Route path="/video/page/:page(\d+)" component={Videos} />
               <Route path="/video/:id" component={Video} />
               <Route path="/video" component={Videos} />
               <Route exact path="/" component={Home} />

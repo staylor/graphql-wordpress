@@ -68,3 +68,54 @@ export const Button = styled.button`
   padding: 4px 10px;
   font-size: 18px;
 `;
+
+export const RowActions = styled.nav`
+  color: ${p => p.theme.colors.subnav.details};
+  font-size: 13px;
+
+  a {
+    text-decoration: none;
+  }
+`;
+
+export const Filters = styled.section`
+  overflow: hidden;
+`;
+
+export const Pagination = styled.nav`
+  float: right;
+  font-size: 13px;
+
+  strong {
+    display: inline-block;
+    font-weight: 400;
+    margin: 0 3px;
+    min-width: 65px;
+    text-align: center;
+  }
+
+  span,
+  a {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 400;
+    height: 16px;
+    line-height: 1;
+    margin: 0 2px;
+    min-width: 17px;
+    padding: 3px 5px 7px;
+    text-align: center;
+  }
+
+  span {
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    color: #a0a5aa;
+  }
+
+  a {
+    border: 1px solid #ccc;
+    background: #e5e5e5;
+    text-decoration: none;
+  }
+`;

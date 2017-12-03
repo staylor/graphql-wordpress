@@ -6,6 +6,9 @@ const PREFIX = 'arrayconnection:';
 // then we convert the percent encodings into raw bytes which
 // can be fed into btoa.
 function base64EncodeUnicode(str) {
+  if (typeof document === 'undefined') {
+    return Buffer.from(str).toString('base64');
+  }
   return btoa(
     encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) =>
       String.fromCharCode(`0x${p1}`)
@@ -15,6 +18,9 @@ function base64EncodeUnicode(str) {
 
 // Going backwards: from bytestream, to percent-encoding, to original string.
 function base64DecodeUnicode(str) {
+  if (typeof document === 'undefined') {
+    return Buffer.from(str, 'base64').toString();
+  }
   return decodeURIComponent(
     atob(str)
       .split('')

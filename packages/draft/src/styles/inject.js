@@ -18,6 +18,10 @@ injectGlobal`
 
   a {
     color: ${theme.colors.pink};
+
+    &:hover, &:active {
+      color: deeppink;
+    }
   }
 
   blockquote {

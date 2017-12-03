@@ -17,15 +17,47 @@ export const Table = styled.table`
   color: ${p => p.theme.colors.table.text};
   margin: ${p => p.theme.padding}px 0;
   table-layout: fixed;
+  width: 100%;
 `;
 
-export const Row = styled.tr``;
+export const StripedRow = styled.tr`
+  &:nth-child(odd) {
+    background: ${p => p.theme.colors.table.oddrow};
+  }
+`;
 export const CellHeading = styled.th`
-  border-bottom: 1px solid ${p => p.theme.colors.table.metaborder};
   font-size: 14px;
   line-height: 1.4;
   padding: 8px 10px;
   text-align: left;
+
+  thead & {
+    border-bottom: 1px solid ${p => p.theme.colors.table.metaborder};
+  }
+
+  tfoot & {
+    border-top: 1px solid ${p => p.theme.colors.table.metaborder};
+  }
+`;
+export const CheckboxCell = styled.th`
+  width: 2.2em;
+
+  tbody & {
+    padding: 6px 0 0;
+    vertical-align: top;
+
+    input {
+      vertical-align: text-top;
+    }
+  }
+
+  thead & {
+    border-bottom: 1px solid ${p => p.theme.colors.table.metaborder};
+  }
+
+  tfoot & {
+    border-top: 1px solid ${p => p.theme.colors.table.metaborder};
+  }
 `;
 export const Cell = styled.td`
   color: ${p => p.theme.colors.table.cell};
@@ -33,6 +65,16 @@ export const Cell = styled.td`
   line-height: 1.5;
   padding: 8px 10px;
   vertical-align: top;
+  word-wrap: break-word;
+`;
+export const RowTitle = styled.strong`
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0.2em;
+  & a {
+    text-decoration: none;
+  }
 `;
 
 export const LoadMore = styled.button`

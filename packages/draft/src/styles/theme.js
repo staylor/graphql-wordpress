@@ -26,6 +26,7 @@ export default {
       text: '#32373c',
       cell: '#555',
       metaborder: '#e1e1e1',
+      oddrow: '#f9f9f9',
     },
     form: {
       checkbox: {
