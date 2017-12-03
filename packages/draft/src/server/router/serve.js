@@ -15,6 +15,7 @@ export default async (req, res) => {
         root: html,
         ids,
         css,
+        stylesheets: res.locals.stylesheets,
         state: initialState,
         ...res.locals.assets,
       })

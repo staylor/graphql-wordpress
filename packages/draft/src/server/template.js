@@ -1,9 +1,8 @@
-import draftCSS from 'public/Draft.css';
-
 export default ({
   root = '',
   ids = [],
   css = '',
+  stylesheets = [],
   state = {},
   manifestJSBundle,
   vendorJSBundle,
@@ -16,7 +15,7 @@ export default ({
 <script src="//use.typekit.net/tts4dcv.js"></script>
 <script>try{Typekit.load();}catch(e){}</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
-<link rel="stylesheet" href="${draftCSS}" />
+${stylesheets.map(sheet => `<link rel="stylesheet" href="${sheet}" />`).join('')}
 ${css ? `<style>${css}</style>` : ''}
 <script>window.__emotion = ${JSON.stringify(ids)};</script>
 <script>window.__APOLLO_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')};</script>

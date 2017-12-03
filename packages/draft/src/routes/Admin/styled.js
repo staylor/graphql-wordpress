@@ -20,7 +20,7 @@ export const Title = styled.h1`
   font-size: 36px;
   font-weight: 700;
   letter-spacing: 0.3px;
-  line-height: 36px;
+  line-height: 1.3;
 
   a {
     color: ${p => p.theme.colors.black};
@@ -34,7 +34,7 @@ export const Heading = styled.h2`
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.3px;
-  line-height: 32px;
+  line-height: 1.3;
   margin: 0 0 ${p => p.theme.padding}px;
 `;
 

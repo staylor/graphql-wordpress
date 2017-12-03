@@ -3,7 +3,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
-import { Grid, Row, CellHeading, Cell, LoadMore } from 'styles/utils';
+import Checkbox from 'components/Field/Checkbox';
+import { Table, Row, CellHeading, Cell, LoadMore } from 'styles/utils';
 import { Heading } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -70,20 +71,28 @@ export default class Videos extends Component {
     return (
       <Fragment>
         <Heading>Videos</Heading>
-        <Grid>
-          <Row>
-            <CellHeading />
-            <CellHeading>Title</CellHeading>
-          </Row>
-          {videos.edges.map(edge => (
-            <Row key={edge.node.id}>
-              <Cell>
-                <Link to={`/video/${edge.node.id}`}>Edit</Link>
-              </Cell>
-              <Cell>{edge.node.title}</Cell>
+        <Table>
+          <thead>
+            <Row>
+              <CellHeading>
+                <Checkbox name="all" />
+              </CellHeading>
+              <CellHeading>Title</CellHeading>
             </Row>
-          ))}
-        </Grid>
+          </thead>
+          <tbody>
+            {videos.edges.map(edge => (
+              <Row key={edge.node.id}>
+                <Cell>
+                  <Checkbox name="deleteme" />
+                </Cell>
+                <Cell>
+                  {edge.node.title} <Link to={`/video/${edge.node.id}`}>Edit</Link>
+                </Cell>
+              </Row>
+            ))}
+          </tbody>
+        </Table>
         {videos.pageInfo.hasNextPage && <LoadMore onClick={this.loadMore}>MORE</LoadMore>}
       </Fragment>
     );

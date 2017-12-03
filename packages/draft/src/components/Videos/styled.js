@@ -1,5 +1,6 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
+import { Link } from 'react-router-dom';
 import theme from 'styles/theme';
 
 export const Title = styled.h1`
@@ -16,14 +17,17 @@ export const Title = styled.h1`
   }
 `;
 
-export const Embed = styled.figure`
-  cursor: pointer;
+export const VideoLink = styled(Link)`
   display: block;
   margin: 0 0 ${p => p.theme.padding}px;
   max-width: 100%;
+  width: ${p => p.width}px;
+`;
+
+export const Placeholder = styled.figure`
+  max-width: 100%;
   overflow: hidden;
   position: relative;
-  width: ${p => p.width}px;
 
   & figcaption {
     display: none;

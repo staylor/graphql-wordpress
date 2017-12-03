@@ -1,7 +1,7 @@
-const { MongoClient } = require('mongodb');
-const { URL } = require('url');
-const fetch = require('node-fetch');
-const slugify = require('../utils/slugify');
+import { MongoClient } from 'mongodb';
+import { URL } from 'url';
+import fetch from 'node-fetch';
+import slugify from '../utils/slugify';
 
 /* eslint-disable no-console */
 
@@ -103,7 +103,6 @@ function updateVideo({ contentDetails, snippet }, playlistId) {
         $set: data,
         $setOnInsert: {
           createdAt: Date.now(),
-          updatedAt: Date.now(),
           tags: [],
           slug: slugify(snippet.title),
         },

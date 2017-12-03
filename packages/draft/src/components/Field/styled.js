@@ -11,14 +11,14 @@ export const FieldName = styled.strong`
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  line-height: 20px;
+  line-height: 1.4;
 `;
 
 export const FieldInput = styled.input`
   border: 1px solid ${p => p.theme.colors.detail};
   display: block;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 1.4;
   margin: 5px 0;
   padding: 8px;
 `;
@@ -26,5 +26,39 @@ export const FieldInput = styled.input`
 export const FieldValue = styled.span`
   display: block;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 1.4;
+`;
+
+export const FieldCheckbox = styled.input`
+  appearance: none;
+  background-color: ${p => p.theme.colors.white};
+  border: 1px solid ${p => p.theme.colors.form.checkbox.border};
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: ${p => p.theme.colors.table.cell};
+  cursor: pointer;
+  display: inline-block;
+  height: 16px;
+  line-height: 0;
+  min-width: 16px;
+  outline: 0;
+  padding: 0;
+  transition: 0.05s border-color ease-in-out;
+  vertical-align: text-top;
+  width: 16px;
+
+  &:checked {
+    &::before {
+      color: ${p => p.theme.colors.pink};
+      content: '\f147';
+      float: left;
+      display: inline-block;
+      font: normal 21px/1 dashicons;
+      margin: -3px 0 0 -4px;
+      speak: none;
+      vertical-align: middle;
+      width: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
 `;

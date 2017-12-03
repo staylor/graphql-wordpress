@@ -7,8 +7,8 @@ injectGlobal`
     background: ${theme.colors.background};
     color: ${theme.colors.dark};
     font-family: ${theme.fonts.body};
-    font-size: 13px;
-    line-height: 18px;
+    font-size: 1em;
+    line-height: 1.5;
     text-rendering: optimizeLegibility;
   }
 

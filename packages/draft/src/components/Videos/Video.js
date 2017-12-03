@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
-import { Embed, Title, iframeClass, thumb640Class, thumb480Class } from './styled';
+import { VideoLink, Placeholder, Title, iframeClass, thumb640Class, thumb480Class } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -51,10 +51,18 @@ export default class Video extends Component {
     return (
       <Fragment>
         <Title>{link ? <Link to={`/video/${video.slug}`}>{video.title}</Link> : video.title}</Title>
-        <Embed width={thumb ? thumb.width : maxWidth} onClick={this.onClick(thumb)}>
-          {thumb && <img src={thumb.url} alt={video.title} className={thumb && thumb.className} />}
-          <figcaption>{video.title}</figcaption>
-        </Embed>
+        <VideoLink
+          to={`/video/${video.slug}`}
+          onClick={this.onClick(thumb)}
+          width={thumb ? thumb.width : maxWidth}
+        >
+          <Placeholder>
+            {thumb && (
+              <img src={thumb.url} alt={video.title} className={thumb && thumb.className} />
+            )}
+            <figcaption>{video.title}</figcaption>
+          </Placeholder>
+        </VideoLink>
       </Fragment>
     );
   }

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "draft-server GraphQL Server",
   "scripts": {
-    "start": "MONGO_URL=mongodb://127.0.0.1:27017/highforthis babel-node index.js"
+    "start": "MONGO_URL=mongodb://127.0.0.1:27017/highforthis babel-node index.js",
+    "youtube": "babel-node data/youtube.js"
   },
   "private": true,
   "author": "",
