@@ -2,9 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
+import qs from 'query-string';
+import debounce from 'debounce';
 import Loading from 'components/Loading';
 import Checkbox from 'components/Field/Checkbox';
-import { offsetToCursor } from 'utils/base64';
+import Input from 'components/Field/Input';
+import { offsetToCursor, bindLoadMore } from 'utils/connection';
 import {
   Table,
   StripedRow,
@@ -14,7 +17,7 @@ import {
   RowTitle,
   LoadMore,
 } from 'styles/utils';
-import { Heading, RowActions, Filters, Pagination } from './styled';
+import { Heading, RowActions, Filters, Pagination, SearchBox } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -22,8 +25,8 @@ const PER_PAGE = 10;
 
 @graphql(
   gql`
-    query VideosQuery($first: Int, $after: String) {
-      videos(first: $first, after: $after) {
+    query VideosQuery($first: Int, $after: String, $year: Int, $search: String) {
+      videos(first: $first, after: $after, year: $year, search: $search) {
         count
         edges {
           node {
@@ -36,16 +39,24 @@ const PER_PAGE = 10;
           cursor
         }
         pageInfo {
+          endCursor
           hasNextPage
         }
       }
     }
   `,
   {
-    options: ({ match: { params } }) => {
+    options: ({ match, location }) => {
+      const queryParams = qs.parse(location.search);
+      const { params } = match;
+
       const variables = { first: 10 };
-      if (params.year) {
-        variables.year = parseInt(params.year, 10);
+      if (queryParams.search) {
+        // $TODO: sanitize this
+        variables.search = queryParams.search;
+      }
+      if (queryParams.year) {
+        variables.year = parseInt(queryParams.year, 10);
       }
       if (params.page) {
         const pageOffset = parseInt(params.page, 10) - 1;
@@ -53,41 +64,50 @@ const PER_PAGE = 10;
           variables.after = offsetToCursor(pageOffset * PER_PAGE - 1);
         }
       }
+      console.log('VARS', variables);
       return { variables };
     },
   }
 )
 export default class Videos extends Component {
-  loadMore = e => {
-    e.preventDefault();
+  updateSearch = debounce(term => {
+    const { location, history } = this.props;
+    const queryParams = qs.parse(location.search);
+    delete queryParams.search;
+    if (term) {
+      queryParams.search = term;
+    }
 
-    const { fetchMore, variables, videos } = this.props.data;
-
-    return fetchMore({
-      variables: {
-        ...variables,
-        after: videos.edges[videos.edges.length - 1].cursor,
-      },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        const mergedResult = {
-          ...fetchMoreResult,
-          videos: {
-            ...fetchMoreResult.videos,
-            edges: previousResult.videos.edges.concat(fetchMoreResult.videos.edges),
-          },
-        };
-
-        return mergedResult;
-      },
+    console.log('PUSH', queryParams);
+    history.push({
+      pathname: '/video',
+      search: qs.stringify(queryParams),
     });
-  };
+  }, 600);
+
+  constructor(props, context) {
+    super(props, context);
+    this.loadMore = bindLoadMore.call(this, 'videos');
+  }
 
   render() {
-    const { data: { loading, videos }, match: { params } } = this.props;
+    const { location, data: { error, variables, loading, videos }, match: { params } } = this.props;
 
     if (loading && !videos) {
       return <Loading />;
     }
+
+    if (error) {
+      console.log('ERROR', error);
+    }
+
+    console.log('RENDER', variables);
+
+    const queryParams = qs.parse(location.search);
+
+    const LinkTo = ({ to = '', children }) => (
+      <Link to={{ pathname: `/video${to}`, search: location.search }}>{children}</Link>
+    );
 
     const Headers = (
       <tr>
@@ -101,39 +121,49 @@ export default class Videos extends Component {
       </tr>
     );
 
-    const pages = Math.ceil(videos.count / PER_PAGE);
-    const currentPage = params.page ? parseInt(params.page, 10) : 1;
+    const pages = videos.count > 0 ? Math.ceil(videos.count / PER_PAGE) : 0;
+    const firstPage = pages === 0 ? 0 : 1;
+    const currentPage = params.page ? parseInt(params.page, 10) : firstPage;
     const paginated = currentPage && currentPage > 1;
     let previousUrl = null;
     let nextUrl = null;
     if (paginated) {
       if (currentPage - 1 > 1) {
-        previousUrl = `/video/page/${currentPage - 1}`;
+        previousUrl = `/page/${currentPage - 1}`;
       } else {
-        previousUrl = '/video';
+        previousUrl = '';
       }
     }
     if (currentPage !== pages && videos.pageInfo.hasNextPage) {
-      nextUrl = `/video/page/${currentPage + 1}`;
+      nextUrl = `/page/${currentPage + 1}`;
     }
 
     const PaginationMatrix = (
       <Pagination>
         <strong>{videos.count} items</strong>
-        {paginated ? <Link to="/video">«</Link> : <span>«</span>}
-        {previousUrl ? <Link to={previousUrl}>‹</Link> : <span>‹</span>}
+        {paginated ? <LinkTo>«</LinkTo> : <span>«</span>}
+        {previousUrl === null ? <span>‹</span> : <LinkTo to={previousUrl}>‹</LinkTo>}
         <strong>
-          {paginated ? currentPage : 1} of {pages}
+          {paginated ? currentPage : firstPage} of {pages}
         </strong>
-        {nextUrl ? <Link to={nextUrl}>›</Link> : <span>›</span>}
-        {currentPage !== pages ? <Link to={`/video/page/${pages}`}>»</Link> : <span>»</span>}
+        {nextUrl === null ? <span>›</span> : <LinkTo to={nextUrl}>›</LinkTo>}
+        {currentPage !== pages ? <LinkTo to={`/page/${pages}`}>»</LinkTo> : <span>»</span>}
       </Pagination>
     );
 
     return (
       <Fragment>
         <Heading>Videos</Heading>
-        <Filters>{PaginationMatrix}</Filters>
+        <Filters>
+          <SearchBox>
+            <Input
+              value={queryParams.search || ''}
+              placeholder="Search Videos"
+              onChange={this.updateSearch}
+            />
+          </SearchBox>
+          {PaginationMatrix}
+        </Filters>
         <Table>
           <thead>{Headers}</thead>
           <tbody>
@@ -148,11 +178,11 @@ export default class Videos extends Component {
                   </CheckboxCell>
                   <Cell>
                     <RowTitle>
-                      <Link to={`/video/${node.id}`}>{node.title}</Link>
+                      <LinkTo to={`/${node.id}`}>{node.title}</LinkTo>
                     </RowTitle>
                     <RowActions>
-                      <Link to={`/video/${node.id}`}>Edit</Link> |{' '}
-                      <Link to={`/video/${node.id}`}>Trash</Link> |{' '}
+                      <LinkTo to={`/${node.id}`}>Edit</LinkTo> |{' '}
+                      <LinkTo to={`/${node.id}`}>Trash</LinkTo> |{' '}
                       <a href={`/video/${node.slug}`}>View</a>
                     </RowActions>
                   </Cell>

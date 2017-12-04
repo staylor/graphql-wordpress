@@ -39,6 +39,7 @@ extend type Query {
     last: Int
     before: String
     year: Int
+    search: String
   ): VideoConnection
   video(id: ObjID, slug: String): Video
 }

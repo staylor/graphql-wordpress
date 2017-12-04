@@ -15,12 +15,18 @@ export const FieldName = styled.strong`
 `;
 
 export const FieldInput = styled.input`
+  background-color: #fff;
   border: 1px solid ${p => p.theme.colors.detail};
+  border-radius: 0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
+  color: #32373c;
   display: block;
-  font-size: 16px;
-  line-height: 1.4;
-  margin: 5px 0;
-  padding: 8px;
+  font-size: 14px;
+  height: 28px;
+  outline: none;
+  padding: 3px 5px;
+  transition: 0.05s border-color ease-in-out;
 `;
 
 export const FieldValue = styled.span`

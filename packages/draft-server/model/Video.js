@@ -19,14 +19,22 @@ export default class Video {
     });
   }
 
-  count(criteria = {}) {
+  count(args = {}) {
+    const criteria = Object.assign({}, args);
+    delete criteria.search;
+    if (args.search) {
+      criteria.$text = { $search: args.search };
+    }
     return this.collection.find(criteria).count();
   }
 
-  all({ limit = 10, offset = 0, year = null }) {
+  all({ limit = 10, offset = 0, year = null, search = null }) {
     const criteria = {};
     if (year) {
       criteria.year = parseInt(year, 10);
+    }
+    if (search) {
+      criteria.$text = { $search: search };
     }
 
     return this.collection

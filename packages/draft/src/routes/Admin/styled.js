@@ -85,6 +85,7 @@ export const Filters = styled.section`
 export const Pagination = styled.nav`
   float: right;
   font-size: 13px;
+  margin: 0 3px;
 
   strong {
     display: inline-block;
@@ -118,4 +119,8 @@ export const Pagination = styled.nav`
     background: #e5e5e5;
     text-decoration: none;
   }
+`;
+
+export const SearchBox = styled.div`
+  float: right;
 `;
