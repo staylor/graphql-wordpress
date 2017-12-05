@@ -85,11 +85,6 @@ export default class Videos extends Component {
     });
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this.loadMore = bindLoadMore.call(this, 'videos');
-  }
-
   render() {
     const { location, match, data: { loading, videos } } = this.props;
 
@@ -177,7 +172,6 @@ export default class Videos extends Component {
       <ListTable
         {...{ location, match, columns, filters }}
         data={videos}
-        propName="videos"
         path="/video"
         title="Videos"
       />
