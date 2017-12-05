@@ -10,11 +10,24 @@ import { Heading, Button } from '../styled';
 /* eslint-disable react/prop-types */
 
 const videoFields = [
-  { label: 'Title', property: 'title' },
-  { label: 'Slug', property: 'slug' },
-  { label: 'Type', property: 'dataType' },
-  { label: 'Playlist IDs', property: 'dataPlaylistIds' },
-  { label: 'Tags', property: 'tags', editable: true },
+  { label: 'Title', prop: 'title' },
+  { label: 'Slug', prop: 'slug' },
+  { label: 'Type', prop: 'dataType' },
+  {
+    label: 'Playlist',
+    prop: 'dataPlaylistIds',
+    render: video => (
+      <a href={`https://www.youtube.com/playlist?list=${video.dataPlaylistIds[0]}`}>
+        View {video.year} Playlist
+      </a>
+    ),
+  },
+  {
+    label: 'Tags',
+    prop: 'tags',
+    editable: true,
+    render: video => video.tags.map(tag => tag.name).join(', '),
+  },
 ];
 
 const frag = gql`
@@ -28,6 +41,7 @@ const frag = gql`
       width
       height
     }
+    year
     dataPlaylistIds
     tags {
       name
@@ -105,20 +119,16 @@ export default class VideoRoute extends Component {
           <img src={thumb.url} alt={video.title} className={thumb480Class} />
         </ThumbWrapper>
         {videoFields.map(field => (
-          <Field key={field.property || field.list}>
+          <Field key={field.prop}>
             <FieldName>{field.label}</FieldName>
             {field.editable ? (
               <Textarea
                 rows="3"
-                innerRef={this.bindRef(field.property)}
-                value={
-                  field.property === 'tags'
-                    ? video[field.property].map(tag => tag.name).join(', ')
-                    : video[field.property]
-                }
+                innerRef={this.bindRef(field.prop)}
+                value={field.render ? field.render(video) : video[field.prop]}
               />
             ) : (
-              <FieldValue>{video[field.property]}</FieldValue>
+              (field.render && field.render(video)) || <FieldValue>{video[field.prop]}</FieldValue>
             )}
           </Field>
         ))}

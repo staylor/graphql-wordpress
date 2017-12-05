@@ -6,9 +6,9 @@ import ListTable from './ListTable';
 export default function VideoRouter() {
   return (
     <Switch>
-      <Route path="/video/page/:page" component={ListTable} />
-      <Route path="/video/:id" component={Edit} />
-      <Route exact path="/video" component={ListTable} />
+      <Route path="/tag/page/:page" component={ListTable} />
+      <Route path="/tag/:id" component={Edit} />
+      <Route exact path="/tag" component={ListTable} />
     </Switch>
   );
 }

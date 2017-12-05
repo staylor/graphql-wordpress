@@ -39,26 +39,70 @@ export const Heading = styled.h2`
 `;
 
 export const NavLink = styled(RRNavLink)`
+  color: ${p => p.theme.colors.dark};
   display: block;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 8px;
+  position: relative;
+  text-decoration: none;
+
+  &:hover {
+    color: ${p => p.theme.colors.black};
+  }
 `;
 
 export const activeClassName = css`
-  color: ${theme.colors.black};
-  text-decoration: none;
+  background-color: ${theme.colors.pink};
+  color: ${theme.colors.white};
+
+  &:hover {
+    color: ${theme.colors.white};
+  }
+
+  &::after {
+    border: solid 8px transparent;
+    border-right-color: ${theme.colors.white};
+    content: ' ';
+    height: 0;
+    margin-top: -8px;
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    top: 50%;
+    width: 0;
+  }
 `;
 
-export const Flex = styled.section`
-  display: flex;
+export const Dashicon = styled.i`
+  color: ${p => p.theme.colors.dark};
+  display: block;
+  float: left;
+  height: 34px;
+  text-align: center;
+  width: 36px;
+
+  .${activeClassName} & {
+    color: ${p => p.theme.colors.white};
+  }
 `;
+
+export const Flex = styled.section``;
 
 export const Nav = styled.nav`
-  flex: 1;
+  background-color: ${p => p.theme.colors.background};
+  bottom: -120px;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 160px;
 `;
 
 export const Content = styled.section`
-  flex: 4;
+  height: 100%;
+  margin-left: 160px;
+  padding-left: 20px;
 `;
 
 export const Button = styled.button`
