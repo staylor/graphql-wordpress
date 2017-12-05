@@ -10,7 +10,7 @@ type Video {
   title: String
   thumbnails: [VideoThumbnail]
   position: Int
-  tags: [String]
+  tags: [Tag]
   createdAt: Float!
   updatedAt: Float!
 }
@@ -27,6 +27,7 @@ type VideoEdge {
 }
 
 type VideoConnection {
+  tags: [Tag]
   years: [Int]
   count: Int
   edges: [VideoEdge]
@@ -41,6 +42,7 @@ extend type Query {
     before: String
     year: Int
     search: String
+    tags: String
   ): VideoConnection
   video(id: ObjID, slug: String): Video
 }

@@ -15,10 +15,14 @@ const typeDefs = [
     id: ObjID
   }
   type PageInfo {
-    startCursor: String,
-    endCursor: String,
-    hasPreviousPage: Boolean,
+    startCursor: String
+    endCursor: String
+    hasPreviousPage: Boolean
     hasNextPage: Boolean
+  }
+  type Tag {
+    name: String
+    slug: String
   }
 `,
 ];

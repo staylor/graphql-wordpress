@@ -47,6 +47,22 @@ export const FieldInput = styled.input`
   transition: 0.05s border-color ease-in-out;
 `;
 
+export const FieldTextarea = styled.textarea`
+  background-color: #fff;
+  border: 1px solid ${p => p.theme.colors.detail};
+  border-radius: 0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
+  color: #32373c;
+  display: block;
+  font-size: 14px;
+  max-width: 100%;
+  outline: none;
+  padding: 3px 5px;
+  transition: 0.05s border-color ease-in-out;
+  width: 300px;
+`;
+
 export const FieldValue = styled.span`
   display: block;
   font-size: 16px;

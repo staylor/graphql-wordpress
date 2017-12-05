@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import { ThumbWrapper, thumb480Class } from 'components/Videos/styled';
 import { Field, FieldName, FieldValue } from 'components/Field/styled';
-import Input from 'components/Field/Input';
+import Textarea from 'components/Field/Textarea';
 import { Heading, Button } from '../styled';
 
 /* eslint-disable react/prop-types */
@@ -17,29 +17,48 @@ const videoFields = [
   { label: 'Tags', property: 'tags', editable: true },
 ];
 
-@graphql(
-  gql`
+const frag = gql`
+  fragment AdminVideo_video on Video {
+    id
+    title
+    slug
+    dataType
+    thumbnails {
+      url
+      width
+      height
+    }
+    dataPlaylistIds
+    tags {
+      name
+    }
+  }
+`;
+
+@compose(
+  graphql(
+    gql`
     query VideoAdminQuery($id: ObjID) {
       video(id: $id) {
-        id
-        title
-        slug
-        dataType
-        thumbnails {
-          url
-          width
-          height
-        }
-        dataPlaylistIds
-        tags
+        ...AdminVideo_video
       }
     }
+    ${frag}
   `,
-  {
-    options: ({ match: { params } }) => ({
-      variables: { id: params.id },
-    }),
-  }
+    {
+      options: ({ match: { params } }) => ({
+        variables: { id: params.id },
+      }),
+    }
+  ),
+  graphql(gql`
+    mutation UpdateVideoMutation($id: ObjID!, $input: UpdateVideoInput!) {
+      updateVideo(id: $id, input: $input) {
+        ...AdminVideo_video
+      }
+    }
+    ${frag}
+  `)
 )
 export default class VideoRoute extends Component {
   boundRefs = {};
@@ -57,8 +76,17 @@ export default class VideoRoute extends Component {
       }
       return memo;
     }, {});
+    if (updates.tags) {
+      updates.tags = updates.tags.split(',').map(str => str.trim());
+    }
 
-    console.log(updates);
+    const { video } = this.props.data;
+    this.props.mutate({
+      variables: {
+        id: video.id,
+        input: updates,
+      },
+    });
   };
 
   render() {
@@ -80,7 +108,15 @@ export default class VideoRoute extends Component {
           <Field key={field.property || field.list}>
             <FieldName>{field.label}</FieldName>
             {field.editable ? (
-              <Input innerRef={this.bindRef(field.property)} value={video[field.property]} />
+              <Textarea
+                rows="3"
+                innerRef={this.bindRef(field.property)}
+                value={
+                  field.property === 'tags'
+                    ? video[field.property].map(tag => tag.name).join(', ')
+                    : video[field.property]
+                }
+              />
             ) : (
               <FieldValue>{video[field.property]}</FieldValue>
             )}

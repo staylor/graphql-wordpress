@@ -26,10 +26,14 @@ const PER_PAGE = 10;
 
 @graphql(
   gql`
-    query VideosQuery($first: Int, $after: String, $year: Int, $search: String) {
-      videos(first: $first, after: $after, year: $year, search: $search) {
+    query VideosQuery($first: Int, $after: String, $year: Int, $search: String, $tags: String) {
+      videos(first: $first, after: $after, year: $year, search: $search, tags: $tags) {
         count
         years
+        tags {
+          name
+          slug
+        }
         edges {
           node {
             id
@@ -37,6 +41,10 @@ const PER_PAGE = 10;
             slug
             publishedAt
             year
+            tags {
+              name
+              slug
+            }
           }
           cursor
         }
@@ -57,6 +65,9 @@ const PER_PAGE = 10;
         // $TODO: sanitize this
         variables.search = queryParams.search;
       }
+      if (queryParams.tag) {
+        variables.tags = queryParams.tag;
+      }
       if (queryParams.year) {
         variables.year = parseInt(queryParams.year, 10);
       }
@@ -75,6 +86,17 @@ export default class Videos extends Component {
     const params = {};
     if (year) {
       params.year = year;
+    }
+    this.props.history.push({
+      pathname: '/video',
+      search: qs.stringify(params),
+    });
+  };
+
+  updateTag = tag => {
+    const params = {};
+    if (tag) {
+      params.tag = tag;
     }
     this.props.history.push({
       pathname: '/video',
@@ -118,6 +140,7 @@ export default class Videos extends Component {
         </CheckboxCell>
         <CellHeading>Title</CellHeading>
         <CellHeading>Slug</CellHeading>
+        <CellHeading>Tags</CellHeading>
         <CellHeading>Year</CellHeading>
         <CellHeading>Date</CellHeading>
       </tr>
@@ -163,6 +186,13 @@ export default class Videos extends Component {
             choices={videos.years}
             onChange={this.updateYear}
           />
+          <Select placeholder="Select Tag" value={queryParams.tag} onChange={this.updateTag}>
+            {videos.tags.map(tag => (
+              <option key={tag.slug} value={tag.slug}>
+                {tag.name}
+              </option>
+            ))}
+          </Select>
           <SearchBox>
             <Input
               value={queryParams.search}
@@ -195,6 +225,19 @@ export default class Videos extends Component {
                     </RowActions>
                   </Cell>
                   <Cell>{node.slug}</Cell>
+                  <Cell>
+                    {node.tags.map(tag => (
+                      <Link
+                        key={tag.slug}
+                        to={{
+                          pathname: `/video`,
+                          search: qs.stringify({ tag: tag.slug }),
+                        }}
+                      >
+                        {tag.name}
+                      </Link>
+                    ))}
+                  </Cell>
                   <Cell>{node.year}</Cell>
                   <Cell>
                     Published<br />
