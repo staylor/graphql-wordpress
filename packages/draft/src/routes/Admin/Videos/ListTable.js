@@ -38,10 +38,8 @@ const PER_PAGE = 10;
               slug
             }
           }
-          cursor
         }
         pageInfo {
-          endCursor
           hasNextPage
         }
       }
@@ -84,6 +82,14 @@ export default class Videos extends Component {
       search: qs.stringify(params),
     });
   };
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.updateTags = this.updateProp('tag');
+    this.updateYear = this.updateProp('year');
+    this.updateSearch = debounce(this.updateProp('search'), 600);
+  }
 
   render() {
     const { location, match, data: { loading, videos } } = this.props;
@@ -149,9 +155,9 @@ export default class Videos extends Component {
           placeholder="Select Year"
           value={queryParams.year}
           choices={videos.years}
-          onChange={this.updateProp('year')}
+          onChange={this.updateYear}
         />
-        <Select placeholder="Select Tag" value={queryParams.tag} onChange={this.updateProp('tag')}>
+        <Select placeholder="Select Tag" value={queryParams.tag} onChange={this.updateTags}>
           {videos.tags.map(tag => (
             <option key={tag.slug} value={tag.slug}>
               {tag.name}
@@ -162,7 +168,7 @@ export default class Videos extends Component {
           <Input
             value={queryParams.search}
             placeholder="Search Videos"
-            onChange={debounce(this.updateProp('search'), 600)}
+            onChange={this.updateSearch}
           />
         </SearchBox>
       </Fragment>
