@@ -62,6 +62,7 @@ export const Content = styled.section`
 `;
 
 export const Button = styled.button`
+  appearance: none;
   background: ${p => p.theme.colors.white};
   cursor: pointer;
   display: block;

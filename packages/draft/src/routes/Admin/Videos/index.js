@@ -18,7 +18,7 @@ import {
   RowTitle,
   LoadMore,
 } from 'styles/utils';
-import { Heading, RowActions, Filters, Pagination, SearchBox } from './styled';
+import { Heading, RowActions, Filters, Pagination, SearchBox } from '../styled';
 
 /* eslint-disable react/prop-types */
 
