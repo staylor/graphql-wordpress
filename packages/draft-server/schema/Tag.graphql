@@ -1,0 +1,41 @@
+type Tag {
+  id: String
+  name: String
+  slug: String
+}
+
+type TagEdge {
+  node: Tag
+  cursor: String
+}
+
+type TagConnection {
+  count: Int
+  edges: [TagEdge]
+  pageInfo: PageInfo
+}
+
+extend type Query {
+  tags(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    search: String
+  ): TagConnection
+  tag(id: String): Tag
+}
+
+input CreateTagInput {
+  name: String
+}
+
+input UpdateTagInput {
+  name: String
+}
+
+extend type Mutation {
+  createTag(input: CreateTagInput!): Tag
+  updateTag(id: ObjID!, input: UpdateTagInput!): Tag
+  removeTag(id: ObjID!): Boolean
+}

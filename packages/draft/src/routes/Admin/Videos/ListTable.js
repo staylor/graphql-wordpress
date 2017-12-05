@@ -16,6 +16,59 @@ import ListTable from '../ListTable';
 
 const PER_PAGE = 10;
 
+const columns = [
+  {
+    label: 'Title',
+    render: video => (
+      <Fragment>
+        <RowTitle>
+          <Link to={`/video/${video.id}`}>{video.title}</Link>
+        </RowTitle>
+        <RowActions>
+          <Link to={`/video/${video.id}`}>Edit</Link> | <Link to={`/video/${video.id}`}>Trash</Link>{' '}
+          | <a href={`/video/${video.slug}`}>View</a>
+        </RowActions>
+      </Fragment>
+    ),
+  },
+  {
+    label: 'Slug',
+    prop: 'slug',
+  },
+  {
+    label: 'Tags',
+    render: video =>
+      video.tags.map(tag => (
+        <Link
+          key={tag.slug}
+          to={{
+            pathname: `/video`,
+            search: qs.stringify({ tag: tag.slug }),
+          }}
+        >
+          {tag.name}
+        </Link>
+      )),
+  },
+  {
+    label: 'Year',
+    prop: 'year',
+  },
+  {
+    label: 'Date',
+    render: video => {
+      const date = new Date(video.publishedAt);
+      const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+      return (
+        <Fragment>
+          Published<br />
+          {formattedDate}
+        </Fragment>
+      );
+    },
+  },
+];
+
 @graphql(
   gql`
     query VideosQuery($first: Int, $after: String, $year: Int, $search: String, $tags: String) {
@@ -99,55 +152,6 @@ export default class Videos extends Component {
     }
 
     const queryParams = qs.parse(location.search);
-
-    const columns = [
-      {
-        label: 'Title',
-        render: video => (
-          <Fragment>
-            <RowTitle>
-              <Link to={`/video/${video.id}`}>{video.title}</Link>
-            </RowTitle>
-            <RowActions>
-              <Link to={`/video/${video.id}`}>Edit</Link> |{' '}
-              <Link to={`/video/${video.id}`}>Trash</Link> |{' '}
-              <a href={`/video/${video.slug}`}>View</a>
-            </RowActions>
-          </Fragment>
-        ),
-      },
-      {
-        label: 'Slug',
-        prop: 'slug',
-      },
-      {
-        label: 'Tags',
-        render: video =>
-          video.tags.map(tag => (
-            <Link
-              key={tag.slug}
-              to={{
-                pathname: `/video`,
-                search: qs.stringify({ tag: tag.slug }),
-              }}
-            >
-              {tag.name}
-            </Link>
-          )),
-      },
-      {
-        label: 'Year',
-        prop: 'year',
-      },
-      {
-        label: 'Date',
-        render: video => {
-          const date = new Date(video.publishedAt);
-          const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-          return `Published<br />${formattedDate}`;
-        },
-      },
-    ];
 
     const filters = (
       <Fragment>

@@ -20,13 +20,10 @@ const typeDefs = [
     hasPreviousPage: Boolean
     hasNextPage: Boolean
   }
-  type Tag {
-    name: String
-    slug: String
-  }
 `,
 ];
 
 export default typeDefs;
 
+typeDefs.push(requireGraphQL('./Tag.graphql'));
 typeDefs.push(requireGraphQL('./Video.graphql'));
