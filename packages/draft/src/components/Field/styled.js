@@ -14,6 +14,24 @@ export const FieldName = styled.strong`
   line-height: 1.4;
 `;
 
+export const FieldSelect = styled.select`
+  background-color: #fff;
+  border: 1px solid ${p => p.theme.colors.detail};
+  border-radius: 0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box;
+  color: #32373c;
+  font-size: 14px;
+  height: 28px;
+  line-height: 28px;
+  margin: 1px;
+  max-width: 200px;
+  outline: none;
+  padding: 2px;
+  transition: 0.05s border-color ease-in-out;
+  vertical-align: middle;
+`;
+
 export const FieldInput = styled.input`
   background-color: #fff;
   border: 1px solid ${p => p.theme.colors.detail};

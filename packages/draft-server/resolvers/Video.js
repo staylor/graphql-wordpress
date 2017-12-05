@@ -6,6 +6,13 @@ const resolvers = {
       return video._id;
     },
   },
+  VideoConnection: {
+    async years(connection, args, { Video }) {
+      const years = await Video.collection.distinct('year');
+      years.sort().reverse();
+      return years;
+    },
+  },
   Query: {
     async videos(root, args, { Video }) {
       return parseConnection(Video, args);

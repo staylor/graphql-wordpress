@@ -27,6 +27,7 @@ type VideoEdge {
 }
 
 type VideoConnection {
+  years: [Int]
   count: Int
   edges: [VideoEdge]
   pageInfo: PageInfo

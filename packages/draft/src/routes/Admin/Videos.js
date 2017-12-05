@@ -7,6 +7,7 @@ import debounce from 'debounce';
 import Loading from 'components/Loading';
 import Checkbox from 'components/Field/Checkbox';
 import Input from 'components/Field/Input';
+import Select from 'components/Field/Select';
 import { offsetToCursor, bindLoadMore } from 'utils/connection';
 import {
   Table,
@@ -28,6 +29,7 @@ const PER_PAGE = 10;
     query VideosQuery($first: Int, $after: String, $year: Int, $search: String) {
       videos(first: $first, after: $after, year: $year, search: $search) {
         count
+        years
         edges {
           node {
             id
@@ -64,24 +66,30 @@ const PER_PAGE = 10;
           variables.after = offsetToCursor(pageOffset * PER_PAGE - 1);
         }
       }
-      console.log('VARS', variables);
       return { variables };
     },
   }
 )
 export default class Videos extends Component {
-  updateSearch = debounce(term => {
-    const { location, history } = this.props;
-    const queryParams = qs.parse(location.search);
-    delete queryParams.search;
-    if (term) {
-      queryParams.search = term;
+  updateYear = year => {
+    const params = {};
+    if (year) {
+      params.year = year;
     }
-
-    console.log('PUSH', queryParams);
-    history.push({
+    this.props.history.push({
       pathname: '/video',
-      search: qs.stringify(queryParams),
+      search: qs.stringify(params),
+    });
+  };
+
+  updateSearch = debounce(term => {
+    const params = {};
+    if (term) {
+      params.search = term;
+    }
+    this.props.history.push({
+      pathname: '/video',
+      search: qs.stringify(params),
     });
   }, 600);
 
@@ -91,17 +99,11 @@ export default class Videos extends Component {
   }
 
   render() {
-    const { location, data: { error, variables, loading, videos }, match: { params } } = this.props;
+    const { location, data: { loading, videos }, match: { params } } = this.props;
 
     if (loading && !videos) {
       return <Loading />;
     }
-
-    if (error) {
-      console.log('ERROR', error);
-    }
-
-    console.log('RENDER', variables);
 
     const queryParams = qs.parse(location.search);
 
@@ -155,9 +157,15 @@ export default class Videos extends Component {
       <Fragment>
         <Heading>Videos</Heading>
         <Filters>
+          <Select
+            placeholder="Select Year"
+            value={queryParams.year}
+            choices={videos.years}
+            onChange={this.updateYear}
+          />
           <SearchBox>
             <Input
-              value={queryParams.search || ''}
+              value={queryParams.search}
               placeholder="Search Videos"
               onChange={this.updateSearch}
             />
