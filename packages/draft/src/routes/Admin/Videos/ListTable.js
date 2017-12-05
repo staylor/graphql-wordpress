@@ -7,7 +7,7 @@ import debounce from 'debounce';
 import Loading from 'components/Loading';
 import Input from 'components/Field/Input';
 import Select from 'components/Field/Select';
-import { offsetToCursor, bindLoadMore } from 'utils/connection';
+import { offsetToCursor } from 'utils/connection';
 import { RowTitle } from 'styles/utils';
 import { RowActions, SearchBox } from '../styled';
 import ListTable from '../ListTable';
