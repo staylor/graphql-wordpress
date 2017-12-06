@@ -36,6 +36,6 @@ input UpdateTagInput {
 
 extend type Mutation {
   createTag(input: CreateTagInput!): Tag
-  updateTag(id: ObjID!, input: UpdateTagInput!): Tag
-  removeTag(id: ObjID!): Boolean
+  updateTag(id: String!, input: UpdateTagInput!): Tag
+  removeTag(id: String!): Boolean
 }

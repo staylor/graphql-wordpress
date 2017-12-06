@@ -4,6 +4,7 @@ import { Kind } from 'graphql/language';
 import { merge } from 'lodash';
 import tagResolvers from './Tag';
 import videoResolvers from './Video';
+import settingsResolvers from './Settings';
 
 const resolvers = {};
 
@@ -26,5 +27,6 @@ resolvers.ObjID = new GraphQLScalarType({
 
 export default resolvers;
 
-merge(resolvers, tagResolvers);
-merge(resolvers, videoResolvers);
+merge(resolvers, tagResolvers, videoResolvers, settingsResolvers);
+// resolvers.Viewer = Object.assign({}, resolvers.Query);
+// resolvers.Viewer.id = () => 'me';

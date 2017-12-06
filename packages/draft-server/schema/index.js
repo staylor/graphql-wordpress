@@ -27,3 +27,4 @@ export default typeDefs;
 
 typeDefs.push(requireGraphQL('./Tag.graphql'));
 typeDefs.push(requireGraphQL('./Video.graphql'));
+typeDefs.push(requireGraphQL('./Settings.graphql'));

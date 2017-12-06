@@ -1,5 +1,6 @@
 import Tag from './Tag';
 import Video from './Video';
+import Settings from './Settings';
 
 const models = {};
 
@@ -13,3 +14,4 @@ export default function addModelsToContext(context) {
 
 models.Tag = Tag;
 models.Video = Video;
+models.Settings = Settings;

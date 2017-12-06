@@ -1,0 +1,22 @@
+interface Settings {
+  id: String
+}
+
+type SiteSettings implements Settings {
+  id: String
+  siteTitle: String
+  tagline: String
+}
+
+extend type Query {
+  settings(id: String): Settings
+}
+
+input UpdateSettingsInput {
+  siteTitle: String
+  tagline: String
+}
+
+extend type Mutation {
+  updateSettings(id: String!, input: UpdateSettingsInput!): Settings
+}
