@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { FieldTextarea } from 'components/Field/styled';
+import { FieldInput } from 'components/Form/styled';
 
 /* eslint-disable react/prop-types */
 
-export default class Textarea extends Component {
+export default class Input extends Component {
   onChange = e => {
     if (this.props.onChange) {
       this.props.onChange(e.target.value);
@@ -31,6 +31,8 @@ export default class Textarea extends Component {
   }
 
   render() {
-    return <FieldTextarea {...this.props} onChange={this.onChange} value={this.state.value} />;
+    return (
+      <FieldInput type="text" {...this.props} onChange={this.onChange} value={this.state.value} />
+    );
   }
 }

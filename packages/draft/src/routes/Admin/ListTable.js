@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import Checkbox from 'components/Field/Checkbox';
+import Checkbox from 'components/Form/Checkbox';
 import { Table, StripedRow, CellHeading, Cell, CheckboxCell } from 'styles/utils';
 import { Heading, Filters, Pagination } from './styled';
 

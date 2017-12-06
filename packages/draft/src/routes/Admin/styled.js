@@ -1,7 +1,5 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
-import { NavLink as RRNavLink } from 'react-router-dom';
-import theme from 'styles/theme';
 
 export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
@@ -38,80 +36,25 @@ export const Heading = styled.h2`
   margin: 0 0 ${p => p.theme.padding}px;
 `;
 
-export const NavLink = styled(RRNavLink)`
-  color: ${p => p.theme.colors.dark};
-  display: block;
-  font-size: 14px;
-  line-height: 18px;
-  padding: 8px;
-  position: relative;
-  text-decoration: none;
-
-  &:hover {
-    color: ${p => p.theme.colors.black};
-  }
-`;
-
-export const activeClassName = css`
-  background-color: ${theme.colors.pink};
-  color: ${theme.colors.white};
-
-  &:hover {
-    color: ${theme.colors.white};
-  }
-
-  &::after {
-    border: solid 8px transparent;
-    border-right-color: ${theme.colors.white};
-    content: ' ';
-    height: 0;
-    margin-top: -8px;
-    position: absolute;
-    pointer-events: none;
-    right: 0;
-    top: 50%;
-    width: 0;
-  }
-`;
-
-export const Dashicon = styled.i`
-  color: ${p => p.theme.colors.dark};
-  display: block;
-  float: left;
-  height: 34px;
-  text-align: center;
-  width: 36px;
-
-  .${activeClassName} & {
-    color: ${p => p.theme.colors.white};
-  }
-`;
-
 export const Flex = styled.section``;
-
-export const Nav = styled.nav`
-  background-color: ${p => p.theme.colors.background};
-  bottom: -120px;
-  height: 100%;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 160px;
-`;
 
 export const Content = styled.section`
   height: 100%;
   margin-left: 160px;
-  padding-left: 20px;
+  padding: 0 20px 65px;
+`;
+
+export const foldedNavClass = css`
+  margin-left: 36px;
 `;
 
 export const Button = styled.button`
   appearance: none;
-  background: ${p => p.theme.colors.white};
+  background: ${p => p.theme.colors.detail};
   cursor: pointer;
   display: block;
   padding: 4px 10px;
-  font-size: 18px;
+  font-size: 15px;
 `;
 
 export const RowActions = styled.nav`

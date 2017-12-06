@@ -1,5 +1,11 @@
 import styled from 'react-emotion';
 
+export const Fields = styled.form`
+  display: block;
+  max-width: 400px;
+  width: 100%;
+`;
+
 export const Field = styled.p`
   display: block;
   margin: 0 0 ${p => p.theme.padding}px;
@@ -41,10 +47,11 @@ export const FieldInput = styled.input`
   color: #32373c;
   display: block;
   font-size: 14px;
-  height: 28px;
+  height: 32px;
   outline: none;
   padding: 3px 5px;
   transition: 0.05s border-color ease-in-out;
+  width: 100%;
 `;
 
 export const FieldTextarea = styled.textarea`

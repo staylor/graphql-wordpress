@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { FieldInput } from 'components/Field/styled';
+import { FieldSelect } from 'components/Form/styled';
 
 /* eslint-disable react/prop-types */
 
-export default class Input extends Component {
+export default class Select extends Component {
   onChange = e => {
     if (this.props.onChange) {
       this.props.onChange(e.target.value);
     }
     this.setState({ value: e.target.value });
   };
+
+  didMount = false;
 
   constructor(props, context) {
     super(props, context);
@@ -32,7 +34,16 @@ export default class Input extends Component {
 
   render() {
     return (
-      <FieldInput type="text" {...this.props} onChange={this.onChange} value={this.state.value} />
+      <FieldSelect value={this.state.value} onChange={this.onChange}>
+        {this.props.placeholder && <option value="">{this.props.placeholder}</option>}
+        {this.props.choices &&
+          this.props.choices.map(choice => (
+            <option key={choice} value={choice}>
+              {choice}
+            </option>
+          ))}
+        {this.props.children}
+      </FieldSelect>
     );
   }
 }

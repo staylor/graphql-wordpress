@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldCheckbox } from 'components/Field/styled';
+import { FieldCheckbox } from 'components/Form/styled';
 
 /* eslint-disable react/prop-types */
 

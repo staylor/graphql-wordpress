@@ -1,66 +1,87 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import 'styles/inject';
-import { PageWrapper, Flex, Nav, Content, NavLink, activeClassName, Dashicon } from './styled';
+import { PageWrapper, Flex, Content, foldedNavClass } from './styled';
+import NavMenu from './NavMenu';
 import VideoRouter from './Videos';
 import TagRouter from './Tags';
 import Dashboard from './Dashboard';
+import Settings from './Settings';
 import NotFound from './NotFound';
 
 const routeConfig = [
-  {
-    path: '/',
-    label: 'Dashboard',
-    dashicon: 'dashboard',
-    component: Dashboard,
-  },
-  {
-    path: '/video',
-    label: 'Videos',
-    dashicon: 'video-alt',
-    component: VideoRouter,
-  },
-  { path: '/shows', label: 'Shows', dashicon: 'calendar', component: NotFound },
-  { path: '/tag', label: 'Tags', dashicon: 'tag', component: TagRouter },
+  [
+    {
+      path: '/',
+      label: 'Dashboard',
+      dashicon: 'dashboard',
+      component: Dashboard,
+    },
+  ],
+  [
+    {
+      path: '/video',
+      label: 'Videos',
+      dashicon: 'video-alt',
+      component: VideoRouter,
+    },
+    {
+      path: '/shows',
+      label: 'Shows',
+      dashicon: 'calendar',
+      component: NotFound,
+    },
+    { path: '/tag', label: 'Tags', dashicon: 'tag', component: TagRouter },
+  ],
+  [
+    {
+      path: '/settings',
+      label: 'Settings',
+      dashicon: 'admin-settings',
+      component: Settings,
+    },
+  ],
 ];
 
-export default function Admin() {
-  return (
-    <ThemeProvider theme={theme}>
-      <PageWrapper>
-        <Flex>
-          <Nav>
-            {routeConfig.map(item => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                exact={item.path === '/'}
-                activeClassName={activeClassName}
-              >
-                {item.dashicon && (
-                  <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />
+export default class Admin extends Component {
+  state = {
+    folded: false,
+  };
+
+  onFolded = folded => {
+    this.setState({ folded });
+  };
+
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <PageWrapper>
+          <Flex>
+            <NavMenu
+              folded={this.state.folded}
+              onFolded={this.onFolded}
+              routeConfig={routeConfig}
+            />
+            <Content className={this.state.folded && foldedNavClass}>
+              <Switch>
+                {routeConfig.map(section =>
+                  section.map(route => (
+                    <Route
+                      key={route.label}
+                      exact={route.path === '/'}
+                      path={route.path}
+                      component={route.component}
+                    />
+                  ))
                 )}
-                {item.label}
-              </NavLink>
-            ))}
-          </Nav>
-          <Content>
-            <Switch>
-              {routeConfig.map(route => (
-                <Route
-                  key={route.label}
-                  exact={route.path === '/'}
-                  path={route.path}
-                  component={route.component}
-                />
-              ))}
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </Content>
-        </Flex>
-      </PageWrapper>
-    </ThemeProvider>
-  );
+                <Route path="*" component={NotFound} />
+              </Switch>
+            </Content>
+          </Flex>
+        </PageWrapper>
+      </ThemeProvider>
+    );
+  }
 }

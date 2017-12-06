@@ -2,9 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
-import { Field, FieldName, FieldValue } from 'components/Field/styled';
-import Input from 'components/Field/Input';
-import { Heading, Button } from '../styled';
+import Form from '../Form';
+import { Heading } from '../styled';
 
 /* eslint-disable react/prop-types */
 
@@ -42,21 +41,8 @@ const tagFields = [
   `)
 )
 export default class TagRoute extends Component {
-  boundRefs = {};
-
-  bindRef = prop => ref => {
-    this.boundRefs[prop] = ref;
-  };
-
-  onClick = e => {
+  onSubmit = (e, updates) => {
     e.preventDefault();
-
-    const updates = tagFields.reduce((memo, field) => {
-      if (field.editable) {
-        memo[field.prop] = this.boundRefs[field.prop].value;
-      }
-      return memo;
-    }, {});
 
     const { tag } = this.props.data;
     this.props.mutate({
@@ -77,20 +63,7 @@ export default class TagRoute extends Component {
     return (
       <Fragment>
         <Heading>Edit Tag</Heading>
-        {tagFields.map(field => (
-          <Field key={field.prop}>
-            <FieldName>{field.label}</FieldName>
-            {field.editable ? (
-              <Input
-                innerRef={this.bindRef(field.prop)}
-                value={field.render ? field.render(tag) : tag[field.prop]}
-              />
-            ) : (
-              (field.render && field.render(tag)) || <FieldValue>{tag[field.prop]}</FieldValue>
-            )}
-          </Field>
-        ))}
-        <Button onClick={this.onClick}>Update Tag</Button>
+        <Form fields={tagFields} data={tag} buttonLabel="Update Tag" onSubmit={this.onSubmit} />
       </Fragment>
     );
   }

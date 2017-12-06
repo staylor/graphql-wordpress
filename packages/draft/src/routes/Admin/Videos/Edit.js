@@ -3,9 +3,8 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import { ThumbWrapper, thumb480Class } from 'components/Videos/styled';
-import { Field, FieldName, FieldValue } from 'components/Field/styled';
-import Textarea from 'components/Field/Textarea';
-import { Heading, Button } from '../styled';
+import Form from '../Form';
+import { Heading } from '../styled';
 
 /* eslint-disable react/prop-types */
 
@@ -25,6 +24,7 @@ const videoFields = [
   {
     label: 'Tags',
     prop: 'tags',
+    type: 'textarea',
     editable: true,
     render: video => video.tags.map(tag => tag.name).join(', '),
   },
@@ -52,13 +52,13 @@ const frag = gql`
 @compose(
   graphql(
     gql`
-    query VideoAdminQuery($id: ObjID) {
-      video(id: $id) {
-        ...AdminVideo_video
+      query VideoAdminQuery($id: ObjID) {
+        video(id: $id) {
+          ...AdminVideo_video
+        }
       }
-    }
-    ${frag}
-  `,
+      ${frag}
+    `,
     {
       options: ({ match: { params } }) => ({
         variables: { id: params.id },
@@ -75,21 +75,7 @@ const frag = gql`
   `)
 )
 export default class VideoRoute extends Component {
-  boundRefs = {};
-
-  bindRef = prop => ref => {
-    this.boundRefs[prop] = ref;
-  };
-
-  onClick = e => {
-    e.preventDefault();
-
-    const updates = videoFields.reduce((memo, field) => {
-      if (field.editable) {
-        memo[field.property] = this.boundRefs[field.property].value;
-      }
-      return memo;
-    }, {});
+  onSubmit = (e, updates) => {
     if (updates.tags) {
       updates.tags = updates.tags.split(',').map(str => str.trim());
     }
@@ -118,21 +104,12 @@ export default class VideoRoute extends Component {
         <ThumbWrapper>
           <img src={thumb.url} alt={video.title} className={thumb480Class} />
         </ThumbWrapper>
-        {videoFields.map(field => (
-          <Field key={field.prop}>
-            <FieldName>{field.label}</FieldName>
-            {field.editable ? (
-              <Textarea
-                rows="3"
-                innerRef={this.bindRef(field.prop)}
-                value={field.render ? field.render(video) : video[field.prop]}
-              />
-            ) : (
-              (field.render && field.render(video)) || <FieldValue>{video[field.prop]}</FieldValue>
-            )}
-          </Field>
-        ))}
-        <Button onClick={this.onClick}>Update Video</Button>
+        <Form
+          fields={videoFields}
+          data={video}
+          buttonLabel="Update Video"
+          onSubmit={this.onSubmit}
+        />
       </Fragment>
     );
   }
