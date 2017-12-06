@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Heading } from '../styled';
 
 export default function Home() {
-  return <p>HOME.</p>;
+  return (
+    <Fragment>
+      <Heading>Dashboard</Heading>
+    </Fragment>
+  );
 }
