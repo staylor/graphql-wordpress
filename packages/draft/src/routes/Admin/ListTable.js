@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Checkbox from 'components/Form/Checkbox';
 import { Table, StripedRow, CellHeading, Cell, CheckboxCell } from 'styles/utils';
-import { Heading, Filters, Pagination } from './styled';
+import { Filters, Pagination } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -16,15 +16,10 @@ export default class ListTable extends Component {
   }
 
   render() {
-    const { location, match: { params }, data, path, title, columns, filters } = this.props;
+    const { location, match: { params }, data, path, columns, filters } = this.props;
 
     if (!data || !data.edges || !data.edges.length) {
-      return (
-        <Fragment>
-          <Heading>{title}</Heading>
-          <p>No items found.</p>
-        </Fragment>
-      );
+      return <p>No items found.</p>;
     }
 
     const LinkTo = ({ to = '', children }) => (
@@ -72,7 +67,6 @@ export default class ListTable extends Component {
 
     return (
       <Fragment>
-        <Heading>{title}</Heading>
         <Filters>
           {filters}
           {paginationMatrix}

@@ -9,7 +9,7 @@ import Input from 'components/Form/Input';
 import Select from 'components/Form/Select';
 import { offsetToCursor } from 'utils/connection';
 import { RowTitle } from 'styles/utils';
-import { RowActions, SearchBox } from '../styled';
+import { Heading, RowActions, SearchBox } from '../styled';
 import ListTable from '../ListTable';
 
 /* eslint-disable react/prop-types */
@@ -179,12 +179,10 @@ export default class Videos extends Component {
     );
 
     return (
-      <ListTable
-        {...{ location, match, columns, filters }}
-        data={videos}
-        path="/video"
-        title="Videos"
-      />
+      <Fragment>
+        <Heading>Videos</Heading>
+        <ListTable {...{ location, match, columns, filters }} data={videos} path="/video" />
+      </Fragment>
     );
   }
 }

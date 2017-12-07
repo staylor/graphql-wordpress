@@ -22,8 +22,11 @@ export default class Tag {
     return this.collection.find(criteria).count();
   }
 
-  all({ limit = 10, offset = 0, search = null }) {
+  all({ limit = 10, offset = 0, taxonomy = null, search = null }) {
     const criteria = {};
+    if (taxonomy) {
+      criteria.taxonomy = taxonomy;
+    }
     if (search) {
       criteria.$text = { $search: search };
     }

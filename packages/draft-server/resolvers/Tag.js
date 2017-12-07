@@ -2,8 +2,8 @@ import { parseConnection } from '../utils/collection';
 
 const resolvers = {
   Tag: {
-    id(video) {
-      return video._id;
+    id(tag) {
+      return tag._id;
     },
   },
   Query: {

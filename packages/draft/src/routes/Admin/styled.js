@@ -1,5 +1,6 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
+import { Link } from 'react-router-dom';
 
 export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
@@ -26,14 +27,32 @@ export const Title = styled.h1`
   }
 `;
 
-export const Heading = styled.h2`
-  display: block;
+export const Heading = styled.h1`
+  display: inline-block;
   font-family: ${p => p.theme.fonts.futura};
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 23px;
+  font-weight: 400;
   letter-spacing: 0.3px;
   line-height: 1.3;
-  margin: 0 0 ${p => p.theme.padding}px;
+  margin: 0 9px 0 0;
+  padding: 9px 0 4px 0;
+`;
+
+export const HeaderAdd = styled(Link)`
+  background: ${p => p.theme.colors.detail};
+  border: 1px solid ${p => p.theme.colors.background};
+  border-radius: 2px;
+  color: ${p => p.theme.colors.pink};
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: normal;
+  outline: 0;
+  padding: 4px 8px;
+  position: relative;
+  text-decoration: none;
+  text-shadow: none;
+  top: -3px;
 `;
 
 export const Flex = styled.section``;

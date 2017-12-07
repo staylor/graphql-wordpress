@@ -10,7 +10,7 @@ export default function VideoRouter() {
       <Route path="/tag/page/:page" component={ListTable} />
       <Route path="/tag/add" component={Add} />
       <Route path="/tag/:id" component={Edit} />
-      <Route exact path="/tag" component={ListTable} />
+      <Route path="/tag" component={ListTable} />
     </Switch>
   );
 }

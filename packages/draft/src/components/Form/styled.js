@@ -8,7 +8,7 @@ export const Fields = styled.form`
 
 export const Field = styled.p`
   display: block;
-  margin: 0 0 ${p => p.theme.padding}px;
+  margin: ${p => p.theme.padding}px 0;
 `;
 
 export const FieldName = styled.strong`
@@ -36,6 +36,12 @@ export const FieldSelect = styled.select`
   padding: 2px;
   transition: 0.05s border-color ease-in-out;
   vertical-align: middle;
+
+  &[multiple] {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
 `;
 
 export const FieldInput = styled.input`

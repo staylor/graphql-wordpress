@@ -5,10 +5,14 @@ import { FieldSelect } from 'components/Form/styled';
 
 export default class Select extends Component {
   onChange = e => {
-    if (this.props.onChange) {
-      this.props.onChange(e.target.value);
+    let value = e.target.value;
+    if (this.props.multiple) {
+      value = [...e.target.selectedOptions].map(o => o.value);
     }
-    this.setState({ value: e.target.value });
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
+    this.setState({ value });
   };
 
   didMount = false;
@@ -17,7 +21,7 @@ export default class Select extends Component {
     super(props, context);
 
     this.state = {
-      value: props.value || '',
+      value: props.value || (props.multiple ? [] : ''),
     };
   }
 
@@ -25,7 +29,7 @@ export default class Select extends Component {
     if (!this.didMount || nextProps.value === this.state.value) {
       return;
     }
-    this.setState({ value: nextProps.value || '' });
+    this.setState({ value: nextProps.value || (nextProps.multiple ? [] : '') });
   }
 
   componentDidMount() {
@@ -33,16 +37,18 @@ export default class Select extends Component {
   }
 
   render() {
+    const { placeholder, choices, children, value, ...rest } = this.props;
+
     return (
-      <FieldSelect value={this.state.value} onChange={this.onChange}>
-        {this.props.placeholder && <option value="">{this.props.placeholder}</option>}
-        {this.props.choices &&
-          this.props.choices.map(choice => (
+      <FieldSelect {...rest} value={this.state.value} onChange={this.onChange}>
+        {placeholder && <option value="">{placeholder}</option>}
+        {choices &&
+          choices.map(choice => (
             <option key={choice} value={choice}>
               {choice}
             </option>
           ))}
-        {this.props.children}
+        {children}
       </FieldSelect>
     );
   }

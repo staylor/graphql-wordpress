@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Field, FieldName, FieldValue, Fields } from 'components/Form/styled';
 import Input from 'components/Form/Input';
 import Textarea from 'components/Form/Textarea';
+import Select from 'components/Form/Select';
 import { Button } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -21,7 +22,12 @@ export default class Form extends Component {
 
     const updates = fields.reduce((memo, field) => {
       if (field.editable) {
-        memo[field.prop] = this.boundRefs[field.prop].value;
+        const prop = this.boundRefs[field.prop];
+        if (field.type === 'select' && field.multiple) {
+          memo[field.prop] = [...prop.selectedOptions].map(o => o.value);
+        } else {
+          memo[field.prop] = prop.value;
+        }
       }
       return memo;
     }, {});
@@ -30,6 +36,19 @@ export default class Form extends Component {
   };
 
   getEditableField(field, data = {}) {
+    if (field.type === 'select') {
+      return (
+        <Select
+          innerRef={this.bindRef(field.prop)}
+          choices={field.choices}
+          value={data[field.prop] || (field.multiple ? [] : '')}
+          multiple={field.multiple}
+        >
+          {field.render ? field.render(data) : null}
+        </Select>
+      );
+    }
+
     if (field.type === 'textarea') {
       return (
         <Textarea

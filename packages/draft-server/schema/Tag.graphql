@@ -1,7 +1,15 @@
+enum TAXONOMY {
+  ARTIST
+  EVENT
+  LOCATION
+  PROGRAM
+}
+
 type Tag {
   id: String
   name: String
   slug: String
+  taxonomy: [TAXONOMY]
 }
 
 type TagEdge {
@@ -21,6 +29,7 @@ extend type Query {
     after: String
     last: Int
     before: String
+    taxonomy: String
     search: String
   ): TagConnection
   tag(id: String): Tag
@@ -28,10 +37,12 @@ extend type Query {
 
 input CreateTagInput {
   name: String
+  taxonomy: [TAXONOMY]
 }
 
 input UpdateTagInput {
   name: String
+  taxonomy: [TAXONOMY]
 }
 
 extend type Mutation {

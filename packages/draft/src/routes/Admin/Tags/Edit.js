@@ -8,19 +8,20 @@ import { Heading } from '../styled';
 
 /* eslint-disable react/prop-types */
 
-const tagFields = [
-  { label: 'Name', prop: 'name', editable: true },
-  { label: 'Slug', prop: 'slug' },
-];
-
 @compose(
   graphql(
     gql`
       query TagAdminQuery($id: String) {
+        taxonomy: __type(name: "TAXONOMY") {
+          enumValues {
+            name
+          }
+        }
         tag(id: $id) {
           id
           name
           slug
+          taxonomy
         }
       }
     `,
@@ -36,6 +37,7 @@ const tagFields = [
         id
         name
         slug
+        taxonomy
       }
     }
   `)
@@ -61,11 +63,24 @@ export default class EditTag extends Component {
   };
 
   render() {
-    const { data: { loading, tag } } = this.props;
+    const { data: { loading, tag, taxonomy } } = this.props;
 
     if (loading && !tag) {
       return <Loading />;
     }
+
+    const tagFields = [
+      { label: 'Name', prop: 'name', editable: true },
+      { label: 'Slug', prop: 'slug' },
+      {
+        label: 'Taxonomy',
+        prop: 'taxonomy',
+        editable: true,
+        multiple: true,
+        type: 'select',
+        choices: taxonomy.enumValues.map(v => v.name),
+      },
+    ];
 
     return (
       <Fragment>
