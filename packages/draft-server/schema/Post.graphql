@@ -1,0 +1,52 @@
+type Post {
+  id: ObjID!
+  title: String
+  slug: String
+  content: String
+  tags: [Tag]
+  createdAt: Float!
+  updatedAt: Float!
+}
+
+type PostEdge {
+  node: Post
+  cursor: String
+}
+
+type PostConnection {
+  tags: [Tag]
+  count: Int
+  edges: [PostEdge]
+  pageInfo: PageInfo
+}
+
+extend type Query {
+  posts(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    year: Int
+    search: String
+    tags: String
+  ): PostConnection
+  post(id: ObjID, slug: String): Post
+}
+
+input CreatePostInput {
+  title: String
+  content: String
+  tags: [String]
+}
+
+input UpdatePostInput {
+  title: String
+  content: String
+  tags: [String]
+}
+
+extend type Mutation {
+  createPost(input: CreatePostInput!): Post
+  updatePost(id: ObjID!, input: UpdatePostInput!): Post
+  removePost(id: ObjID!): Boolean
+}

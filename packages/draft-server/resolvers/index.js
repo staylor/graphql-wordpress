@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb';
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 import { merge } from 'lodash';
+import postResolvers from './Post';
 import tagResolvers from './Tag';
 import videoResolvers from './Video';
 import settingsResolvers from './Settings';
@@ -27,6 +28,6 @@ resolvers.ObjID = new GraphQLScalarType({
 
 export default resolvers;
 
-merge(resolvers, tagResolvers, videoResolvers, settingsResolvers);
+merge(resolvers, postResolvers, tagResolvers, videoResolvers, settingsResolvers);
 // resolvers.Viewer = Object.assign({}, resolvers.Query);
 // resolvers.Viewer.id = () => 'me';

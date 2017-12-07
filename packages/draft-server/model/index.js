@@ -1,8 +1,9 @@
+import Post from './Post';
 import Tag from './Tag';
 import Video from './Video';
 import Settings from './Settings';
 
-const models = {};
+const models = { Post, Tag, Video, Settings };
 
 export default function addModelsToContext(context) {
   const newContext = Object.assign({}, context);
@@ -11,7 +12,3 @@ export default function addModelsToContext(context) {
   });
   return newContext;
 }
-
-models.Tag = Tag;
-models.Video = Video;
-models.Settings = Settings;
