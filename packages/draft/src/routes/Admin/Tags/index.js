@@ -4,7 +4,7 @@ import Add from './Add';
 import Edit from './Edit';
 import ListTable from './ListTable';
 
-export default function VideoRouter() {
+export default function TagRouter() {
   return (
     <Switch>
       <Route path="/tag/page/:page" component={ListTable} />

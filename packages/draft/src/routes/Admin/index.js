@@ -5,6 +5,7 @@ import theme from 'styles/theme';
 import 'styles/inject';
 import { PageWrapper, Flex, Content, foldedNavClass } from './styled';
 import NavMenu from './NavMenu';
+import PostRouter from './Posts';
 import VideoRouter from './Videos';
 import TagRouter from './Tags';
 import Dashboard from './Dashboard';
@@ -24,13 +25,29 @@ const routeConfig = [
   ],
   [
     {
+      path: '/post',
+      label: 'Posts',
+      dashicon: 'admin-post',
+      component: PostRouter,
+      routes: [
+        {
+          path: '/post',
+          label: 'All Posts',
+        },
+        {
+          path: '/post/add',
+          label: 'Add New',
+        },
+      ],
+    },
+    {
       path: '/video',
       label: 'Videos',
       dashicon: 'video-alt',
       component: VideoRouter,
     },
     {
-      path: '/shows',
+      path: '/show',
       label: 'Shows',
       dashicon: 'calendar',
       component: NotFound,
