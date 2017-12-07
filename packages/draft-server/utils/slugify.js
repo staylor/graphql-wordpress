@@ -1,7 +1,7 @@
 const slugify = require('slugify');
 
 // eslint-disable-next-line
-const removePattern = /[#,$*_+~.()\[\]'"!\-:@]/g;
+const removePattern = /[#,$*_+~.()\[\]\/'"!\-:@]/g;
 
 export default value =>
   slugify(value, {

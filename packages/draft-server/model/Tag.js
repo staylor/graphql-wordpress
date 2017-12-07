@@ -37,13 +37,13 @@ export default class Tag {
   }
 
   async insert(doc) {
+    const slug = slugify(doc.name);
     const docToInsert = Object.assign({}, doc, {
+      _id: slug,
+      slug,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
-    if (!docToInsert.slug) {
-      docToInsert.slug = slugify(docToInsert.name);
-    }
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     return id;
   }

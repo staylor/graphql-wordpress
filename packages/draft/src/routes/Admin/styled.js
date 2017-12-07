@@ -74,6 +74,7 @@ export const Pagination = styled.nav`
   float: right;
   font-size: 13px;
   margin: 0 3px;
+  user-select: none;
 
   strong {
     display: inline-block;
@@ -81,6 +82,7 @@ export const Pagination = styled.nav`
     margin: 0 3px;
     min-width: 65px;
     text-align: center;
+    user-select: none;
   }
 
   span,
@@ -94,6 +96,7 @@ export const Pagination = styled.nav`
     min-width: 17px;
     padding: 3px 5px 7px;
     text-align: center;
+    user-select: none;
   }
 
   span {

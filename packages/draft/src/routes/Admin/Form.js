@@ -29,7 +29,7 @@ export default class Form extends Component {
     onSubmit(e, updates);
   };
 
-  getEditableField(field, data) {
+  getEditableField(field, data = {}) {
     if (field.type === 'textarea') {
       return (
         <Textarea
@@ -49,7 +49,7 @@ export default class Form extends Component {
   }
 
   render() {
-    const { data, fields, buttonLabel = 'Submit' } = this.props;
+    const { data = {}, fields, buttonLabel = 'Submit' } = this.props;
 
     return (
       <Fields>

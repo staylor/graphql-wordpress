@@ -11,6 +11,8 @@ import Dashboard from './Dashboard';
 import Settings from './Settings';
 import NotFound from './NotFound';
 
+/* eslint-disable react/prop-types */
+
 const routeConfig = [
   [
     {
@@ -33,7 +35,22 @@ const routeConfig = [
       dashicon: 'calendar',
       component: NotFound,
     },
-    { path: '/tag', label: 'Tags', dashicon: 'tag', component: TagRouter },
+    {
+      path: '/tag',
+      label: 'Tags',
+      dashicon: 'tag',
+      component: TagRouter,
+      routes: [
+        {
+          path: '/tag',
+          label: 'All Tags',
+        },
+        {
+          path: '/tag/add',
+          label: 'Add New',
+        },
+      ],
+    },
   ],
   [
     {

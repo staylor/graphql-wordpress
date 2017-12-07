@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
+import Message from 'components/Form/Message';
 import Form from '../Form';
 import { Heading } from '../styled';
 
@@ -44,16 +45,23 @@ const settingsFields = [
   `)
 )
 export default class SettingsRoute extends Component {
+  state = {
+    message: null,
+  };
+
   onSubmit = (e, updates) => {
     e.preventDefault();
 
     const { settings } = this.props.data;
-    this.props.mutate({
-      variables: {
-        id: settings.id,
-        input: updates,
-      },
-    });
+    this.props
+      .mutate({
+        variables: {
+          id: settings.id,
+          input: updates,
+        },
+      })
+      .then(() => this.setState({ message: 'updated' }))
+      .catch(() => this.setState({ message: 'error' }));
   };
 
   render() {
@@ -62,6 +70,7 @@ export default class SettingsRoute extends Component {
     return (
       <Fragment>
         <Heading>Edit Settings</Heading>
+        {this.state.message === 'updated' && <Message text="Settings Updated." />}
         {loading && !settings ? (
           <Loading />
         ) : (

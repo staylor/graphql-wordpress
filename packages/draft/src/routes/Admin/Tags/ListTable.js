@@ -62,7 +62,9 @@ const columns = [
           variables.after = offsetToCursor(pageOffset * PER_PAGE - 1);
         }
       }
-      return { variables };
+      // This ensures that the table is up to date when tags are mutated.
+      // The alternative is to specify refetchQueries on all Tag mutations.
+      return { variables, fetchPolicy: 'cache-and-network' };
     },
   }
 )

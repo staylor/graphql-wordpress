@@ -33,17 +33,21 @@ export const NavLink = styled(RRNavLink)`
   padding: 8px 0;
   position: relative;
   text-decoration: none;
-  transition: all 0.1s ease-in-out;
+
+  &:active {
+    color: ${theme.colors.white};
+  }
 
   &:hover {
     color: ${p => p.theme.colors.black};
   }
 `;
 
-export const activeClassName = css`
+export const activeClass = css`
   background-color: ${theme.colors.pink};
   color: ${theme.colors.white};
 
+  &:active,
   &:hover {
     color: ${theme.colors.white};
   }
@@ -62,7 +66,28 @@ export const activeClassName = css`
   }
 `;
 
-export const foldedActiveClassName = css`
+export const SubNav = styled.nav`
+  background-color: ${p => p.theme.colors.dark};
+  display: block;
+  padding: 7px 0 8px;
+`;
+
+export const SubNavLink = styled(RRNavLink)`
+  color: ${theme.colors.detail};
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  padding: 6px 12px;
+  text-decoration: none;
+`;
+
+export const subNavActiveClass = css`
+  color: ${theme.colors.white};
+  font-weight: 600;
+`;
+
+export const foldedActiveClass = css`
   &::after {
     border-width: 4px;
     margin-top: -4px;
@@ -76,7 +101,7 @@ export const Dashicon = styled.i`
   text-align: center;
   width: 36px;
 
-  .${activeClassName} & {
+  .${activeClass} & {
     color: ${p => p.theme.colors.white};
   }
 `;

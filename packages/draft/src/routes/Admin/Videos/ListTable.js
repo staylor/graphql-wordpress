@@ -14,7 +14,7 @@ import ListTable from '../ListTable';
 
 /* eslint-disable react/prop-types */
 
-const PER_PAGE = 10;
+const PER_PAGE = 20;
 
 const columns = [
   {
@@ -103,7 +103,7 @@ const columns = [
       const queryParams = qs.parse(location.search);
       const { params } = match;
 
-      const variables = { first: 10 };
+      const variables = { first: PER_PAGE };
       if (queryParams.search) {
         // $TODO: sanitize this
         variables.search = queryParams.search;

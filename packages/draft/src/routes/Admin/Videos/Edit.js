@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
+import Message from 'components/Form/Message';
 import { ThumbWrapper, thumb480Class } from 'components/Videos/styled';
 import Form from '../Form';
 import { Heading } from '../styled';
@@ -75,18 +76,28 @@ const frag = gql`
   `)
 )
 export default class VideoRoute extends Component {
+  state = {
+    message: null,
+  };
+
   onSubmit = (e, updates) => {
     if (updates.tags) {
       updates.tags = updates.tags.split(',').map(str => str.trim());
     }
 
     const { video } = this.props.data;
-    this.props.mutate({
-      variables: {
-        id: video.id,
-        input: updates,
-      },
-    });
+    this.props
+      .mutate({
+        variables: {
+          id: video.id,
+          input: updates,
+        },
+      })
+      .then(() => {
+        this.setState({ message: 'updated' });
+        document.documentElement.scrollTop = 0;
+      })
+      .catch(() => this.setState({ message: 'error' }));
   };
 
   render() {
@@ -101,6 +112,7 @@ export default class VideoRoute extends Component {
     return (
       <Fragment>
         <Heading>Edit Video</Heading>
+        {this.state.message === 'updated' && <Message text="Video updated." />}
         <ThumbWrapper>
           <img src={thumb.url} alt={video.title} className={thumb480Class} />
         </ThumbWrapper>

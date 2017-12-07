@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router';
 import {
   Nav,
   navFoldedClass,
   NavLink,
-  activeClassName,
-  foldedActiveClassName,
+  activeClass,
+  foldedActiveClass,
+  SubNav,
+  SubNavLink,
+  subNavActiveClass,
   Separator,
   Dashicon,
   CollapseButton,
@@ -14,6 +18,7 @@ import {
 
 /* eslint-disable react/prop-types */
 
+@withRouter
 export default class NavMenu extends Component {
   onClick = e => {
     e.preventDefault();
@@ -22,23 +27,42 @@ export default class NavMenu extends Component {
   };
 
   render() {
+    const { location, routeConfig, folded } = this.props;
+
     return (
-      <Nav className={this.props.folded && navFoldedClass}>
-        {this.props.routeConfig.map((items, i) => (
+      <Nav className={folded && navFoldedClass}>
+        {routeConfig.map((items, i) => (
           <Fragment key={i.toString(16)}>
             {i > 0 && <Separator />}
-            {items.map(item => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                exact={item.path === '/'}
-                activeClassName={`${activeClassName} ${this.props.folded && foldedActiveClassName}`}
-              >
-                {item.dashicon && (
-                  <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />
-                )}
-                {!this.props.folded && item.label}
-              </NavLink>
+            {items.map((item, j) => (
+              <Fragment key={j.toString(16)}>
+                <NavLink
+                  to={item.path}
+                  exact={item.path === '/'}
+                  activeClassName={`${activeClass} ${this.props.folded && foldedActiveClass}`}
+                >
+                  {item.dashicon && (
+                    <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />
+                  )}
+                  {!this.props.folded && item.label}
+                </NavLink>
+                {!folded &&
+                  location.pathname.indexOf(item.path) === 0 &&
+                  item.routes && (
+                    <SubNav key="subnav">
+                      {item.routes.map(route => (
+                        <SubNavLink
+                          key={route.path}
+                          to={route.path}
+                          exact
+                          activeClassName={subNavActiveClass}
+                        >
+                          {route.label}
+                        </SubNavLink>
+                      ))}
+                    </SubNav>
+                  )}
+              </Fragment>
             ))}
           </Fragment>
         ))}

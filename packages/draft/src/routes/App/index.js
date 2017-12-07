@@ -6,6 +6,7 @@ import 'styles/inject';
 import Home from './Home';
 import Videos from './Videos';
 import Video from './Video';
+import NotFound from './NotFound';
 import {
   PageWrapper,
   Header,
@@ -30,9 +31,11 @@ export default function App() {
           <Primary>
             <PrimaryWrapper>
               <Switch>
+                <Route exact path="/videos/:year(\d{4})?" component={Videos} />
                 <Route path="/video/:slug" component={Video} />
-                <Route path="/videos/:year(\d{4})?" component={Videos} />
+                <Route path="/tag/:tag" component={Videos} />
                 <Route exact path="/" component={Home} />
+                <Route path="*" component={NotFound} />
               </Switch>
             </PrimaryWrapper>
           </Primary>
