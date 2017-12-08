@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Field, FieldName, FieldValue, Fields } from 'components/Form/styled';
+import React, { Component, Fragment } from 'react';
+import { Field, FieldWrap, FieldName, FieldValue, Fields } from 'components/Form/styled';
 import Input from 'components/Form/Input';
 import Textarea from 'components/Form/Textarea';
 import Select from 'components/Form/Select';
+import Editor from 'components/Editor';
 import { Button } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -36,6 +37,18 @@ export default class Form extends Component {
   };
 
   getEditableField(field, data = {}) {
+    if (field.type === 'editor') {
+      return (
+        <Editor
+          onChange={content => {
+            this.boundRefs[field.prop] = { value: content };
+          }}
+          content={field.render ? field.render(data) : data[field.prop]}
+          placeholder={field.placeholder || 'Content goes here...'}
+        />
+      );
+    }
+
     if (field.type === 'select') {
       return (
         <Select
@@ -73,14 +86,25 @@ export default class Form extends Component {
     return (
       <Fields>
         {fields.map(field => (
-          <Field key={field.prop}>
-            <FieldName>{field.label}</FieldName>
-            {field.editable ? (
-              this.getEditableField(field, data)
+          <Fragment key={field.prop}>
+            {field.type === 'editor' ? (
+              <FieldWrap>
+                <FieldName>{field.label}</FieldName>
+                {this.getEditableField(field, data)}
+              </FieldWrap>
             ) : (
-              <FieldValue>{(field.render && field.render(data)) || data[field.prop]}</FieldValue>
+              <Field>
+                <FieldName>{field.label}</FieldName>
+                {field.editable ? (
+                  this.getEditableField(field, data)
+                ) : (
+                  <FieldValue>
+                    {(field.render && field.render(data)) || data[field.prop]}
+                  </FieldValue>
+                )}
+              </Field>
             )}
-          </Field>
+          </Fragment>
         ))}
         <Button onClick={this.onSubmit}>{buttonLabel}</Button>
       </Fields>

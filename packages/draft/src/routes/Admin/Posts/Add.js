@@ -8,8 +8,14 @@ import { Heading } from '../styled';
 /* eslint-disable react/prop-types */
 
 const postFields = [
-  { label: 'Name', prop: 'name', editable: true },
-  { label: 'Slug', prop: 'slug' },
+  { label: 'Title', prop: 'title', editable: true },
+  {
+    label: 'Content',
+    prop: 'content',
+    type: 'editor',
+    editable: true,
+    placeholder: 'Post goes here...',
+  },
 ];
 
 @graphql(gql`
@@ -34,10 +40,13 @@ export default class AddPost extends Component {
   onSubmit = (e, updates) => {
     e.preventDefault();
 
+    const input = Object.assign({}, updates);
+    input.content = JSON.stringify(updates.content);
+
     this.props
       .mutate({
         variables: {
-          input: updates,
+          input,
         },
       })
       .then(({ data: { createPost } }) => {

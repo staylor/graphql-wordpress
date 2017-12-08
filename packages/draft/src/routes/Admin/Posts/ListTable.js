@@ -14,11 +14,11 @@ const PER_PAGE = 20;
 
 const columns = [
   {
-    label: 'Name',
+    label: 'Title',
     render: post => (
       <Fragment>
         <RowTitle>
-          <Link to={`/post/${post.id}`}>{post.name}</Link>
+          <Link to={`/post/${post.id}`}>{post.title}</Link>
         </RowTitle>
         <RowActions>
           <Link to={`/post/${post.id}`}>Edit</Link> | <Link to={`/post/${post.id}`}>Trash</Link> |{' '}

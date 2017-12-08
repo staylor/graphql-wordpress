@@ -1,14 +1,20 @@
 import styled from 'react-emotion';
 
-export const Fields = styled.form`
+export const Fields = styled.fieldset`
   display: block;
-  max-width: 400px;
+  max-width: 720px;
   width: 100%;
 `;
 
 export const Field = styled.p`
   display: block;
   margin: ${p => p.theme.padding}px 0;
+`;
+
+export const FieldWrap = styled.div`
+  display: block;
+  margin: ${p => p.theme.padding}px 0;
+  min-height: 120px;
 `;
 
 export const FieldName = styled.strong`
@@ -18,6 +24,7 @@ export const FieldName = styled.strong`
   font-weight: 600;
   letter-spacing: 0.3px;
   line-height: 1.4;
+  margin: 0 0 5px;
 `;
 
 export const FieldSelect = styled.select`
@@ -78,7 +85,7 @@ export const FieldTextarea = styled.textarea`
 
 export const FieldValue = styled.span`
   display: block;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.4;
 `;
 

@@ -11,6 +11,10 @@ export default class Post {
     this.tagLoader = new DataLoader(ids => findByIds(this.tags, ids));
   }
 
+  findTags(tags) {
+    return this.tagLoader.loadMany(tags);
+  }
+
   findOneById(id) {
     return this.loader.load(id);
   }
@@ -51,6 +55,9 @@ export default class Post {
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
+    if (!docToInsert.tags) {
+      docToInsert.tags = [];
+    }
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     return id;
   }
