@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
-import slugify from '../utils/slugify';
+import { getUniqueSlug } from './utils';
 
 export default class Video {
   constructor(context) {
@@ -57,28 +57,24 @@ export default class Video {
   async createTags(tags = []) {
     return Promise.all(
       tags.map(tag => {
-        const slug = slugify(tag.trim());
-        return new Promise((resolve, reject) => {
-          this.tags.update(
-            { _id: slug },
-            {
-              $set: {
-                name: tag,
-                slug,
-              },
-              $setOnInsert: {
+        const name = tag.trim();
+        return new Promise(async (resolve, reject) => {
+          const found = await this.tags.findOne({ name });
+          if (found) {
+            resolve(found.slug);
+          } else {
+            try {
+              const slug = await getUniqueSlug(this.tags, name);
+              await this.tags.insertOne({
                 _id: slug,
-              },
-            },
-            { upsert: true },
-            updateErr => {
-              if (updateErr) {
-                reject(updateErr);
-              } else {
-                resolve(slug);
-              }
+                slug,
+                name,
+              });
+              resolve(slug);
+            } catch (e) {
+              reject(e);
             }
-          );
+          }
         });
       })
     );
@@ -89,13 +85,13 @@ export default class Video {
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
-    if (!docToInsert.slug) {
-      docToInsert.slug = slugify(docToInsert.title);
-    }
+    docToInsert.slug = await getUniqueSlug(this.collection, docToInsert.title);
+    let tags;
     if (!docToInsert.tags) {
-      docToInsert.tags = [];
+      tags = [];
+    } else {
+      tags = await this.createTags(docToInsert.tags);
     }
-    const tags = await this.createTags(docToInsert.tags);
     docToInsert.tags = tags;
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     return id;

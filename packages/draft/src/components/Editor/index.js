@@ -8,7 +8,10 @@ import {
 } from 'draft-js';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
-import { EditorWrap, RichEditor, hidePlaceholderClass, blockquoteClass, linkClass } from './styled';
+import LinkDecorator from './decorators/LinkDecorator';
+import TwitterDecorator from './decorators/TwitterDecorator';
+import YouTubeDecorator from './decorators/YouTubeDecorator';
+import { EditorWrap, RichEditor, hidePlaceholderClass, blockquoteClass } from './styled';
 
 /* eslint-disable react/prop-types,no-underscore-dangle */
 

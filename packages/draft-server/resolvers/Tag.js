@@ -1,4 +1,4 @@
-import { parseConnection } from '../utils/collection';
+import { parseConnection } from './utils/collection';
 
 const resolvers = {
   Tag: {

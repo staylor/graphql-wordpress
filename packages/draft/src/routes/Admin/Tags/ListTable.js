@@ -36,9 +36,8 @@ const columns = [
     label: 'Taxonomy',
     render: tag =>
       tag.taxonomy.map((t, i) => (
-        <Fragment>
+        <Fragment key={tag.id}>
           <Link
-            key={tag.id}
             to={{
               pathname: '/tag',
               search: qs.stringify({ taxonomy: t.toLowerCase() }),

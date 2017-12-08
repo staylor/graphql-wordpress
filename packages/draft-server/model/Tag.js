@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
-import slugify from '../utils/slugify';
+import { getUniqueSlug } from './utils';
 
 export default class Tag {
   constructor(context) {
@@ -40,10 +40,11 @@ export default class Tag {
   }
 
   async insert(doc) {
-    const slug = slugify(doc.name);
+    const slug = await getUniqueSlug(this.collection, doc.name);
     const docToInsert = Object.assign({}, doc, {
       _id: slug,
       slug,
+      taxonomy: [],
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
