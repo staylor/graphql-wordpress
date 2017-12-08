@@ -39,7 +39,9 @@ export default class NavMenu extends Component {
                 <NavLink
                   to={item.path}
                   exact={item.path === '/'}
-                  activeClassName={`${activeClass} ${this.props.folded && foldedActiveClass}`}
+                  activeClassName={`${activeClass}${this.props.folded
+                    ? ` ${foldedActiveClass}`
+                    : ''}`}
                 >
                   {item.dashicon && (
                     <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />

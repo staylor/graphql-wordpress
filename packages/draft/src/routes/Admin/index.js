@@ -98,7 +98,7 @@ export default class Admin extends Component {
               onFolded={this.onFolded}
               routeConfig={routeConfig}
             />
-            <Content className={this.state.folded && foldedNavClass}>
+            <Content className={this.state.folded ? foldedNavClass : ''}>
               <Switch>
                 {routeConfig.map(section =>
                   section.map(route => (

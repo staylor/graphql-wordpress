@@ -47,6 +47,8 @@ export const activeClass = css`
   background-color: ${theme.colors.pink};
   color: ${theme.colors.white};
 
+  &:visited,
+  &:link,
   &:active,
   &:hover {
     color: ${theme.colors.white};
