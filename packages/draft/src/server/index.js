@@ -3,6 +3,7 @@ import proxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
 import path from 'path';
+import fetch from 'node-fetch';
 import appRouter from 'server/router/app';
 import adminRouter from 'server/router/admin';
 import apolloClient from 'server/router/apolloClient';
@@ -48,6 +49,14 @@ const getAssets = entry => (req, res, next) => {
   };
   next();
 };
+
+app.use('/oembed', async (req, res) => {
+  const response = await fetch(
+    `${req.query.provider}?url=${encodeURIComponent(req.query.url)}`
+  ).then(result => result.json());
+
+  res.json(response);
+});
 
 app.use('/admin', getAssets('admin'), apolloClient, adminRouter, serveResponse);
 app.use(getAssets('main'), apolloClient, appRouter, serveResponse);

@@ -16,6 +16,7 @@ import { EditorWrap, RichEditor, hidePlaceholderClass, blockquoteClass, linkClas
 
 const HANDLE_REGEX = /\@[\w]+/g;
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
+const YOUTUBE_REGEX = /https?:\/\/((m|www)\.)?youtube\.com\/watch.+$/g;
 
 const HandleSpan = props => (
   <span style={{ color: theme.colors.pink }} data-offset-key={props.offsetKey}>
@@ -27,6 +28,45 @@ const HashtagSpan = props => (
     {props.children}
   </span>
 );
+
+class YouTubeSpan extends Component {
+  state = {
+    embed: null,
+  };
+
+  fetchYouTube = decoratedUrl => {
+    fetch(
+      `http://localhost:3000/oembed?provider=${encodeURIComponent(
+        'https://www.youtube.com/oembed'
+      )}&url=${encodeURIComponent(decoratedUrl)}`
+    )
+      .then(result => result.json())
+      .then(response => {
+        this.setState({ embed: response.html });
+      });
+  };
+
+  componentDidMount() {
+    this.fetchYouTube(this.props.decoratedText);
+  }
+
+  render() {
+    if (this.state.embed) {
+      return (
+        <span
+          data-offset-key={this.props.offsetKey}
+          dangerouslySetInnerHTML={{ __html: this.state.embed }}
+        />
+      );
+    }
+
+    return (
+      <span style={{ color: theme.colors.detail }} data-offset-key={this.props.offsetKey}>
+        {this.props.children}
+      </span>
+    );
+  }
+}
 
 function findWithRegex(regex, contentBlock, callback) {
   const text = contentBlock.getText();
@@ -45,6 +85,10 @@ function handleStrategy(contentBlock, callback) {
 
 function hashtagStrategy(contentBlock, callback) {
   findWithRegex(HASHTAG_REGEX, contentBlock, callback);
+}
+
+function youtubeStrategy(contentBlock, callback) {
+  findWithRegex(YOUTUBE_REGEX, contentBlock, callback);
 }
 
 function findLinkEntities(contentBlock, callback, contentState) {
@@ -102,6 +146,10 @@ export default class Editor extends Component {
       {
         strategy: hashtagStrategy,
         component: HashtagSpan,
+      },
+      {
+        strategy: youtubeStrategy,
+        component: YouTubeSpan,
       },
     ]);
 
