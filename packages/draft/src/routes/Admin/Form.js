@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { convertToRaw } from 'draft-js';
 import { Field, FieldWrap, FieldName, FieldValue, Fields } from 'components/Form/styled';
 import Input from 'components/Form/Input';
 import Textarea from 'components/Form/Textarea';
@@ -41,8 +42,11 @@ export default class Form extends Component {
       return (
         <Editor
           onChange={content => {
-            this.boundRefs[field.prop] = { value: content };
+            this.boundRefs[field.prop] = {
+              value: convertToRaw(content),
+            };
           }}
+          editorKey={field.prop}
           content={field.render ? field.render(data) : data[field.prop]}
           placeholder={field.placeholder || 'Content goes here...'}
         />

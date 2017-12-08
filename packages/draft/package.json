@@ -16,6 +16,7 @@
     "compression": "^1.7.1",
     "debounce": "^1.1.0",
     "draft-js": "^0.10.4",
+    "draft-js-export-html": "^1.2.0",
     "emotion": "^8.0.9",
     "emotion-server": "^8.0.9",
     "emotion-theming": "^8.0.9",

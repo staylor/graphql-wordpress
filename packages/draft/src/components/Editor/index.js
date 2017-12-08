@@ -4,108 +4,13 @@ import {
   EditorState,
   CompositeDecorator,
   RichUtils,
-  convertToRaw,
   convertFromRaw,
 } from 'draft-js';
-import theme from 'styles/theme';
 import BlockStyleControls from './BlockStyleControls';
 import InlineStyleControls from './InlineStyleControls';
 import { EditorWrap, RichEditor, hidePlaceholderClass, blockquoteClass, linkClass } from './styled';
 
 /* eslint-disable react/prop-types,no-underscore-dangle */
-
-const HANDLE_REGEX = /\@[\w]+/g;
-const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
-const YOUTUBE_REGEX = /https?:\/\/((m|www)\.)?youtube\.com\/watch.+$/g;
-
-const HandleSpan = props => (
-  <span style={{ color: theme.colors.pink }} data-offset-key={props.offsetKey}>
-    {props.children}
-  </span>
-);
-const HashtagSpan = props => (
-  <span style={{ color: theme.colors.pink }} data-offset-key={props.offsetKey}>
-    {props.children}
-  </span>
-);
-
-class YouTubeSpan extends Component {
-  state = {
-    embed: null,
-  };
-
-  fetchYouTube = decoratedUrl => {
-    fetch(
-      `http://localhost:3000/oembed?provider=${encodeURIComponent(
-        'https://www.youtube.com/oembed'
-      )}&url=${encodeURIComponent(decoratedUrl)}`
-    )
-      .then(result => result.json())
-      .then(response => {
-        this.setState({ embed: response.html });
-      });
-  };
-
-  componentDidMount() {
-    this.fetchYouTube(this.props.decoratedText);
-  }
-
-  render() {
-    if (this.state.embed) {
-      return (
-        <span
-          data-offset-key={this.props.offsetKey}
-          dangerouslySetInnerHTML={{ __html: this.state.embed }}
-        />
-      );
-    }
-
-    return (
-      <span style={{ color: theme.colors.detail }} data-offset-key={this.props.offsetKey}>
-        {this.props.children}
-      </span>
-    );
-  }
-}
-
-function findWithRegex(regex, contentBlock, callback) {
-  const text = contentBlock.getText();
-  let matchArr;
-  let start;
-  // eslint-disable-next-line
-  while ((matchArr = regex.exec(text)) !== null) {
-    start = matchArr.index;
-    callback(start, start + matchArr[0].length);
-  }
-}
-
-function handleStrategy(contentBlock, callback) {
-  findWithRegex(HANDLE_REGEX, contentBlock, callback);
-}
-
-function hashtagStrategy(contentBlock, callback) {
-  findWithRegex(HASHTAG_REGEX, contentBlock, callback);
-}
-
-function youtubeStrategy(contentBlock, callback) {
-  findWithRegex(YOUTUBE_REGEX, contentBlock, callback);
-}
-
-function findLinkEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges(character => {
-    const entityKey = character.getEntity();
-    return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK';
-  }, callback);
-}
-
-const Link = ({ contentState, entityKey, children }) => {
-  const { url } = contentState.getEntity(entityKey).getData();
-  return (
-    <a href={url} className={linkClass}>
-      {children}
-    </a>
-  );
-};
 
 const styleMap = {
   CODE: {
@@ -135,29 +40,29 @@ export default class Editor extends Component {
     };
 
     const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link,
-      },
-      {
-        strategy: handleStrategy,
-        component: HandleSpan,
-      },
-      {
-        strategy: hashtagStrategy,
-        component: HashtagSpan,
-      },
-      {
-        strategy: youtubeStrategy,
-        component: YouTubeSpan,
-      },
+      ...LinkDecorator,
+      ...TwitterDecorator,
+      ...YouTubeDecorator,
     ]);
 
     if (props.content) {
       const contentState = convertFromRaw(props.content);
       this.state.editorState = EditorState.createWithContent(contentState, decorator);
     } else {
-      this.state.editorState = EditorState.createEmpty(decorator);
+      // EditorState.createEmpty() throws errors upon focus, seems to only
+      // happen when decorators are added
+      const contentState = convertFromRaw({
+        entityMap: {},
+        blocks: [
+          {
+            text: '',
+            key: 'foo',
+            type: 'unstyled',
+            entityRanges: [],
+          },
+        ],
+      });
+      this.state.editorState = EditorState.createWithContent(contentState, decorator);
     }
 
     this.focus = () => this.editor.focus();
@@ -260,17 +165,13 @@ export default class Editor extends Component {
   onChange = editorState => {
     this.setState({ editorState });
     if (this.props.onChange) {
-      this.props.onChange(this.getContent());
+      this.props.onChange(editorState.getCurrentContent());
     }
   };
 
-  getContent() {
-    return convertToRaw(this.state.editorState.getCurrentContent());
-  }
-
   componentDidMount() {
     if (this.props.onChange) {
-      this.props.onChange(this.props.content);
+      this.props.onChange(this.state.editorState.getCurrentContent());
     }
   }
 

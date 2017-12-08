@@ -5,13 +5,13 @@ import theme from 'styles/theme';
 
 const Container = styled.div`
   background: ${p => p.theme.colors.white};
-  min-height: 400px;
-  padding: 200px 0 0;
+  min-height: ${p => (p.compact ? 100 : 400)}px;
+  padding: ${p => (p.compact ? 50 : 100)}px 0 0;
 `;
 
 const Wrap = styled.div`
   height: 40px;
-  margin: 0 auto;
+  margin: ${p => (p.compact ? '0 0 0 40px' : '0 auto')};
   position: relative;
   width: 40px;
 `;
@@ -45,10 +45,10 @@ const Bounce2 = styled.div`
   animation-delay: -1s;
 `;
 
-export default function Loading() {
+export default function Loading(props) {
   return (
-    <Container>
-      <Wrap>
+    <Container {...props}>
+      <Wrap {...props}>
         <Bounce1 />
         <Bounce2 />
       </Wrap>
