@@ -4,11 +4,24 @@ import { headingStyles } from 'styles/utils';
 import theme from 'styles/theme';
 
 export const styleButtonClass = css`
-  color: ${theme.colors.inactive};
   cursor: pointer;
   display: inline-block;
-  margin-right: 16px;
-  padding: 2px 0;
+  height: 100%;
+  padding: 2px 6px;
+
+  &:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  &:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &:hover {
+    background: ${theme.colors.dark};
+  }
 `;
 
 export const activeButtonClass = css`
@@ -23,7 +36,6 @@ export const hidePlaceholderClass = css`
 
 export const Controls = styled.div`
   font-size: 14px;
-  margin-bottom: 5px;
   user-select: none;
 `;
 
@@ -53,6 +65,8 @@ export const RichEditor = styled.div`
   cursor: text;
   font-size: 16px;
   margin-top: 10px;
+  position: relative;
+  z-index: 1;
 
   h1 {
     ${headingStyles};

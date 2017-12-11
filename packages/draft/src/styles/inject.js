@@ -35,4 +35,14 @@ injectGlobal`
   strong {
     font-weight: ${theme.weightBold};
   }
+
+  sup {
+    font-size: 10px;
+    vertical-align: super;
+  }
+
+  sub {
+    font-size: 10px;
+    vertical-align: sub;
+  }
 `;

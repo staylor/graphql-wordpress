@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import StyleButton from './StyleButton';
 import { Controls } from './styled';
 
@@ -16,10 +16,33 @@ const INLINE_STYLES = [
     style: 'UNDERLINE',
     className: 'dashicons dashicons-editor-underline',
   },
+  {
+    label: '',
+    style: 'STRIKETHROUGH',
+    className: 'dashicons dashicons-editor-strikethrough',
+  },
+  {
+    label: (
+      <Fragment>
+        X<sup>2</sup>
+      </Fragment>
+    ),
+    style: 'SUPERSCRIPT',
+    className: '',
+  },
+  {
+    label: (
+      <Fragment>
+        X<sub>2</sub>
+      </Fragment>
+    ),
+    style: 'SUBSCRIPT',
+    className: '',
+  },
   { label: '', style: 'CODE', className: 'dashicons dashicons-editor-code' },
 ];
 
-const InlineStyleControls = ({ editorState, onToggle, addLink, removeLink }) => {
+const InlineStyleControls = ({ editorState, onToggle }) => {
   const currentStyle = editorState.getCurrentInlineStyle();
   return (
     <Controls>
@@ -33,21 +56,6 @@ const InlineStyleControls = ({ editorState, onToggle, addLink, removeLink }) => 
           style={type.style}
         />
       ))}
-      <StyleButton
-        key="LINK"
-        className="dashicons dashicons-admin-links"
-        active={currentStyle.has('LINK')}
-        label=""
-        onToggle={addLink}
-        style="LINK"
-      />
-      <StyleButton
-        key="UNLINK"
-        className="dashicons dashicons-editor-unlink"
-        label=""
-        onToggle={removeLink}
-        style="UNLINK"
-      />
     </Controls>
   );
 };

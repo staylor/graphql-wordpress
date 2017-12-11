@@ -6,6 +6,7 @@ import { styleButtonClass, activeButtonClass } from './styled';
 export default class StyleButton extends Component {
   onToggle = e => {
     e.preventDefault();
+    e.stopPropagation();
     this.props.onToggle(this.props.style);
   };
 
