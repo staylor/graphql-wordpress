@@ -2,16 +2,16 @@ import styled from 'react-emotion';
 import { css } from 'emotion';
 
 export const Toolbar = styled.div`
-  background: ${p => p.theme.colors.black};
+  background: ${p => p.theme.colors.white};
   border-radius: 4px;
-  color: ${p => p.theme.colors.white};
+  box-shadow: 0 1px 18px 0 rgba(0, 0, 0, 0.3);
   position: absolute;
   visibility: hidden;
   z-index: 3;
 
   &::after {
     border: 6px solid transparent;
-    border-top-color: ${p => p.theme.colors.black};
+    border-top-color: ${p => p.theme.colors.white};
     content: ' ';
     height: 0;
     position: absolute;

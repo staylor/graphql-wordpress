@@ -20,12 +20,16 @@ export const styleButtonClass = css`
   }
 
   &:hover {
-    background: ${theme.colors.dark};
+    color: ${theme.colors.black};
   }
 `;
 
 export const activeButtonClass = css`
   color: ${theme.colors.pink};
+
+  &:hover {
+    color: ${theme.colors.pink};
+  }
 `;
 
 export const hidePlaceholderClass = css`
