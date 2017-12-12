@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
+import cn from 'classnames';
 import theme from 'styles/theme';
 import 'styles/inject';
-import { PageWrapper, Flex, Content, foldedNavClass } from './styled';
+import { PageWrapper, Flex, Content, collapsedNavClass } from './styled';
 import NavMenu from './NavMenu';
 import PostRouter from './Posts';
 import VideoRouter from './Videos';
@@ -81,11 +82,11 @@ const routeConfig = [
 
 export default class Admin extends Component {
   state = {
-    folded: false,
+    collapsed: false,
   };
 
-  onFolded = folded => {
-    this.setState({ folded });
+  onCollapse = collapsed => {
+    this.setState({ collapsed });
   };
 
   render() {
@@ -94,11 +95,15 @@ export default class Admin extends Component {
         <PageWrapper>
           <Flex>
             <NavMenu
-              folded={this.state.folded}
-              onFolded={this.onFolded}
+              collapsed={this.state.collapsed}
+              onCollapse={this.onCollapse}
               routeConfig={routeConfig}
             />
-            <Content className={this.state.folded ? foldedNavClass : ''}>
+            <Content
+              className={cn({
+                [collapsedNavClass]: this.state.collapsed,
+              })}
+            >
               <Switch>
                 {routeConfig.map(section =>
                   section.map(route => (

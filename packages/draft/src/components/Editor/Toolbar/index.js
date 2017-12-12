@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { getVisibleSelectionRect } from 'draft-js';
+import cn from 'classnames';
 import { Toolbar as StyledToolbar, toolbarOpenClass } from './styled';
 import InlineStyleControls from '../InlineStyleControls';
 
@@ -61,7 +62,9 @@ export default class Toolbar extends Component {
         innerRef={toolbar => {
           this.toolbar = toolbar;
         }}
-        className={editorState.getSelection().isCollapsed() ? null : toolbarOpenClass}
+        className={cn({
+          [toolbarOpenClass]: !editorState.getSelection().isCollapsed(),
+        })}
       >
         <InlineStyleControls editorState={editorState} onToggle={this.props.toggleInlineStyle} />
       </StyledToolbar>

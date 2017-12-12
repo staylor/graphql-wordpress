@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router';
+import cn from 'classnames';
 import {
   Nav,
-  navFoldedClass,
+  navCollapsedClass,
   NavLink,
   activeClass,
-  foldedActiveClass,
+  collapsedActiveClass,
   SubNav,
   SubNavLink,
   subNavActiveClass,
@@ -23,14 +24,14 @@ export default class NavMenu extends Component {
   onClick = e => {
     e.preventDefault();
 
-    this.props.onFolded(!this.props.folded);
+    this.props.onCollapse(!this.props.collapsed);
   };
 
   render() {
-    const { location, routeConfig, folded } = this.props;
+    const { location, routeConfig, collapsed } = this.props;
 
     return (
-      <Nav className={folded && navFoldedClass}>
+      <Nav className={cn({ [navCollapsedClass]: collapsed })}>
         {routeConfig.map((items, i) => (
           <Fragment key={i.toString(16)}>
             {i > 0 && <Separator />}
@@ -39,19 +40,19 @@ export default class NavMenu extends Component {
                 <NavLink
                   to={item.path}
                   exact={item.path === '/'}
-                  activeClassName={`${activeClass}${
-                    this.props.folded ? ` ${foldedActiveClass}` : ''
-                  }`}
+                  activeClassName={cn(activeClass, {
+                    [collapsedActiveClass]: collapsed,
+                  })}
                 >
                   {item.dashicon && (
                     <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />
                   )}
-                  {!this.props.folded && item.label}
+                  {!collapsed && item.label}
                 </NavLink>
-                {!folded &&
+                {!collapsed &&
                   location.pathname.indexOf(item.path) === 0 &&
                   item.routes && (
-                    <SubNav key="subnav">
+                    <SubNav>
                       {item.routes.map(route => (
                         <SubNavLink
                           key={route.path}
@@ -69,9 +70,9 @@ export default class NavMenu extends Component {
           </Fragment>
         ))}
         <Separator />
-        <CollapseButton folded={this.props.folded} onClick={this.onClick}>
+        <CollapseButton collapsed={collapsed} onClick={this.onClick}>
           <CollapseButtonIcon />
-          {!this.props.folded && <CollapseButtonLabel>Collapse menu</CollapseButtonLabel>}
+          {!collapsed && <CollapseButtonLabel>Collapse menu</CollapseButtonLabel>}
         </CollapseButton>
       </Nav>
     );

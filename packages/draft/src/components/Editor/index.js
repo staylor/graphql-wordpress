@@ -6,6 +6,7 @@ import {
   RichUtils,
   convertFromRaw,
 } from 'draft-js';
+import cn from 'classnames';
 import BlockStyleControls from './BlockStyleControls';
 import Toolbar from './Toolbar';
 import LinkDecorator from './decorators/LinkDecorator';
@@ -121,23 +122,23 @@ export default class Editor extends Component {
     const { content, onChange, ...rest } = this.props;
     const { editorState } = this.state;
 
-    let className = '';
     const contentState = editorState.getCurrentContent();
-    if (
-      !contentState.hasText() &&
-      contentState
-        .getBlockMap()
-        .first()
-        .getType() !== 'unstyled'
-    ) {
-      className = hidePlaceholderClass;
-    }
 
     return (
       <EditorWrap>
         <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
 
-        <RichEditor className={className} onClick={this.focus}>
+        <RichEditor
+          className={cn({
+            [hidePlaceholderClass]:
+              !contentState.hasText() &&
+              contentState
+                .getBlockMap()
+                .first()
+                .getType() !== 'unstyled',
+          })}
+          onClick={this.focus}
+        >
           <DraftEditor
             ref={editor => {
               this.editor = editor;

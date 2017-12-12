@@ -63,7 +63,7 @@ export const Content = styled.section`
   padding: 0 20px 65px;
 `;
 
-export const foldedNavClass = css`
+export const collapsedNavClass = css`
   margin-left: 36px;
 `;
 

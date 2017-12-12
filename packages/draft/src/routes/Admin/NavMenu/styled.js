@@ -13,7 +13,7 @@ export const Nav = styled.nav`
   width: 160px;
 `;
 
-export const navFoldedClass = css`
+export const navCollapsedClass = css`
   width: 36px;
 `;
 
@@ -89,7 +89,7 @@ export const subNavActiveClass = css`
   font-weight: 600;
 `;
 
-export const foldedActiveClass = css`
+export const collapsedActiveClass = css`
   &::after {
     border-width: 4px;
     margin-top: -4px;
@@ -122,7 +122,7 @@ export const CollapseButton = styled.button`
   overflow: visible;
   padding: 0;
   position: relative;
-  transform: ${p => (p.folded ? 'rotate(180deg)' : 'none')};
+  transform: ${p => (p.collapsed ? 'rotate(180deg)' : 'none')};
   transition: color 0.1s ease-in-out;
   width: 100%;
 

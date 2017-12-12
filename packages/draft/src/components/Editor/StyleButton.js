@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 import { styleButtonClass, activeButtonClass } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -11,15 +12,15 @@ export default class StyleButton extends Component {
   };
 
   render() {
-    let className = styleButtonClass;
-    if (this.props.className) {
-      className += ` ${this.props.className}`;
-    }
-    if (this.props.active) {
-      className += ` ${activeButtonClass}`;
-    }
     return (
-      <span role="button" tabIndex="-1" className={className} onMouseDown={this.onToggle}>
+      <span
+        role="button"
+        tabIndex="-1"
+        className={cn(styleButtonClass, this.props.className, {
+          [activeButtonClass]: this.props.active,
+        })}
+        onMouseDown={this.onToggle}
+      >
         {this.props.label}
       </span>
     );
