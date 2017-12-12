@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { getSelection, getSelectionRect } from '../utils';
+import { getVisibleSelectionRect } from 'draft-js';
 import { Toolbar as StyledToolbar, toolbarOpenClass } from './styled';
 import InlineStyleControls from '../InlineStyleControls';
 
@@ -13,11 +13,10 @@ export default class Toolbar extends Component {
       return;
     }
     // eslint-disable-next-line no-undef
-    const nativeSelection = getSelection(window);
-    if (!nativeSelection.rangeCount) {
+    const selectionBoundary = getVisibleSelectionRect(window);
+    if (!selectionBoundary) {
       return;
     }
-    const selectionBoundary = getSelectionRect(nativeSelection);
 
     // eslint-disable-next-line react/no-find-dom-node
     const toolbarNode = ReactDOM.findDOMNode(this);

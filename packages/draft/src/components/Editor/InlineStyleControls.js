@@ -40,6 +40,7 @@ const INLINE_STYLES = [
     className: '',
   },
   { label: '', style: 'CODE', className: 'dashicons dashicons-editor-code' },
+  // { label: '', style: 'LINK', className: 'dashicons dashicons-admin-links' },
 ];
 
 const InlineStyleControls = ({ editorState, onToggle }) => {
