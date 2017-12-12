@@ -53,6 +53,7 @@ export const HeaderAdd = styled(Link)`
   text-decoration: none;
   text-shadow: none;
   top: -3px;
+  z-index: 1;
 `;
 
 export const Flex = styled.section``;

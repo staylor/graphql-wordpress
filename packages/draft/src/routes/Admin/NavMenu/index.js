@@ -1,26 +1,26 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router';
 import cn from 'classnames';
+import SubNav from './SubNav';
+import CollapseButton from './CollapseButton';
 import {
   Nav,
   navCollapsedClass,
+  NavWrap,
   NavLink,
   activeClass,
-  collapsedActiveClass,
-  SubNav,
-  SubNavLink,
-  subNavActiveClass,
   Separator,
   Dashicon,
-  CollapseButton,
-  CollapseButtonIcon,
-  CollapseButtonLabel,
 } from './styled';
 
 /* eslint-disable react/prop-types */
 
 @withRouter
 export default class NavMenu extends Component {
+  state = {
+    active: '',
+  };
+
   onClick = e => {
     e.preventDefault();
 
@@ -31,49 +31,50 @@ export default class NavMenu extends Component {
     const { location, routeConfig, collapsed } = this.props;
 
     return (
-      <Nav className={cn({ [navCollapsedClass]: collapsed })}>
+      <Nav
+        className={cn({
+          'NavMenu-collapsed': collapsed,
+          [navCollapsedClass]: collapsed,
+        })}
+      >
         {routeConfig.map((items, i) => (
-          <Fragment key={i.toString(16)}>
+          <Fragment key={`route-${i.toString(16)}`}>
             {i > 0 && <Separator />}
-            {items.map((item, j) => (
-              <Fragment key={j.toString(16)}>
-                <NavLink
-                  to={item.path}
-                  exact={item.path === '/'}
-                  activeClassName={cn(activeClass, {
-                    [collapsedActiveClass]: collapsed,
-                  })}
-                >
-                  {item.dashicon && (
-                    <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />
+            {items.map((item, j) => {
+              const key = `${i}-${j}`;
+              const enter = e => {
+                if (e.target.classList.contains(activeClass)) {
+                  return;
+                }
+                this.setState({ active: key });
+              };
+              return (
+                <NavWrap key={key}>
+                  <NavLink
+                    to={item.path}
+                    exact={item.path === '/'}
+                    activeClassName={activeClass}
+                    className={cn({
+                      'NavLink-hasSubNav': item.routes && item.routes.length > 0,
+                    })}
+                    onMouseEnter={enter}
+                    onMouseLeave={() => this.setState({ active: '' })}
+                  >
+                    {item.dashicon && (
+                      <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />
+                    )}
+                    {!collapsed && item.label}
+                  </NavLink>
+                  {item.routes && (
+                    <SubNav {...{ item, location }} active={this.state.active === key} />
                   )}
-                  {!collapsed && item.label}
-                </NavLink>
-                {!collapsed &&
-                  location.pathname.indexOf(item.path) === 0 &&
-                  item.routes && (
-                    <SubNav>
-                      {item.routes.map(route => (
-                        <SubNavLink
-                          key={route.path}
-                          to={route.path}
-                          exact
-                          activeClassName={subNavActiveClass}
-                        >
-                          {route.label}
-                        </SubNavLink>
-                      ))}
-                    </SubNav>
-                  )}
-              </Fragment>
-            ))}
+                </NavWrap>
+              );
+            })}
           </Fragment>
         ))}
         <Separator />
-        <CollapseButton collapsed={collapsed} onClick={this.onClick}>
-          <CollapseButtonIcon />
-          {!collapsed && <CollapseButtonLabel>Collapse menu</CollapseButtonLabel>}
-        </CollapseButton>
+        <CollapseButton onClick={this.onClick} />
       </Nav>
     );
   }

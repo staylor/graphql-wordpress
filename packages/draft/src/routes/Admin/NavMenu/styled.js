@@ -11,6 +11,7 @@ export const Nav = styled.nav`
   position: fixed;
   top: 0;
   width: 160px;
+  z-index: 3;
 `;
 
 export const navCollapsedClass = css`
@@ -23,6 +24,11 @@ export const Separator = styled.i`
   margin: 0 0 6px 0;
 `;
 
+export const NavWrap = styled.div`
+  margin: 3px 0;
+  position: relative;
+`;
+
 export const NavLink = styled(RRNavLink)`
   box-sizing: border-box;
   color: ${p => p.theme.colors.dark};
@@ -33,13 +39,35 @@ export const NavLink = styled(RRNavLink)`
   padding: 8px 0;
   position: relative;
   text-decoration: none;
-
-  &:active {
-    color: ${theme.colors.white};
-  }
+  z-index: 3;
 
   &:hover {
+    background-color: ${p => p.theme.colors.white};
     color: ${p => p.theme.colors.black};
+
+    &.NavLink-hasSubNav {
+      &::after {
+        border-right-color: ${theme.colors.dark};
+      }
+    }
+  }
+
+  &::after {
+    border: 8px solid transparent;
+    content: ' ';
+    height: 0;
+    margin-top: -8px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+    z-index: 10000;
+
+    .NavMenu-collapsed & {
+      border-width: 4px;
+      margin-top: -4px;
+    }
   }
 `;
 
@@ -51,48 +79,24 @@ export const activeClass = css`
   &:link,
   &:active,
   &:hover {
+    background-color: ${theme.colors.pink};
     color: ${theme.colors.white};
   }
 
   &::after {
-    border: solid 8px transparent;
     border-right-color: ${theme.colors.white};
-    content: ' ';
-    height: 0;
-    margin-top: -8px;
-    position: absolute;
-    pointer-events: none;
-    right: 0;
-    top: 50%;
-    width: 0;
   }
-`;
 
-export const SubNav = styled.nav`
-  background-color: ${p => p.theme.colors.dark};
-  display: block;
-  padding: 7px 0 8px;
-`;
+  &:hover {
+    &.NavLink-hasSubNav {
+      &::after {
+        border-right-color: ${theme.colors.white};
 
-export const SubNavLink = styled(RRNavLink)`
-  color: ${theme.colors.detail};
-  display: block;
-  font-size: 13px;
-  letter-spacing: 0.3px;
-  line-height: 1.2;
-  padding: 6px 12px;
-  text-decoration: none;
-`;
-
-export const subNavActiveClass = css`
-  color: ${theme.colors.white};
-  font-weight: 600;
-`;
-
-export const collapsedActiveClass = css`
-  &::after {
-    border-width: 4px;
-    margin-top: -4px;
+        .NavMenu-collapsed & {
+          border-right-color: ${theme.colors.dark};
+        }
+      }
+    }
   }
 `;
 
@@ -106,60 +110,4 @@ export const Dashicon = styled.i`
   .${activeClass} & {
     color: ${p => p.theme.colors.white};
   }
-`;
-
-export const CollapseButton = styled.button`
-  background: none;
-  border: none;
-  color: ${p => p.theme.colors.dark};
-  cursor: pointer;
-  display: block;
-  font-size: 13px;
-  height: 34px;
-  line-height: 34px;
-  margin: 0;
-  outline: 0;
-  overflow: visible;
-  padding: 0;
-  position: relative;
-  transform: ${p => (p.collapsed ? 'rotate(180deg)' : 'none')};
-  transition: color 0.1s ease-in-out;
-  width: 100%;
-
-  &:hover {
-    color: ${p => p.theme.colors.black};
-  }
-`;
-
-export const CollapseButtonIcon = styled.i`
-  display: block;
-  height: 34px;
-  left: 0;
-  line-height: 34px;
-  position: absolute;
-  top: 0;
-  width: 36px;
-
-  &::after {
-    content: '\f148';
-    display: block;
-    font: normal 20px/1 dashicons !important;
-    position: relative;
-    speak: none;
-    text-align: center;
-    top: 7px;
-    transition: all 0.1s ease-in-out;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-`;
-
-export const CollapseButtonLabel = styled.i`
-  display: block;
-  left: 0;
-  line-height: 34px;
-  padding: 0 0 0 36px;
-  position: absolute;
-  top: 0;
-  transition: all 0.1s ease-in-out;
 `;
