@@ -2,84 +2,36 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
 import cn from 'classnames';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import Helmet from 'react-helmet';
 import theme from 'styles/theme';
 import 'styles/inject';
+import Loading from 'components/Loading';
 import { PageWrapper, Flex, Content, collapsedNavClass } from './styled';
 import NavMenu from './NavMenu';
-import PostRouter from './Posts';
-import VideoRouter from './Videos';
-import TagRouter from './Tags';
-import Dashboard from './Dashboard';
-import Settings from './Settings';
 import NotFound from './NotFound';
+import routeConfig from './routeConfig';
 
 /* eslint-disable react/prop-types */
 
-const routeConfig = [
-  [
-    {
-      path: '/',
-      label: 'Dashboard',
-      dashicon: 'dashboard',
-      component: Dashboard,
+@graphql(
+  gql`
+    query AdminQuery($id: String) {
+      settings(id: $id) {
+        id
+        ... on SiteSettings {
+          siteTitle
+        }
+      }
+    }
+  `,
+  {
+    options: {
+      variables: { id: 'site' },
     },
-  ],
-  [
-    {
-      path: '/post',
-      label: 'Posts',
-      dashicon: 'admin-post',
-      component: PostRouter,
-      routes: [
-        {
-          path: '/post',
-          label: 'All Posts',
-        },
-        {
-          path: '/post/add',
-          label: 'Add New',
-        },
-      ],
-    },
-    {
-      path: '/video',
-      label: 'Videos',
-      dashicon: 'video-alt',
-      component: VideoRouter,
-    },
-    {
-      path: '/show',
-      label: 'Shows',
-      dashicon: 'calendar',
-      component: NotFound,
-    },
-    {
-      path: '/tag',
-      label: 'Tags',
-      dashicon: 'tag',
-      component: TagRouter,
-      routes: [
-        {
-          path: '/tag',
-          label: 'All Tags',
-        },
-        {
-          path: '/tag/add',
-          label: 'Add New',
-        },
-      ],
-    },
-  ],
-  [
-    {
-      path: '/settings',
-      label: 'Settings',
-      dashicon: 'admin-settings',
-      component: Settings,
-    },
-  ],
-];
-
+  }
+)
 export default class Admin extends Component {
   state = {
     collapsed: false,
@@ -90,9 +42,19 @@ export default class Admin extends Component {
   };
 
   render() {
+    const { data: { loading, settings } } = this.props;
+
+    if (loading && !settings) {
+      return <Loading />;
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <PageWrapper>
+          <Helmet defaultTitle={settings.siteTitle} titleTemplate={`%s » ${settings.siteTitle}`}>
+            <html lang="en-US" />
+            <title>Admin</title>
+          </Helmet>
           <Flex>
             <NavMenu
               collapsed={this.state.collapsed}
