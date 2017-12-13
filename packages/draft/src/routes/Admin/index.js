@@ -6,7 +6,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
 import theme from 'styles/theme';
-import 'styles/inject';
 import Loading from 'components/Loading';
 import { PageWrapper, Flex, Content, collapsedNavClass } from './styled';
 import NavMenu from './NavMenu';

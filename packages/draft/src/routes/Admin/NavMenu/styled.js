@@ -23,6 +23,5 @@ export const Separator = styled.i`
 `;
 
 export const NavWrap = styled.div`
-  margin: 3px 0;
   position: relative;
 `;

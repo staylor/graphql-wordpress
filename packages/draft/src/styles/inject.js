@@ -1,48 +1,49 @@
 import { injectGlobal } from 'emotion';
 import theme from 'styles/theme';
 
-// eslint-disable-next-line
-injectGlobal`
-  body {
-    background: ${theme.colors.background};
-    color: ${theme.colors.dark};
-    font-family: ${theme.fonts.body};
-    font-size: 1em;
-    line-height: 1.5;
-    text-rendering: optimizeLegibility;
-  }
-
-  iframe {
-    max-width: 100%;
-  }
-
-  a {
-    color: ${theme.colors.pink};
-
-    &:hover, &:active {
-      color: deeppink;
+export default function inject() {
+  return injectGlobal`
+    body {
+      background: ${theme.colors.background};
+      color: ${theme.colors.dark};
+      font-family: ${theme.fonts.body};
+      font-size: 1em;
+      line-height: 1.5;
+      text-rendering: optimizeLegibility;
     }
-  }
 
-  blockquote {
-    margin: 0 ${theme.padding}px;
-  }
+    iframe {
+      max-width: 100%;
+    }
 
-  em {
-    text-decoration: underline;
-  }
+    a {
+      color: ${theme.colors.pink};
 
-  strong {
-    font-weight: ${theme.weightBold};
-  }
+      &:hover, &:active {
+        color: deeppink;
+      }
+    }
 
-  sup {
-    font-size: 10px;
-    vertical-align: super;
-  }
+    blockquote {
+      margin: 0 ${theme.padding}px;
+    }
 
-  sub {
-    font-size: 10px;
-    vertical-align: sub;
-  }
-`;
+    em {
+      text-decoration: underline;
+    }
+
+    strong {
+      font-weight: ${theme.weightBold};
+    }
+
+    sup {
+      font-size: 10px;
+      vertical-align: super;
+    }
+
+    sub {
+      font-size: 10px;
+      vertical-align: sub;
+    }
+  `;
+}
