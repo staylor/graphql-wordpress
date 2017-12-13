@@ -6,9 +6,9 @@ import injectStyles from 'styles/inject';
 
 export default async (req, res) => {
   try {
-    await getDataFromTree(res.locals.app);
-
     injectStyles();
+
+    await getDataFromTree(res.locals.app);
 
     const { ids, css, html } = extractCritical(renderToString(res.locals.app));
     const initialState = res.locals.client.cache.extract();
