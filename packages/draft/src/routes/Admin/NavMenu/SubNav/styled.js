@@ -6,30 +6,26 @@ import theme from 'styles/theme';
 export const SubNav = styled.nav`
   background-color: ${p => p.theme.colors.dark};
   display: none;
+  left: 160px;
   padding: 7px 0 8px;
 
   &.SubNav-active {
     display: block;
   }
 
+  &.SubNav-collapsed {
+    display: none;
+    left: 36px;
+  }
+
   &.SubNav-flyout {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     display: block;
-    left: 160px;
     min-width: 160px;
     position: absolute;
     top: -1px;
     width: auto;
     z-index: 100000;
-  }
-
-  .NavMenu-collapsed & {
-    display: none;
-    left: 36px;
-
-    &.SubNav-flyout {
-      display: block;
-    }
   }
 `;
 
