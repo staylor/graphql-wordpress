@@ -39,7 +39,9 @@ export const hidePlaceholderClass = css`
 `;
 
 export const Controls = styled.div`
+  display: block;
   font-size: 14px;
+  height: 24px;
   user-select: none;
 `;
 

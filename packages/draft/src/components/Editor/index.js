@@ -152,6 +152,7 @@ export default class Editor extends Component {
             {...rest}
           />
           <Toolbar
+            onChange={this.onChange}
             editorState={editorState}
             editor={this.editor}
             toggleInlineStyle={this.toggleInlineStyle}

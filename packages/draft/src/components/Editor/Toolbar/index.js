@@ -66,7 +66,12 @@ export default class Toolbar extends Component {
           [toolbarOpenClass]: !editorState.getSelection().isCollapsed(),
         })}
       >
-        <InlineStyleControls editorState={editorState} onToggle={this.props.toggleInlineStyle} />
+        <InlineStyleControls
+          editor={this.props.editor}
+          onChange={this.props.onChange}
+          editorState={editorState}
+          onToggle={this.props.toggleInlineStyle}
+        />
       </StyledToolbar>
     );
   }
