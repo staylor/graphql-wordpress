@@ -66,7 +66,7 @@ export default class InlineStyleControls extends Component {
     let mode = 'ADD_LINK';
     if (linkKey) {
       const linkInstance = contentState.getEntity(linkKey);
-      urlValue = linkInstance.getData().url;
+      urlValue = linkInstance.getData().href;
       mode = 'EDIT_LINK';
     }
 
@@ -86,7 +86,11 @@ export default class InlineStyleControls extends Component {
     const { editorState } = this.props;
     const { urlValue } = this.state;
     const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { url: urlValue });
+    const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', {
+      type: 'LINK',
+      href: urlValue,
+      target: null,
+    });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const selection = editorState.getSelection();
     const newEditorState = RichUtils.toggleLink(editorState, selection, entityKey);
@@ -111,7 +115,7 @@ export default class InlineStyleControls extends Component {
       return;
     }
 
-    this.setState({ mode: '' }, () => {
+    this.setState({ mode: '', urlValue: '' }, () => {
       const newEditorState = RichUtils.toggleLink(editorState, selection, null);
       const selectionState = EditorState.forceSelection(newEditorState, selection);
       this.props.onChange(selectionState);
@@ -121,7 +125,7 @@ export default class InlineStyleControls extends Component {
   cancelLink = e => {
     e.preventDefault();
 
-    this.setState({ mode: '' });
+    this.setState({ mode: '', urlValue: '' });
   };
 
   onLinkInputChange = e => {
@@ -139,6 +143,14 @@ export default class InlineStyleControls extends Component {
     e.stopPropagation();
   };
 
+  componentWillReceiveProps() {
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    if (selection.isCollapsed()) {
+      setTimeout(() => this.setState({ mode: '', urlValue: '' }), 0);
+    }
+  }
+
   render() {
     const { editorState, onToggle } = this.props;
     const currentStyle = editorState.getCurrentInlineStyle();
@@ -152,7 +164,7 @@ export default class InlineStyleControls extends Component {
 
     return (
       <Controls>
-        {['ADD_LINK', 'EDIT_LINK'].includes(this.state.mode) ? (
+        {!selection.isCollapsed() && ['ADD_LINK', 'EDIT_LINK'].includes(this.state.mode) ? (
           <Fragment>
             <LinkInput
               innerRef={linkInput => {

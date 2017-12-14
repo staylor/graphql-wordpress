@@ -43,7 +43,6 @@ const columns = [
             id
             title
             slug
-            content
             tags {
               name
               slug

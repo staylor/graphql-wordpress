@@ -3,6 +3,7 @@ type Post {
   title: String
   slug: String
   content: String
+  contentState: ContentState
   tags: [Tag]
   createdAt: Float!
   updatedAt: Float!
@@ -35,13 +36,13 @@ extend type Query {
 
 input CreatePostInput {
   title: String
-  content: String
+  contentState: ContentStateInput
   tags: [String]
 }
 
 input UpdatePostInput {
   title: String
-  content: String
+  contentState: ContentStateInput
   tags: [String]
 }
 

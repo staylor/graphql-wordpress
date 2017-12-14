@@ -11,9 +11,9 @@ function findLinkEntities(contentBlock, callback, contentState) {
 }
 
 const Link = ({ contentState, entityKey, children }) => {
-  const { url } = contentState.getEntity(entityKey).getData();
+  const { href } = contentState.getEntity(entityKey).getData();
   return (
-    <a href={url} className={linkClass}>
+    <a href={href} className={linkClass}>
       {children}
     </a>
   );

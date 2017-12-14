@@ -2,6 +2,20 @@ import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
 import { getUniqueSlug } from './utils';
 
+function convertEntityData(entityMap) {
+  return entityMap.map(entity => {
+    const e = Object.assign({}, entity);
+    if (e.data.type === 'EMBED') {
+      delete e.data.href;
+      delete e.data.target;
+    } else if (e.data.type === 'LINK') {
+      delete e.data.url;
+      delete e.data.html;
+    }
+    return e;
+  });
+}
+
 export default class Post {
   constructor(context) {
     this.context = context;
@@ -58,12 +72,14 @@ export default class Post {
     if (!docToInsert.tags) {
       docToInsert.tags = [];
     }
+    docToInsert.contentState.entityMap = convertEntityData(docToInsert.contentState.entityMap);
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     return id;
   }
 
   async updateById(id, doc) {
     const docToUpdate = Object.assign({}, doc);
+    docToUpdate.contentState.entityMap = convertEntityData(docToUpdate.contentState.entityMap);
     const ret = await this.collection.update(
       { _id: id },
       {

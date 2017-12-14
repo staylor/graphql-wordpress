@@ -25,6 +25,7 @@ const typeDefs = [
 
 export default typeDefs;
 
+typeDefs.push(requireGraphQL('./ContentState.graphql'));
 typeDefs.push(requireGraphQL('./Post.graphql'));
 typeDefs.push(requireGraphQL('./Tag.graphql'));
 typeDefs.push(requireGraphQL('./Video.graphql'));

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import gql from 'graphql-tag';
 import {
   Editor as DraftEditor,
   EditorState,
@@ -150,7 +151,8 @@ export default class Editor extends Component {
                 .then(response => {
                   cache[this.state.embed] = response.html;
                   const currentContent = editorState.getCurrentContent();
-                  const contentStateWithEntity = currentContent.createEntity('embed', 'IMMUTABLE', {
+                  const contentStateWithEntity = currentContent.createEntity('EMBED', 'IMMUTABLE', {
+                    type: 'EMBED',
                     url: this.state.embed,
                     html: response.html,
                   });
@@ -208,3 +210,40 @@ export default class Editor extends Component {
     );
   }
 }
+
+Editor.fragments = {
+  contentState: gql`
+    fragment Editor_contentState on ContentState {
+      blocks {
+        key
+        text
+        type
+        depth
+        inlineStyleRanges {
+          offset
+          length
+          style
+        }
+        entityRanges {
+          offset
+          length
+          key
+        }
+      }
+      entityMap {
+        type
+        mutability
+        data {
+          ... on LinkData {
+            href
+            target
+          }
+          ... on EmbedData {
+            url
+            html
+          }
+        }
+      }
+    }
+  `,
+};

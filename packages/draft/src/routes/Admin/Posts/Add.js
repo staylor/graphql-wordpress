@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Editor from 'components/Editor';
 import Message from 'components/Form/Message';
 import Form from '../Form';
 import { Heading } from '../styled';
@@ -11,7 +12,7 @@ const postFields = [
   { label: 'Title', prop: 'title', editable: true },
   {
     label: 'Content',
-    prop: 'content',
+    prop: 'contentState',
     type: 'editor',
     editable: true,
     placeholder: 'Post goes here...',
@@ -24,13 +25,16 @@ const postFields = [
       id
       title
       slug
-      content
+      contentState {
+        ...Editor_contentState
+      }
       tags {
         name
         slug
       }
     }
   }
+  ${Editor.fragments.contentState}
 `)
 export default class AddPost extends Component {
   state = {
@@ -41,7 +45,6 @@ export default class AddPost extends Component {
     e.preventDefault();
 
     const input = Object.assign({}, updates);
-    input.content = JSON.stringify(updates.content);
 
     this.props
       .mutate({

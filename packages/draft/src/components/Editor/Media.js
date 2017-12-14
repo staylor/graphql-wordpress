@@ -6,7 +6,7 @@ const Media = ({ contentState, block }) => {
   const entity = contentState.getEntity(block.getEntityAt(0));
   const type = entity.getType();
 
-  if (type === 'embed') {
+  if (type === 'EMBED') {
     const { html } = entity.getData();
     // eslint-disable-next-line react/no-danger
     return <span dangerouslySetInnerHTML={{ __html: html }} />;

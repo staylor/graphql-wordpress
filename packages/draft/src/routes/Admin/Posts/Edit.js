@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Editor from 'components/Editor';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from '../Form';
@@ -13,8 +14,7 @@ const postFields = [
   { label: 'Slug', prop: 'slug' },
   {
     label: 'Content',
-    prop: 'content',
-    render: post => JSON.parse(post.content),
+    prop: 'contentState',
     type: 'editor',
     editable: true,
   },
@@ -28,13 +28,16 @@ const postFields = [
           id
           title
           slug
-          content
+          contentState {
+            ...Editor_contentState
+          }
           tags {
             name
             slug
           }
         }
       }
+      ${Editor.fragments.contentState}
     `,
     {
       options: ({ match: { params } }) => ({
@@ -48,13 +51,16 @@ const postFields = [
         id
         title
         slug
-        content
+        contentState {
+          ...Editor_contentState
+        }
         tags {
           name
           slug
         }
       }
     }
+    ${Editor.fragments.contentState}
   `)
 )
 export default class EditPost extends Component {
@@ -66,7 +72,6 @@ export default class EditPost extends Component {
     e.preventDefault();
 
     const input = Object.assign({}, updates);
-    input.content = JSON.stringify(updates.content);
 
     const { post } = this.props.data;
     this.props

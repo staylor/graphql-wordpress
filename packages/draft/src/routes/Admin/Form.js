@@ -42,12 +42,32 @@ export default class Form extends Component {
       return (
         <Editor
           onChange={content => {
-            const value = convertToRaw(content);
+            const converted = convertToRaw(content);
+            const value = {
+              blocks: [...converted.blocks],
+              entityMap: { ...converted.entityMap },
+            };
             const entityMap = Object.keys(value.entityMap)
               .sort()
-              .map(i => value.entityMap[i]);
+              .map(i => {
+                const entity = Object.assign({}, value.entityMap[i]);
+                // Input types cannot be unions, so all fields from all
+                // entity data input types have to exist when setting
+                // data for entities
+                const entityData = Object.assign({}, entity.data);
+                entityData.type = entity.type;
+                delete entityData.__typename;
+                ['url', 'html', 'href', 'target'].forEach(key => {
+                  if (!entityData[key]) {
+                    entityData[key] = '';
+                  }
+                });
+                return {
+                  ...entity,
+                  data: entityData,
+                };
+              });
             value.entityMap = entityMap;
-
             this.boundRefs[field.prop] = {
               value,
             };
