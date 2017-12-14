@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { getVisibleSelectionRect } from 'draft-js';
 import cn from 'classnames';
 import { Toolbar as StyledToolbar, toolbarOpenClass } from './styled';
-import InlineStyleControls from '../InlineStyleControls';
+import InlineStyleControls from './InlineStyleControls';
 
 /* eslint-disable react/prop-types */
 

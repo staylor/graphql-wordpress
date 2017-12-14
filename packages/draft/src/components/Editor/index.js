@@ -4,17 +4,20 @@ import {
   EditorState,
   CompositeDecorator,
   RichUtils,
+  AtomicBlockUtils,
   convertFromRaw,
 } from 'draft-js';
 import cn from 'classnames';
 import BlockStyleControls from './BlockStyleControls';
 import Toolbar from './Toolbar';
+import Media from './Media';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
-import YouTubeDecorator from './decorators/YouTubeDecorator';
 import { EditorWrap, RichEditor, hidePlaceholderClass, blockquoteClass } from './styled';
 
 /* eslint-disable react/prop-types,no-underscore-dangle */
+
+const cache = {};
 
 const styleMap = {
   CODE: {
@@ -33,6 +36,17 @@ const styleMap = {
   },
 };
 
+function blockRenderer(block) {
+  if (block.getType() === 'atomic') {
+    return {
+      component: Media,
+      editable: false,
+    };
+  }
+
+  return null;
+}
+
 function getBlockStyle(block) {
   switch (block.getType()) {
     case 'blockquote':
@@ -50,11 +64,7 @@ export default class Editor extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const decorator = new CompositeDecorator([
-      ...LinkDecorator,
-      ...TwitterDecorator,
-      ...YouTubeDecorator,
-    ]);
+    const decorator = new CompositeDecorator([...LinkDecorator, ...TwitterDecorator]);
 
     if (props.content) {
       const contentState = convertFromRaw(props.content);
@@ -126,8 +136,42 @@ export default class Editor extends Component {
 
     return (
       <EditorWrap>
-        <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
+        Add Embed Block:{' '}
+        <input
+          type="text"
+          onKeyDown={e => {
+            if (e.which === 13) {
+              fetch(
+                `http://localhost:3000/oembed?provider=${encodeURIComponent(
+                  'https://www.youtube.com/oembed'
+                )}&url=${encodeURIComponent(this.state.embed)}`
+              )
+                .then(result => result.json())
+                .then(response => {
+                  cache[this.state.embed] = response.html;
+                  const currentContent = editorState.getCurrentContent();
+                  const contentStateWithEntity = currentContent.createEntity('embed', 'IMMUTABLE', {
+                    url: this.state.embed,
+                    html: response.html,
+                  });
+                  const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+                  const newEditorState = EditorState.set(editorState, {
+                    currentContent: contentStateWithEntity,
+                  });
 
+                  this.setState({
+                    editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
+                    embed: '',
+                  });
+                });
+            }
+          }}
+          onChange={e => {
+            this.setState({ embed: e.target.value });
+          }}
+          value={this.state.embed || ''}
+        />
+        <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
         <RichEditor
           className={cn({
             [hidePlaceholderClass]:
@@ -147,6 +191,7 @@ export default class Editor extends Component {
             onChange={this.onChange}
             onTab={this.onTab}
             handleKeyCommand={this.handleKeyCommand}
+            blockRendererFn={blockRenderer}
             blockStyleFn={getBlockStyle}
             customStyleMap={styleMap}
             {...rest}

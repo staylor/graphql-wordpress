@@ -42,8 +42,14 @@ export default class Form extends Component {
       return (
         <Editor
           onChange={content => {
+            const value = convertToRaw(content);
+            const entityMap = Object.keys(value.entityMap)
+              .sort()
+              .map(i => value.entityMap[i]);
+            value.entityMap = entityMap;
+
             this.boundRefs[field.prop] = {
-              value: convertToRaw(content),
+              value,
             };
           }}
           editorKey={field.prop}

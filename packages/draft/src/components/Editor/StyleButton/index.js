@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
-import { styleButtonClass, activeButtonClass } from './styled';
+import { StyleButton as StyledButton, activeButtonClass } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -13,16 +13,16 @@ export default class StyleButton extends Component {
 
   render() {
     return (
-      <span
+      <StyledButton
         role="button"
         tabIndex="-1"
-        className={cn(styleButtonClass, this.props.className, {
+        className={cn(this.props.className, {
           [activeButtonClass]: this.props.active,
         })}
         onMouseDown={this.onToggle}
       >
         {this.props.label}
-      </span>
+      </StyledButton>
     );
   }
 }

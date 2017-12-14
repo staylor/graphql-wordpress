@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { RichUtils, EditorState } from 'draft-js';
-import StyleButton from './StyleButton';
-import { Controls } from './styled';
+import { LinkInput, LinkAction } from './styled';
+import StyleButton from '../StyleButton';
+import { Controls } from '../styled';
 
 /* eslint-disable react/prop-types */
 
@@ -45,48 +46,9 @@ const INLINE_STYLES = [
 ];
 
 export default class InlineStyleControls extends Component {
-  constructor(props) {
-    super(props);
-
-    const linkKey = this.getLinkKey(props);
-
-    this.state = {
-      mode: '',
-      urlValue: '',
-    };
-    if (linkKey) {
-      const contentState = props.editorState.getCurrentContent();
-      const linkInstance = contentState.getEntity(linkKey);
-      this.state = {
-        mode: 'LINK',
-        urlValue: linkInstance.getData().url,
-      };
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const linkKey = this.getLinkKey(nextProps);
-    if (linkKey) {
-      const contentState = nextProps.editorState.getCurrentContent();
-      const linkInstance = contentState.getEntity(linkKey);
-      this.setState({
-        mode: 'LINK',
-        urlValue: linkInstance.getData().url,
-      });
-    }
-  }
-
-  getLinkKey = props => {
-    const { editorState } = props;
-    const selection = editorState.getSelection();
-    if (selection.isCollapsed()) {
-      return '';
-    }
-    const contentState = editorState.getCurrentContent();
-    const startKey = editorState.getSelection().getStartKey();
-    const startOffset = editorState.getSelection().getStartOffset();
-    const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
-    return blockWithLinkAtBeginning.getEntityAt(startOffset);
+  state = {
+    mode: '',
+    urlValue: '',
   };
 
   // event propagation is already handled
@@ -97,18 +59,21 @@ export default class InlineStyleControls extends Component {
       return;
     }
     const contentState = editorState.getCurrentContent();
-    const linkKey = this.getLinkKey(this.props);
+    const blockWithLink = contentState.getBlockForKey(selection.getStartKey());
+    const linkKey = blockWithLink.getEntityAt(selection.getStartOffset());
 
-    let url = '';
+    let urlValue = '';
+    let mode = 'ADD_LINK';
     if (linkKey) {
       const linkInstance = contentState.getEntity(linkKey);
-      url = linkInstance.getData().url;
+      urlValue = linkInstance.getData().url;
+      mode = 'EDIT_LINK';
     }
 
     this.setState(
       {
-        mode: 'LINK',
-        urlValue: url,
+        mode,
+        urlValue,
       },
       () => {
         setTimeout(() => this.linkInput.focus(), 0);
@@ -123,9 +88,9 @@ export default class InlineStyleControls extends Component {
     const contentState = editorState.getCurrentContent();
     const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { url: urlValue });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, {
-      currentContent: contentStateWithEntity,
-    });
+    const selection = editorState.getSelection();
+    const newEditorState = RichUtils.toggleLink(editorState, selection, entityKey);
+    const selectionState = EditorState.forceSelection(newEditorState, selection);
 
     this.setState(
       {
@@ -133,11 +98,8 @@ export default class InlineStyleControls extends Component {
         urlValue: '',
       },
       () => {
-        setTimeout(() => this.props.editor.focus(), 0);
+        this.props.onChange(selectionState);
       }
-    );
-    this.props.onChange(
-      RichUtils.toggleLink(newEditorState, newEditorState.getSelection(), entityKey)
     );
   };
 
@@ -149,19 +111,17 @@ export default class InlineStyleControls extends Component {
       return;
     }
 
-    this.setState({
-      mode: '',
-      urlValue: '',
+    this.setState({ mode: '' }, () => {
+      const newEditorState = RichUtils.toggleLink(editorState, selection, null);
+      const selectionState = EditorState.forceSelection(newEditorState, selection);
+      this.props.onChange(selectionState);
     });
-    this.props.onChange(RichUtils.toggleLink(editorState, selection, null));
   };
 
   cancelLink = e => {
     e.preventDefault();
 
-    this.setState({ mode: '' }, () => {
-      setTimeout(() => this.props.editor.focus(), 0);
-    });
+    this.setState({ mode: '' });
   };
 
   onLinkInputChange = e => {
@@ -174,32 +134,51 @@ export default class InlineStyleControls extends Component {
     }
   };
 
+  onLinkInputMouseDown = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   render() {
     const { editorState, onToggle } = this.props;
     const currentStyle = editorState.getCurrentInlineStyle();
+    const selection = editorState.getSelection();
+    let linkKey = null;
+    if (!selection.isCollapsed()) {
+      const contentState = editorState.getCurrentContent();
+      const blockWithLink = contentState.getBlockForKey(selection.getStartKey());
+      linkKey = blockWithLink.getEntityAt(selection.getStartOffset());
+    }
 
     return (
       <Controls>
-        {this.state.mode === 'LINK' ? (
+        {['ADD_LINK', 'EDIT_LINK'].includes(this.state.mode) ? (
           <Fragment>
-            <input
-              ref={linkInput => {
+            <LinkInput
+              innerRef={linkInput => {
                 this.linkInput = linkInput;
               }}
+              placeholder="Type a URL and press Enter"
               value={this.state.urlValue}
               onChange={this.onLinkInputChange}
               onKeyDown={this.onLinkInputKeyDown}
+              onMouseDown={this.onLinkInputMouseDown}
+              onClick={this.onLinkInputMouseDown}
               type="text"
             />
-            <button onClick={this.removeLink}>Remove</button>
-            <button onClick={this.cancelLink}>Cancel</button>
+            {this.state.mode === 'EDIT_LINK' && (
+              <LinkAction className="dashicons dashicons-editor-unlink" onClick={this.removeLink} />
+            )}
+            {this.state.mode === 'ADD_LINK' && (
+              <LinkAction className="dashicons dashicons-no-alt" onClick={this.cancelLink} />
+            )}
           </Fragment>
         ) : (
           INLINE_STYLES.map(type => (
             <StyleButton
               key={type.style}
               className={type.className}
-              active={currentStyle.has(type.style)}
+              active={currentStyle.has(type.style) || (type.style === 'LINK' && linkKey)}
               label={type.label}
               onToggle={type.style === 'LINK' ? this.showLink : onToggle}
               style={type.style}

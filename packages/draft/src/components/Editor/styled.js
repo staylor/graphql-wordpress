@@ -3,35 +3,6 @@ import { css } from 'emotion';
 import { headingStyles } from 'styles/utils';
 import theme from 'styles/theme';
 
-export const styleButtonClass = css`
-  cursor: pointer;
-  display: inline-block;
-  height: 100%;
-  padding: 2px 6px;
-
-  &:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-  }
-
-  &:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-  }
-
-  &:hover {
-    color: ${theme.colors.black};
-  }
-`;
-
-export const activeButtonClass = css`
-  color: ${theme.colors.pink};
-
-  &:hover {
-    color: ${theme.colors.pink};
-  }
-`;
-
 export const hidePlaceholderClass = css`
   .public-DraftEditorPlaceholder-root {
     display: none;
@@ -41,7 +12,8 @@ export const hidePlaceholderClass = css`
 export const Controls = styled.div`
   display: block;
   font-size: 14px;
-  height: 24px;
+  height: 32px;
+  position: relative;
   user-select: none;
 `;
 
