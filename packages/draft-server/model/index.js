@@ -1,9 +1,6 @@
-import Post from './Post';
-import Tag from './Tag';
-import Video from './Video';
-import Settings from './Settings';
+import { requireModules } from '../utils';
 
-const models = { Post, Tag, Video, Settings };
+const models = requireModules(__dirname);
 
 export default function addModelsToContext(context) {
   const newContext = Object.assign({}, context);

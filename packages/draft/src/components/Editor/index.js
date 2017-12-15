@@ -135,9 +135,11 @@ export default class Editor extends Component {
       toolbarNode.style.transform = 'scale(0)';
       const bounds = selected.getBoundingClientRect();
       blockButton.style.transform = 'scale(1)';
+      // $TODO: Magic Number
       const offset = editorBoundary.top - 48;
       const topOffset = bounds.top - offset;
       blockButton.style.top = `${topOffset}px`;
+      // $TODO: Magic Number
       sidebar.style.top = `${topOffset - 40}px`;
       return;
     }
@@ -173,6 +175,7 @@ export default class Editor extends Component {
     toolbarNode.style.top = `${selectionBoundary.top -
       editorBoundary.top -
       toolbarBoundary.height -
+      // $TODO: Magic Number
       5}px`;
     const widthDiff = selectionBoundary.width - toolbarBoundary.width;
     let leftOffset;

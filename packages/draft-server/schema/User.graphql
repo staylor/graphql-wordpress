@@ -1,0 +1,48 @@
+type User {
+  id: ObjID!
+  name: String
+  email: String!
+  bio: String
+}
+
+type UserEdge {
+  node: User
+  cursor: String
+}
+
+type UserConnection {
+  count: Int
+  edges: [UserEdge]
+  pageInfo: PageInfo
+}
+
+extend type Query {
+  users(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    search: String
+  ): UserConnection
+  user(id: String): User
+}
+
+input CreateUserInput {
+  name: String
+  email: String
+  bio: String
+  password: String
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  bio: String
+  password: String
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): User
+  updateUser(id: ObjID!, input: UpdateUserInput!): User
+  removeUser(id: ObjID!): Boolean
+}

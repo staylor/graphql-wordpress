@@ -1,9 +1,4 @@
-import fs from 'fs';
-
-function requireGraphQL(name) {
-  const filename = require.resolve(name);
-  return fs.readFileSync(filename, 'utf8');
-}
+import { requireFiles } from '../utils';
 
 const typeDefs = [
   `
@@ -23,10 +18,9 @@ const typeDefs = [
 `,
 ];
 
-export default typeDefs;
+const files = requireFiles(__dirname);
+Object.keys(files).forEach(name => {
+  typeDefs.push(files[name]);
+});
 
-typeDefs.push(requireGraphQL('./ContentState.graphql'));
-typeDefs.push(requireGraphQL('./Post.graphql'));
-typeDefs.push(requireGraphQL('./Tag.graphql'));
-typeDefs.push(requireGraphQL('./Video.graphql'));
-typeDefs.push(requireGraphQL('./Settings.graphql'));
+export default typeDefs;
