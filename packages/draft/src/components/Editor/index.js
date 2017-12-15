@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import gql from 'graphql-tag';
 import {
   Editor as DraftEditor,
@@ -7,18 +8,26 @@ import {
   RichUtils,
   AtomicBlockUtils,
   convertFromRaw,
+  getVisibleSelectionRect,
 } from 'draft-js';
 import cn from 'classnames';
+import EmbedInput from './EmbedInput';
 import BlockStyleControls from './BlockStyleControls';
-import Toolbar from './Toolbar';
+import InlineStyleControls from './InlineStyleControls';
 import Media from './Media';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
-import { EditorWrap, RichEditor, hidePlaceholderClass, blockquoteClass } from './styled';
+import {
+  EditorWrap,
+  RichEditor,
+  hidePlaceholderClass,
+  blockquoteClass,
+  BlockButton,
+  Toolbar,
+  toolbarOpenClass,
+} from './styled';
 
 /* eslint-disable react/prop-types,no-underscore-dangle */
-
-const cache = {};
 
 const styleMap = {
   CODE: {
@@ -58,7 +67,9 @@ function getBlockStyle(block) {
 }
 
 export default class Editor extends Component {
-  state = {};
+  state = {
+    blockToolbar: false,
+  };
 
   editor = null;
 
@@ -127,53 +138,132 @@ export default class Editor extends Component {
     if (this.props.onChange) {
       this.props.onChange(this.state.editorState.getCurrentContent());
     }
+    this.editor.focus();
   }
+
+  // eslint-disable-next-line
+  getSelectedBlockElement() {
+    const bounds = getVisibleSelectionRect(window);
+    if (bounds && bounds.width > 1) {
+      return null;
+    }
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0) return null;
+    let node = selection.getRangeAt(0).startContainer;
+    do {
+      if (node.getAttribute && node.getAttribute('data-block') === 'true') return node;
+      node = node.parentNode;
+    } while (node != null);
+    return null;
+  }
+
+  componentDidUpdate() {
+    const selected = this.getSelectedBlockElement();
+    // eslint-disable-next-line react/no-find-dom-node
+    const editor = ReactDOM.findDOMNode(this.editor);
+    const editorBoundary = editor.getBoundingClientRect();
+    // eslint-disable-next-line react/no-find-dom-node
+    const sidebar = ReactDOM.findDOMNode(this.sidebar);
+    if (this.state.blockToolbar) {
+      sidebar.style.transform = 'scale(1)';
+    } else {
+      sidebar.style.transform = 'scale(0)';
+    }
+    // eslint-disable-next-line react/no-find-dom-node
+    const blockButton = ReactDOM.findDOMNode(this.blockButton);
+    if (selected) {
+      const bounds = selected.getBoundingClientRect();
+      blockButton.style.transform = 'scale(1)';
+      const offset = editorBoundary.top - 48;
+      const topOffset = bounds.top - offset;
+      blockButton.style.top = `${topOffset}px`;
+      sidebar.style.top = `${topOffset - 40}px`;
+      return;
+    }
+
+    const selectionBoundary = getVisibleSelectionRect(window);
+    if (!selectionBoundary) {
+      return;
+    }
+    blockButton.style.transform = 'scale(0)';
+    // eslint-disable-next-line react/no-find-dom-node
+    const toolbarNode = ReactDOM.findDOMNode(this.toolbar);
+    const toolbarBoundary = toolbarNode.getBoundingClientRect();
+    toolbarNode.style.width = `${toolbarBoundary.width}px`;
+    toolbarNode.style.top = `${selectionBoundary.top -
+      editorBoundary.top -
+      toolbarBoundary.height -
+      5}px`;
+    const widthDiff = selectionBoundary.width - toolbarBoundary.width;
+    let leftOffset;
+    if (widthDiff >= 0) {
+      leftOffset = Math.max(widthDiff / 2, 0);
+      toolbarNode.style.left = `${leftOffset}px`;
+    } else {
+      const left = selectionBoundary.left - editorBoundary.left;
+      leftOffset = Math.max(left + widthDiff / 2, 0);
+      toolbarNode.style.left = `${leftOffset}px`;
+      toolbarNode.style.width = `${toolbarBoundary.width}px`;
+    }
+    if (leftOffset === 0) {
+      toolbarNode.classList.add('Toolbar-flush');
+    } else {
+      toolbarNode.classList.remove('Toolbar-flush');
+    }
+  }
+
+  setEmbedData = data => {
+    const { editorState } = this.state;
+    const currentContent = editorState.getCurrentContent();
+    const contentStateWithEntity = currentContent.createEntity('EMBED', 'IMMUTABLE', data);
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(editorState, {
+      currentContent: contentStateWithEntity,
+    });
+
+    this.setState({
+      editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
+    });
+  };
 
   render() {
     const { content, onChange, ...rest } = this.props;
     const { editorState } = this.state;
-
     const contentState = editorState.getCurrentContent();
 
     return (
       <EditorWrap>
-        Add Embed Block:{' '}
-        <input
-          type="text"
-          onKeyDown={e => {
-            if (e.which === 13) {
-              fetch(
-                `http://localhost:3000/oembed?provider=${encodeURIComponent(
-                  'https://www.youtube.com/oembed'
-                )}&url=${encodeURIComponent(this.state.embed)}`
-              )
-                .then(result => result.json())
-                .then(response => {
-                  cache[this.state.embed] = response.html;
-                  const currentContent = editorState.getCurrentContent();
-                  const contentStateWithEntity = currentContent.createEntity('EMBED', 'IMMUTABLE', {
-                    type: 'EMBED',
-                    url: this.state.embed,
-                    html: response.html,
-                  });
-                  const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-                  const newEditorState = EditorState.set(editorState, {
-                    currentContent: contentStateWithEntity,
-                  });
+        <EmbedInput setEmbedData={this.setEmbedData} />
+        <BlockButton
+          className={cn('dashicons', {
+            'dashicons-plus-alt': !this.state.blockToolbar,
+            'dashicons-no': this.state.blockToolbar,
+          })}
+          innerRef={blockButton => {
+            this.blockButton = blockButton;
+          }}
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
 
-                  this.setState({
-                    editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
-                    embed: '',
-                  });
-                });
-            }
+            this.setState(prevState => ({
+              blockToolbar: !prevState.blockToolbar,
+            }));
           }}
-          onChange={e => {
-            this.setState({ embed: e.target.value });
+        >
+          {' '}
+        </BlockButton>
+        <Toolbar
+          innerRef={sidebar => {
+            this.sidebar = sidebar;
           }}
-          value={this.state.embed || ''}
-        />
-        <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
+          className={cn('Toolbar-sidebar', {
+            [toolbarOpenClass]: editorState.getSelection().isCollapsed(),
+          })}
+          focus={() => this.editor.focus()}
+        >
+          <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
+        </Toolbar>
         <RichEditor
           className={cn({
             [hidePlaceholderClass]:
@@ -199,12 +289,21 @@ export default class Editor extends Component {
             {...rest}
           />
           <Toolbar
-            onChange={this.onChange}
-            editorState={editorState}
-            editor={this.editor}
-            toggleInlineStyle={this.toggleInlineStyle}
+            innerRef={toolbar => {
+              this.toolbar = toolbar;
+            }}
+            className={cn({
+              [toolbarOpenClass]: !editorState.getSelection().isCollapsed(),
+            })}
             focus={() => this.editor.focus()}
-          />
+          >
+            <InlineStyleControls
+              editor={this.editor}
+              onChange={this.onChange}
+              editorState={editorState}
+              onToggle={this.toggleInlineStyle}
+            />
+          </Toolbar>
         </RichEditor>
       </EditorWrap>
     );

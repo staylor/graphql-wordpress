@@ -9,7 +9,7 @@ export const Nav = styled.nav`
   position: fixed;
   top: 0;
   width: 160px;
-  z-index: 3;
+  z-index: 4;
 `;
 
 export const navCollapsedClass = css`

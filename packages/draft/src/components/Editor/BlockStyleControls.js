@@ -24,7 +24,11 @@ const BLOCK_TYPES = [
     style: 'ordered-list-item',
     className: 'dashicons dashicons-editor-ol',
   },
-  { label: 'Code Block', style: 'code-block' },
+  {
+    label: '',
+    style: 'code-block',
+    className: 'dashicons dashicons-editor-code',
+  },
 ];
 
 const BlockStyleControls = ({ editorState, onToggle }) => {

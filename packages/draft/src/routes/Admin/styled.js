@@ -27,6 +27,13 @@ export const Title = styled.h1`
   }
 `;
 
+export const titleInputClass = css`
+  font-size: 22px;
+  line-height: 1;
+  height: 38px;
+  padding: 3px 8px;
+`;
+
 export const Heading = styled.h1`
   display: inline-block;
   font-family: ${p => p.theme.fonts.futura};
@@ -62,6 +69,8 @@ export const Content = styled.section`
   height: 100%;
   margin-left: 160px;
   padding: 0 20px 65px;
+  position: relative;
+  z-index: 3;
 `;
 
 export const collapsedNavClass = css`

@@ -4,14 +4,13 @@ import gql from 'graphql-tag';
 import Editor from 'components/Editor';
 import Message from 'components/Form/Message';
 import Form from '../Form';
-import { Heading } from '../styled';
+import { Heading, titleInputClass } from '../styled';
 
 /* eslint-disable react/prop-types */
 
 const postFields = [
-  { label: 'Title', prop: 'title', editable: true },
+  { prop: 'title', editable: true, className: titleInputClass },
   {
-    label: 'Content',
     prop: 'contentState',
     type: 'editor',
     editable: true,

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { convertToRaw } from 'draft-js';
+import cn from 'classnames';
 import { Field, FieldWrap, FieldName, FieldValue, Fields } from 'components/Form/styled';
 import Input from 'components/Form/Input';
 import Textarea from 'components/Form/Textarea';
@@ -41,6 +42,7 @@ export default class Form extends Component {
     if (field.type === 'editor') {
       return (
         <Editor
+          className={cn(field.className)}
           onChange={content => {
             const converted = convertToRaw(content);
             const value = {
@@ -82,6 +84,7 @@ export default class Form extends Component {
     if (field.type === 'select') {
       return (
         <Select
+          className={cn(field.className)}
           innerRef={this.bindRef(field.prop)}
           choices={field.choices}
           value={data[field.prop] || (field.multiple ? [] : '')}
@@ -95,6 +98,7 @@ export default class Form extends Component {
     if (field.type === 'textarea') {
       return (
         <Textarea
+          className={cn(field.className)}
           rows="3"
           innerRef={this.bindRef(field.prop)}
           value={field.render ? field.render(data) : data[field.prop]}
@@ -104,6 +108,7 @@ export default class Form extends Component {
 
     return (
       <Input
+        className={cn(field.className)}
         innerRef={this.bindRef(field.prop)}
         value={field.render ? field.render(data) : data[field.prop]}
       />
@@ -119,12 +124,12 @@ export default class Form extends Component {
           <Fragment key={field.prop}>
             {field.type === 'editor' ? (
               <FieldWrap>
-                <FieldName>{field.label}</FieldName>
+                {field.label && <FieldName>{field.label}</FieldName>}
                 {this.getEditableField(field, data)}
               </FieldWrap>
             ) : (
               <Field>
-                <FieldName>{field.label}</FieldName>
+                {field.label && <FieldName>{field.label}</FieldName>}
                 {field.editable ? (
                   this.getEditableField(field, data)
                 ) : (

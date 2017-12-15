@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { RichUtils, EditorState } from 'draft-js';
-import { LinkInput, LinkAction } from './styled';
-import StyleButton from '../StyleButton';
-import { Controls } from '../styled';
+import StyleButton from './StyleButton';
+import { LinkInput, LinkAction, Controls } from './styled';
 
 /* eslint-disable react/prop-types */
 

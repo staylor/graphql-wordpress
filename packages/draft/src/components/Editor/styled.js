@@ -9,6 +9,22 @@ export const hidePlaceholderClass = css`
   }
 `;
 
+export const BlockButton = styled.div`
+  color: ${p => p.theme.colors.detail};
+  cursor: pointer;
+  display: block;
+  font-size: 24px;
+  left: -30px;
+  position: absolute;
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.3, 1.2, 0.2, 1);
+  transition-delay: 0.5s;
+
+  &:hover {
+    color: ${p => p.theme.colors.dark};
+  }
+`;
+
 export const Controls = styled.div`
   display: block;
   font-size: 14px;
@@ -19,9 +35,9 @@ export const Controls = styled.div`
 
 export const EditorWrap = styled.div`
   background: #fff;
-  border: 1px solid #ddd;
   font-size: 14px;
-  padding: 15px;
+  padding: 15px 0;
+  position: relative;
 `;
 
 export const linkClass = css`
@@ -81,4 +97,72 @@ export const RichEditor = styled.div`
     font-size: 16px;
     padding: 20px;
   }
+`;
+
+export const Toolbar = styled.div`
+  background: ${p => p.theme.colors.white};
+  border-radius: 4px;
+  box-shadow: 0 1px 18px 0 rgba(0, 0, 0, 0.3);
+  position: absolute;
+  visibility: hidden;
+  z-index: 10;
+
+  &::after {
+    border: 6px solid transparent;
+    border-top-color: ${p => p.theme.colors.white};
+    content: ' ';
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+    right: 50%;
+    bottom: -12px;
+    width: 0;
+  }
+
+  &.Toolbar-sidebar {
+    left: -28px;
+    transform: scale(0);
+    transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
+
+    &::after {
+      left: 4px;
+      right: auto;
+    }
+  }
+
+  &.Toolbar-flush {
+    &::after {
+      border-top-color: transparent;
+    }
+  }
+`;
+
+export const toolbarOpenClass = css`
+  visibility: visible;
+`;
+
+export const LinkInput = styled.input`
+  background: transparent;
+  border: 0 none;
+  display: block;
+  font-size: 15px;
+  height: 20px;
+  line-height: 20px;
+  padding: 6px;
+  width: 200px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const LinkAction = styled.span`
+  cursor: pointer;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 32px;
 `;

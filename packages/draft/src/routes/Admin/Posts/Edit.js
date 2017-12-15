@@ -5,15 +5,27 @@ import Editor from 'components/Editor';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from '../Form';
-import { Heading } from '../styled';
+import { Heading, titleInputClass } from '../styled';
 
 /* eslint-disable react/prop-types */
 
 const postFields = [
-  { label: 'Title', prop: 'title', editable: true },
-  { label: 'Slug', prop: 'slug' },
+  { prop: 'title', editable: true, className: titleInputClass },
   {
-    label: 'Content',
+    prop: 'slug',
+    render: post => {
+      const url = `http://localhost:3000/post/${post.slug}`;
+      return (
+        <Fragment>
+          <strong>Permalink:</strong>{' '}
+          <a href={url} target="_blank">
+            {url}
+          </a>
+        </Fragment>
+      );
+    },
+  },
+  {
     prop: 'contentState',
     type: 'editor',
     editable: true,
