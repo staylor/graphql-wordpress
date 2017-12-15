@@ -14,56 +14,14 @@ import cn from 'classnames';
 import EmbedInput from './EmbedInput';
 import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
-import Media from './Media';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
-import {
-  EditorWrap,
-  RichEditor,
-  hidePlaceholderClass,
-  blockquoteClass,
-  BlockButton,
-  Toolbar,
-} from './styled';
+import { EditorWrap, RichEditor, hidePlaceholderClass, BlockButton, Toolbar } from './styled';
+import styleMap from './styleMap';
+import { blockRenderer, blockStyle } from './Blocks';
+import { getSelection } from './utils';
 
-/* eslint-disable react/prop-types,no-underscore-dangle */
-
-const styleMap = {
-  CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2,
-  },
-  SUPERSCRIPT: {
-    fontSize: 10,
-    verticalAlign: 'super',
-  },
-  SUBSCRIPT: {
-    fontSize: 10,
-    verticalAlign: 'sub',
-  },
-};
-
-function blockRenderer(block) {
-  if (block.getType() === 'atomic') {
-    return {
-      component: Media,
-      editable: false,
-    };
-  }
-
-  return null;
-}
-
-function getBlockStyle(block) {
-  switch (block.getType()) {
-    case 'blockquote':
-      return blockquoteClass;
-    default:
-      return null;
-  }
-}
+/* eslint-disable react/prop-types */
 
 export default class Editor extends Component {
   state = {
@@ -77,13 +35,13 @@ export default class Editor extends Component {
 
     const decorator = new CompositeDecorator([...LinkDecorator, ...TwitterDecorator]);
 
+    let contentState;
     if (props.content) {
-      const contentState = convertFromRaw(props.content);
-      this.state.editorState = EditorState.createWithContent(contentState, decorator);
+      contentState = convertFromRaw(props.content);
     } else {
       // EditorState.createEmpty() throws errors upon focus, seems to only
       // happen when decorators are added
-      const contentState = convertFromRaw({
+      contentState = convertFromRaw({
         entityMap: {},
         blocks: [
           {
@@ -94,37 +52,33 @@ export default class Editor extends Component {
           },
         ],
       });
-      this.state.editorState = EditorState.createWithContent(contentState, decorator);
     }
+    this.state.editorState = EditorState.createWithContent(contentState, decorator);
 
     this.focus = () => this.editor.focus();
-    this.handleKeyCommand = this._handleKeyCommand.bind(this);
-    this.onTab = this._onTab.bind(this);
-    this.toggleBlockType = this._toggleBlockType.bind(this);
-    this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
   }
 
-  _handleKeyCommand(command, editorState) {
+  handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       this.onChange(newState);
       return true;
     }
     return false;
-  }
+  };
 
-  _onTab(e) {
+  onTab = e => {
     const maxDepth = 4;
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
-  }
+  };
 
-  _toggleBlockType(blockType) {
+  toggleBlockType = blockType => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
-  }
+  };
 
-  _toggleInlineStyle(inlineStyle) {
+  toggleInlineStyle = inlineStyle => {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
-  }
+  };
 
   onChange = editorState => {
     this.setState({ editorState });
@@ -137,7 +91,7 @@ export default class Editor extends Component {
     if (this.props.onChange) {
       this.props.onChange(this.state.editorState.getCurrentContent());
     }
-    this.editor.focus();
+    this.focus();
   }
 
   // eslint-disable-next-line
@@ -146,11 +100,15 @@ export default class Editor extends Component {
     if (bounds && bounds.width > 1) {
       return null;
     }
-    const selection = window.getSelection();
-    if (selection.rangeCount === 0) return null;
+    const selection = getSelection(window);
+    if (selection.rangeCount === 0) {
+      return null;
+    }
     let node = selection.getRangeAt(0).startContainer;
     do {
-      if (node.getAttribute && node.getAttribute('data-block') === 'true') return node;
+      if (node.getAttribute && node.getAttribute('data-block') === 'true') {
+        return node;
+      }
       node = node.parentNode;
     } while (node != null);
     return null;
@@ -158,21 +116,22 @@ export default class Editor extends Component {
 
   componentDidUpdate() {
     const selected = this.getSelectedBlockElement();
-    // eslint-disable-next-line react/no-find-dom-node
+
+    /* eslint-disable react/no-find-dom-node */
     const editor = ReactDOM.findDOMNode(this.editor);
-    const editorBoundary = editor.getBoundingClientRect();
-    // eslint-disable-next-line react/no-find-dom-node
     const toolbarNode = ReactDOM.findDOMNode(this.toolbar);
-    // eslint-disable-next-line react/no-find-dom-node
     const sidebar = ReactDOM.findDOMNode(this.sidebar);
+    const blockButton = ReactDOM.findDOMNode(this.blockButton);
+    /* eslint-enable react/no-find-dom-node */
+
     if (this.state.blockToolbar) {
       sidebar.style.transform = 'scale(1)';
     } else {
       sidebar.style.transform = 'scale(0)';
     }
-    // eslint-disable-next-line react/no-find-dom-node
-    const blockButton = ReactDOM.findDOMNode(this.blockButton);
+
     if (selected) {
+      const editorBoundary = editor.getBoundingClientRect();
       toolbarNode.style.transform = 'scale(0)';
       const bounds = selected.getBoundingClientRect();
       blockButton.style.transform = 'scale(1)';
@@ -207,6 +166,7 @@ export default class Editor extends Component {
       toolbarNode.style.transform = 'scale(0)';
     }
 
+    const editorBoundary = editor.getBoundingClientRect();
     // ensure that toolbar is positioned in the middle
     // and above the selection, regardless of toolbar state
     toolbarNode.style.width = `${toolbarBoundary.width}px`;
@@ -283,7 +243,7 @@ export default class Editor extends Component {
             this.sidebar = sidebar;
           }}
           className="Toolbar-sidebar"
-          focus={() => this.editor.focus()}
+          focus={this.focus}
         >
           <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
         </Toolbar>
@@ -307,7 +267,7 @@ export default class Editor extends Component {
             onTab={this.onTab}
             handleKeyCommand={this.handleKeyCommand}
             blockRendererFn={blockRenderer}
-            blockStyleFn={getBlockStyle}
+            blockStyleFn={blockStyle}
             customStyleMap={styleMap}
             {...rest}
           />
@@ -315,7 +275,7 @@ export default class Editor extends Component {
             innerRef={toolbar => {
               this.toolbar = toolbar;
             }}
-            focus={() => this.editor.focus()}
+            focus={this.focus}
           >
             <InlineStyleControls
               editor={this.editor}
