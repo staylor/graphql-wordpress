@@ -25,14 +25,6 @@ export const BlockButton = styled.div`
   }
 `;
 
-export const Controls = styled.div`
-  display: block;
-  font-size: 14px;
-  height: 32px;
-  position: relative;
-  user-select: none;
-`;
-
 export const EditorWrap = styled.div`
   background: #fff;
   font-size: 14px;
@@ -104,7 +96,8 @@ export const Toolbar = styled.div`
   border-radius: 4px;
   box-shadow: 0 1px 18px 0 rgba(0, 0, 0, 0.3);
   position: absolute;
-  visibility: hidden;
+  transform: scale(0);
+  transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
   z-index: 10;
 
   &::after {
@@ -121,8 +114,6 @@ export const Toolbar = styled.div`
 
   &.Toolbar-sidebar {
     left: -28px;
-    transform: scale(0);
-    transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
 
     &::after {
       left: 4px;
@@ -135,34 +126,4 @@ export const Toolbar = styled.div`
       border-top-color: transparent;
     }
   }
-`;
-
-export const toolbarOpenClass = css`
-  visibility: visible;
-`;
-
-export const LinkInput = styled.input`
-  background: transparent;
-  border: 0 none;
-  display: block;
-  font-size: 15px;
-  height: 20px;
-  line-height: 20px;
-  padding: 6px;
-  width: 200px;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const LinkAction = styled.span`
-  cursor: pointer;
-  display: block;
-  height: 32px;
-  line-height: 32px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 32px;
 `;

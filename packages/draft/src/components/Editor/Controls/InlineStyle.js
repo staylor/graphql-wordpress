@@ -69,15 +69,9 @@ export default class InlineStyleControls extends Component {
       mode = 'EDIT_LINK';
     }
 
-    this.setState(
-      {
-        mode,
-        urlValue,
-      },
-      () => {
-        setTimeout(() => this.linkInput.focus(), 0);
-      }
-    );
+    this.setState({ mode, urlValue }, () => {
+      setTimeout(() => this.linkInput.focus(), 0);
+    });
   };
 
   addLink = e => {
@@ -95,15 +89,9 @@ export default class InlineStyleControls extends Component {
     const newEditorState = RichUtils.toggleLink(editorState, selection, entityKey);
     const selectionState = EditorState.forceSelection(newEditorState, selection);
 
-    this.setState(
-      {
-        mode: '',
-        urlValue: '',
-      },
-      () => {
-        this.props.onChange(selectionState);
-      }
-    );
+    this.setState({ mode: '', urlValue: '' }, () => {
+      this.props.onChange(selectionState);
+    });
   };
 
   removeLink = e => {

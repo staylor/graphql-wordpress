@@ -34,6 +34,11 @@ export default {
       },
     },
   },
+  editor: {
+    buttons: {
+      height: 32,
+    },
+  },
 
   contentWidth: 1080,
   padding: 15,

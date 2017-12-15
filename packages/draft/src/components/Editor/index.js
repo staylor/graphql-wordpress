@@ -12,8 +12,8 @@ import {
 } from 'draft-js';
 import cn from 'classnames';
 import EmbedInput from './EmbedInput';
-import BlockStyleControls from './BlockStyleControls';
-import InlineStyleControls from './InlineStyleControls';
+import BlockStyleControls from './Controls/BlockStyle';
+import InlineStyleControls from './Controls/InlineStyle';
 import Media from './Media';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
@@ -24,7 +24,6 @@ import {
   blockquoteClass,
   BlockButton,
   Toolbar,
-  toolbarOpenClass,
 } from './styled';
 
 /* eslint-disable react/prop-types,no-underscore-dangle */
@@ -163,6 +162,8 @@ export default class Editor extends Component {
     const editor = ReactDOM.findDOMNode(this.editor);
     const editorBoundary = editor.getBoundingClientRect();
     // eslint-disable-next-line react/no-find-dom-node
+    const toolbarNode = ReactDOM.findDOMNode(this.toolbar);
+    // eslint-disable-next-line react/no-find-dom-node
     const sidebar = ReactDOM.findDOMNode(this.sidebar);
     if (this.state.blockToolbar) {
       sidebar.style.transform = 'scale(1)';
@@ -172,6 +173,7 @@ export default class Editor extends Component {
     // eslint-disable-next-line react/no-find-dom-node
     const blockButton = ReactDOM.findDOMNode(this.blockButton);
     if (selected) {
+      toolbarNode.style.transform = 'scale(0)';
       const bounds = selected.getBoundingClientRect();
       blockButton.style.transform = 'scale(1)';
       const offset = editorBoundary.top - 48;
@@ -185,10 +187,28 @@ export default class Editor extends Component {
     if (!selectionBoundary) {
       return;
     }
+
+    // hide block tools
     blockButton.style.transform = 'scale(0)';
-    // eslint-disable-next-line react/no-find-dom-node
-    const toolbarNode = ReactDOM.findDOMNode(this.toolbar);
-    const toolbarBoundary = toolbarNode.getBoundingClientRect();
+
+    let toolbarBoundary;
+    // ensure that the animation is not triggered
+    // when the toolbar is already open
+    if (toolbarNode.style.transform === 'scale(1)') {
+      toolbarBoundary = toolbarNode.getBoundingClientRect();
+      toolbarNode.style.width = `${toolbarBoundary.width}px`;
+    } else {
+      // ensure that toolbar has dimensions
+      toolbarNode.style.visibility = 'hidden';
+      toolbarNode.style.left = '-9999px';
+      toolbarNode.style.transition = 'none';
+      toolbarNode.style.transform = 'scale(1)';
+      toolbarBoundary = toolbarNode.getBoundingClientRect();
+      toolbarNode.style.transform = 'scale(0)';
+    }
+
+    // ensure that toolbar is positioned in the middle
+    // and above the selection, regardless of toolbar state
     toolbarNode.style.width = `${toolbarBoundary.width}px`;
     toolbarNode.style.top = `${selectionBoundary.top -
       editorBoundary.top -
@@ -198,18 +218,23 @@ export default class Editor extends Component {
     let leftOffset;
     if (widthDiff >= 0) {
       leftOffset = Math.max(widthDiff / 2, 0);
-      toolbarNode.style.left = `${leftOffset}px`;
     } else {
       const left = selectionBoundary.left - editorBoundary.left;
       leftOffset = Math.max(left + widthDiff / 2, 0);
-      toolbarNode.style.left = `${leftOffset}px`;
-      toolbarNode.style.width = `${toolbarBoundary.width}px`;
     }
+    toolbarNode.style.left = `${leftOffset}px`;
+    // this class allows us to style the toolbar arrow with CSS
     if (leftOffset === 0) {
       toolbarNode.classList.add('Toolbar-flush');
     } else {
       toolbarNode.classList.remove('Toolbar-flush');
     }
+    toolbarNode.style.visibility = '';
+    // without a delay, the toolbar can sometimes appear for a split second scaled
+    setTimeout(() => {
+      toolbarNode.style.transition = 'transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1)';
+      toolbarNode.style.transform = 'scale(1)';
+    }, 10);
   }
 
   setEmbedData = data => {
@@ -257,9 +282,7 @@ export default class Editor extends Component {
           innerRef={sidebar => {
             this.sidebar = sidebar;
           }}
-          className={cn('Toolbar-sidebar', {
-            [toolbarOpenClass]: editorState.getSelection().isCollapsed(),
-          })}
+          className="Toolbar-sidebar"
           focus={() => this.editor.focus()}
         >
           <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
@@ -292,9 +315,6 @@ export default class Editor extends Component {
             innerRef={toolbar => {
               this.toolbar = toolbar;
             }}
-            className={cn({
-              [toolbarOpenClass]: !editorState.getSelection().isCollapsed(),
-            })}
             focus={() => this.editor.focus()}
           >
             <InlineStyleControls
