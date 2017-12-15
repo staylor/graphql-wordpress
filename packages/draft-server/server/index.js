@@ -4,10 +4,12 @@ import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
-
+import authenticate from './authenticate';
 import typeDefs from '../schema';
 import resolvers from '../resolvers';
 import addModelsToContext from '../model';
+
+/* eslint-disable no-console */
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
@@ -28,6 +30,8 @@ async function startServer() {
     req.context = addModelsToContext({ db });
     next();
   });
+
+  authenticate(app);
 
   app.use('/graphql', (req, res, next) => {
     graphqlExpress(() => {

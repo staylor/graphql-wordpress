@@ -47,10 +47,13 @@
     "graphql-server": "^0.3.2",
     "graphql-server-express": "^1.2.0",
     "graphql-tools": "^2.8.0",
+    "jwt-simple": "^0.5.1",
     "lodash": "^4.17.4",
     "mongo-find-by-ids": "^1.0.0",
     "mongodb": "^2.2.33",
     "nodeify": "^1.0.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
     "slugify": "^1.2.6"
   }
 }

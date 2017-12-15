@@ -7,8 +7,11 @@ module.exports = {
     const config = Object.assign({}, baseConfig);
     if (config.target === 'web') {
       const adminConfig = [...config.entry.main];
-      adminConfig[adminConfig.length - 1] = path.resolve('./src/admin/index.js');
+      adminConfig[adminConfig.length - 1] = path.resolve('./src/client/admin.js');
       config.entry.admin = adminConfig;
+      const loginConfig = [...config.entry.main];
+      loginConfig[loginConfig.length - 1] = path.resolve('./src/client/login.js');
+      config.entry.login = loginConfig;
     }
     return config;
   },

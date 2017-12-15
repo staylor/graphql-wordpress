@@ -7,19 +7,19 @@ import bcrypt from 'bcrypt';
 
 const KEY = '~key~';
 
-async function userFromPayload(request, jwtPayload) {
+async function userFromPayload({ context: { User } }, jwtPayload) {
   if (!jwtPayload.userId) {
     throw new Error('No userId in JWT');
   }
 
-  const user = await request.context.User.findOneById(ObjectId(jwtPayload.userId));
+  const user = await User.findOneById(ObjectId(jwtPayload.userId));
   return user;
 }
 
 passport.use(
   new Strategy(
     {
-      jwtFromRequest: ExtractJwt.fromAuthHeader(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
       secretOrKey: KEY,
       passReqToCallback: true,
     },
@@ -32,7 +32,7 @@ passport.use(
 export default function addPassport(app) {
   app.use(passport.initialize());
 
-  app.post('/login', async (req, res, next) => {
+  app.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
 
@@ -52,7 +52,7 @@ export default function addPassport(app) {
       const token = jwt.encode(payload, KEY);
       res.json({ token });
     } catch (e) {
-      next(e);
+      res.json({ error: e.message });
     }
   });
 }

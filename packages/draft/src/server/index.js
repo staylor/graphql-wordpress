@@ -1,11 +1,13 @@
+import path from 'path';
 import express from 'express';
 import proxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
-import path from 'path';
+import cookieParser from 'cookie-parser';
 import fetch from 'node-fetch';
 import appRouter from 'server/router/app';
 import adminRouter from 'server/router/admin';
+import loginRouter from 'server/router/login';
 import apolloClient from 'server/router/apolloClient';
 import serveResponse from 'server/router/serve';
 
@@ -26,6 +28,8 @@ app.use(morgan('combined'));
 
 // Setup the public directory so that we can server static assets.
 app.use(express.static(path.join(process.cwd(), KYT.PUBLIC_DIR)));
+
+app.use(cookieParser());
 
 // use a local GQL server by default
 const gqlHost = process.env.GQL_HOST || 'http://localhost:8080';
@@ -59,6 +63,7 @@ app.use('/oembed', async (req, res) => {
 });
 
 app.use('/admin', getAssets('admin'), apolloClient, adminRouter, serveResponse);
+app.use('/login', getAssets('login'), apolloClient, loginRouter, serveResponse);
 app.use(getAssets('main'), apolloClient, appRouter, serveResponse);
 
 app.listen(parseInt(KYT.SERVER_PORT, 10));
