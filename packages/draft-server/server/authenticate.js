@@ -18,7 +18,7 @@ async function userFromPayload({ context: { User } }, jwtPayload) {
 passport.use(
   new Strategy(
     {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: KEY,
       passReqToCallback: true,
     },

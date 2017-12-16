@@ -6,6 +6,7 @@ export default ({
   css = '',
   stylesheets = [],
   state = {},
+  user = null,
   manifestJSBundle,
   vendorJSBundle,
   mainJSBundle,
@@ -23,6 +24,7 @@ ${stylesheets.map(sheet => `<link rel="stylesheet" href="${sheet}" />`).join('')
 ${css ? `<style>${css}</style>` : ''}
 <script>window.__emotion = ${JSON.stringify(ids)};</script>
 <script>window.__APOLLO_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')};</script>
+${user ? `<script>window.__USER__ = ${JSON.stringify(user)}</script>` : ''}
 </head>
 <body ${helmet.bodyAttributes.toString()}>
   <main id="main">${root}</main>

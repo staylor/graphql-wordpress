@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import fetch from 'isomorphic-fetch';
+import Cookies from 'js-cookie';
 import Message from 'components/Form/Message';
 import theme from 'styles/theme';
 import { TOKEN_KEY } from 'utils/constants';
@@ -37,9 +38,7 @@ export default class Login extends Component {
         if (data.error) {
           throw new Error(data.error);
         }
-        const d = new Date();
-        d.setTime(d.getTime() + 14 * 24 * 60 * 60 * 1000);
-        document.cookie = `${TOKEN_KEY}=${data.token};expires=${d.toUTCString()};path=/`;
+        Cookies.set(TOKEN_KEY, data.token, { expires: 7, path: '/' });
         window.location.pathname = '/admin';
       })
       .catch(err => {

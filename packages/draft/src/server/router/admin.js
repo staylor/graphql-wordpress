@@ -16,6 +16,7 @@ export default (req, res, next) => {
     </ApolloProvider>
   );
 
+  res.locals.user = req.user;
   res.locals.app = app;
   res.locals.stylesheets = [dashiconsCSS, draftCSS];
 

@@ -22,6 +22,7 @@ export default async (req, res) => {
         stylesheets: res.locals.stylesheets,
         state: initialState,
         ...res.locals.assets,
+        user: res.locals.user,
       })
     );
   } catch (e) {

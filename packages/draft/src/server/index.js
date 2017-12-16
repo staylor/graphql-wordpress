@@ -1,5 +1,6 @@
 import path from 'path';
 import express from 'express';
+import passport from 'passport';
 import proxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -10,6 +11,7 @@ import adminRouter from 'server/router/admin';
 import loginRouter from 'server/router/login';
 import apolloClient from 'server/router/apolloClient';
 import serveResponse from 'server/router/serve';
+import authenticate from './authenticate';
 
 process.env.TZ = 'America/New_York';
 
@@ -62,7 +64,16 @@ app.use('/oembed', async (req, res) => {
   res.json(response);
 });
 
-app.use('/admin', getAssets('admin'), apolloClient, adminRouter, serveResponse);
+authenticate(app);
+
+app.use(
+  '/admin',
+  passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),
+  getAssets('admin'),
+  apolloClient,
+  adminRouter,
+  serveResponse
+);
 app.use('/login', getAssets('login'), apolloClient, loginRouter, serveResponse);
 app.use(getAssets('main'), apolloClient, appRouter, serveResponse);
 
