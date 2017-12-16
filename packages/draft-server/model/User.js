@@ -39,9 +39,16 @@ export default class User {
   }
 
   async insert(doc) {
-    const { password, ...rest } = doc;
+    const { password, ...fields } = doc;
+    if (!fields.email || !password) {
+      throw new Error('Email and Password are required.');
+    }
+    const exists = await this.count({ email: fields.email });
+    if (exists) {
+      throw new Error('Email already exists.');
+    }
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
-    const docToInsert = Object.assign({}, rest, {
+    const docToInsert = Object.assign({}, fields, {
       hash,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -50,8 +57,17 @@ export default class User {
     return id;
   }
 
-  async updateById(id, doc) {
-    const docToUpdate = Object.assign({}, doc);
+  async updateById(id, { password = null, ...fields }) {
+    const docToUpdate = Object.assign({}, fields);
+    if (fields.email) {
+      const exists = await this.count({ email: fields.email });
+      if (exists) {
+        throw new Error('Email already exists.');
+      }
+    }
+    if (password) {
+      docToUpdate.hash = await bcrypt.hash(password, SALT_ROUNDS);
+    }
     const ret = await this.collection.update(
       { _id: id },
       {

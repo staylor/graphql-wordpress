@@ -2,7 +2,6 @@ import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import jwt from 'jwt-simple';
 import { ObjectId } from 'mongodb';
-import nodeify from 'nodeify';
 import bcrypt from 'bcrypt';
 
 const KEY = '~key~';
@@ -24,7 +23,17 @@ passport.use(
       passReqToCallback: true,
     },
     (request, jwtPayload, done) => {
-      nodeify(userFromPayload(request, jwtPayload), done);
+      userFromPayload(request, jwtPayload)
+        .then(user => {
+          if (user) {
+            done(null, user);
+          } else {
+            done(null, false);
+          }
+        })
+        .catch(e => {
+          done(e, false);
+        });
     }
   )
 );

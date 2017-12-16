@@ -17,7 +17,12 @@ const resolvers = {
   },
   Mutation: {
     async createUser(root, { input }, { User }) {
-      const id = await User.insert(input);
+      let id;
+      try {
+        id = await User.insert(input);
+      } catch (e) {
+        throw e;
+      }
       return User.findOneById(id);
     },
 
