@@ -41,7 +41,7 @@ passport.use(
 export default function addPassport(app) {
   app.use(passport.initialize());
 
-  app.post('/login', async (req, res) => {
+  app.post('/auth', async (req, res) => {
     try {
       const { email, password } = req.body;
 

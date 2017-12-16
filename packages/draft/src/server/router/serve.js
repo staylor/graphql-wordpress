@@ -8,10 +8,27 @@ export default async (req, res) => {
   try {
     injectStyles();
 
-    await getDataFromTree(res.locals.app);
+    const {
+      app,
+      client,
+      user = null,
+      staticContext = {},
+      stylesheets = [],
+      assets = {},
+    } = res.locals;
 
-    const { ids, css, html } = extractCritical(renderToString(res.locals.app));
-    const initialState = res.locals.client.cache.extract();
+    await getDataFromTree(app);
+
+    const { ids, css, html } = extractCritical(renderToString(app));
+    const state = client.cache.extract();
+
+    const settings = {};
+    if (user) {
+      settings.user = user;
+    }
+    if (staticContext.siteUrl) {
+      settings.siteUrl = staticContext.siteUrl;
+    }
 
     res.status(200);
     res.send(
@@ -19,13 +36,14 @@ export default async (req, res) => {
         root: html,
         ids,
         css,
-        stylesheets: res.locals.stylesheets,
-        state: initialState,
-        ...res.locals.assets,
-        user: res.locals.user,
+        stylesheets,
+        state,
+        assets,
+        settings,
       })
     );
   } catch (e) {
+    // eslint-disable-next-line
     console.log(e);
     res.send(e.message);
   }

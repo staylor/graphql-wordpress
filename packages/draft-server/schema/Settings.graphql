@@ -6,6 +6,8 @@ type SiteSettings implements Settings {
   id: String
   siteTitle: String
   tagline: String
+  siteUrl: String
+  copyrightText: String
 }
 
 extend type Query {
@@ -15,6 +17,8 @@ extend type Query {
 input UpdateSettingsInput {
   siteTitle: String
   tagline: String
+  siteUrl: String
+  copyrightText: String
 }
 
 extend type Mutation {

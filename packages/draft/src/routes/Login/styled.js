@@ -19,6 +19,7 @@ export const Title = styled.h1`
   font-weight: 700;
   letter-spacing: 0.3px;
   line-height: 54px;
+  margin: 0 0 12px;
 `;
 
 export const Form = styled.form`

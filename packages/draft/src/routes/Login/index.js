@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { withRouter } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
 import fetch from 'isomorphic-fetch';
 import Cookies from 'js-cookie';
@@ -9,10 +12,43 @@ import { PageWrapper, Content, Title, Form, Label, Input, Button } from './style
 
 /* eslint-disable react/prop-types */
 
+@graphql(
+  gql`
+    query LoginQuery($id: String) {
+      settings(id: $id) {
+        ... on SiteSettings {
+          siteTitle
+          siteUrl
+        }
+      }
+    }
+  `,
+  {
+    options: {
+      variables: { id: 'site' },
+    },
+  }
+)
+@withRouter
 export default class Login extends Component {
-  state = {
-    error: '',
-  };
+  constructor(props, context) {
+    super(props, context);
+
+    const { match: { params } } = props;
+
+    let error = '';
+    if (params.action) {
+      switch (params.action) {
+        case 'unauthorized':
+          error = 'You must login to access this area.';
+          break;
+        default:
+          break;
+      }
+    }
+
+    this.state = { error };
+  }
 
   submitForm = e => {
     e.preventDefault();
@@ -25,7 +61,7 @@ export default class Login extends Component {
       this.setState({ error: 'All fields are required.' });
     }
 
-    fetch(`http://localhost:8080/login`, {
+    fetch(`${this.props.data.settings.siteUrl}/auth`, {
       method: 'POST',
       body: JSON.stringify({
         email: inputs.email.value,
@@ -47,11 +83,21 @@ export default class Login extends Component {
   };
 
   render() {
+    const { staticContext, data: { loading, settings } } = this.props;
+
+    if (loading && !settings) {
+      return null;
+    }
+
+    if (staticContext) {
+      staticContext.siteUrl = settings.siteUrl;
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <PageWrapper>
           <Content>
-            <Title>HELLO</Title>
+            <Title>{settings.siteTitle}</Title>
             {this.state.error && <Message text={this.state.error} />}
             <Form
               method="post"

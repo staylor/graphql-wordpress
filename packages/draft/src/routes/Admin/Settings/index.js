@@ -11,6 +11,13 @@ import { Heading } from '../styled';
 const settingsFields = [
   { label: 'Site Title', prop: 'siteTitle', editable: true },
   { label: 'Tagline', prop: 'tagline', editable: true },
+  { label: 'Site URL', prop: 'siteUrl', editable: true },
+  {
+    label: 'Copyright Text',
+    prop: 'copyrightText',
+    editable: true,
+    type: 'textarea',
+  },
 ];
 
 @compose(
@@ -22,6 +29,8 @@ const settingsFields = [
           ... on SiteSettings {
             siteTitle
             tagline
+            siteUrl
+            copyrightText
           }
         }
       }
@@ -39,6 +48,8 @@ const settingsFields = [
         ... on SiteSettings {
           siteTitle
           tagline
+          siteUrl
+          copyrightText
         }
       }
     }

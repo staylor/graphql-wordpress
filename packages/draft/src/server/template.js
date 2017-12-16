@@ -6,12 +6,11 @@ export default ({
   css = '',
   stylesheets = [],
   state = {},
-  user = null,
-  manifestJSBundle,
-  vendorJSBundle,
-  mainJSBundle,
+  settings = {},
+  assets = {},
 }) => {
   const helmet = Helmet.renderStatic();
+
   return `<!DOCTYPE html>
 <html ${helmet.htmlAttributes.toString()}>
 <head>
@@ -24,13 +23,13 @@ ${stylesheets.map(sheet => `<link rel="stylesheet" href="${sheet}" />`).join('')
 ${css ? `<style>${css}</style>` : ''}
 <script>window.__emotion = ${JSON.stringify(ids)};</script>
 <script>window.__APOLLO_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')};</script>
-${user ? `<script>window.__USER__ = ${JSON.stringify(user)}</script>` : ''}
+${settings ? `<script>window.__APP_SETTINGS__ = ${JSON.stringify(settings)}</script>` : ''}
 </head>
 <body ${helmet.bodyAttributes.toString()}>
   <main id="main">${root}</main>
-${manifestJSBundle ? `<script defer src="${manifestJSBundle}"></script>` : ''}
-${vendorJSBundle ? `<script defer src="${vendorJSBundle}"></script>` : ''}
-${mainJSBundle ? `<script defer src="${mainJSBundle}"></script>` : ''}
+${assets.manifestJSBundle ? `<script defer src="${assets.manifestJSBundle}"></script>` : ''}
+${assets.vendorJSBundle ? `<script defer src="${assets.vendorJSBundle}"></script>` : ''}
+${assets.mainJSBundle ? `<script defer src="${assets.mainJSBundle}"></script>` : ''}
 </body>
 </html>`;
 };

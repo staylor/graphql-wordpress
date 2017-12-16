@@ -2,7 +2,7 @@ import styled from 'react-emotion';
 
 export const Fields = styled.fieldset`
   display: block;
-  max-width: 720px;
+  max-width: 600px;
   width: 100%;
 `;
 
@@ -80,7 +80,7 @@ export const FieldTextarea = styled.textarea`
   outline: none;
   padding: 3px 5px;
   transition: 0.05s border-color ease-in-out;
-  width: 300px;
+  width: 100%;
 `;
 
 export const FieldValue = styled.span`

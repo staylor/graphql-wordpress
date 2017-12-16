@@ -1,5 +1,7 @@
-import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Switch, Route, Link, withRouter } from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import 'styles/inject';
@@ -18,35 +20,65 @@ import {
   Footer,
 } from './styled';
 
-export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <PageWrapper>
-        <Header>
-          <Title>
-            <Link to="/">High for This.</Link>
-          </Title>
-        </Header>
-        <Content>
-          <Primary>
-            <PrimaryWrapper>
-              <Switch>
-                <Route exact path="/videos/:year(\d{4})?" component={Videos} />
-                <Route path="/video/:slug" component={Video} />
-                <Route path="/tag/:tag" component={Videos} />
-                <Route exact path="/" component={Home} />
-                <Route path="*" component={NotFound} />
-              </Switch>
-            </PrimaryWrapper>
-          </Primary>
-          <Secondary>SECONDARY</Secondary>
-        </Content>
-        <Footer>
-          © Scott Taylor ...&nbsp; Brooklyn, NY ...{' '}
-          <a href="https://twitter.com/wonderboymusic">@wonderboymusic</a>&nbsp; ... Powered by
-          GraphQL / React / Emotion
-        </Footer>
-      </PageWrapper>
-    </ThemeProvider>
-  );
+/* eslint-disable react/prop-types */
+
+@graphql(
+  gql`
+    query AppQuery($id: String) {
+      settings(id: $id) {
+        ... on SiteSettings {
+          siteTitle
+          tagline
+          siteUrl
+          copyrightText
+        }
+      }
+    }
+  `,
+  {
+    options: {
+      variables: { id: 'site' },
+    },
+  }
+)
+@withRouter
+export default class App extends Component {
+  render() {
+    const { staticContext, data: { loading, settings } } = this.props;
+
+    if (loading && !settings) {
+      return null;
+    }
+
+    if (staticContext) {
+      staticContext.siteUrl = settings.siteUrl;
+    }
+
+    return (
+      <ThemeProvider theme={theme}>
+        <PageWrapper>
+          <Header>
+            <Title>
+              <Link to="/">{settings.siteTitle}</Link>
+            </Title>
+          </Header>
+          <Content>
+            <Primary>
+              <PrimaryWrapper>
+                <Switch>
+                  <Route exact path="/videos/:year(\d{4})?" component={Videos} />
+                  <Route path="/video/:slug" component={Video} />
+                  <Route path="/tag/:tag" component={Videos} />
+                  <Route exact path="/" component={Home} />
+                  <Route path="*" component={NotFound} />
+                </Switch>
+              </PrimaryWrapper>
+            </Primary>
+            <Secondary>SECONDARY</Secondary>
+          </Content>
+          <Footer dangerouslySetInnerHTML={{ __html: settings.copyrightText }} />
+        </PageWrapper>
+      </ThemeProvider>
+    );
+  }
 }

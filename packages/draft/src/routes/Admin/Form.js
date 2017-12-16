@@ -99,7 +99,7 @@ export default class Form extends Component {
       return (
         <Textarea
           className={cn(field.className)}
-          rows="3"
+          rows="4"
           innerRef={this.bindRef(field.prop)}
           value={field.render ? field.render(data) : data[field.prop]}
         />

@@ -1,7 +1,7 @@
 import path from 'path';
 import express from 'express';
 import passport from 'passport';
-import proxy from 'http-proxy-middleware';
+import httpProxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -36,18 +36,16 @@ app.use(cookieParser());
 // use a local GQL server by default
 const gqlHost = process.env.GQL_HOST || 'http://localhost:8080';
 
-const gqlPath = process.env.GQL_PATH || '/graphql';
+const proxy = httpProxy({
+  target: gqlHost,
+  changeOrigin: true,
+});
 
 // proxy to the graphql server
-app.use(
-  gqlPath,
-  proxy({
-    target: gqlHost,
-    changeOrigin: true,
-  })
-);
+app.use('/graphql', proxy);
+app.use('/auth', proxy);
 
-const getAssets = entry => (req, res, next) => {
+const assetMiddleware = entry => (req, res, next) => {
   res.locals.assets = {
     manifestJSBundle: clientAssets['manifest.js'],
     mainJSBundle: clientAssets[`${entry}.js`],
@@ -68,13 +66,16 @@ authenticate(app);
 
 app.use(
   '/admin',
-  passport.authenticate('jwt', { session: false, failureRedirect: '/login' }),
-  getAssets('admin'),
+  passport.authenticate('jwt', {
+    session: false,
+    failureRedirect: '/login/unauthorized',
+  }),
+  assetMiddleware('admin'),
   apolloClient,
   adminRouter,
   serveResponse
 );
-app.use('/login', getAssets('login'), apolloClient, loginRouter, serveResponse);
-app.use(getAssets('main'), apolloClient, appRouter, serveResponse);
+app.use('/login', assetMiddleware('login'), apolloClient, loginRouter, serveResponse);
+app.use(assetMiddleware('main'), apolloClient, appRouter, serveResponse);
 
 app.listen(parseInt(KYT.SERVER_PORT, 10));
