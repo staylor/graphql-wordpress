@@ -8,7 +8,7 @@ export const Fields = styled.fieldset`
 
 export const Field = styled.p`
   display: block;
-  margin: ${p => p.theme.padding}px 0;
+  margin: 10px 0 20px;
 `;
 
 export const FieldWrap = styled.div`
@@ -19,11 +19,10 @@ export const FieldWrap = styled.div`
 
 export const FieldName = styled.strong`
   display: block;
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.3px;
-  line-height: 1.4;
+  letter-spacing: 0.2px;
+  line-height: 1.3;
   margin: 0 0 5px;
 `;
 

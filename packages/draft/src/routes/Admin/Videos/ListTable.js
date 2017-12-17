@@ -156,12 +156,18 @@ export default class Videos extends Component {
     const filters = (
       <Fragment>
         <Select
+          key="year"
           placeholder="Select Year"
           value={queryParams.year}
           choices={videos.years}
           onChange={this.updateYear}
         />
-        <Select placeholder="Select Tag" value={queryParams.tag} onChange={this.updateTags}>
+        <Select
+          key="tag"
+          placeholder="Select Tag"
+          value={queryParams.tag}
+          onChange={this.updateTags}
+        >
           {videos.tags.map(tag => (
             <option key={tag.slug} value={tag.slug}>
               {tag.name}

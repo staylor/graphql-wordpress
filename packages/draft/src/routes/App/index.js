@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Helmet from 'react-helmet';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import 'styles/inject';
@@ -30,6 +31,7 @@ import {
           siteTitle
           tagline
           siteUrl
+          language
           copyrightText
         }
       }
@@ -44,19 +46,19 @@ import {
 @withRouter
 export default class App extends Component {
   render() {
-    const { staticContext, data: { loading, settings } } = this.props;
+    const { data: { loading, settings } } = this.props;
 
     if (loading && !settings) {
       return null;
     }
 
-    if (staticContext) {
-      staticContext.siteUrl = settings.siteUrl;
-    }
-
     return (
       <ThemeProvider theme={theme}>
         <PageWrapper>
+          <Helmet defaultTitle={settings.siteTitle} titleTemplate={`%s » ${settings.siteTitle}`}>
+            <html lang={settings.language} />
+            <title>{settings.tagline}</title>
+          </Helmet>
           <Header>
             <Title>
               <Link to="/">{settings.siteTitle}</Link>

@@ -83,14 +83,10 @@ export default class Login extends Component {
   };
 
   render() {
-    const { staticContext, data: { loading, settings } } = this.props;
+    const { data: { loading, settings } } = this.props;
 
     if (loading && !settings) {
       return null;
-    }
-
-    if (staticContext) {
-      staticContext.siteUrl = settings.siteUrl;
     }
 
     return (

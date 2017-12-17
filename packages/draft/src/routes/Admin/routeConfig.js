@@ -66,6 +66,20 @@ export default [
       label: 'Settings',
       dashicon: 'admin-settings',
       component: Settings,
+      routes: [
+        {
+          path: '/settings/site',
+          label: 'General',
+        },
+        {
+          path: '/settings/social',
+          label: 'Social',
+        },
+        {
+          path: '/settings/media',
+          label: 'Media',
+        },
+      ],
     },
   ],
 ];

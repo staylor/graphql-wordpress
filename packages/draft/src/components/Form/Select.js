@@ -5,7 +5,7 @@ import { FieldSelect } from 'components/Form/styled';
 
 export default class Select extends Component {
   onChange = e => {
-    let value = e.target.value;
+    let { value } = e.target;
     if (this.props.multiple) {
       value = [...e.target.selectedOptions].map(o => o.value);
     }
@@ -41,13 +41,26 @@ export default class Select extends Component {
 
     return (
       <FieldSelect {...rest} value={this.state.value} onChange={this.onChange}>
-        {placeholder && <option value="">{placeholder}</option>}
+        {placeholder && (
+          <option key={placeholder} value="">
+            {placeholder}
+          </option>
+        )}
         {choices &&
-          choices.map(choice => (
-            <option key={choice} value={choice}>
-              {choice}
-            </option>
-          ))}
+          choices.map(choice => {
+            if (typeof choice === 'object') {
+              return (
+                <option key={choice.value} value={choice.value}>
+                  {choice.label}
+                </option>
+              );
+            }
+            return (
+              <option key={choice} value={choice}>
+                {choice}
+              </option>
+            );
+          })}
         {children}
       </FieldSelect>
     );

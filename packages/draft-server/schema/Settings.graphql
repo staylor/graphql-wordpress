@@ -7,20 +7,38 @@ type SiteSettings implements Settings {
   siteTitle: String
   tagline: String
   siteUrl: String
+  emailAddress: String
+  language: String
   copyrightText: String
+}
+
+input SiteSettingsInput {
+  siteTitle: String
+  tagline: String
+  siteUrl: String
+  emailAddress: String
+  language: String
+  copyrightText: String
+}
+
+type SocialSettings implements Settings {
+  id: String
+  facebookUrl: String
+  twitterUsername: String
+  instagramUsername: String
+}
+
+input SocialSettingsInput {
+  facebookUrl: String
+  twitterUsername: String
+  instagramUsername: String
 }
 
 extend type Query {
   settings(id: String): Settings
 }
 
-input UpdateSettingsInput {
-  siteTitle: String
-  tagline: String
-  siteUrl: String
-  copyrightText: String
-}
-
 extend type Mutation {
-  updateSettings(id: String!, input: UpdateSettingsInput!): Settings
+  updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
+  updateSocialSettings(id: String!, input: SocialSettingsInput!): Settings
 }

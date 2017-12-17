@@ -4,17 +4,18 @@ import gql from 'graphql-tag';
 import Editor from 'components/Editor';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
+import { settingsShape } from 'types/PropTypes';
 import Form from '../Form';
 import { Heading, titleInputClass } from '../styled';
 
 /* eslint-disable react/prop-types */
 
-const postFields = [
+const postFields = settings => [
   { prop: 'title', editable: true, className: titleInputClass },
   {
     prop: 'slug',
     render: post => {
-      const url = `http://localhost:3000/post/${post.slug}`;
+      const url = `${settings.siteUrl}/post/${post.slug}`;
       return (
         <Fragment>
           <strong>Permalink:</strong>{' '}
@@ -76,6 +77,10 @@ const postFields = [
   `)
 )
 export default class EditPost extends Component {
+  static contextTypes = {
+    settings: settingsShape,
+  };
+
   state = {
     message: null,
   };
@@ -101,6 +106,7 @@ export default class EditPost extends Component {
   };
 
   render() {
+    const { settings } = this.context;
     const { data: { loading, post } } = this.props;
 
     if (loading && !post) {
@@ -111,7 +117,12 @@ export default class EditPost extends Component {
       <Fragment>
         <Heading>Edit Post</Heading>
         {this.state.message === 'updated' && <Message text="Post updated." />}
-        <Form fields={postFields} data={post} buttonLabel="Update Post" onSubmit={this.onSubmit} />
+        <Form
+          fields={postFields(settings)}
+          data={post}
+          buttonLabel="Update Post"
+          onSubmit={this.onSubmit}
+        />
       </Fragment>
     );
   }

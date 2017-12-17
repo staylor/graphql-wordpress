@@ -75,7 +75,7 @@ export default class Form extends Component {
             };
           }}
           editorKey={field.prop}
-          content={field.render ? field.render(data) : data[field.prop]}
+          content={data && field.render ? field.render(data) : data[field.prop]}
           placeholder={field.placeholder || 'Content goes here...'}
         />
       );
@@ -88,9 +88,9 @@ export default class Form extends Component {
           innerRef={this.bindRef(field.prop)}
           choices={field.choices}
           value={data[field.prop] || (field.multiple ? [] : '')}
-          multiple={field.multiple}
+          multiple={field.multiple || false}
         >
-          {field.render ? field.render(data) : null}
+          {data && field.render ? field.render(data) : null}
         </Select>
       );
     }
@@ -101,16 +101,17 @@ export default class Form extends Component {
           className={cn(field.className)}
           rows="4"
           innerRef={this.bindRef(field.prop)}
-          value={field.render ? field.render(data) : data[field.prop]}
+          value={data && field.render ? field.render(data) : data[field.prop]}
         />
       );
     }
 
     return (
       <Input
+        type={field.inputType || 'text'}
         className={cn(field.className)}
         innerRef={this.bindRef(field.prop)}
-        value={field.render ? field.render(data) : data[field.prop]}
+        value={data && field.render ? field.render(data) : data[field.prop]}
       />
     );
   }

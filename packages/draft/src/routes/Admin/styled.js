@@ -80,10 +80,19 @@ export const collapsedNavClass = css`
 export const Button = styled.button`
   appearance: none;
   background: ${p => p.theme.colors.detail};
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: ${p => p.theme.colors.dark};
   cursor: pointer;
-  display: block;
-  padding: 4px 10px;
-  font-size: 15px;
+  font-size: 13px;
+  height: 30px;
+  line-height: 28px;
+  padding: 0 12px 2px;
+  vertical-align: baseline;
+
+  &:hover {
+    color: ${p => p.theme.colors.black};
+  }
 `;
 
 export const RowActions = styled.nav`

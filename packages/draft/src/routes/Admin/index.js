@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
 import theme from 'styles/theme';
 import Loading from 'components/Loading';
+import { settingsShape } from 'types/PropTypes';
 import { PageWrapper, Flex, Content, collapsedNavClass } from './styled';
 import NavMenu from './NavMenu';
 import NotFound from './NotFound';
@@ -21,6 +22,8 @@ import routeConfig from './routeConfig';
         id
         ... on SiteSettings {
           siteTitle
+          siteUrl
+          language
         }
       }
     }
@@ -32,6 +35,16 @@ import routeConfig from './routeConfig';
   }
 )
 export default class Admin extends Component {
+  static childContextTypes = {
+    settings: settingsShape,
+  };
+
+  getChildContext() {
+    return {
+      settings: this.props.data.settings,
+    };
+  }
+
   state = {
     collapsed: false,
   };
@@ -51,7 +64,7 @@ export default class Admin extends Component {
       <ThemeProvider theme={theme}>
         <PageWrapper>
           <Helmet defaultTitle={settings.siteTitle} titleTemplate={`%s » ${settings.siteTitle}`}>
-            <html lang="en-US" />
+            <html lang={settings.language} />
             <title>Admin</title>
           </Helmet>
           <Flex>
