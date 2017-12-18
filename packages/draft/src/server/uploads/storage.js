@@ -9,18 +9,13 @@ import Settings from 'models/Settings';
 /* eslint-disable class-methods-use-this, consistent-return */
 
 class MediaStorage {
-  settings = null;
-
   constructor(opts) {
     this.opts = opts;
   }
 
   async getSettings() {
-    if (this.settings === null) {
-      const settings = new Settings({ db: this.opts.db });
-      this.settings = await settings.findOneById('media');
-    }
-    return this.settings;
+    const settings = new Settings({ db: this.opts.db });
+    return settings.findOneById('media');
   }
 
   getDestination() {
