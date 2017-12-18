@@ -1,6 +1,9 @@
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
+import jwt from 'jwt-simple';
+import bcrypt from 'bcrypt';
 import { TOKEN_KEY, TOKEN_SECRET } from 'utils/constants';
+import User from 'models/User';
 
 passport.use(
   new Strategy(
@@ -26,6 +29,31 @@ passport.use(
   )
 );
 
-export default function addPassport(app) {
+export default function addPassport(app, db) {
   app.use(passport.initialize());
+
+  app.post('/auth', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        throw new Error('Username or password not set on request');
+      }
+
+      const userModel = new User({ db });
+      const user = await userModel.collection.findOne({ email });
+      if (!user || !await bcrypt.compare(password, user.hash)) {
+        throw new Error('User not found matching email/password combination');
+      }
+
+      const payload = {
+        userId: user._id.toString(),
+      };
+
+      const token = jwt.encode(payload, TOKEN_SECRET);
+      res.json({ token });
+    } catch (e) {
+      res.json({ error: e.message });
+    }
+  });
 }

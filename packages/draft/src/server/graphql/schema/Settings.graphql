@@ -42,3 +42,4 @@ extend type Mutation {
   updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
   updateSocialSettings(id: String!, input: SocialSettingsInput!): Settings
 }
+

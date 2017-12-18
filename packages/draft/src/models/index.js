@@ -1,4 +1,4 @@
-import { requireModules } from '../utils';
+import { requireModules } from 'utils/fs';
 
 const models = requireModules(__dirname);
 

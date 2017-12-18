@@ -4,20 +4,16 @@ import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
+import addModelsToContext from 'models';
+import typeDefs from 'server/graphql/schema';
+import resolvers from 'server/graphql/resolvers';
 import authenticate from './authenticate';
-import typeDefs from '../schema';
-import resolvers from '../resolvers';
-import addModelsToContext from '../model';
 
 /* eslint-disable no-console */
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const {
-  PORT = 8080,
-  MONGO_PORT = parseInt(PORT, 10) + 2,
-  MONGO_URL = `mongodb://localhost:${MONGO_PORT}/database`,
-} = process.env;
+const { PORT = 8080, MONGO_URL } = process.env;
 
 async function startServer() {
   const db = await MongoClient.connect(MONGO_URL);

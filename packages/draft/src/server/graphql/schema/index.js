@@ -1,4 +1,4 @@
-import { requireFiles } from '../utils';
+import { requireFiles } from 'utils/fs';
 
 const typeDefs = [
   `
@@ -6,9 +6,11 @@ const typeDefs = [
   type Query {
     id: ObjID
   }
+
   type Mutation {
     id: ObjID
   }
+
   type PageInfo {
     startCursor: String
     endCursor: String

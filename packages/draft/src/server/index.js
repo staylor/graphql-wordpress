@@ -5,44 +5,62 @@ import httpProxy from 'http-proxy-middleware';
 import morgan from 'morgan';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import { MongoClient } from 'mongodb';
 import authenticate from './authenticate';
 import uploads from './uploads';
 import router from './router';
 
+/* eslint-disable no-console */
+
+const { MONGO_URL } = process.env;
+
 process.env.TZ = 'America/New_York';
 
-const app = express();
+async function startServer() {
+  const db = await MongoClient.connect(MONGO_URL);
 
-// Remove annoying Express header addition.
-app.disable('x-powered-by');
+  const app = express();
 
-// Compress (gzip) assets in production.
-app.use(compression());
+  // Remove annoying Express header addition.
+  app.disable('x-powered-by');
 
-// Standard Apache combined log output.
-// https://github.com/expressjs/morgan#combined
-app.use(morgan('combined'));
+  // Compress (gzip) assets in production.
+  app.use(compression());
 
-const publicDir = path.join(process.cwd(), KYT.PUBLIC_DIR);
-// Setup the public directory so that we can server static assets.
-app.use(express.static(publicDir));
+  // Standard Apache combined log output.
+  // https://github.com/expressjs/morgan#combined
+  app.use(morgan('combined'));
 
-app.use(cookieParser());
+  const publicDir = path.join(process.cwd(), KYT.PUBLIC_DIR);
+  // Setup the public directory so that we can server static assets.
+  app.use(express.static(publicDir));
 
-// use a local GQL server by default
-const gqlHost = process.env.GQL_HOST || 'http://localhost:8080';
+  app.use(cookieParser());
 
-const proxy = httpProxy({
-  target: gqlHost,
-  changeOrigin: true,
-});
+  // use a local GQL server by default
+  const gqlHost = process.env.GQL_HOST || 'http://localhost:8080';
 
-// proxy to the graphql server
-app.use('/graphql', proxy);
-app.use('/auth', proxy);
+  const proxy = httpProxy({
+    target: gqlHost,
+    changeOrigin: true,
+  });
 
-authenticate(app);
-uploads(app, passport, publicDir);
-router(app, passport);
+  // proxy to the graphql server
+  app.use('/graphql', proxy);
 
-app.listen(parseInt(KYT.SERVER_PORT, 10));
+  authenticate(app, db);
+  uploads(app, db, passport, publicDir);
+  router(app, passport);
+
+  app.listen(parseInt(KYT.SERVER_PORT, 10));
+}
+
+startServer()
+  .then(() => {
+    console.log('All systems go');
+  })
+  .catch(e => {
+    console.error('Uncaught error in startup');
+    console.error(e);
+    console.trace(e);
+  });

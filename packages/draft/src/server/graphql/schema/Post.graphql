@@ -21,6 +21,18 @@ type PostConnection {
   pageInfo: PageInfo
 }
 
+input CreatePostInput {
+  title: String
+  contentState: ContentStateInput
+  tags: [String]
+}
+
+input UpdatePostInput {
+  title: String
+  contentState: ContentStateInput
+  tags: [String]
+}
+
 extend type Query {
   posts(
     first: Int
@@ -32,18 +44,6 @@ extend type Query {
     tags: String
   ): PostConnection
   post(id: ObjID, slug: String): Post
-}
-
-input CreatePostInput {
-  title: String
-  contentState: ContentStateInput
-  tags: [String]
-}
-
-input UpdatePostInput {
-  title: String
-  contentState: ContentStateInput
-  tags: [String]
 }
 
 extend type Mutation {

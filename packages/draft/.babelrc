@@ -1,16 +1,34 @@
 {
-  "presets": [
-    ["kyt-react", {"modules": true}],
-    "flow"
-  ],
-  "plugins": [
-    "emotion",
-    "transform-decorators-legacy",
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "transform-flow-strip-types",
-    ["module-resolver", {
-      "root": ["./src", "./types"]
-    }]
-  ]
+  "env": {
+    "app": {
+      "presets": [
+        ["kyt-react", {"modules": true}],
+        "flow"
+      ],
+      "plugins": [
+        "emotion",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "transform-flow-strip-types",
+        ["module-resolver", {
+          "root": ["./src"]
+        }]
+      ],
+    },
+    "graphql": {
+      "presets": [
+        ["kyt-core", {"modules": true}]
+      ],
+      "plugins": [
+        "transform-class-properties",
+        "transform-es2015-modules-commonjs",
+        "transform-object-rest-spread",
+        "transform-regenerator",
+        ["module-resolver", {
+          "root": ["./src"]
+        }]
+      ]
+    }
+  }
 }

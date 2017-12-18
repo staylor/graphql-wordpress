@@ -1,7 +1,7 @@
 import multer from 'multer';
 import mediaStorage from './storage';
 
-export default function addUploads(app, passport, publicDir) {
+export default function addUploads(app, db, passport, publicDir) {
   const storage = mediaStorage({ publicDir });
 
   const upload = multer({ storage });
