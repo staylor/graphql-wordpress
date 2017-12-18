@@ -1,27 +1,13 @@
-import DataLoader from 'dataloader';
-import findByIds from 'mongo-find-by-ids';
 import bcrypt from 'bcrypt';
+import Model from './Model';
 
 const SALT_ROUNDS = 10;
 
-export default class User {
+export default class User extends Model {
   constructor(context) {
-    this.context = context;
+    super(context);
+
     this.collection = context.db.collection('user');
-    this.loader = new DataLoader(ids => findByIds(this.collection, ids));
-  }
-
-  findOneById(id) {
-    return this.loader.load(id);
-  }
-
-  count(args = {}) {
-    const criteria = Object.assign({}, args);
-    delete criteria.search;
-    if (args.search) {
-      criteria.$text = { $search: args.search };
-    }
-    return this.collection.find(criteria).count();
   }
 
   all({ limit = 10, offset = 0, search = null }) {
@@ -76,12 +62,6 @@ export default class User {
         }),
       }
     );
-    this.loader.clear(id);
-    return ret;
-  }
-
-  async removeById(id) {
-    const ret = this.collection.remove({ _id: id });
     this.loader.clear(id);
     return ret;
   }

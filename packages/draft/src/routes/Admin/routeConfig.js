@@ -1,4 +1,5 @@
 import PostRouter from './Posts';
+import Media from './Media';
 import VideoRouter from './Videos';
 import TagRouter from './Tags';
 import Dashboard from './Dashboard';
@@ -30,6 +31,12 @@ export default [
           label: 'Add New',
         },
       ],
+    },
+    {
+      path: '/media',
+      label: 'Media',
+      dashicon: 'admin-media',
+      component: Media,
     },
     {
       path: '/video',

@@ -1,0 +1,136 @@
+interface MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+}
+
+type ImageUploadCrop {
+  fileName: String
+  width: Int
+  height: Int
+  fileSize: Int
+}
+
+input ImageUploadCropInput {
+  fileName: String
+  width: Int
+  height: Int
+  fileSize: Int
+}
+
+type ImageUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  width: Int
+  height: Int
+  crops: [ImageUploadCrop]
+}
+
+type AudioUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  artist: [String]
+  album: String
+  albumArtist: [String]
+  genre: [String]
+  year: Int
+  duration: Float
+  images: [ImageUploadCrop]
+}
+
+type VideoUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  width: Int
+  height: Int
+}
+
+type FileUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+}
+
+type MediaUploadEdge {
+  node: MediaUpload
+  cursor: String
+}
+
+type MediaUploadConnection {
+  count: Int
+  edges: [MediaUploadEdge]
+  pageInfo: PageInfo
+}
+
+extend type Query {
+  uploads(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    type: String
+    mimeType: String
+    search: String
+  ): MediaUploadConnection
+}
+
+input CreateMediaUploadInput {
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  # Image fields
+  width: Int
+  height: Int
+  crops: [ImageUploadCropInput]
+}
+
+input UpdateMediaUploadInput {
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  # Image/Video fields
+  width: Int
+  height: Int
+  # Image field
+  crops: [ImageUploadCropInput]
+}
+
+extend type Mutation {
+  createMediaUpload(input: CreateMediaUploadInput!): MediaUpload
+  updateMediaUpload(id: ObjID!, input: UpdateMediaUploadInput!): MediaUpload
+  removeMediaUpload(id: ObjID!): Boolean
+}

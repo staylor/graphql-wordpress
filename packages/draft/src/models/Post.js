@@ -1,5 +1,6 @@
 import DataLoader from 'dataloader';
 import findByIds from 'mongo-find-by-ids';
+import Model from './Model';
 import { getUniqueSlug } from './utils';
 
 function convertEntityData(entityMap) {
@@ -16,12 +17,12 @@ function convertEntityData(entityMap) {
   });
 }
 
-export default class Post {
+export default class Post extends Model {
   constructor(context) {
-    this.context = context;
+    super(context);
+
     this.collection = context.db.collection('post');
     this.tags = context.db.collection('tag');
-    this.loader = new DataLoader(ids => findByIds(this.collection, ids));
     this.tagLoader = new DataLoader(ids => findByIds(this.tags, ids));
   }
 
@@ -29,23 +30,10 @@ export default class Post {
     return this.tagLoader.loadMany(tags);
   }
 
-  findOneById(id) {
-    return this.loader.load(id);
-  }
-
   findOneBySlug(slug) {
     return this.collection.findOne({
       slug,
     });
-  }
-
-  count(args = {}) {
-    const criteria = Object.assign({}, args);
-    delete criteria.search;
-    if (args.search) {
-      criteria.$text = { $search: args.search };
-    }
-    return this.collection.find(criteria).count();
   }
 
   all({ limit = 10, offset = 0, search = null }) {
@@ -88,12 +76,6 @@ export default class Post {
         }),
       }
     );
-    this.loader.clear(id);
-    return ret;
-  }
-
-  async removeById(id) {
-    const ret = this.collection.remove({ _id: id });
     this.loader.clear(id);
     return ret;
   }

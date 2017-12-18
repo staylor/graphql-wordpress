@@ -32,8 +32,10 @@ async function startServer() {
   app.use(morgan('combined'));
 
   const publicDir = path.join(process.cwd(), KYT.PUBLIC_DIR);
+  const uploadDir = path.join(process.cwd(), 'src/uploads');
   // Setup the public directory so that we can server static assets.
   app.use(express.static(publicDir));
+  app.use('/uploads', express.static(uploadDir));
 
   app.use(cookieParser());
 
@@ -49,18 +51,14 @@ async function startServer() {
   app.use('/graphql', proxy);
 
   authenticate(app, db);
-  uploads(app, db, passport, publicDir);
+  uploads(app, db, passport, uploadDir);
   router(app, passport);
 
   app.listen(parseInt(KYT.SERVER_PORT, 10));
 }
 
-startServer()
-  .then(() => {
-    console.log('All systems go');
-  })
-  .catch(e => {
-    console.error('Uncaught error in startup');
-    console.error(e);
-    console.trace(e);
-  });
+startServer().catch(e => {
+  console.error('Uncaught error in startup');
+  console.error(e);
+  console.trace(e);
+});
