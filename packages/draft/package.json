@@ -30,7 +30,9 @@
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.2.0",
     "kyt": "^0.9.0",
+    "mkdirp": "^0.5.1",
     "morgan": "^1.9.0",
+    "multer": "^1.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "prop-types": "^15.6.0",
@@ -41,7 +43,8 @@
     "react-emotion": "^8.0.9",
     "react-helmet": "^5.2.0",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "sharp": "^0.18.4"
   },
   "scripts": {
     "dev": "GQL_HOST=http://localhost:8080 kyt dev -C kyt.dev.js",
