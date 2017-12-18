@@ -1,0 +1,7 @@
+#import "./SocialSettings_settings.graphql"
+
+mutation UpdateSettingsMutation($id: String!, $input: SocialSettingsInput!) {
+  updateSocialSettings(id: $id, input: $input) {
+    ...SocialSettings_settings
+  }
+}

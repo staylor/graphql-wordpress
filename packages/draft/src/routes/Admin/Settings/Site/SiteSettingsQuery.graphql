@@ -1,0 +1,9 @@
+#import "./SiteSettings_settings.graphql"
+
+query SiteSettingsQuery {
+  settings(id: "site") {
+    ... on SiteSettings {
+      ...SiteSettings_settings
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
+import theme from 'styles/theme';
 
 export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
@@ -77,22 +78,33 @@ export const collapsedNavClass = css`
   margin-left: 36px;
 `;
 
-export const Button = styled.button`
+const buttonStyles = css`
   appearance: none;
-  background: ${p => p.theme.colors.detail};
+  background: ${theme.colors.detail};
   border-radius: 3px;
   box-sizing: border-box;
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
   cursor: pointer;
   font-size: 13px;
-  height: 30px;
-  line-height: 28px;
-  padding: 0 12px 2px;
   vertical-align: baseline;
 
   &:hover {
-    color: ${p => p.theme.colors.black};
+    color: ${theme.colors.black};
   }
+`;
+
+export const Button = styled.button`
+  ${buttonStyles};
+  height: 30px;
+  line-height: 28px;
+  padding: 0 12px 2px;
+`;
+
+export const SecondaryButton = styled.button`
+  ${buttonStyles};
+  height: 24px;
+  line-height: 22px;
+  padding: 0 16px 2px;
 `;
 
 export const RowActions = styled.nav`

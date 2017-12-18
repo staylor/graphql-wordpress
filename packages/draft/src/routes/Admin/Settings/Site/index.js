@@ -1,7 +1,8 @@
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import Form from './Form';
+import Form from '../Form';
+import SiteSettingsQuery from './SiteSettingsQuery.graphql';
+import SiteSettingsMutation from './SiteSettingsMutation.graphql';
 
 /* eslint-disable react/prop-types */
 
@@ -34,42 +35,6 @@ function SiteSettings({ data, mutate }) {
   return <Form id="site" title="General Settings" {...{ settingsFields, data, mutate }} />;
 }
 
-SiteSettings.fragments = {
-  settings: gql`
-    fragment SiteSettings_settings on SiteSettings {
-      siteTitle
-      tagline
-      emailAddress
-      language
-      siteUrl
-      copyrightText
-    }
-  `,
-};
+const composed = compose(graphql(SiteSettingsQuery), graphql(SiteSettingsMutation));
 
-export default compose(
-  graphql(
-    gql`
-      query SiteSettingsQuery {
-        settings(id: "site") {
-          id
-          ... on SiteSettings {
-            ...SiteSettings_settings
-          }
-        }
-      }
-      ${SiteSettings.fragments.settings}
-    `
-  ),
-  graphql(gql`
-    mutation UpdateSettingsMutation($id: String!, $input: SiteSettingsInput!) {
-      updateSiteSettings(id: $id, input: $input) {
-        id
-        ... on SiteSettings {
-          ...SiteSettings_settings
-        }
-      }
-    }
-    ${SiteSettings.fragments.settings}
-  `)
-)(SiteSettings);
+export default composed(SiteSettings);

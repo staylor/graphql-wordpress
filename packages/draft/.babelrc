@@ -1,4 +1,9 @@
 {
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"]
+    }]
+  ],
   "env": {
     "app": {
       "presets": [

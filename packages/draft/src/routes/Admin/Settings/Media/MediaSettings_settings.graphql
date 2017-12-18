@@ -1,0 +1,8 @@
+fragment MediaSettings_settings on MediaSettings {
+  id
+  crops {
+    name
+    width
+    height
+  }
+}

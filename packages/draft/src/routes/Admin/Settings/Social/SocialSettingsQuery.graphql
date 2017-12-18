@@ -1,0 +1,9 @@
+#import "./SocialSettings_settings.graphql"
+
+query SocialSettingsQuery {
+  settings(id: "social") {
+    ... on SocialSettings {
+      ...SocialSettings_settings
+    }
+  }
+}

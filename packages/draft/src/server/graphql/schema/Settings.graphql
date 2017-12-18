@@ -34,6 +34,27 @@ input SocialSettingsInput {
   instagramUsername: String
 }
 
+type MediaCropSetting {
+  name: String
+  width: Int
+  height: Int
+}
+
+input MediaCropSettingInput {
+  name: String
+  width: Int
+  height: Int
+}
+
+type MediaSettings implements Settings {
+  id: String
+  crops: [MediaCropSetting]
+}
+
+input MediaSettingsInput {
+  crops: [MediaCropSettingInput]
+}
+
 extend type Query {
   settings(id: String): Settings
 }
@@ -41,5 +62,5 @@ extend type Query {
 extend type Mutation {
   updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
   updateSocialSettings(id: String!, input: SocialSettingsInput!): Settings
+  updateMediaSettings(id: String!, input: MediaSettingsInput!): Settings
 }
-

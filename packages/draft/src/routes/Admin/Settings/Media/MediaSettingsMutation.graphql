@@ -1,0 +1,7 @@
+#import "./MediaSettings_settings.graphql"
+
+mutation UpdateSettingsMutation($id: String!, $input: MediaSettingsInput!) {
+  updateMediaSettings(id: $id, input: $input) {
+    ...MediaSettings_settings
+  }
+}

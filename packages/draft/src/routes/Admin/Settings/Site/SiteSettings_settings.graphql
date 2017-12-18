@@ -1,0 +1,9 @@
+fragment SiteSettings_settings on SiteSettings {
+  id
+  siteTitle
+  tagline
+  emailAddress
+  language
+  siteUrl
+  copyrightText
+}

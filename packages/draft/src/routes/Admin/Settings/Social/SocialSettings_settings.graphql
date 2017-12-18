@@ -1,0 +1,7 @@
+fragment SocialSettings_settings on SocialSettings {
+  id
+  facebookUrl
+  twitterUsername
+  instagramUsername
+}
+

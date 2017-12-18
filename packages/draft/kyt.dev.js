@@ -13,6 +13,11 @@ module.exports = {
       loginConfig[loginConfig.length - 1] = path.resolve('./src/client/login.js');
       config.entry.login = loginConfig;
     }
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
     return config;
   },
 };

@@ -5,6 +5,8 @@ const resolvers = {
         return 'SiteSettings';
       } else if (settings._id === 'social') {
         return 'SocialSettings';
+      } else if (settings._id === 'media') {
+        return 'MediaSettings';
       }
       return null;
     },
@@ -15,6 +17,11 @@ const resolvers = {
     },
   },
   SocialSettings: {
+    id(settings) {
+      return settings._id;
+    },
+  },
+  MediaSettings: {
     id(settings) {
       return settings._id;
     },
@@ -30,6 +37,10 @@ const resolvers = {
       return Settings.findOneById(id);
     },
     async updateSocialSettings(root, { id, input }, { Settings }) {
+      await Settings.updateById(id, input);
+      return Settings.findOneById(id);
+    },
+    async updateMediaSettings(root, { id, input }, { Settings }) {
       await Settings.updateById(id, input);
       return Settings.findOneById(id);
     },

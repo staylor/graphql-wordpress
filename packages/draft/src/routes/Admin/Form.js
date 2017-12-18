@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { convertToRaw } from 'draft-js';
 import cn from 'classnames';
 import { Field, FieldWrap, FieldName, FieldValue, Fields } from 'components/Form/styled';
@@ -26,7 +26,9 @@ export default class Form extends Component {
     const updates = fields.reduce((memo, field) => {
       if (field.editable) {
         const prop = this.boundRefs[field.prop];
-        if (field.type === 'select' && field.multiple) {
+        if (!prop) {
+          memo[field.prop] = field.value();
+        } else if (field.type === 'select' && field.multiple) {
           memo[field.prop] = [...prop.selectedOptions].map(o => o.value);
         } else {
           memo[field.prop] = prop.value;
@@ -121,27 +123,36 @@ export default class Form extends Component {
 
     return (
       <Fields>
-        {fields.map(field => (
-          <Fragment key={field.prop}>
-            {field.type === 'editor' ? (
-              <FieldWrap>
+        {fields.map(field => {
+          if (field.type === 'custom') {
+            return (
+              <FieldWrap key={field.prop}>
+                {field.label && <FieldName>{field.label}</FieldName>}
+                {field.render(data)}
+              </FieldWrap>
+            );
+          }
+
+          if (field.type === 'editor') {
+            return (
+              <FieldWrap key={field.prop}>
                 {field.label && <FieldName>{field.label}</FieldName>}
                 {this.getEditableField(field, data)}
               </FieldWrap>
-            ) : (
-              <Field>
-                {field.label && <FieldName>{field.label}</FieldName>}
-                {field.editable ? (
-                  this.getEditableField(field, data)
-                ) : (
-                  <FieldValue>
-                    {(field.render && field.render(data)) || data[field.prop]}
-                  </FieldValue>
-                )}
-              </Field>
-            )}
-          </Fragment>
-        ))}
+            );
+          }
+
+          return (
+            <Field key={field.prop}>
+              {field.label && <FieldName>{field.label}</FieldName>}
+              {field.editable ? (
+                this.getEditableField(field, data)
+              ) : (
+                <FieldValue>{(field.render && field.render(data)) || data[field.prop]}</FieldValue>
+              )}
+            </Field>
+          );
+        })}
         <Button onClick={this.onSubmit}>{buttonLabel}</Button>
       </Fields>
     );

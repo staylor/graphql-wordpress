@@ -1,4 +1,6 @@
 import styled from 'react-emotion';
+import { css } from 'emotion';
+import theme from 'styles/theme';
 
 export const Fields = styled.fieldset`
   display: block;
@@ -26,21 +28,25 @@ export const FieldName = styled.strong`
   margin: 0 0 5px;
 `;
 
-export const FieldSelect = styled.select`
+const inputStyles = css`
   background-color: #fff;
-  border: 1px solid ${p => p.theme.colors.detail};
+  border: 1px solid ${theme.colors.detail};
   border-radius: 0;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
   box-sizing: border-box;
   color: #32373c;
   font-size: 14px;
+  outline: none;
+  transition: 0.05s border-color ease-in-out;
+`;
+
+export const FieldSelect = styled.select`
+  ${inputStyles};
   height: 28px;
   line-height: 28px;
   margin: 1px;
   max-width: 200px;
-  outline: none;
   padding: 2px;
-  transition: 0.05s border-color ease-in-out;
   vertical-align: middle;
 
   &[multiple] {
@@ -51,34 +57,31 @@ export const FieldSelect = styled.select`
 `;
 
 export const FieldInput = styled.input`
-  background-color: #fff;
-  border: 1px solid ${p => p.theme.colors.detail};
-  border-radius: 0;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
-  box-sizing: border-box;
-  color: #32373c;
+  ${inputStyles};
   display: block;
-  font-size: 14px;
   height: 32px;
-  outline: none;
   padding: 3px 5px;
-  transition: 0.05s border-color ease-in-out;
   width: 100%;
 `;
 
-export const FieldTextarea = styled.textarea`
-  background-color: #fff;
-  border: 1px solid ${p => p.theme.colors.detail};
-  border-radius: 0;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
-  box-sizing: border-box;
-  color: #32373c;
+export const SizedInput = styled.input`
+  ${inputStyles};
   display: block;
-  font-size: 14px;
-  max-width: 100%;
-  outline: none;
+  height: 32px;
   padding: 3px 5px;
-  transition: 0.05s border-color ease-in-out;
+`;
+
+export const fieldNumberClass = css`
+  display: inline-block;
+  height: 32px;
+  padding: 3px 5px;
+  width: 64px;
+`;
+
+export const FieldTextarea = styled.textarea`
+  ${inputStyles};
+  display: block;
+  padding: 3px 5px;
   width: 100%;
 `;
 

@@ -65,7 +65,7 @@
     "build": "kyt build -C kyt.prod.js",
     "start": "forever start build/server/main.js",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
-    "graphql-dev": "BABEL_ENV=graphql MONGO_URL=mongodb://127.0.0.1:27017/highforthis nodemon --ext js,graphql --exec babel-node src/server/graphql/index.js",
+    "graphql-dev": "BABEL_ENV=graphql MONGO_URL=mongodb://127.0.0.1:27017/highforthis nodemon --watch src/server/graphql --ext js,graphql --exec babel-node src/server/graphql/index.js",
     "youtube": "babel-node src/data/youtube.js"
   },
   "devDependencies": {
