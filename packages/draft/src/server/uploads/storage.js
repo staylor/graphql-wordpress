@@ -34,54 +34,57 @@ class MediaStorage {
     });
   }
 
-  handleCrop = ({ dimensions = null, destination, basename, ext }, resolve, reject) => {
-    let fileName = `${basename}${ext}`;
-    if (dimensions) {
-      const [width, height] = dimensions;
-      fileName = `${basename}-${width}x${height}${ext}`;
-    }
-    const finalPath = path.join(destination, fileName);
-    let transform = sharp();
-    if (dimensions) {
-      transform = transform.resize(dimensions[0], dimensions[1]);
-    }
+  handleCrop(src, size, { destination, ext, basename }) {
+    return new Promise((resolve, reject) => {
+      const [width, height] = size;
+      const cropName = `${basename}-${width}x${height}${ext}`;
+      const cropPath = path.join(destination, cropName);
 
-    return transform.toFile(finalPath, (err, info) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({
-          fileName,
-          fileSize: info.size,
-          width: info.width,
-          height: info.height,
+      return sharp(src)
+        .resize(size[0], size[1])
+        .withoutEnlargement()
+        .toFile(cropPath, (err, info) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({
+              fileName: cropName,
+              fileSize: info.size,
+              width: info.width,
+              height: info.height,
+            });
+          }
         });
-      }
     });
-  };
+  }
 
   async handleImage(file, { destination, ext, basename }, cb) {
-    const sizes = [null, [300, 300], [150, 150]];
-    const crops = await Promise.all(
-      sizes.map(
-        dimensions =>
-          new Promise((resolve, reject) => {
-            file.stream.pipe(
-              this.handleCrop({ dimensions, destination, basename, ext }, resolve, reject)
-            );
-          })
-      )
-    );
-
-    const original = crops.shift();
-
-    cb(null, {
-      ...original,
-      mimeType: file.mimetype,
-      originalName: file.originalname,
-      destination: destination.replace(`${this.opts.uploadDir}/`, ''),
-      crops,
+    const fileName = `${basename}${ext}`;
+    const finalPath = path.join(destination, fileName);
+    const original = { fileName };
+    const imageMeta = sharp().on('info', info => {
+      original.width = info.width;
+      original.height = info.height;
+      original.fileSize = info.size;
     });
+
+    const outStream = fs.createWriteStream(finalPath);
+    outStream.on('error', cb);
+    outStream.on('finish', async () => {
+      const sizes = [[300, 300], [150, 150]];
+      const crops = await Promise.all(
+        sizes.map(size => this.handleCrop(finalPath, size, { destination, ext, basename }))
+      );
+
+      cb(null, {
+        ...original,
+        mimeType: file.mimetype,
+        originalName: file.originalname,
+        destination: destination.replace(`${this.opts.uploadDir}/`, ''),
+        crops,
+      });
+    });
+    file.stream.pipe(imageMeta).pipe(outStream);
   }
 
   async handleAudio(file, { destination, ext, basename }, cb) {
