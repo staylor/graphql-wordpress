@@ -4,7 +4,7 @@ import mediaStorage from './storage';
 const mediaFields = ['originalName', 'destination', 'fileName', 'mimeType', 'fileSize'];
 
 export default function addUploads(app, db, passport, uploadDir) {
-  const storage = mediaStorage({ uploadDir });
+  const storage = mediaStorage({ uploadDir, db });
 
   const upload = multer({ storage });
   app.post(

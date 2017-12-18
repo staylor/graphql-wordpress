@@ -4,12 +4,23 @@ import mkdirp from 'mkdirp';
 import crypto from 'crypto';
 import sharp from 'sharp';
 import mm from 'musicmetadata';
+import Settings from 'models/Settings';
 
 /* eslint-disable class-methods-use-this, consistent-return */
 
 class MediaStorage {
+  settings = null;
+
   constructor(opts) {
     this.opts = opts;
+  }
+
+  async getSettings() {
+    if (this.settings === null) {
+      const settings = new Settings({ db: this.opts.db });
+      this.settings = await settings.findOneById('media');
+    }
+    return this.settings;
   }
 
   getDestination() {
@@ -71,7 +82,10 @@ class MediaStorage {
     const outStream = fs.createWriteStream(finalPath);
     outStream.on('error', cb);
     outStream.on('finish', async () => {
-      const sizes = [[300, 300], [150, 150]];
+      const settings = await this.getSettings();
+      const sizes = settings.crops
+        .filter(crop => crop.width <= original.width && crop.height <= original.height)
+        .map(({ width, height }) => [width, height]);
       const crops = await Promise.all(
         sizes.map(size => this.handleCrop(finalPath, size, { destination, ext, basename }))
       );

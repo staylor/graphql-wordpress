@@ -104,7 +104,7 @@ export const SecondaryButton = styled.button`
   ${buttonStyles};
   height: 24px;
   line-height: 22px;
-  padding: 0 16px 2px;
+  padding: 0 6px 2px;
 `;
 
 export const RowActions = styled.nav`
