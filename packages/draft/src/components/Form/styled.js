@@ -62,6 +62,10 @@ export const FieldInput = styled.input`
   height: 32px;
   padding: 3px 5px;
   width: 100%;
+
+  &::placeholder {
+    color: ${p => p.theme.colors.detail};
+  }
 `;
 
 export const SizedInput = styled.input`

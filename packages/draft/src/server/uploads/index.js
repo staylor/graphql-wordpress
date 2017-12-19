@@ -58,9 +58,11 @@ export default function addUploads(app, db, passport, uploadDir) {
 
       if (filesToSave.length > 0) {
         const media = new Media({ db });
-        await Promise.all(filesToSave.map(file => media.insert(file)));
+        const ids = await Promise.all(filesToSave.map(file => media.insert(file)));
+        res.json(ids);
+      } else {
+        res.json(files);
       }
-      res.json(files);
     }
   );
 }

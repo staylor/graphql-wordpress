@@ -8,7 +8,22 @@ import { Heading, titleInputClass } from '../styled';
 
 /* eslint-disable react/prop-types */
 
-const mediaFields = [{ prop: 'title', editable: true, className: titleInputClass }];
+const mediaFields = [
+  {
+    prop: 'title',
+    editable: true,
+    className: titleInputClass,
+    placeholder: 'Enter a title',
+  },
+  {
+    prop: 'originalName',
+    render: media => (
+      <Fragment>
+        <strong>Original name:</strong> {media.originalName}
+      </Fragment>
+    ),
+  },
+];
 
 @compose(
   graphql(
@@ -17,6 +32,7 @@ const mediaFields = [{ prop: 'title', editable: true, className: titleInputClass
         media(id: $id) {
           id
           title
+          originalName
         }
       }
     `,

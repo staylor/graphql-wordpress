@@ -110,6 +110,7 @@ export default class Form extends Component {
 
     return (
       <Input
+        placeholder={field.placeholder || ''}
         type={field.inputType || 'text'}
         className={cn(field.className)}
         innerRef={this.bindRef(field.prop)}
