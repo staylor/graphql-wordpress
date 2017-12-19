@@ -34,7 +34,19 @@ export const NavLink = styled(RRNavLink)`
             border-right-color: ${p => p.theme.colors.dark};
           }
         }
+
+        @media screen and (max-width: 782px) {
+          &::after {
+            border-right-color: ${p => p.theme.colors.dark};
+          }
+        }
       }
+    }
+  }
+
+  span {
+    @media screen and (max-width: 782px) {
+      display: none;
     }
   }
 
@@ -51,6 +63,11 @@ export const NavLink = styled(RRNavLink)`
     z-index: 10000;
 
     .NavMenu-collapsed & {
+      border-width: 4px;
+      margin-top: -4px;
+    }
+
+    @media screen and (max-width: 782px) {
       border-width: 4px;
       margin-top: -4px;
     }

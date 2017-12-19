@@ -3,12 +3,14 @@ import { compose, graphql } from 'react-apollo';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
-import { Heading, titleInputClass } from 'routes/Admin/styled';
+import InfoBox from 'routes/Admin/InfoBox';
+import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
 import MediaAdminQuery from './MediaAdminQuery.graphql';
 import UpdateMediaMutation from './UpdateMediaMutation.graphql';
 import ImageInfo from './ImageInfo';
 import AudioInfo from './AudioInfo';
 import VideoInfo from './VideoInfo';
+import { Audio, Video, CroppedImage } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -23,11 +25,26 @@ const mediaFields = [
     render: media => {
       let mediaInfo = null;
       if (media.type === 'image') {
-        mediaInfo = <ImageInfo media={media} />;
+        let src;
+        const imageCrop = media.crops.find(c => c.width === 300);
+        if (imageCrop) {
+          src = `/uploads/${media.destination}/${imageCrop.fileName}`;
+        } else {
+          src = `/uploads/${media.destination}/${media.fileName}`;
+        }
+        mediaInfo = <CroppedImage src={src} />;
       } else if (media.type === 'audio') {
-        mediaInfo = <AudioInfo media={media} />;
+        mediaInfo = <Audio controls src={`/uploads/${media.destination}/${media.fileName}`} />;
       } else if (media.type === 'video') {
-        mediaInfo = <VideoInfo media={media} />;
+        mediaInfo = (
+          <Video
+            preload="metadata"
+            width={media.width}
+            height={media.height}
+            controls
+            src={`/uploads/${media.destination}/${media.fileName}`}
+          />
+        );
       }
       return (
         <Fragment>
@@ -91,16 +108,28 @@ class EditMedia extends Component {
       return <Loading />;
     }
 
+    let mediaInfo = null;
+    if (media.type === 'audio') {
+      mediaInfo = <AudioInfo media={media} />;
+    } else if (media.type === 'video') {
+      mediaInfo = <VideoInfo media={media} />;
+    } else if (media.type === 'image') {
+      mediaInfo = <ImageInfo media={media} />;
+    }
+
     return (
       <Fragment>
         <Heading>Edit Media</Heading>
         {this.state.message === 'updated' && <Message text="Media updated." />}
-        <Form
-          fields={mediaFields}
-          data={media}
-          buttonLabel="Update Media"
-          onSubmit={this.onSubmit}
-        />
+        <FormWrap>
+          <Form
+            fields={mediaFields}
+            data={media}
+            buttonLabel="Update Media"
+            onSubmit={this.onSubmit}
+          />
+          <InfoBox label="Media Details">{mediaInfo}</InfoBox>
+        </FormWrap>
       </Fragment>
     );
   }

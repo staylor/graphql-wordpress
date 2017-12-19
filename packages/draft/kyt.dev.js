@@ -1,17 +1,17 @@
-const path = require('path');
+const { clientSrcPath } = require('kyt-utils/paths')();
 
 module.exports = {
-  reactHotLoader: true,
+  reactHotLoader: false,
   debug: false,
-  modifyWebpackConfig: baseConfig => {
+  modifyWebpackConfig: (baseConfig, options) => {
     const config = Object.assign({}, baseConfig);
     if (config.target === 'web') {
-      const adminConfig = [...config.entry.main];
-      adminConfig[adminConfig.length - 1] = path.resolve('./src/client/admin.js');
-      config.entry.admin = adminConfig;
-      const loginConfig = [...config.entry.main];
-      loginConfig[loginConfig.length - 1] = path.resolve('./src/client/login.js');
-      config.entry.login = loginConfig;
+      config.entry.main = `${clientSrcPath}/index.js`;
+      config.entry.admin = `${clientSrcPath}/admin.js`;
+      config.entry.login = `${clientSrcPath}/login.js`;
+      if (options.environment === 'development') {
+        config.plugins.pop();
+      }
     }
     config.module.rules.push({
       test: /\.(graphql|gql)$/,

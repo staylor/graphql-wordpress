@@ -1,22 +1,16 @@
 import React, { Fragment } from 'react';
-import { CroppedImage, Audio } from './styled';
+import filesize from 'filesize';
+import { CroppedImage } from './styled';
 
 /* eslint-disable react/prop-types */
 
 export default function AudioInfo({ media }) {
-  const AudioPlayer = <Audio controls src={`/uploads/${media.destination}/${media.fileName}`} />;
-
-  if (media.images.length === 0) {
-    return AudioPlayer;
-  }
-
   const crops = [...media.images];
   crops.sort((a, b) => a.width - b.width);
   const first = crops.shift();
   const src = `/uploads/${media.destination}/${first.fileName}`;
-  const mediaInfo = (
+  const cropInfo = (
     <Fragment>
-      {AudioPlayer}
       <CroppedImage src={src} />
       <strong>
         Showing:<br />
@@ -24,6 +18,16 @@ export default function AudioInfo({ media }) {
       {first.width} x {first.height}
     </Fragment>
   );
+
+  const mediaInfo = (
+    <Fragment>
+      <strong>File Size:</strong> {filesize(media.fileSize)}
+      <br />
+      <strong>File Type:</strong> {media.mimeType}
+      {cropInfo}
+    </Fragment>
+  );
+
   return crops.length > 0 ? (
     <Fragment>
       {mediaInfo}
@@ -34,7 +38,7 @@ export default function AudioInfo({ media }) {
           <br />
           <a href={`/uploads/${media.destination}/${crop.fileName}`}>
             {crop.width} x {crop.height}
-          </a>
+          </a>{' '}
         </Fragment>
       ))}
     </Fragment>

@@ -3,8 +3,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Editor from 'components/Editor';
 import Message from 'components/Form/Message';
-import Form from '../Form';
-import { Heading, titleInputClass } from '../styled';
+import Form from 'routes/Admin/Form';
+import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
@@ -64,7 +64,9 @@ export default class AddPost extends Component {
       <Fragment>
         <Heading>Add Post</Heading>
         {this.state.message === 'error' && <Message text="Error adding post." />}
-        <Form fields={postFields} buttonLabel="Add Post" onSubmit={this.onSubmit} />
+        <FormWrap>
+          <Form fields={postFields} buttonLabel="Add Post" onSubmit={this.onSubmit} />
+        </FormWrap>
       </Fragment>
     );
   }

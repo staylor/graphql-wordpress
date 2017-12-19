@@ -17,7 +17,7 @@ export default function NavLink({ item, hovered, collapsed }) {
       })}
     >
       {item.dashicon && <Dashicon className={`dashicons-before dashicons-${item.dashicon}`} />}
-      {!collapsed && item.label}
+      <span>{!collapsed && item.label}</span>
     </StyledNavLink>
   );
 }

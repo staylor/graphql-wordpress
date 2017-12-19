@@ -5,8 +5,8 @@ import Editor from 'components/Editor';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import { settingsShape } from 'types/PropTypes';
-import Form from '../Form';
-import { Heading, titleInputClass } from '../styled';
+import Form from 'routes/Admin/Form';
+import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
@@ -117,12 +117,14 @@ export default class EditPost extends Component {
       <Fragment>
         <Heading>Edit Post</Heading>
         {this.state.message === 'updated' && <Message text="Post updated." />}
-        <Form
-          fields={postFields(settings)}
-          data={post}
-          buttonLabel="Update Post"
-          onSubmit={this.onSubmit}
-        />
+        <FormWrap>
+          <Form
+            fields={postFields(settings)}
+            data={post}
+            buttonLabel="Update Post"
+            onSubmit={this.onSubmit}
+          />
+        </FormWrap>
       </Fragment>
     );
   }

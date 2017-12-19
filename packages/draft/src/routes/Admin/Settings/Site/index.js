@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
-import Form from '../Form';
+import Form from 'routes/Admin/Form';
+import { FormWrap } from 'routes/Admin/styled';
 import SiteSettingsQuery from './SiteSettingsQuery.graphql';
 import SiteSettingsMutation from './SiteSettingsMutation.graphql';
 
@@ -32,7 +33,11 @@ const settingsFields = [
 ];
 
 function SiteSettings({ data, mutate }) {
-  return <Form id="site" title="General Settings" {...{ settingsFields, data, mutate }} />;
+  return (
+    <FormWrap>
+      <Form id="site" title="General Settings" {...{ settingsFields, data, mutate }} />
+    </FormWrap>
+  );
 }
 
 const composed = compose(graphql(SiteSettingsQuery), graphql(SiteSettingsMutation));

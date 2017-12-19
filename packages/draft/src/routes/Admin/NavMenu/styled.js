@@ -10,6 +10,10 @@ export const Nav = styled.nav`
   top: 0;
   width: 160px;
   z-index: 4;
+
+  @media screen and (max-width: 782px) {
+    width: 36px;
+  }
 `;
 
 export const navCollapsedClass = css`

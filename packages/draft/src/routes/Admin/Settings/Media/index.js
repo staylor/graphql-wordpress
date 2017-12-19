@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
-import Form from '../Form';
+import Form from 'routes/Admin/Form';
+import { FormWrap } from 'routes/Admin/styled';
 import Crops from './Crops';
 import MediaSettingsQuery from './MediaSettingsQuery.graphql';
 import MediaSettingsMutation from './MediaSettingsMutation.graphql';
@@ -34,7 +35,11 @@ const settingsFields = [
 ];
 
 function MediaSettings({ data, mutate }) {
-  return <Form id="media" title="Media Settings" {...{ settingsFields, data, mutate }} />;
+  return (
+    <FormWrap>
+      <Form id="media" title="Media Settings" {...{ settingsFields, data, mutate }} />
+    </FormWrap>
+  );
 }
 
 const composed = compose(graphql(MediaSettingsQuery), graphql(MediaSettingsMutation));

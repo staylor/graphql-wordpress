@@ -9,8 +9,8 @@ import Input from 'components/Form/Input';
 import Select from 'components/Form/Select';
 import { offsetToCursor } from 'utils/connection';
 import { RowTitle } from 'styles/utils';
-import { Heading, HeaderAdd, RowActions, SearchBox } from '../styled';
-import ListTable from '../ListTable';
+import { Heading, HeaderAdd, RowActions, SearchBox } from 'routes/Admin/styled';
+import ListTable from 'routes/Admin/ListTable';
 import { Thumbnail, thumbnailColumnClass, titleColumnClass } from './styled';
 
 /* eslint-disable react/prop-types */

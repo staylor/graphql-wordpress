@@ -4,8 +4,12 @@ import theme from 'styles/theme';
 
 export const Fields = styled.fieldset`
   display: block;
-  max-width: 600px;
+  float: left;
   width: 100%;
+
+  @media screen and (max-width: 782px) {
+    float: none;
+  }
 `;
 
 export const Field = styled.p`

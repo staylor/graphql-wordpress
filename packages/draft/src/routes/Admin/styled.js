@@ -72,6 +72,10 @@ export const Content = styled.section`
   padding: 0 20px 65px;
   position: relative;
   z-index: 3;
+
+  @media screen and (max-width: 782px) {
+    margin-left: 36px;
+  }
 `;
 
 export const collapsedNavClass = css`
@@ -164,4 +168,19 @@ export const Pagination = styled.nav`
 
 export const SearchBox = styled.div`
   float: right;
+`;
+
+export const FormWrap = styled.div`
+  display: block;
+  margin-right: 300px;
+
+  &::after {
+    clear: both;
+    content: ' ';
+    display: table;
+  }
+
+  @media screen and (max-width: 782px) {
+    margin-right: 0;
+  }
 `;

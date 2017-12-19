@@ -4,8 +4,8 @@ import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import { ThumbWrapper, thumb480Class } from 'components/Videos/styled';
-import Form from '../Form';
-import { Heading } from '../styled';
+import Form from 'routes/Admin/Form';
+import { Heading, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
@@ -116,12 +116,14 @@ export default class VideoRoute extends Component {
         <ThumbWrapper>
           <img src={thumb.url} alt={video.title} className={thumb480Class} />
         </ThumbWrapper>
-        <Form
-          fields={videoFields}
-          data={video}
-          buttonLabel="Update Video"
-          onSubmit={this.onSubmit}
-        />
+        <FormWrap>
+          <Form
+            fields={videoFields}
+            data={video}
+            buttonLabel="Update Video"
+            onSubmit={this.onSubmit}
+          />
+        </FormWrap>
       </Fragment>
     );
   }

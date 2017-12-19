@@ -5,7 +5,9 @@ query MediaAdminQuery($id: ObjID!) {
     title
     destination
     fileName
+    fileSize
     originalName
+    mimeType
     ... on ImageUpload {
       caption
       altText
@@ -13,6 +15,7 @@ query MediaAdminQuery($id: ObjID!) {
       height
       crops {
         fileName
+        fileSize
         width
         height
       }
@@ -22,6 +25,7 @@ query MediaAdminQuery($id: ObjID!) {
       duration
       images {
         fileName
+        fileSize
         width
         height
       }

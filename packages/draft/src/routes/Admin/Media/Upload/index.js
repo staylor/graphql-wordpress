@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { Heading } from 'routes/Admin/styled';
 import { Dropzone, DropzoneInfo, ProgressBar, ProgressText, StatusBar } from './styled';
-import { Heading } from '../styled';
 
 export default class Media extends Component {
   state = {};

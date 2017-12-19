@@ -24,6 +24,10 @@ export const CollapseButton = styled.button`
   .NavMenu-collapsed & {
     transform: rotate(180deg);
   }
+
+  @media screen and (max-width: 782px) {
+    transform: rotate(180deg);
+  }
 `;
 
 export const CollapseButtonIcon = styled.i`

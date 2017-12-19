@@ -3,8 +3,8 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from '../Form';
-import { Heading } from '../styled';
+import Form from 'routes/Admin/Form';
+import { Heading, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
@@ -86,7 +86,9 @@ export default class EditTag extends Component {
       <Fragment>
         <Heading>Edit Tag</Heading>
         {this.state.message === 'updated' && <Message text="Tag updated." />}
-        <Form fields={tagFields} data={tag} buttonLabel="Update Tag" onSubmit={this.onSubmit} />
+        <FormWrap>
+          <Form fields={tagFields} data={tag} buttonLabel="Update Tag" onSubmit={this.onSubmit} />
+        </FormWrap>
       </Fragment>
     );
   }

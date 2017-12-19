@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
-import Form from '../Form';
+import Form from 'routes/Admin/Form';
+import { FormWrap } from 'routes/Admin/styled';
 import SocialSettingsQuery from './SocialSettingsQuery.graphql';
 import SocialSettingsMutation from './SocialSettingsMutation.graphql';
 
@@ -18,7 +19,11 @@ const settingsFields = [
 ];
 
 function SocialSettings({ data, mutate }) {
-  return <Form id="social" title="Social Settings" {...{ settingsFields, data, mutate }} />;
+  return (
+    <FormWrap>
+      <Form id="social" title="Social Settings" {...{ settingsFields, data, mutate }} />
+    </FormWrap>
+  );
 }
 
 const composed = compose(graphql(SocialSettingsQuery), graphql(SocialSettingsMutation));

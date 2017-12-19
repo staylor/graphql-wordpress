@@ -11,6 +11,9 @@ export const Audio = styled.audio`
 `;
 
 export const Video = styled.video`
+  appearance: none;
   display: block;
+  height: auto;
   margin: 10px 0 20px;
+  max-width: 600px;
 `;
