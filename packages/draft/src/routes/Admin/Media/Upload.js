@@ -1,20 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'react-emotion';
+import { Dropzone } from './styled';
 import { Heading } from '../styled';
-
-const Dropzone = styled.div`
-  border: 2px dashed ${p => p.theme.colors.detail};
-  border-radius: 3px;
-  display: block;
-  height: 300px;
-  margin: 20px 0;
-  width: 600px;
-
-  &:hover {
-    border-color: black;
-  }
-`;
 
 export default class Media extends Component {
   onDrop = e => {

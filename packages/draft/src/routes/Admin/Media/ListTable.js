@@ -7,6 +7,7 @@ import { offsetToCursor } from 'utils/connection';
 import { RowTitle } from 'styles/utils';
 import { Heading, HeaderAdd, RowActions } from '../styled';
 import ListTable from '../ListTable';
+import { Thumbnail, thumbnailColumnClass } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -14,11 +15,25 @@ const PER_PAGE = 20;
 
 const columns = [
   {
+    className: thumbnailColumnClass,
+    render: media => {
+      if (!media.images || !media.images.length) {
+        return null;
+      }
+
+      const sorted = [...media.images];
+      sorted.sort((a, b) => a.width - b.width);
+      return <Thumbnail src={`/uploads/${media.destination}/${sorted[0].fileName}`} />;
+    },
+  },
+  {
     label: 'Title',
     render: media => (
       <Fragment>
         <RowTitle>
           <Link to={`/media/${media.id}`}>{media.title}</Link>
+          <br />
+          {media.originalName}
         </RowTitle>
         <RowActions>
           <Link to={`/media/${media.id}`}>Edit</Link> | <Link to={`/media/${media.id}`}>Trash</Link>
@@ -37,6 +52,14 @@ const columns = [
           node {
             id
             title
+            originalName
+            destination
+            ... on AudioUpload {
+              images {
+                fileName
+                width
+              }
+            }
           }
         }
         pageInfo {

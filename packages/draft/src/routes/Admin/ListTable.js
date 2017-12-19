@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import Checkbox from 'components/Form/Checkbox';
 import { Table, StripedRow, CellHeading, Cell, CheckboxCell } from 'styles/utils';
 import { Filters, Pagination } from './styled';
@@ -31,7 +32,11 @@ export default class ListTable extends Component {
         <CheckboxCell>
           <Checkbox name="all" />
         </CheckboxCell>
-        {columns.map(column => <CellHeading key={column.label}>{column.label}</CellHeading>)}
+        {columns.map((column, i) => (
+          <CellHeading className={cn(column.className)} key={i.toString(16)}>
+            {column.label}
+          </CellHeading>
+        ))}
       </tr>
     );
 
@@ -79,8 +84,8 @@ export default class ListTable extends Component {
                 <CheckboxCell>
                   <Checkbox name="deleteme" />
                 </CheckboxCell>
-                {columns.map(column => (
-                  <Cell key={column.label}>
+                {columns.map((column, i) => (
+                  <Cell key={i.toString(16)} className={cn(column.className)}>
                     {column.render ? column.render(node) : node[column.prop]}
                   </Cell>
                 ))}

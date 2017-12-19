@@ -128,7 +128,7 @@ class MediaStorage {
                     reject(err);
                   } else {
                     resolve({
-                      fileName,
+                      fileName: coverName,
                       fileSize: info.size,
                       width: info.width,
                       height: info.height,
