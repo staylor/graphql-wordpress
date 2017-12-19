@@ -37,13 +37,11 @@ const resolvers = {
     async uploads(root, args, { Media }) {
       return parseConnection(Media, args);
     },
-  },
-  Mutation: {
-    async createMediaUpload(root, { input }, { Media }) {
-      const id = await Media.insert(input);
+    media(root, { id }, { Media }) {
       return Media.findOneById(id);
     },
-
+  },
+  Mutation: {
     async updateMediaUpload(root, { id, input }, { Media }) {
       await Media.updateById(id, input);
       return Media.findOneById(id);

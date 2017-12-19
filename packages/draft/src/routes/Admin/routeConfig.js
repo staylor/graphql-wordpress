@@ -1,9 +1,9 @@
 import PostRouter from './Posts';
-import Media from './Media';
+import MediaRouter from './Media';
 import VideoRouter from './Videos';
 import TagRouter from './Tags';
 import Dashboard from './Dashboard';
-import Settings from './Settings';
+import SettingsRouter from './Settings';
 import NotFound from './NotFound';
 
 export default [
@@ -36,7 +36,17 @@ export default [
       path: '/media',
       label: 'Media',
       dashicon: 'admin-media',
-      component: Media,
+      component: MediaRouter,
+      routes: [
+        {
+          path: '/media',
+          label: 'All Media',
+        },
+        {
+          path: '/media/upload',
+          label: 'Upload Media',
+        },
+      ],
     },
     {
       path: '/video',
@@ -72,7 +82,7 @@ export default [
       path: '/settings',
       label: 'Settings',
       dashicon: 'admin-settings',
-      component: Settings,
+      component: SettingsRouter,
       routes: [
         {
           path: '/settings/site',

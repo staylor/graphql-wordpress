@@ -100,22 +100,11 @@ extend type Query {
     mimeType: String
     search: String
   ): MediaUploadConnection
-}
-
-input CreateMediaUploadInput {
-  originalName: String
-  destination: String
-  fileName: String
-  mimeType: String
-  type: String
-  fileSize: Int
-  # Image fields
-  width: Int
-  height: Int
-  crops: [ImageUploadCropInput]
+  media(id: ObjID): MediaUpload
 }
 
 input UpdateMediaUploadInput {
+  title: String
   originalName: String
   destination: String
   fileName: String
@@ -130,7 +119,6 @@ input UpdateMediaUploadInput {
 }
 
 extend type Mutation {
-  createMediaUpload(input: CreateMediaUploadInput!): MediaUpload
   updateMediaUpload(id: ObjID!, input: UpdateMediaUploadInput!): MediaUpload
   removeMediaUpload(id: ObjID!): Boolean
 }

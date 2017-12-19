@@ -1,4 +1,5 @@
 import multer from 'multer';
+import Media from 'models/Media';
 import mediaStorage from './storage';
 
 const mediaFields = ['originalName', 'destination', 'fileName', 'mimeType', 'fileSize'];
@@ -13,7 +14,8 @@ export default function addUploads(app, db, passport, uploadDir) {
       session: false,
     }),
     upload.array('uploads'),
-    (req, res) => {
+    async (req, res) => {
+      const filesToSave = [];
       const files = req.files.map(file => {
         const baseProps = {};
         mediaFields.forEach(field => {
@@ -26,6 +28,7 @@ export default function addUploads(app, db, passport, uploadDir) {
           typeProps.width = file.width;
           typeProps.height = file.height;
           typeProps.crops = file.crops;
+          return Object.assign({}, baseProps, typeProps);
         } else if (file.mimetype.indexOf('audio/') === 0) {
           typeProps.type = 'audio';
           typeProps.title = file.title;
@@ -36,13 +39,22 @@ export default function addUploads(app, db, passport, uploadDir) {
           typeProps.album = file.album;
           typeProps.duration = file.duration;
           typeProps.images = file.images;
+          const fileProps = Object.assign({}, baseProps, typeProps);
+          filesToSave.push(fileProps);
+          return fileProps;
         } else if (file.mimetype.indexOf('video/') === 0) {
           typeProps.type = 'video';
           typeProps.width = file.width;
           typeProps.height = file.height;
+          return Object.assign({}, baseProps, typeProps);
         }
         return Object.assign({}, baseProps, typeProps);
       });
+
+      if (filesToSave.length > 0) {
+        const media = new Media({ db });
+        await Promise.all(filesToSave.map(file => media.insert(file)));
+      }
       res.json(files);
     }
   );
