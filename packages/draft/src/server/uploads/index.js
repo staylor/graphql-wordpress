@@ -36,6 +36,7 @@ export default function addUploads(app, db, passport, uploadDir) {
           return fileProps;
         } else if (file.mimetype.indexOf('audio/') === 0) {
           typeProps.type = 'audio';
+          typeProps.description = '';
           typeProps.title = file.title;
           typeProps.artist = file.artist;
           typeProps.albumArtist = file.albumArtist;
@@ -49,9 +50,13 @@ export default function addUploads(app, db, passport, uploadDir) {
           return fileProps;
         } else if (file.mimetype.indexOf('video/') === 0) {
           typeProps.type = 'video';
+          typeProps.description = '';
           typeProps.width = file.width;
           typeProps.height = file.height;
-          return Object.assign({}, baseProps, typeProps);
+          typeProps.duration = file.duration;
+          const fileProps = Object.assign({}, baseProps, typeProps);
+          filesToSave.push(fileProps);
+          return fileProps;
         }
         return Object.assign({}, baseProps, typeProps);
       });

@@ -42,6 +42,7 @@ type ImageUpload implements MediaUpload {
 type AudioUpload implements MediaUpload {
   id: ObjID!
   title: String
+  description: String
   originalName: String
   destination: String
   fileName: String
@@ -60,6 +61,7 @@ type AudioUpload implements MediaUpload {
 type VideoUpload implements MediaUpload {
   id: ObjID!
   title: String
+  description: String
   originalName: String
   destination: String
   fileName: String
@@ -68,11 +70,13 @@ type VideoUpload implements MediaUpload {
   fileSize: Int
   width: Int
   height: Int
+  duration: Float
 }
 
 type FileUpload implements MediaUpload {
   id: ObjID!
   title: String
+  description: String
   originalName: String
   destination: String
   fileName: String
@@ -109,21 +113,10 @@ extend type Query {
 
 input UpdateMediaUploadInput {
   title: String
-  originalName: String
-  destination: String
-  fileName: String
-  mimeType: String
-  type: String
-  fileSize: Int
-  # Image/Video fields
-  width: Int
-  height: Int
-  # Image field
+  description: String
+  # Image fields
   caption: String
   altText: String
-  crops: [ImageUploadCropInput]
-  # Audio field
-  images: [ImageUploadCropInput]
 }
 
 extend type Mutation {

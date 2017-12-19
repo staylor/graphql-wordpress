@@ -8,6 +8,7 @@ import MediaAdminQuery from './MediaAdminQuery.graphql';
 import UpdateMediaMutation from './UpdateMediaMutation.graphql';
 import ImageInfo from './ImageInfo';
 import AudioInfo from './AudioInfo';
+import VideoInfo from './VideoInfo';
 
 /* eslint-disable react/prop-types */
 
@@ -25,6 +26,8 @@ const mediaFields = [
         mediaInfo = <ImageInfo media={media} />;
       } else if (media.type === 'audio') {
         mediaInfo = <AudioInfo media={media} />;
+      } else if (media.type === 'video') {
+        mediaInfo = <VideoInfo media={media} />;
       }
       return (
         <Fragment>
@@ -33,6 +36,13 @@ const mediaFields = [
         </Fragment>
       );
     },
+  },
+  {
+    label: 'Description',
+    prop: 'description',
+    type: 'textarea',
+    editable: true,
+    condition: media => media.type !== 'image',
   },
   {
     label: 'Caption',

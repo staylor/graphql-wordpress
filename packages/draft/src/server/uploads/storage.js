@@ -4,6 +4,8 @@ import mkdirp from 'mkdirp';
 import crypto from 'crypto';
 import sharp from 'sharp';
 import mm from 'musicmetadata';
+import ffprobe from 'ffprobe';
+import ffprobeStatic from 'ffprobe-static';
 import Settings from 'models/Settings';
 
 /* eslint-disable class-methods-use-this, consistent-return */
@@ -159,6 +161,29 @@ class MediaStorage {
     file.stream.pipe(outStream);
   }
 
+  async handleVideo(file, { destination, ext, basename }, cb) {
+    const fileName = `${basename}${ext}`;
+    const finalPath = path.join(destination, fileName);
+
+    const outStream = fs.createWriteStream(finalPath);
+    outStream.on('error', cb);
+    outStream.on('finish', async () => {
+      const metadata = await ffprobe(finalPath, { path: ffprobeStatic.path });
+      const [video] = metadata.streams;
+      cb(null, {
+        width: video.width,
+        height: video.height,
+        duration: parseFloat(video.duration),
+        mimeType: file.mimetype,
+        originalName: file.originalname,
+        destination: destination.replace(`${this.opts.uploadDir}/`, ''),
+        fileName,
+        fileSize: outStream.bytesWritten,
+      });
+    });
+    file.stream.pipe(outStream);
+  }
+
   async _handleFile(req, file, cb) {
     const destination = this.getDestination();
     const name = file.originalname;
@@ -169,6 +194,8 @@ class MediaStorage {
       this.handleImage(file, { destination, ext, basename }, cb);
     } else if (file.mimetype.indexOf('audio/') === 0) {
       this.handleAudio(file, { destination, ext, basename }, cb);
+    } else if (file.mimetype.indexOf('video/') === 0) {
+      this.handleVideo(file, { destination, ext, basename }, cb);
     } else {
       const fileName = `${basename}${ext}`;
       const finalPath = path.join(destination, fileName);

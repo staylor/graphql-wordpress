@@ -18,12 +18,22 @@ query MediaAdminQuery($id: ObjID!) {
       }
     }
     ... on AudioUpload {
+      description
+      duration
       images {
         fileName
         width
         height
       }
     }
+    ... on VideoUpload {
+      width
+      height
+      description
+      duration
+    }
+    ... on FileUpload {
+      description
+    }
   }
 }
-
