@@ -1,0 +1,29 @@
+query MediaAdminQuery($id: ObjID!) {
+  media(id: $id) {
+    id
+    type
+    title
+    destination
+    fileName
+    originalName
+    ... on ImageUpload {
+      caption
+      altText
+      width
+      height
+      crops {
+        fileName
+        width
+        height
+      }
+    }
+    ... on AudioUpload {
+      images {
+        fileName
+        width
+        height
+      }
+    }
+  }
+}
+

@@ -24,7 +24,7 @@ export default class Form extends Component {
     const { fields, onSubmit } = this.props;
 
     const updates = fields.reduce((memo, field) => {
-      if (field.editable) {
+      if (field.editable && (!field.condition || field.condition(this.props.data))) {
         const prop = this.boundRefs[field.prop];
         if (!prop) {
           memo[field.prop] = field.value();
@@ -101,7 +101,6 @@ export default class Form extends Component {
       return (
         <Textarea
           className={cn(field.className)}
-          rows="4"
           innerRef={this.bindRef(field.prop)}
           value={data && field.render ? field.render(data) : data[field.prop]}
         />
@@ -124,10 +123,15 @@ export default class Form extends Component {
 
     return (
       <Fields>
-        {fields.map(field => {
+        {fields.map((field, i) => {
+          if (field.condition && !field.condition(data)) {
+            return null;
+          }
+
+          const key = field.prop || i.toString(16);
           if (field.type === 'custom') {
             return (
-              <FieldWrap key={field.prop}>
+              <FieldWrap key={key}>
                 {field.label && <FieldName>{field.label}</FieldName>}
                 {field.render(data)}
               </FieldWrap>
@@ -136,7 +140,7 @@ export default class Form extends Component {
 
           if (field.type === 'editor') {
             return (
-              <FieldWrap key={field.prop}>
+              <FieldWrap key={key}>
                 {field.label && <FieldName>{field.label}</FieldName>}
                 {this.getEditableField(field, data)}
               </FieldWrap>
@@ -144,7 +148,7 @@ export default class Form extends Component {
           }
 
           return (
-            <Field key={field.prop}>
+            <Field key={key}>
               {field.label && <FieldName>{field.label}</FieldName>}
               {field.editable ? (
                 this.getEditableField(field, data)

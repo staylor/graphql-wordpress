@@ -85,7 +85,9 @@ export const fieldNumberClass = css`
 export const FieldTextarea = styled.textarea`
   ${inputStyles};
   display: block;
-  padding: 3px 5px;
+  height: 4em;
+  padding: 2px 6px;
+  resize: vertical;
   width: 100%;
 `;
 

@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from '../Form';
-import { Heading, titleInputClass } from '../styled';
+import Form from 'routes/Admin/Form';
+import { Heading, titleInputClass } from 'routes/Admin/styled';
+import MediaAdminQuery from './MediaAdminQuery.graphql';
+import UpdateMediaMutation from './UpdateMediaMutation.graphql';
+import ImageInfo from './ImageInfo';
+import AudioInfo from './AudioInfo';
 
 /* eslint-disable react/prop-types */
 
@@ -16,42 +19,37 @@ const mediaFields = [
     placeholder: 'Enter a title',
   },
   {
-    prop: 'originalName',
-    render: media => (
-      <Fragment>
-        <strong>Original name:</strong> {media.originalName}
-      </Fragment>
-    ),
+    render: media => {
+      let mediaInfo = null;
+      if (media.type === 'image') {
+        mediaInfo = <ImageInfo media={media} />;
+      } else if (media.type === 'audio') {
+        mediaInfo = <AudioInfo media={media} />;
+      }
+      return (
+        <Fragment>
+          <strong>Original name:</strong> {media.originalName}
+          {mediaInfo}
+        </Fragment>
+      );
+    },
+  },
+  {
+    label: 'Caption',
+    prop: 'caption',
+    type: 'textarea',
+    editable: true,
+    condition: media => media.type === 'image',
+  },
+  {
+    label: 'Alternative Text',
+    prop: 'altText',
+    editable: true,
+    condition: media => media.type === 'image',
   },
 ];
 
-@compose(
-  graphql(
-    gql`
-      query MediaAdminQuery($id: ObjID!) {
-        media(id: $id) {
-          id
-          title
-          originalName
-        }
-      }
-    `,
-    {
-      options: ({ match: { params } }) => ({
-        variables: { id: params.id },
-      }),
-    }
-  ),
-  graphql(gql`
-    mutation UpdateMediaMutation($id: ObjID!, $input: UpdateMediaUploadInput!) {
-      updateMediaUpload(id: $id, input: $input) {
-        id
-        title
-      }
-    }
-  `)
-)
-export default class EditPost extends Component {
+class EditMedia extends Component {
   state = {
     message: null,
   };
@@ -97,3 +95,14 @@ export default class EditPost extends Component {
     );
   }
 }
+
+const composed = compose(
+  graphql(MediaAdminQuery, {
+    options: ({ match: { params } }) => ({
+      variables: { id: params.id },
+    }),
+  }),
+  graphql(UpdateMediaMutation)
+);
+
+export default composed(EditMedia);

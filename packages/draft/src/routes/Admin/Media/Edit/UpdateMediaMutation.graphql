@@ -1,0 +1,28 @@
+mutation UpdateMediaMutation($id: ObjID!, $input: UpdateMediaUploadInput!) {
+  updateMediaUpload(id: $id, input: $input) {
+    id
+    type
+    title
+    destination
+    fileName
+    originalName
+    ... on ImageUpload {
+      caption
+      altText
+      width
+      height
+      crops {
+        fileName
+        width
+        height
+      }
+    }
+    ... on AudioUpload {
+      images {
+        fileName
+        width
+        height
+      }
+    }
+  }
+}
