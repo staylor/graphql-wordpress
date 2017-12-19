@@ -33,6 +33,18 @@ const resolvers = {
       return media._id;
     },
   },
+  MediaUploadConnection: {
+    async types(connection, args, { Media }) {
+      const types = await Media.collection.distinct('type');
+      types.sort();
+      return types;
+    },
+    async mimeTypes(connection, args, { Media }) {
+      const mimeTypes = await Media.collection.distinct('mimeType');
+      mimeTypes.sort();
+      return mimeTypes;
+    },
+  },
   Query: {
     async uploads(root, args, { Media }) {
       return parseConnection(Media, args);

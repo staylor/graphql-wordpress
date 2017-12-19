@@ -21,7 +21,6 @@ export const Table = styled.table`
   border-spacing: 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   color: ${p => p.theme.colors.table.text};
-  margin: ${p => p.theme.padding}px 0;
   table-layout: fixed;
   width: 100%;
 `;
@@ -78,6 +77,8 @@ export const RowTitle = styled.strong`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 0.2em;
+  word-wrap: break-word;
+
   & a {
     text-decoration: none;
   }

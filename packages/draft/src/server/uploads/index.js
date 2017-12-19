@@ -25,10 +25,15 @@ export default function addUploads(app, db, passport, uploadDir) {
         const typeProps = {};
         if (file.mimetype.indexOf('image/') === 0) {
           typeProps.type = 'image';
+          typeProps.title = '';
           typeProps.width = file.width;
           typeProps.height = file.height;
           typeProps.crops = file.crops;
-          return Object.assign({}, baseProps, typeProps);
+          typeProps.caption = '';
+          typeProps.altText = '';
+          const fileProps = Object.assign({}, baseProps, typeProps);
+          filesToSave.push(fileProps);
+          return fileProps;
         } else if (file.mimetype.indexOf('audio/') === 0) {
           typeProps.type = 'audio';
           typeProps.title = file.title;

@@ -117,13 +117,13 @@ export const RowActions = styled.nav`
 `;
 
 export const Filters = styled.section`
+  margin: 6px 0;
   overflow: hidden;
 `;
 
 export const Pagination = styled.nav`
   float: right;
   font-size: 13px;
-  margin: 0 3px;
   user-select: none;
 
   strong {

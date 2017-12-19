@@ -34,6 +34,8 @@ type ImageUpload implements MediaUpload {
   fileSize: Int
   width: Int
   height: Int
+  caption: String
+  altText: String
   crops: [ImageUploadCrop]
 }
 
@@ -85,6 +87,8 @@ type MediaUploadEdge {
 }
 
 type MediaUploadConnection {
+  types: [String]
+  mimeTypes: [String]
   count: Int
   edges: [MediaUploadEdge]
   pageInfo: PageInfo
@@ -115,7 +119,11 @@ input UpdateMediaUploadInput {
   width: Int
   height: Int
   # Image field
+  caption: String
+  altText: String
   crops: [ImageUploadCropInput]
+  # Audio field
+  images: [ImageUploadCropInput]
 }
 
 extend type Mutation {

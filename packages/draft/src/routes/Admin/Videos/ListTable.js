@@ -174,6 +174,12 @@ export default class Videos extends Component {
             </option>
           ))}
         </Select>
+      </Fragment>
+    );
+
+    return (
+      <Fragment>
+        <Heading>Videos</Heading>
         <SearchBox>
           <Input
             value={queryParams.search}
@@ -181,12 +187,6 @@ export default class Videos extends Component {
             onChange={this.updateSearch}
           />
         </SearchBox>
-      </Fragment>
-    );
-
-    return (
-      <Fragment>
-        <Heading>Videos</Heading>
         <ListTable {...{ location, match, columns, filters }} data={videos} path="/video" />
       </Fragment>
     );
