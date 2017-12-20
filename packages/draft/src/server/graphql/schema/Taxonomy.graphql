@@ -37,7 +37,6 @@ extend type Query {
     after: String
     last: Int
     before: String
-    search: String
   ): TaxonomyConnection
   taxonomy(id: ObjID, slug: String): Taxonomy
 }

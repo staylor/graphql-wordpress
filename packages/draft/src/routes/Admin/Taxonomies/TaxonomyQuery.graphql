@@ -1,0 +1,16 @@
+query TaxonomyQuery {
+  taxonomies {
+    count
+    edges {
+      node {
+        id
+        name
+        slug
+        description
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}

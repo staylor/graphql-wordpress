@@ -86,7 +86,7 @@ export default class ListTable extends Component {
                 </CheckboxCell>
                 {columns.map((column, i) => (
                   <Cell key={i.toString(16)} className={cn(column.className)}>
-                    {column.render ? column.render(node) : node[column.prop]}
+                    {column.render ? column.render(node, this.props) : node[column.prop]}
                   </Cell>
                 ))}
               </StripedRow>

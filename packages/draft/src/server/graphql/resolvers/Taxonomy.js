@@ -8,7 +8,7 @@ const resolvers = {
   },
   Query: {
     taxonomies(root, args, { Taxonomy }) {
-      return parseConnection(Taxonomy, args);
+      return parseConnection(Taxonomy, { first: 100 });
     },
 
     taxonomy(root, { id, slug }, { Taxonomy }) {

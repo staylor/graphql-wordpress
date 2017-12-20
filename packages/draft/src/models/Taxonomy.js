@@ -8,17 +8,10 @@ export default class Taxonomy extends Model {
     this.collection = context.db.collection('taxonomy');
   }
 
-  all({ limit = 10, offset = 0, search = null }) {
-    const criteria = {};
-    if (search) {
-      criteria.$text = { $search: search };
-    }
-
+  all() {
     return this.collection
-      .find(criteria)
+      .find({})
       .sort({ name: 1 })
-      .skip(offset)
-      .limit(limit)
       .toArray();
   }
 
