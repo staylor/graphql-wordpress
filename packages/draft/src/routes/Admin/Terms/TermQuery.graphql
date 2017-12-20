@@ -1,0 +1,35 @@
+query TermQuery(
+  $first: Int
+  $after: String
+  $taxonomyId: ObjID!
+  $taxonomy: String
+  $search: String
+) {
+  terms(
+    first: $first
+    after: $after
+    taxonomyId: $taxonomyId
+    taxonomy: $taxonomy
+    search: $search
+  ) {
+    count
+    edges {
+      node {
+        id
+        name
+        slug
+        taxonomy {
+          id
+        }
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+  taxonomy(id: $taxonomyId) {
+    id
+    name
+    plural
+  }
+}

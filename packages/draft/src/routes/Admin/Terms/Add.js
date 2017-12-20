@@ -5,49 +5,40 @@ import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
-import TaxonomyQuery from './TaxonomyQuery.graphql';
 
 /* eslint-disable react/prop-types */
 
 @compose(
   graphql(
     gql`
-      query TaxonomyAdminQuery($id: ObjID) {
+      query TermTaxonomyQuery($id: ObjID) {
         taxonomy(id: $id) {
           id
           name
           plural
-          slug
-          description
         }
       }
     `,
     {
       options: ({ match: { params } }) => ({
-        variables: { id: params.id },
+        variables: { id: params.taxonomyId },
       }),
     }
   ),
   graphql(
     gql`
-      mutation UpdateTaxonomyMutation($id: ObjID!, $input: UpdateTaxonomyInput!) {
-        updateTaxonomy(id: $id, input: $input) {
+      mutation CreateTermMutation($input: CreateTermInput!) {
+        createTerm(input: $input) {
           id
-          name
-          plural
-          slug
-          description
+          taxonomy {
+            id
+          }
         }
       }
-    `,
-    {
-      options: {
-        refetchQueries: [{ query: TaxonomyQuery }],
-      },
-    }
+    `
   )
 )
-export default class EditTaxonomy extends Component {
+export default class AddTerm extends Component {
   state = {
     message: null,
   };
@@ -55,15 +46,22 @@ export default class EditTaxonomy extends Component {
   onSubmit = (e, updates) => {
     e.preventDefault();
 
-    const { taxonomy } = this.props.data;
+    const taxonomyId = this.props.data.taxonomy.id;
+
     this.props
       .mutate({
         variables: {
-          id: taxonomy.id,
-          input: updates,
+          input: {
+            ...updates,
+            taxonomy: taxonomyId,
+          },
         },
       })
-      .then(() => this.setState({ message: 'updated' }))
+      .then(({ data: { createTerm } }) => {
+        this.props.history.push({
+          pathname: `/terms/${createTerm.taxonomy.id}/${createTerm.id}`,
+        });
+      })
       .catch(() => this.setState({ message: 'error' }));
   };
 
@@ -76,8 +74,6 @@ export default class EditTaxonomy extends Component {
 
     const taxonomyFields = [
       { label: 'Name', prop: 'name', editable: true },
-      { label: 'Slug', prop: 'slug' },
-      { label: 'Plural Name', prop: 'plural', editable: true },
       {
         label: 'Description',
         prop: 'description',
@@ -88,13 +84,12 @@ export default class EditTaxonomy extends Component {
 
     return (
       <Fragment>
-        <Heading>Edit Taxonomy</Heading>
-        {this.state.message === 'updated' && <Message text="Taxonomy updated." />}
+        <Heading>{`Add ${taxonomy.name}`}</Heading>
+        {this.state.message === 'error' && <Message text={`Error adding ${taxonomy.name}.`} />}
         <FormWrap>
           <Form
             fields={taxonomyFields}
-            data={taxonomy}
-            buttonLabel="Update Taxonomy"
+            buttonLabel={`Add ${taxonomy.name}`}
             onSubmit={this.onSubmit}
           />
         </FormWrap>

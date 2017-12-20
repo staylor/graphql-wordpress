@@ -5,20 +5,23 @@ import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
-import TaxonomyQuery from './TaxonomyQuery.graphql';
 
 /* eslint-disable react/prop-types */
 
 @compose(
   graphql(
     gql`
-      query TaxonomyAdminQuery($id: ObjID) {
-        taxonomy(id: $id) {
+      query TermAdminQuery($id: ObjID) {
+        term(id: $id) {
           id
           name
-          plural
           slug
           description
+          taxonomy {
+            id
+            name
+            plural
+          }
         }
       }
     `,
@@ -30,24 +33,23 @@ import TaxonomyQuery from './TaxonomyQuery.graphql';
   ),
   graphql(
     gql`
-      mutation UpdateTaxonomyMutation($id: ObjID!, $input: UpdateTaxonomyInput!) {
-        updateTaxonomy(id: $id, input: $input) {
+      mutation UpdateTermMutation($id: ObjID!, $input: UpdateTermInput!) {
+        updateTerm(id: $id, input: $input) {
           id
           name
-          plural
           slug
           description
+          taxonomy {
+            id
+            name
+            plural
+          }
         }
       }
-    `,
-    {
-      options: {
-        refetchQueries: [{ query: TaxonomyQuery }],
-      },
-    }
+    `
   )
 )
-export default class EditTaxonomy extends Component {
+export default class EditTerm extends Component {
   state = {
     message: null,
   };
@@ -55,11 +57,11 @@ export default class EditTaxonomy extends Component {
   onSubmit = (e, updates) => {
     e.preventDefault();
 
-    const { taxonomy } = this.props.data;
+    const { term } = this.props.data;
     this.props
       .mutate({
         variables: {
-          id: taxonomy.id,
+          id: term.id,
           input: updates,
         },
       })
@@ -68,16 +70,15 @@ export default class EditTaxonomy extends Component {
   };
 
   render() {
-    const { data: { loading, taxonomy } } = this.props;
+    const { data: { loading, term } } = this.props;
 
-    if (loading && !taxonomy) {
+    if (loading && !term) {
       return <Loading />;
     }
 
-    const taxonomyFields = [
+    const termFields = [
       { label: 'Name', prop: 'name', editable: true },
       { label: 'Slug', prop: 'slug' },
-      { label: 'Plural Name', prop: 'plural', editable: true },
       {
         label: 'Description',
         prop: 'description',
@@ -88,13 +89,13 @@ export default class EditTaxonomy extends Component {
 
     return (
       <Fragment>
-        <Heading>Edit Taxonomy</Heading>
-        {this.state.message === 'updated' && <Message text="Taxonomy updated." />}
+        <Heading>{`Edit ${term.taxonomy.name}`}</Heading>
+        {this.state.message === 'updated' && <Message text={`${term.taxonomy.name} updated.`} />}
         <FormWrap>
           <Form
-            fields={taxonomyFields}
-            data={taxonomy}
-            buttonLabel="Update Taxonomy"
+            fields={termFields}
+            data={term}
+            buttonLabel={`Update ${term.taxonomy.name}`}
             onSubmit={this.onSubmit}
           />
         </FormWrap>

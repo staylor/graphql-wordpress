@@ -26,6 +26,16 @@ import routeConfig from './routeConfig';
           language
         }
       }
+      taxonomies {
+        edges {
+          node {
+            id
+            name
+            plural
+            slug
+          }
+        }
+      }
     }
   `,
   {
@@ -54,11 +64,15 @@ export default class Admin extends Component {
   };
 
   render() {
-    const { data: { loading, settings } } = this.props;
+    const { data: { loading, settings, taxonomies } } = this.props;
 
     if (loading && !settings) {
       return <Loading />;
     }
+
+    const routes = routeConfig({
+      taxonomies: taxonomies.edges.map(({ node }) => node),
+    });
 
     return (
       <ThemeProvider theme={theme}>
@@ -71,7 +85,7 @@ export default class Admin extends Component {
             <NavMenu
               collapsed={this.state.collapsed}
               onCollapse={this.onCollapse}
-              routeConfig={routeConfig}
+              routeConfig={routes}
             />
             <Content
               className={cn({
@@ -79,7 +93,7 @@ export default class Admin extends Component {
               })}
             >
               <Switch>
-                {routeConfig.map(section =>
+                {routes.map(section =>
                   section.map(route => (
                     <Route
                       key={route.label}

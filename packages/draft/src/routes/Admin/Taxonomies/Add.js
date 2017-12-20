@@ -4,20 +4,28 @@ import gql from 'graphql-tag';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
+import TaxonomyQuery from './TaxonomyQuery.graphql';
 
 /* eslint-disable react/prop-types */
 
 @compose(
-  graphql(gql`
-    mutation CreateTaxonomyMutation($input: CreateTaxonomyInput!) {
-      createTaxonomy(input: $input) {
-        id
-        name
-        plural
-        description
+  graphql(
+    gql`
+      mutation CreateTaxonomyMutation($input: CreateTaxonomyInput!) {
+        createTaxonomy(input: $input) {
+          id
+          name
+          plural
+          description
+        }
       }
+    `,
+    {
+      options: {
+        refetchQueries: [{ query: TaxonomyQuery }],
+      },
     }
-  `)
+  )
 )
 export default class AddTaxonomy extends Component {
   state = {
