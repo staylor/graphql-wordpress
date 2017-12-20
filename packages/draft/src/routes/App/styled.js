@@ -9,21 +9,22 @@ export const PageWrapper = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: ${p => p.theme.padding}px 0;
+  padding: 0 0 ${p => p.theme.padding}px;
 `;
 
 export const Title = styled.h1`
   display: block;
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 54px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  line-height: 54px;
   margin: 0;
 
   a {
     color: ${p => p.theme.colors.black};
     text-decoration: none;
+  }
+
+  img {
+    display: block;
+    height: 54px;
+    width: auto;
   }
 `;
 
@@ -36,7 +37,7 @@ export const Content = styled.div`
 
 export const Primary = styled.section`
   ${responsive.desktop} {
-    flex: 4;
+    flex: 3;
     margin-right: ${p => p.theme.padding}px;
   }
 `;

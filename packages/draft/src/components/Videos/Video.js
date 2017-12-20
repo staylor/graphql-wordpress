@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import { VideoLink, Placeholder, Title, iframeClass, thumb640Class, thumb480Class } from './styled';
@@ -49,7 +49,7 @@ export default class Video extends Component {
     const thumb = findThumb(video.thumbnails);
 
     return (
-      <Fragment>
+      <article>
         <Title>{link ? <Link to={`/video/${video.slug}`}>{video.title}</Link> : video.title}</Title>
         <VideoLink
           to={`/video/${video.slug}`}
@@ -63,7 +63,7 @@ export default class Video extends Component {
             <figcaption>{video.title}</figcaption>
           </Placeholder>
         </VideoLink>
-      </Fragment>
+      </article>
     );
   }
 }

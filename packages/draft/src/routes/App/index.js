@@ -6,10 +6,12 @@ import Helmet from 'react-helmet';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import 'styles/inject';
+import logo from 'public/logo.png';
 import Home from './Home';
 import Videos from './Videos';
 import Video from './Video';
 import NotFound from './NotFound';
+import Sidebar from './Sidebar';
 import {
   PageWrapper,
   Header,
@@ -61,7 +63,9 @@ export default class App extends Component {
           </Helmet>
           <Header>
             <Title>
-              <Link to="/">{settings.siteTitle}</Link>
+              <Link to="/">
+                <img src={logo} alt={settings.siteTitle} />
+              </Link>
             </Title>
           </Header>
           <Content>
@@ -76,7 +80,9 @@ export default class App extends Component {
                 </Switch>
               </PrimaryWrapper>
             </Primary>
-            <Secondary>SECONDARY</Secondary>
+            <Secondary>
+              <Sidebar />
+            </Secondary>
           </Content>
           <Footer dangerouslySetInnerHTML={{ __html: settings.copyrightText }} />
         </PageWrapper>

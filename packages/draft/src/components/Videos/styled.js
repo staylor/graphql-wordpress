@@ -4,11 +4,8 @@ import { Link } from 'react-router-dom';
 import theme from 'styles/theme';
 
 export const Title = styled.h1`
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0.75px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 1.4;
   margin: 0 0 ${p => p.theme.padding}px;
 
   & a {
