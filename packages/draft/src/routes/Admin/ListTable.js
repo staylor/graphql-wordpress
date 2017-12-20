@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import Select from 'components/Form/Select';
 import Checkbox from 'components/Form/Checkbox';
 import { Table, StripedRow, CellHeading, Cell, CheckboxCell } from 'styles/utils';
 import { Filters, Pagination } from './styled';
@@ -10,11 +11,51 @@ import { Filters, Pagination } from './styled';
 const PER_PAGE = 20;
 
 export default class ListTable extends Component {
+  state = {
+    checked: [],
+    all: false,
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
     }
   }
+
+  bulkAction = value => {
+    if (value === 'deleteAll' && this.state.checked.length) {
+      this.props.mutate({
+        variables: {
+          ids: this.state.checked,
+        },
+      });
+    }
+  };
+
+  toggleAll = checked => {
+    let ids;
+    if (checked) {
+      ids = this.props.data.edges.map(({ node }) => node.id);
+    } else {
+      ids = [];
+    }
+    this.setState({ checked: ids, all: checked });
+  };
+
+  toggleCheck = (checked, id = null) => {
+    if (!id) {
+      return;
+    }
+    const ids = [...this.state.checked];
+    let { all } = this.state;
+    if (checked) {
+      ids.push(id);
+    } else {
+      all = false;
+      ids.splice(ids.indexOf(id), 1);
+    }
+    this.setState({ checked: ids, all });
+  };
 
   render() {
     const { location, match: { params }, data, path, columns, filters } = this.props;
@@ -30,7 +71,7 @@ export default class ListTable extends Component {
     const headers = (
       <tr>
         <CheckboxCell>
-          <Checkbox name="all" />
+          <Checkbox checked={this.state.all} onChange={this.toggleAll} />
         </CheckboxCell>
         {columns.map((column, i) => (
           <CellHeading className={cn(column.className)} key={i.toString(16)}>
@@ -73,6 +114,14 @@ export default class ListTable extends Component {
     return (
       <Fragment>
         <Filters>
+          {this.props.mutate && (
+            <Select
+              key="bulk"
+              placeholder="Bulk Actions"
+              choices={[{ label: 'Delete', value: 'deleteAll' }]}
+              onChange={this.bulkAction}
+            />
+          )}
           {filters}
           {paginationMatrix}
         </Filters>
@@ -82,7 +131,11 @@ export default class ListTable extends Component {
             {data.edges.map(({ node }) => (
               <StripedRow key={node.id}>
                 <CheckboxCell>
-                  <Checkbox name="deleteme" />
+                  <Checkbox
+                    checked={this.state.checked.includes(node.id)}
+                    id={node.id}
+                    onChange={this.toggleCheck}
+                  />
                 </CheckboxCell>
                 {columns.map((column, i) => (
                   <Cell key={i.toString(16)} className={cn(column.className)}>

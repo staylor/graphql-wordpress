@@ -44,5 +44,5 @@ extend type Query {
 extend type Mutation {
   createTaxonomy(input: CreateTaxonomyInput!): Taxonomy
   updateTaxonomy(id: ObjID!, input: UpdateTaxonomyInput!): Taxonomy
-  removeTaxonomy(id: ObjID!): Boolean
+  removeTaxonomy(ids: [ObjID]!): Boolean
 }

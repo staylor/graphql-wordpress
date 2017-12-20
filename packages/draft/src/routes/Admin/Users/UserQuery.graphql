@@ -1,0 +1,14 @@
+query TaxonomyQuery {
+  users {
+    count
+    edges {
+      node {
+        id
+        name
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}

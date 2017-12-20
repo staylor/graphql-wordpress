@@ -33,8 +33,8 @@ const resolvers = {
       return Term.findOneById(id);
     },
 
-    removeTerm(root, { id }, { Term }) {
-      return Term.removeById(id);
+    removeTerm(root, { ids }, { Term }) {
+      return Promise.all(ids.map(id => Term.removeById(id)));
     },
   },
 };

@@ -44,5 +44,5 @@ extend type Query {
 extend type Mutation {
   createPost(input: CreatePostInput!): Post
   updatePost(id: ObjID!, input: UpdatePostInput!): Post
-  removePost(id: ObjID!): Boolean
+  removePost(ids: [ObjID]!): Boolean
 }

@@ -29,8 +29,8 @@ const resolvers = {
       return Taxonomy.findOneById(id);
     },
 
-    removeTaxonomy(root, { id }, { Taxonomy }) {
-      return Taxonomy.removeById(id);
+    removeTaxonomy(root, { ids }, { Taxonomy }) {
+      return Promise.all(ids.map(id => Taxonomy.removeById(id)));
     },
   },
 };

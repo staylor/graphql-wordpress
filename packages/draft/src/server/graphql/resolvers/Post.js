@@ -29,8 +29,8 @@ const resolvers = {
       return Post.findOneById(id);
     },
 
-    removePost(root, { id }, { Post }) {
-      return Post.removeById(id);
+    removePost(root, { ids }, { Post }) {
+      return Promise.all(ids.map(id => Post.removeById(id)));
     },
   },
 };

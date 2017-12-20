@@ -121,5 +121,5 @@ input UpdateMediaUploadInput {
 
 extend type Mutation {
   updateMediaUpload(id: ObjID!, input: UpdateMediaUploadInput!): MediaUpload
-  removeMediaUpload(id: ObjID!): Boolean
+  removeMediaUpload(ids: [ObjID]!): Boolean
 }

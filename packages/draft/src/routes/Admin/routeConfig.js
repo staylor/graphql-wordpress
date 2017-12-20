@@ -3,6 +3,7 @@ import MediaRouter from './Media';
 import VideoRouter from './Videos';
 import TaxonomyRouter from './Taxonomies';
 import Dashboard from './Dashboard';
+import UserRouter from './Users';
 import SettingsRouter from './Settings';
 import NotFound from './NotFound';
 
@@ -48,6 +49,8 @@ export default [
         },
       ],
     },
+  ],
+  [
     {
       path: '/video',
       label: 'Videos',
@@ -60,6 +63,8 @@ export default [
       dashicon: 'calendar',
       component: NotFound,
     },
+  ],
+  [
     {
       path: '/taxonomy',
       label: 'Taxonomies',
@@ -78,6 +83,22 @@ export default [
     },
   ],
   [
+    {
+      path: '/user',
+      label: 'Users',
+      dashicon: 'admin-users',
+      component: UserRouter,
+      routes: [
+        {
+          path: '/user',
+          label: 'All Users',
+        },
+        {
+          path: '/user/add',
+          label: 'Add User',
+        },
+      ],
+    },
     {
       path: '/settings',
       label: 'Settings',

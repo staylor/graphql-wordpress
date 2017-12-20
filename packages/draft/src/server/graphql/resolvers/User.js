@@ -31,8 +31,8 @@ const resolvers = {
       return User.findOneById(id);
     },
 
-    removeUser(root, { id }, { User }) {
-      return User.removeById(id);
+    removeUser(root, { ids }, { User }) {
+      return Promise.all(ids.map(id => User.removeById(id)));
     },
   },
 };

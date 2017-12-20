@@ -19,7 +19,7 @@ const columns = [
 
         mutate({
           variables: {
-            id: taxonomy.id,
+            ids: [taxonomy.id],
           },
         });
       };
@@ -61,8 +61,8 @@ const columns = [
   }),
   graphql(
     gql`
-      mutation DeleteTaxonomyMutation($id: ObjID!) {
-        removeTaxonomy(id: $id)
+      mutation DeleteTaxonomyMutation($ids: [ObjID]!) {
+        removeTaxonomy(ids: $ids)
       }
     `,
     { options: { refetchQueries: [{ query: TaxonomyQuery }] } }

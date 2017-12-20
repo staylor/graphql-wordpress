@@ -1,8 +1,4 @@
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import fetch from 'node-fetch';
-import fragmentMatcher from 'tools/fragmentMatcher';
+import apolloClient from 'apollo/client';
 
 export default (req, res, next) => {
   const port = parseInt(KYT.SERVER_PORT, 10);
@@ -12,17 +8,7 @@ export default (req, res, next) => {
     headers.Authorization = `Bearer ${req.cookies.draftAuthToken}`;
   }
 
-  const client = new ApolloClient({
-    ssrMode: true,
-    link: new HttpLink({
-      uri,
-      fetch,
-      headers,
-    }),
-    cache: new InMemoryCache({ fragmentMatcher }),
-  });
-
-  res.locals.client = client;
+  res.locals.client = apolloClient(uri, headers, { ssrMode: true });
 
   next();
 };

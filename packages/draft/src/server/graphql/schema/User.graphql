@@ -38,12 +38,11 @@ extend type Query {
     before: String
     search: String
   ): UserConnection
-  user(id: String): User
+  user(id: ObjID!): User
 }
 
 extend type Mutation {
   createUser(input: CreateUserInput!): User
   updateUser(id: ObjID!, input: UpdateUserInput!): User
-  removeUser(id: ObjID!): Boolean
+  removeUser(ids: [ObjID]!): Boolean
 }
-

@@ -59,8 +59,8 @@ const resolvers = {
       return Media.findOneById(id);
     },
 
-    removeMediaUpload(root, { id }, { Media }) {
-      return Media.removeById(id);
+    removeMediaUpload(root, { ids }, { Media }) {
+      return Promise.all(ids.map(id => Media.removeById(id)));
     },
   },
 };

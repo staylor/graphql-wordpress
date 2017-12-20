@@ -5,7 +5,12 @@ import { FieldCheckbox } from 'components/Form/styled';
 
 export default class Checkbox extends Component {
   onChange = e => {
-    this.setState({ checked: e.target.checked });
+    const { checked } = e.target;
+    if (this.props.onChange) {
+      this.props.onChange(checked, this.props.id || null);
+    } else {
+      this.setState({ checked });
+    }
   };
 
   constructor(props, context) {
@@ -16,10 +21,19 @@ export default class Checkbox extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!Object.keys(nextProps).includes('checked')) {
+      return;
+    }
+    this.setState({ checked: nextProps.checked });
+  }
+
   render() {
+    const { id, ...rest } = this.props;
+
     return (
       <FieldCheckbox
-        {...this.props}
+        {...rest}
         type="checkbox"
         onChange={this.onChange}
         checked={this.state.checked}

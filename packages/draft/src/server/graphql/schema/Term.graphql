@@ -46,6 +46,6 @@ extend type Query {
 
 extend type Mutation {
   createTerm(input: CreateTermInput!): Term
-  updateTerm(id: String!, input: UpdateTermInput!): Term
-  removeTerm(id: String!): Boolean
+  updateTerm(id: ObjID!, input: UpdateTermInput!): Term
+  removeTerm(ids: [ObjID]!): Boolean
 }
