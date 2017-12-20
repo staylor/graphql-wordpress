@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import { URL } from 'url';
 import fetch from 'node-fetch';
-import slugify from '../utils/slugify';
+import { slugify } from 'models/utils';
 
 /* eslint-disable no-console */
 

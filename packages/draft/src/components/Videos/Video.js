@@ -8,18 +8,17 @@ import { VideoLink, Placeholder, Title, iframeClass, thumb640Class, thumb480Clas
 const maxWidth = 640;
 
 const findThumb = thumbs => {
-  let thumb = thumbs.find(t => t.width === 1280);
-  if (!thumb) {
+  let thumb = thumbs.find(t => t.width === 480);
+  if (thumb) {
+    thumb = Object.assign({}, thumb);
+    thumb.className = thumb480Class;
+  } else {
     thumb = thumbs.find(t => t.width === 640);
     if (thumb) {
       thumb = Object.assign({}, thumb);
       thumb.className = thumb640Class;
     } else {
-      thumb = thumbs.find(t => t.width === 480);
-      if (thumb) {
-        thumb = Object.assign({}, thumb);
-        thumb.className = thumb480Class;
-      }
+      thumb = thumbs.find(t => t.width === 320);
     }
   }
   return thumb;
