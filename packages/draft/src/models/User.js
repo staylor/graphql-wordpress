@@ -34,7 +34,7 @@ export default class User extends Model {
       throw new Error('Email already exists.');
     }
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
-    const docToInsert = Object.assign({}, fields, {
+    const docToInsert = Object.assign({ roles: [] }, fields, {
       hash,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -44,8 +44,9 @@ export default class User extends Model {
   }
 
   async updateById(id, { password = null, ...fields }) {
+    const user = await this.findOneById(id);
     const docToUpdate = Object.assign({}, fields);
-    if (fields.email) {
+    if (fields.email !== user.email) {
       const exists = await this.count({ email: fields.email });
       if (exists) {
         throw new Error('Email already exists.');

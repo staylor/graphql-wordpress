@@ -17,6 +17,7 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
           name
           email
           bio
+          roles
         }
       }
     `,
@@ -33,6 +34,7 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
         name
         email
         bio
+        roles
       }
     }
   `)
@@ -71,6 +73,15 @@ export default class EditUser extends Component {
         label: 'Bio',
         prop: 'bio',
         type: 'textarea',
+        editable: true,
+      },
+      {
+        label: 'Roles',
+        prop: 'roles',
+        type: 'select',
+        placeholder: 'Assign Roles',
+        choices: [{ label: 'Admin', value: 'admin' }],
+        multiple: true,
         editable: true,
       },
     ];

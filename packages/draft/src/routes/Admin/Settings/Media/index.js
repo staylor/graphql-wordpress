@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
-import Form from 'routes/Admin/Form';
 import { FormWrap } from 'routes/Admin/styled';
+import Form from 'routes/Admin/Settings/Form';
 import Crops from './Crops';
 import MediaSettingsQuery from './MediaSettingsQuery.graphql';
 import MediaSettingsMutation from './MediaSettingsMutation.graphql';

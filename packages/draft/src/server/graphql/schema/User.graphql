@@ -3,6 +3,7 @@ type User {
   name: String
   email: String!
   bio: String
+  roles: [String]
 }
 
 type UserEdge {
@@ -21,6 +22,7 @@ input CreateUserInput {
   email: String
   bio: String
   password: String
+  roles: [String]
 }
 
 input UpdateUserInput {
@@ -28,6 +30,7 @@ input UpdateUserInput {
   email: String
   bio: String
   password: String
+  roles: [String]
 }
 
 extend type Query {

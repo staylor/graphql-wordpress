@@ -11,9 +11,7 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
   graphql(gql`
     mutation CreateUserMutation($input: CreateUserInput!) {
       createUser(input: $input) {
-        name
-        email
-        bio
+        id
       }
     }
   `)
@@ -48,6 +46,15 @@ export default class AddUser extends Component {
         label: 'bio',
         prop: 'bio',
         type: 'textarea',
+        editable: true,
+      },
+      {
+        label: 'Roles',
+        prop: 'roles',
+        type: 'select',
+        placeholder: 'Assign Roles',
+        choices: [{ label: 'Admin', value: 'admin' }],
+        multiple: true,
         editable: true,
       },
     ];
