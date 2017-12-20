@@ -1,18 +1,15 @@
 import Model from './Model';
 import { getUniqueSlug } from './utils';
 
-export default class Tag extends Model {
+export default class Taxonomy extends Model {
   constructor(context) {
     super(context);
 
-    this.collection = context.db.collection('tag');
+    this.collection = context.db.collection('taxonomy');
   }
 
-  all({ limit = 10, offset = 0, taxonomy = null, search = null }) {
+  all({ limit = 10, offset = 0, search = null }) {
     const criteria = {};
-    if (taxonomy) {
-      criteria.taxonomy = taxonomy;
-    }
     if (search) {
       criteria.$text = { $search: search };
     }
@@ -28,9 +25,7 @@ export default class Tag extends Model {
   async insert(doc) {
     const slug = await getUniqueSlug(this.collection, doc.name);
     const docToInsert = Object.assign({}, doc, {
-      _id: slug,
       slug,
-      taxonomy: [],
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });

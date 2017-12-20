@@ -10,7 +10,6 @@ type Video {
   title: String
   thumbnails: [VideoThumbnail]
   position: Int
-  tags: [Tag]
   createdAt: Float!
   updatedAt: Float!
 }
@@ -27,7 +26,6 @@ type VideoEdge {
 }
 
 type VideoConnection {
-  tags: [Tag]
   years: [Int]
   count: Int
   edges: [VideoEdge]
@@ -44,7 +42,6 @@ input CreateVideoInput {
   publishedISO: String
   title: String!
   position: Int
-  tags: [String]
 }
 
 input UpdateVideoInput {
@@ -57,7 +54,6 @@ input UpdateVideoInput {
   publishedISO: String
   title: String
   position: Int
-  tags: [String]
 }
 
 extend type Query {
@@ -68,7 +64,6 @@ extend type Query {
     before: String
     year: Int
     search: String
-    tags: String
   ): VideoConnection
   video(id: ObjID, slug: String): Video
 }

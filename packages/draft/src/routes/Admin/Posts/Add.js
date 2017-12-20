@@ -27,10 +27,6 @@ const postFields = [
       contentState {
         ...Editor_contentState
       }
-      tags {
-        name
-        slug
-      }
     }
   }
   ${Editor.fragments.contentState}

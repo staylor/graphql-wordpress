@@ -44,10 +44,6 @@ const postFields = settings => [
           contentState {
             ...Editor_contentState
           }
-          tags {
-            name
-            slug
-          }
         }
       }
       ${Editor.fragments.contentState}
@@ -66,10 +62,6 @@ const postFields = settings => [
         slug
         contentState {
           ...Editor_contentState
-        }
-        tags {
-          name
-          slug
         }
       }
     }

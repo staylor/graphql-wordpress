@@ -5,16 +5,6 @@ const resolvers = {
     id(post) {
       return post._id;
     },
-    tags(post, args, { Post }) {
-      return Post.findTags(post.tags);
-    },
-  },
-  PostConnection: {
-    async tags(connection, args, { Post }) {
-      const tags = await Post.collection.distinct('tags');
-      tags.sort();
-      return Post.findTags(tags);
-    },
   },
   Query: {
     async posts(root, args, { Post }) {

@@ -103,7 +103,6 @@ function updateVideo({ contentDetails, snippet }, playlistId) {
         $set: data,
         $setOnInsert: {
           createdAt: Date.now(),
-          tags: [],
           slug: slugify(snippet.title),
         },
       },

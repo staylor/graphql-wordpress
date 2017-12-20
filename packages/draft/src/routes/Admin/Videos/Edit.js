@@ -22,13 +22,6 @@ const videoFields = [
       </a>
     ),
   },
-  {
-    label: 'Tags',
-    prop: 'tags',
-    type: 'textarea',
-    editable: true,
-    render: video => video.tags.map(tag => tag.name).join(', '),
-  },
 ];
 
 const frag = gql`
@@ -44,9 +37,6 @@ const frag = gql`
     }
     year
     dataPlaylistIds
-    tags {
-      name
-    }
   }
 `;
 
@@ -81,10 +71,6 @@ export default class VideoRoute extends Component {
   };
 
   onSubmit = (e, updates) => {
-    if (updates.tags) {
-      updates.tags = updates.tags.split(',').map(str => str.trim());
-    }
-
     const { video } = this.props.data;
     this.props
       .mutate({

@@ -4,7 +4,6 @@ type Post {
   slug: String
   content: String
   contentState: ContentState
-  tags: [Tag]
   createdAt: Float!
   updatedAt: Float!
 }
@@ -15,7 +14,6 @@ type PostEdge {
 }
 
 type PostConnection {
-  tags: [Tag]
   count: Int
   edges: [PostEdge]
   pageInfo: PageInfo
@@ -24,13 +22,11 @@ type PostConnection {
 input CreatePostInput {
   title: String
   contentState: ContentStateInput
-  tags: [String]
 }
 
 input UpdatePostInput {
   title: String
   contentState: ContentStateInput
-  tags: [String]
 }
 
 extend type Query {
@@ -41,7 +37,6 @@ extend type Query {
     before: String
     year: Int
     search: String
-    tags: String
   ): PostConnection
   post(id: ObjID, slug: String): Post
 }

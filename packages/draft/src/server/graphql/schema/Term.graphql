@@ -1,0 +1,51 @@
+type Term {
+  id: ObjID!
+  name: String
+  slug: String
+  description: String
+  taxonomy: Taxonomy
+}
+
+type TermEdge {
+  node: Term
+  cursor: String
+}
+
+type TermConnection {
+  count: Int
+  edges: [TermEdge]
+  pageInfo: PageInfo
+}
+
+input CreateTermInput {
+  name: String!
+  slug: String
+  description: String
+  taxonomy: ObjID!
+}
+
+input UpdateTermInput {
+  name: String
+  slug: String
+  description: String
+  taxonomy: ObjID
+}
+
+extend type Query {
+  terms(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    taxonomyId: ObjID!
+    taxonomy: String
+    search: String
+  ): TermConnection
+  term(id: ObjID, slug: String, taxonomy: String): Term
+}
+
+extend type Mutation {
+  createTerm(input: CreateTermInput!): Term
+  updateTerm(id: String!, input: UpdateTermInput!): Term
+  removeTerm(id: String!): Boolean
+}

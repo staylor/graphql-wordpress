@@ -11,17 +11,13 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
 @compose(
   graphql(
     gql`
-      query TagAdminQuery($id: String) {
-        taxonomy: __type(name: "TAXONOMY") {
-          enumValues {
-            name
-          }
-        }
-        tag(id: $id) {
+      query TaxonomyAdminQuery($id: ObjID) {
+        taxonomy(id: $id) {
           id
           name
+          plural
           slug
-          taxonomy
+          description
         }
       }
     `,
@@ -32,17 +28,18 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
     }
   ),
   graphql(gql`
-    mutation UpdateTagMutation($id: String!, $input: UpdateTagInput!) {
-      updateTag(id: $id, input: $input) {
+    mutation UpdateTaxonomyMutation($id: ObjID!, $input: UpdateTaxonomyInput!) {
+      updateTaxonomy(id: $id, input: $input) {
         id
         name
+        plural
         slug
-        taxonomy
+        description
       }
     }
   `)
 )
-export default class EditTag extends Component {
+export default class EditTaxonomy extends Component {
   state = {
     message: null,
   };
@@ -50,11 +47,11 @@ export default class EditTag extends Component {
   onSubmit = (e, updates) => {
     e.preventDefault();
 
-    const { tag } = this.props.data;
+    const { taxonomy } = this.props.data;
     this.props
       .mutate({
         variables: {
-          id: tag.id,
+          id: taxonomy.id,
           input: updates,
         },
       })
@@ -63,31 +60,35 @@ export default class EditTag extends Component {
   };
 
   render() {
-    const { data: { loading, tag, taxonomy } } = this.props;
+    const { data: { loading, taxonomy } } = this.props;
 
-    if (loading && !tag) {
+    if (loading && !taxonomy) {
       return <Loading />;
     }
 
-    const tagFields = [
+    const taxonomyFields = [
       { label: 'Name', prop: 'name', editable: true },
       { label: 'Slug', prop: 'slug' },
+      { label: 'Plural Name', prop: 'plural', editable: true },
       {
-        label: 'Taxonomy',
-        prop: 'taxonomy',
+        label: 'Description',
+        prop: 'description',
+        type: 'textarea',
         editable: true,
-        multiple: true,
-        type: 'select',
-        choices: taxonomy.enumValues.map(v => v.name),
       },
     ];
 
     return (
       <Fragment>
-        <Heading>Edit Tag</Heading>
-        {this.state.message === 'updated' && <Message text="Tag updated." />}
+        <Heading>Edit Taxonomy</Heading>
+        {this.state.message === 'updated' && <Message text="Taxonomy updated." />}
         <FormWrap>
-          <Form fields={tagFields} data={tag} buttonLabel="Update Tag" onSubmit={this.onSubmit} />
+          <Form
+            fields={taxonomyFields}
+            data={taxonomy}
+            buttonLabel="Update Taxonomy"
+            onSubmit={this.onSubmit}
+          />
         </FormWrap>
       </Fragment>
     );

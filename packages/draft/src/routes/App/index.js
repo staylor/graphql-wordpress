@@ -74,7 +74,6 @@ export default class App extends Component {
                 <Switch>
                   <Route exact path="/videos/:year(\d{4})?" component={Videos} />
                   <Route path="/video/:slug" component={Video} />
-                  <Route path="/tag/:tag" component={Videos} />
                   <Route exact path="/" component={Home} />
                   <Route path="*" component={NotFound} />
                 </Switch>

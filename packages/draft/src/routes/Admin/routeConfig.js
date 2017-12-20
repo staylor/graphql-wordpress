@@ -1,7 +1,7 @@
 import PostRouter from './Posts';
 import MediaRouter from './Media';
 import VideoRouter from './Videos';
-import TagRouter from './Tags';
+import TaxonomyRouter from './Taxonomies';
 import Dashboard from './Dashboard';
 import SettingsRouter from './Settings';
 import NotFound from './NotFound';
@@ -61,17 +61,17 @@ export default [
       component: NotFound,
     },
     {
-      path: '/tag',
-      label: 'Tags',
+      path: '/taxonomy',
+      label: 'Taxonomies',
       dashicon: 'tag',
-      component: TagRouter,
+      component: TaxonomyRouter,
       routes: [
         {
-          path: '/tag',
-          label: 'All Tags',
+          path: '/taxonomy',
+          label: 'All Taxonomies',
         },
         {
-          path: '/tag/add',
+          path: '/taxonomy/add',
           label: 'Add New',
         },
       ],

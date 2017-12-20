@@ -11,6 +11,12 @@ export default class Model {
     return this.loader.load(id);
   }
 
+  findOneBySlug(slug) {
+    return this.collection.findOne({
+      slug,
+    });
+  }
+
   count(args = {}) {
     const criteria = Object.assign({}, args);
     delete criteria.search;

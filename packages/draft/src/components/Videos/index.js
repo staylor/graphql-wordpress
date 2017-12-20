@@ -9,8 +9,8 @@ import Video from './Video';
 
 @graphql(
   gql`
-    query VideosQuery($first: Int, $after: String, $year: Int, $tags: String) {
-      videos(first: $first, after: $after, year: $year, tags: $tags) {
+    query VideosQuery($first: Int, $after: String, $year: Int) {
+      videos(first: $first, after: $after, year: $year) {
         edges {
           node {
             id
@@ -30,9 +30,6 @@ import Video from './Video';
       const variables = { first: 10 };
       if (params.year) {
         variables.year = parseInt(params.year, 10);
-      }
-      if (params.tag) {
-        variables.tags = params.tag;
       }
       return { variables };
     },

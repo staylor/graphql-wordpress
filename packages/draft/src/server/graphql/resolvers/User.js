@@ -31,7 +31,7 @@ const resolvers = {
       return User.findOneById(id);
     },
 
-    removeTag(root, { id }, { User }) {
+    removeUser(root, { id }, { User }) {
       return User.removeById(id);
     },
   },

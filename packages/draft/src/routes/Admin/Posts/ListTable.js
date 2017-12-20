@@ -43,10 +43,6 @@ const columns = [
             id
             title
             slug
-            tags {
-              name
-              slug
-            }
           }
         }
         pageInfo {

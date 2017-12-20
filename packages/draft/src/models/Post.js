@@ -1,5 +1,3 @@
-import DataLoader from 'dataloader';
-import findByIds from 'mongo-find-by-ids';
 import Model from './Model';
 import { getUniqueSlug } from './utils';
 
@@ -22,18 +20,6 @@ export default class Post extends Model {
     super(context);
 
     this.collection = context.db.collection('post');
-    this.tags = context.db.collection('tag');
-    this.tagLoader = new DataLoader(ids => findByIds(this.tags, ids));
-  }
-
-  findTags(tags) {
-    return this.tagLoader.loadMany(tags);
-  }
-
-  findOneBySlug(slug) {
-    return this.collection.findOne({
-      slug,
-    });
   }
 
   all({ limit = 10, offset = 0, search = null }) {
@@ -57,9 +43,6 @@ export default class Post extends Model {
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
-    if (!docToInsert.tags) {
-      docToInsert.tags = [];
-    }
     docToInsert.contentState.entityMap = convertEntityData(docToInsert.contentState.entityMap);
     const id = (await this.collection.insertOne(docToInsert)).insertedId;
     return id;

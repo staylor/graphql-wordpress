@@ -36,21 +36,6 @@ const columns = [
     prop: 'slug',
   },
   {
-    label: 'Tags',
-    render: video =>
-      video.tags.map(tag => (
-        <Link
-          key={tag.slug}
-          to={{
-            pathname: `/video`,
-            search: qs.stringify({ tag: tag.slug }),
-          }}
-        >
-          {tag.name}
-        </Link>
-      )),
-  },
-  {
     label: 'Year',
     prop: 'year',
   },
@@ -71,14 +56,10 @@ const columns = [
 
 @graphql(
   gql`
-    query VideosQuery($first: Int, $after: String, $year: Int, $search: String, $tags: String) {
-      videos(first: $first, after: $after, year: $year, search: $search, tags: $tags) {
+    query VideosQuery($first: Int, $after: String, $year: Int, $search: String) {
+      videos(first: $first, after: $after, year: $year, search: $search) {
         count
         years
-        tags {
-          name
-          slug
-        }
         edges {
           node {
             id
@@ -86,10 +67,6 @@ const columns = [
             slug
             publishedAt
             year
-            tags {
-              name
-              slug
-            }
           }
         }
         pageInfo {
@@ -107,9 +84,6 @@ const columns = [
       if (queryParams.search) {
         // $TODO: sanitize this
         variables.search = queryParams.search;
-      }
-      if (queryParams.tag) {
-        variables.tags = queryParams.tag;
       }
       if (queryParams.year) {
         variables.year = parseInt(queryParams.year, 10);
@@ -139,7 +113,6 @@ export default class Videos extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.updateTags = this.updateProp('tag');
     this.updateYear = this.updateProp('year');
     this.updateSearch = debounce(this.updateProp('search'), 600);
   }
@@ -162,18 +135,6 @@ export default class Videos extends Component {
           choices={videos.years}
           onChange={this.updateYear}
         />
-        <Select
-          key="tag"
-          placeholder="Select Tag"
-          value={queryParams.tag}
-          onChange={this.updateTags}
-        >
-          {videos.tags.map(tag => (
-            <option key={tag.slug} value={tag.slug}>
-              {tag.name}
-            </option>
-          ))}
-        </Select>
       </Fragment>
     );
 
