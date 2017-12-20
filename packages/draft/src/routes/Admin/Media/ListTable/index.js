@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import qs from 'query-string';
@@ -12,6 +12,7 @@ import { RowTitle } from 'styles/utils';
 import { Heading, HeaderAdd, RowActions, SearchBox } from 'routes/Admin/styled';
 import ListTable from 'routes/Admin/ListTable';
 import { Thumbnail, thumbnailColumnClass, titleColumnClass } from './styled';
+import UploadsQuery from './UploadsQuery.graphql';
 
 /* eslint-disable react/prop-types */
 
@@ -44,18 +45,34 @@ const columns = [
   {
     className: titleColumnClass,
     label: 'Title',
-    render: media => (
-      <Fragment>
-        <RowTitle>
-          <Link to={`/media/${media.id}`}>{media.title || '(no title)'}</Link>
-          <br />
-          {media.originalName}
-        </RowTitle>
-        <RowActions>
-          <Link to={`/media/${media.id}`}>Edit</Link> | <Link to={`/media/${media.id}`}>Trash</Link>
-        </RowActions>
-      </Fragment>
-    ),
+    render: (media, { mutate, variables }) => {
+      const onClick = e => {
+        e.preventDefault();
+
+        mutate({
+          refetchQueries: [{ query: UploadsQuery, variables }],
+          variables: {
+            id: media.id,
+          },
+        });
+      };
+
+      return (
+        <Fragment>
+          <RowTitle>
+            <Link to={`/media/${media.id}`}>{media.title || '(no title)'}</Link>
+            <br />
+            {media.originalName}
+          </RowTitle>
+          <RowActions>
+            <Link to={`/media/${media.id}`}>Edit</Link> |{' '}
+            <a onClick={onClick} href={`/media/${media.id}`}>
+              Delete
+            </a>
+          </RowActions>
+        </Fragment>
+      );
+    },
   },
   {
     label: 'Type',
@@ -80,48 +97,8 @@ const columns = [
   },
 ];
 
-@graphql(
-  gql`
-    query UploadsQuery(
-      $first: Int
-      $after: String
-      $type: String
-      $mimeType: String
-      $search: String
-    ) {
-      uploads(first: $first, after: $after, type: $type, mimeType: $mimeType, search: $search) {
-        types
-        mimeTypes
-        count
-        edges {
-          node {
-            id
-            type
-            mimeType
-            title
-            originalName
-            destination
-            ... on ImageUpload {
-              crops {
-                fileName
-                width
-              }
-            }
-            ... on AudioUpload {
-              images {
-                fileName
-                width
-              }
-            }
-          }
-        }
-        pageInfo {
-          hasNextPage
-        }
-      }
-    }
-  `,
-  {
+@compose(
+  graphql(UploadsQuery, {
     options: ({ match, location }) => {
       const queryParams = qs.parse(location.search);
       const { params } = match;
@@ -147,7 +124,12 @@ const columns = [
       // The alternative is to specify refetchQueries on all Post mutations.
       return { variables, fetchPolicy: 'cache-and-network' };
     },
-  }
+  }),
+  graphql(gql`
+    mutation DeleteMediaMutation($id: ObjID!) {
+      removeMediaUpload(id: $id)
+    }
+  `)
 )
 export default class Media extends Component {
   updateProp = prop => value => {
@@ -170,7 +152,7 @@ export default class Media extends Component {
   }
 
   render() {
-    const { location, match, data: { loading, uploads } } = this.props;
+    const { location, match, mutate, data: { variables, loading, uploads } } = this.props;
 
     if (loading && !uploads) {
       return <Loading />;
@@ -211,7 +193,11 @@ export default class Media extends Component {
             onChange={this.updateSearch}
           />
         </SearchBox>
-        <ListTable {...{ location, match, columns, filters }} data={uploads} path="/media" />
+        <ListTable
+          {...{ location, match, columns, filters, mutate, variables }}
+          data={uploads}
+          path="/media"
+        />
       </Fragment>
     );
   }
