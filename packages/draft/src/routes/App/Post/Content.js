@@ -2,7 +2,21 @@ import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import redraft from 'redraft';
-import { Paragraph, Title, Heading, SubHeading, BoldHeading, Embed } from './styled';
+import image1 from 'public/images/lorde.jpg';
+import image2 from 'public/images/waxahatchee.jpg';
+import image3 from 'public/images/moses-sumney.jpg';
+import image4 from 'public/images/perfumegenius.jpg';
+import {
+  Paragraph,
+  Title,
+  Heading,
+  SubHeading,
+  BoldHeading,
+  Embed,
+  List,
+  OrderedList,
+  Image,
+} from './styled';
 
 // just a helper to add a <br /> after a block
 const addBreaklines = children => children.map(child => [child, <br />]);
@@ -40,14 +54,14 @@ const renderers = {
     'code-block': (children, { keys }) => <pre key={keys[0]}>{addBreaklines(children)}</pre>,
     // or depth for nested lists
     'unordered-list-item': (children, { depth, keys }) => (
-      <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>
-        {children.map(child => <li>{child}</li>)}
-      </ul>
+      <List key={keys.join('|')} className={`ul-level-${depth}`}>
+        {children.map((child, index) => <li key={keys[index]}>{child}</li>)}
+      </List>
     ),
     'ordered-list-item': (children, { depth, keys }) => (
-      <ol key={keys.join('|')} className={`ol-level-${depth}`}>
+      <OrderedList key={keys.join('|')} className={`ol-level-${depth}`}>
         {children.map((child, index) => <li key={keys[index]}>{child}</li>)}
-      </ol>
+      </OrderedList>
     ),
 
     // If your blocks use meta data it can also be accessed like keys
@@ -76,6 +90,10 @@ const renderers = {
 export default function Content({ contentState }) {
   return (
     <Fragment>
+      <Image key="i1" src={image1} alt="" />
+      <Image key="i2" src={image2} alt="" />
+      <Image key="i3" src={image3} alt="" />
+      <Image key="i4" src={image4} alt="" />
       {redraft(contentState, renderers, {
         cleanup: { after: 'all', types: 'all', trim: true },
       })}

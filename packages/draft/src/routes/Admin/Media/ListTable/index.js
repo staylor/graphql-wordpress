@@ -52,7 +52,7 @@ const columns = [
         mutate({
           refetchQueries: [{ query: UploadsQuery, variables }],
           variables: {
-            id: media.id,
+            ids: [media.id],
           },
         });
       };
@@ -126,8 +126,8 @@ const columns = [
     },
   }),
   graphql(gql`
-    mutation DeleteMediaMutation($id: ObjID!) {
-      removeMediaUpload(id: $id)
+    mutation DeleteMediaMutation($ids: [ObjID]!) {
+      removeMediaUpload(ids: $ids)
     }
   `)
 )
@@ -194,7 +194,15 @@ export default class Media extends Component {
           />
         </SearchBox>
         <ListTable
-          {...{ location, match, columns, filters, mutate, variables }}
+          {...{
+            location,
+            match,
+            columns,
+            filters,
+            mutate,
+            variables,
+            query: UploadsQuery,
+          }}
           data={uploads}
           path="/media"
         />

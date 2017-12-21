@@ -5,10 +5,13 @@ import { FieldInput } from 'components/Form/styled';
 
 export default class Input extends Component {
   onChange = e => {
-    if (this.props.onChange) {
-      this.props.onChange(e.target.value);
-    }
-    this.setState({ value: e.target.value });
+    const { value } = e.target;
+
+    this.setState({ value }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(value);
+      }
+    });
   };
 
   constructor(props, context) {

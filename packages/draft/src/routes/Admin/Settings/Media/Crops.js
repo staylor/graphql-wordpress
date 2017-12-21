@@ -32,6 +32,7 @@ export default class Crops extends Component {
 
   bindOnChange = (prop, i) => value => {
     const crops = [...this.state.crops];
+    crops[i] = { ...crops[i] };
     crops[i][prop] = value;
     this.setState({ crops }, () => {
       this.props.onUpdate(crops);
@@ -69,7 +70,7 @@ export default class Crops extends Component {
                     type="number"
                     name={`crops[${i}][width]`}
                     onChange={this.bindOnChange('width', i)}
-                    value={crop.width || ''}
+                    value={crop.width || 0}
                   />{' '}
                   x{' '}
                   <Input
@@ -78,7 +79,7 @@ export default class Crops extends Component {
                     type="number"
                     name={`crops[${i}][height]`}
                     onChange={this.bindOnChange('height', i)}
-                    value={crop.height || ''}
+                    value={crop.height || 0}
                   />
                 </Cell>
               </tr>

@@ -24,11 +24,22 @@ export default class ListTable extends Component {
 
   bulkAction = value => {
     if (value === 'deleteAll' && this.state.checked.length) {
-      this.props.mutate({
+      const options = {
         variables: {
           ids: this.state.checked,
         },
-      });
+      };
+
+      if (this.props.query && this.props.variables) {
+        options.refetchQueries = [
+          {
+            query: this.props.query,
+            variables: this.props.variables,
+          },
+        ];
+      }
+
+      this.props.mutate(options);
     }
   };
 

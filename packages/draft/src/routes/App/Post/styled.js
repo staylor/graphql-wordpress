@@ -37,3 +37,20 @@ export const BoldHeading = styled.h4`
 export const Embed = styled.div`
   margin: 20px 0;
 `;
+
+export const List = styled.ul`
+  list-style-type: disc;
+  margin: 0 0 20px 32px;
+`;
+
+export const OrderedList = styled.ol`
+  list-style-type: decimal;
+  margin: 0 0 20px 32px;
+`;
+
+export const Image = styled.img`
+  display: block;
+  height: auto;
+  margin-bottom: ${p => p.theme.padding}px;
+  max-width: 100%;
+`;

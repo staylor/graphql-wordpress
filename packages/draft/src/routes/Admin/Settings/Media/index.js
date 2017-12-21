@@ -26,7 +26,7 @@ const settingsFields = [
     prop: 'crops',
     editable: true,
     type: 'custom',
-    value: () => cropsValue.filter(({ name, width, height }) => name && width && height),
+    value: () => cropsValue.filter(({ name, width, height }) => name && (width || height)),
     render: settings => {
       cropsValue = normalizeCrops(settings.crops) || [{}];
       return <Crops onUpdate={updateCrops} settings={settings} />;
