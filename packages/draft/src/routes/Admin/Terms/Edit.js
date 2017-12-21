@@ -8,6 +8,17 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
+const termFields = [
+  { label: 'Name', prop: 'name', editable: true },
+  { label: 'Slug', prop: 'slug' },
+  {
+    label: 'Description',
+    prop: 'description',
+    type: 'textarea',
+    editable: true,
+  },
+];
+
 @compose(
   graphql(
     gql`
@@ -78,17 +89,6 @@ export default class EditTerm extends Component {
     if (loading && !term) {
       return <Loading />;
     }
-
-    const termFields = [
-      { label: 'Name', prop: 'name', editable: true },
-      { label: 'Slug', prop: 'slug' },
-      {
-        label: 'Description',
-        prop: 'description',
-        type: 'textarea',
-        editable: true,
-      },
-    ];
 
     return (
       <Fragment>

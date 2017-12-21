@@ -8,6 +8,16 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
+const taxonomyFields = [
+  { label: 'Name', prop: 'name', editable: true },
+  {
+    label: 'Description',
+    prop: 'description',
+    type: 'textarea',
+    editable: true,
+  },
+];
+
 @compose(
   graphql(
     gql`
@@ -71,16 +81,6 @@ export default class AddTerm extends Component {
     if (loading && !taxonomy) {
       return <Loading />;
     }
-
-    const taxonomyFields = [
-      { label: 'Name', prop: 'name', editable: true },
-      {
-        label: 'Description',
-        prop: 'description',
-        type: 'textarea',
-        editable: true,
-      },
-    ];
 
     return (
       <Fragment>

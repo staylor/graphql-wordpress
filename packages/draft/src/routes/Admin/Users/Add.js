@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
+import userFields from './userFields';
 
 /* eslint-disable react/prop-types */
 
@@ -39,26 +40,6 @@ export default class AddUser extends Component {
   };
 
   render() {
-    const userFields = [
-      { label: 'Name', prop: 'name', editable: true },
-      { label: 'Email', prop: 'email', type: 'email', editable: true },
-      {
-        label: 'bio',
-        prop: 'bio',
-        type: 'textarea',
-        editable: true,
-      },
-      {
-        label: 'Roles',
-        prop: 'roles',
-        type: 'select',
-        placeholder: 'Assign Roles',
-        choices: [{ label: 'Admin', value: 'admin' }],
-        multiple: true,
-        editable: true,
-      },
-    ];
-
     return (
       <Fragment>
         <Heading>Add User</Heading>

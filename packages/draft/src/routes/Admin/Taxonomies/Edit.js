@@ -9,6 +9,18 @@ import TaxonomyQuery from './TaxonomyQuery.graphql';
 
 /* eslint-disable react/prop-types */
 
+const taxonomyFields = [
+  { label: 'Name', prop: 'name', editable: true },
+  { label: 'Slug', prop: 'slug' },
+  { label: 'Plural Name', prop: 'plural', editable: true },
+  {
+    label: 'Description',
+    prop: 'description',
+    type: 'textarea',
+    editable: true,
+  },
+];
+
 @compose(
   graphql(
     gql`
@@ -76,18 +88,6 @@ export default class EditTaxonomy extends Component {
     if (loading && !taxonomy) {
       return <Loading />;
     }
-
-    const taxonomyFields = [
-      { label: 'Name', prop: 'name', editable: true },
-      { label: 'Slug', prop: 'slug' },
-      { label: 'Plural Name', prop: 'plural', editable: true },
-      {
-        label: 'Description',
-        prop: 'description',
-        type: 'textarea',
-        editable: true,
-      },
-    ];
 
     return (
       <Fragment>
