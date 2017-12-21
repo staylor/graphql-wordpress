@@ -44,12 +44,12 @@ class MediaStorage {
 
   handleCrop(src, size, { destination, ext, basename }) {
     return new Promise((resolve, reject) => {
-      const [width, height] = size;
-      const cropName = `${basename}-${width}x${height}${ext}`;
+      const [width = null, height = null] = size;
+      const cropName = `${basename}-${width || 0}x${height || 0}${ext}`;
       const cropPath = path.join(destination, cropName);
 
       return sharp(src)
-        .resize(size[0], size[1])
+        .resize(size[0] || null, size[1] || null)
         .withoutEnlargement()
         .toFile(cropPath, (err, info) => {
           if (err) {

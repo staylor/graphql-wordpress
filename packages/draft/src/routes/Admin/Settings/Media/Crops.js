@@ -12,11 +12,15 @@ export default class Crops extends Component {
   constructor(props) {
     super(props);
 
-    this.state.crops = props.settings.crops.length > 0 ? props.settings.crops : [{}];
+    this.state.crops =
+      props.settings.crops && props.settings.crops.length > 0 ? props.settings.crops : [{}];
   }
 
   componentWillReceiveProps(nextProps) {
-    const crops = nextProps.settings.crops.length > 0 ? nextProps.settings.crops : [{}];
+    const crops =
+      nextProps.settings.crops && nextProps.settings.crops.length > 0
+        ? nextProps.settings.crops
+        : [{}];
     this.setState({ crops });
   }
 
@@ -69,7 +73,7 @@ export default class Crops extends Component {
                     type="number"
                     name={`crops[${i}][width]`}
                     onChange={this.bindOnChange('width', i)}
-                    value={crop.width || ''}
+                    value={crop.width || 0}
                   />{' '}
                   x{' '}
                   <Input
@@ -78,7 +82,7 @@ export default class Crops extends Component {
                     type="number"
                     name={`crops[${i}][height]`}
                     onChange={this.bindOnChange('height', i)}
-                    value={crop.height || ''}
+                    value={crop.height || 0}
                   />
                 </Cell>
               </tr>
