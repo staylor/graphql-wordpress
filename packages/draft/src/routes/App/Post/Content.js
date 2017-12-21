@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import redraft from 'redraft';
-import { Paragraph, Title, Heading, SubHeading, BoldHeading, Embed } from './styled';
+import Video from 'components/Videos/Video';
+import { Paragraph, Title, Heading, SubHeading, BoldHeading, Embed, Image } from './styled';
 
 // just a helper to add a <br /> after a block
 const addBreaklines = children => children.map(child => [child, <br />]);
@@ -70,6 +71,15 @@ const renderers = {
     EMBED: (children, data, { key }) => (
       <Embed key={key} dangerouslySetInnerHTML={{ __html: data.html }} />
     ),
+    IMAGE: (children, data, { key }) => {
+      const { image } = data;
+      const crop = image.crops.find(c => c.width === 640);
+      return <Image key={key} src={`/uploads/${image.destination}/${crop.fileName}`} />;
+    },
+    VIDEO: (children, data, { key }) => {
+      const { video } = data;
+      return <Video key={key} video={video} embed />;
+    },
   },
 };
 
@@ -128,17 +138,12 @@ Content.fragments = {
           ... on VideoData {
             id
             video {
-              title
-              dataId
-              thumbnails {
-                width
-                height
-                url
-              }
+              ...Video_video
             }
           }
         }
       }
     }
+    ${Video.fragments.video}
   `,
 };

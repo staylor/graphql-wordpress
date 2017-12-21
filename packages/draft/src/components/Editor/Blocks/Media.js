@@ -1,6 +1,5 @@
 import React from 'react';
-import { Placeholder } from 'components/Videos/styled';
-import { findThumb } from 'components/Videos/Video';
+import Video from 'components/Videos/Video';
 
 /* eslint-disable react/prop-types */
 
@@ -28,12 +27,7 @@ const Media = ({ contentState, block }) => {
 
   if (type === 'VIDEO') {
     const { video } = entity.getData();
-    const thumb = findThumb(video.thumbnails);
-    return (
-      <Placeholder>
-        {thumb && <img src={thumb.url} alt={video.title} className={thumb && thumb.className} />}
-      </Placeholder>
-    );
+    return <Video video={video} embed />;
   }
 
   return null;

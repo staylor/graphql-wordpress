@@ -11,6 +11,7 @@ import {
   getVisibleSelectionRect,
 } from 'draft-js';
 import cn from 'classnames';
+import Video from 'components/Videos/Video';
 import EmbedInput from './EmbedInput';
 import ImageInput from './ImageInput';
 import VideoInput from './VideoInput';
@@ -342,17 +343,12 @@ Editor.fragments = {
           ... on VideoData {
             id
             video {
-              title
-              dataId
-              thumbnails {
-                width
-                height
-                url
-              }
+              ...Video_video
             }
           }
         }
       }
     }
+    ${Video.fragments.video}
   `,
 };
