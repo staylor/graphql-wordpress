@@ -10,6 +10,7 @@ import logo from 'public/logo.png';
 import Home from './Home';
 import Videos from './Videos';
 import Video from './Video';
+import Post from './Post';
 import NotFound from './NotFound';
 import Sidebar from './Sidebar';
 import {
@@ -74,6 +75,7 @@ export default class App extends Component {
                 <Switch>
                   <Route exact path="/videos/:year(\d{4})?" component={Videos} />
                   <Route path="/video/:slug" component={Video} />
+                  <Route path="/post/:slug" component={Post} />
                   <Route exact path="/" component={Home} />
                   <Route path="*" component={NotFound} />
                 </Switch>

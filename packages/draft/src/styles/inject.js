@@ -29,7 +29,7 @@ export default function inject() {
     }
 
     em {
-      text-decoration: underline;
+      font-style: italic;
     }
 
     strong {
