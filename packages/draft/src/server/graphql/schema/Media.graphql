@@ -111,7 +111,7 @@ extend type Query {
   media(id: ObjID): MediaUpload
 }
 
-extend type Query @onType
+extend type Query @drPepper
 
 input UpdateMediaUploadInput {
   title: String
@@ -126,4 +126,4 @@ extend type Mutation {
   removeMediaUpload(ids: [ObjID]!): Boolean
 }
 
-extend type Mutation @onType
+extend type Mutation @drPepper

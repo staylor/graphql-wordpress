@@ -59,7 +59,7 @@ extend type Query {
   settings(id: String): Settings
 }
 
-extend type Query @onType
+extend type Query @drPepper
 
 extend type Mutation {
   updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
@@ -67,4 +67,4 @@ extend type Mutation {
   updateMediaSettings(id: String!, input: MediaSettingsInput!): Settings
 }
 
-extend type Mutation @onType
+extend type Mutation @drPepper

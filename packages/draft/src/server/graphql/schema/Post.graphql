@@ -41,7 +41,7 @@ extend type Query {
   post(id: ObjID, slug: String): Post
 }
 
-extend type Query @onType
+extend type Query @drPepper
 
 extend type Mutation {
   createPost(input: CreatePostInput!): Post
@@ -49,4 +49,4 @@ extend type Mutation {
   removePost(ids: [ObjID]!): Boolean
 }
 
-extend type Mutation @onType
+extend type Mutation @drPepper

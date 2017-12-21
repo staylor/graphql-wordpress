@@ -44,7 +44,7 @@ extend type Query {
   user(id: ObjID!): User
 }
 
-extend type Query @onType
+extend type Query @drPepper
 
 extend type Mutation {
   createUser(input: CreateUserInput!): User
@@ -52,4 +52,4 @@ extend type Mutation {
   removeUser(ids: [ObjID]!): Boolean
 }
 
-extend type Mutation @onType
+extend type Mutation @drPepper
