@@ -65,7 +65,10 @@ export default class EditTerm extends Component {
           input: updates,
         },
       })
-      .then(() => this.setState({ message: 'updated' }))
+      .then(() => {
+        this.setState({ message: 'updated' });
+        document.documentElement.scrollTop = 0;
+      })
       .catch(() => this.setState({ message: 'error' }));
   };
 

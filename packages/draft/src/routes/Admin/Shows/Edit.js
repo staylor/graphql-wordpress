@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import DatePicker from 'components/Form/Date';
 import Form from 'routes/Admin/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
+import showFields from './showFields';
 
 /* eslint-disable react/prop-types */
 
@@ -18,6 +17,8 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
           id
           title
           date
+          url
+          notes
           artist {
             id
           }
@@ -60,6 +61,15 @@ import { Heading, FormWrap } from 'routes/Admin/styled';
       updateShow(id: $id, input: $input) {
         id
         title
+        date
+        url
+        notes
+        artist {
+          id
+        }
+        venue {
+          id
+        }
       }
     }
   `)
@@ -80,7 +90,10 @@ export default class EditShow extends Component {
           input: updates,
         },
       })
-      .then(() => this.setState({ message: 'updated' }))
+      .then(() => {
+        this.setState({ message: 'updated' });
+        document.documentElement.scrollTop = 0;
+      })
       .catch(() => this.setState({ message: 'error' }));
   };
 
@@ -90,52 +103,6 @@ export default class EditShow extends Component {
     if (loading && !show) {
       return <Loading />;
     }
-
-    let dateValue = null;
-
-    const showFields = [
-      { label: 'Title', prop: 'title', editable: true },
-      {
-        prop: 'date',
-        type: 'custom',
-        editable: true,
-        value: () => dateValue,
-        render: item => (
-          <DatePicker
-            date={item.date}
-            onChange={value => {
-              dateValue = value;
-            }}
-          />
-        ),
-      },
-      {
-        label: 'Artist',
-        prop: 'artist',
-        editable: true,
-        type: 'select',
-        choices: artists.edges.map(({ node }) => ({
-          label: node.name,
-          value: node.id,
-        })),
-      },
-      {
-        render: () => <Link to={`/terms/${artists.taxonomy.id}/add`}>Add Artist</Link>,
-      },
-      {
-        label: 'Venue',
-        prop: 'venue',
-        editable: true,
-        type: 'select',
-        choices: venues.edges.map(({ node }) => ({
-          label: node.name,
-          value: node.id,
-        })),
-      },
-      {
-        render: () => <Link to={`/terms/${venues.taxonomy.id}/add`}>Add Venue</Link>,
-      },
-    ];
 
     const normalized = Object.assign({}, show);
     normalized.artist = show.artist.id;
@@ -147,7 +114,7 @@ export default class EditShow extends Component {
         {this.state.message === 'updated' && <Message text="Show updated." />}
         <FormWrap>
           <Form
-            fields={showFields}
+            fields={showFields({ venues, artists })}
             data={normalized}
             buttonLabel="Update Show"
             onSubmit={this.onSubmit}
