@@ -20,7 +20,6 @@ export const Field = styled.p`
 export const FieldWrap = styled.div`
   display: block;
   margin: ${p => p.theme.padding}px 0;
-  min-height: 120px;
 `;
 
 export const FieldName = styled.strong`
@@ -89,7 +88,7 @@ export const fieldNumberClass = css`
 export const FieldTextarea = styled.textarea`
   ${inputStyles};
   display: block;
-  height: 4em;
+  height: 80px;
   padding: 2px 6px;
   resize: vertical;
   width: 100%;

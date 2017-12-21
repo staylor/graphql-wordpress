@@ -37,7 +37,7 @@ export default class Select extends Component {
   }
 
   render() {
-    const { placeholder, choices, children, value, ...rest } = this.props;
+    const { placeholder, choices, groups, children, value, ...rest } = this.props;
 
     return (
       <FieldSelect {...rest} value={this.state.value} onChange={this.onChange}>
@@ -46,6 +46,25 @@ export default class Select extends Component {
             {placeholder}
           </option>
         )}
+        {groups &&
+          groups.map(group => (
+            <optgroup key={group.label} label={group.label}>
+              {group.choices.map(choice => {
+                if (typeof choice === 'object') {
+                  return (
+                    <option key={choice.value} value={choice.value}>
+                      {choice.label}
+                    </option>
+                  );
+                }
+                return (
+                  <option key={choice} value={choice}>
+                    {choice}
+                  </option>
+                );
+              })}
+            </optgroup>
+          ))}
         {choices &&
           choices.map(choice => {
             if (typeof choice === 'object') {

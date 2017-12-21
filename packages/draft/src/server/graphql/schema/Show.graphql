@@ -1,0 +1,59 @@
+type Show {
+  id: ObjID!
+  title: String!
+  slug: String!
+  notes: String
+  date: Float!
+  url: String
+  artist: Term
+  venue: Term
+}
+
+type ShowEdge {
+  node: Show
+  cursor: String
+}
+
+type ShowConnection {
+  count: Int
+  edges: [ShowEdge]
+  pageInfo: PageInfo
+}
+
+input CreateShowInput {
+  title: String!
+  notes: String
+  date: Float!
+  url: String
+  artist: ObjID!
+  venue: ObjID!
+}
+
+input UpdateShowInput {
+  title: String
+  notes: String
+  date: Float
+  url: String
+  artist: ObjID
+  venue: ObjID
+}
+
+extend type Query {
+  shows(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    date: Float
+    artist: ObjID
+    venue: ObjID
+    search: String
+  ): ShowConnection
+  show(id: ObjID, slug: String): Show
+}
+
+extend type Mutation {
+  createShow(input: CreateShowInput!): Show
+  updateShow(id: ObjID!, input: UpdateShowInput!): Show
+  removeShow(ids: [ObjID]!): Boolean
+}

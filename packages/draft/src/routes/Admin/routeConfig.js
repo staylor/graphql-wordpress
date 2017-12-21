@@ -1,12 +1,12 @@
 import PostRouter from './Posts';
 import MediaRouter from './Media';
 import VideoRouter from './Videos';
+import ShowRouter from './Shows';
 import TaxonomyRouter from './Taxonomies';
 import TermRouter from './Terms';
 import Dashboard from './Dashboard';
 import UserRouter from './Users';
 import SettingsRouter from './Settings';
-import NotFound from './NotFound';
 
 export default ({ taxonomies = [] }) => {
   const taxRoutes = taxonomies.map(taxonomy => ({
@@ -80,7 +80,17 @@ export default ({ taxonomies = [] }) => {
         path: '/show',
         label: 'Shows',
         dashicon: 'calendar',
-        component: NotFound,
+        component: ShowRouter,
+        routes: [
+          {
+            path: '/show',
+            label: 'All Shows',
+          },
+          {
+            path: '/show/add',
+            label: 'Add New',
+          },
+        ],
       },
     ],
     [

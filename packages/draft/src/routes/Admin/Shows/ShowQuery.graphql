@@ -1,30 +1,32 @@
-query TermQuery(
+query ShowQuery(
   $first: Int
   $after: String
-  $taxonomyId: ObjID!
-  $taxonomy: String
+  $date: Float
+  $artist: ObjID
+  $venue: ObjID
   $search: String
 ) {
-  terms(
+  shows(
     first: $first
     after: $after
-    taxonomyId: $taxonomyId
-    taxonomy: $taxonomy
+    date: $date
+    artist: $artist
+    venue: $venue
     search: $search
   ) {
-    taxonomy(id: $taxonomyId) {
-      id
-      name
-      plural
-    }
     count
     edges {
       node {
         id
-        name
-        slug
-        taxonomy {
+        title
+        date
+        artist {
           id
+          name
+        }
+        venue {
+          id
+          name
         }
       }
     }

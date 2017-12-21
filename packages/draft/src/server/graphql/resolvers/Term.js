@@ -10,8 +10,15 @@ const resolvers = {
     },
   },
   Query: {
-    terms(root, args, { Term }) {
-      return parseConnection(Term, args);
+    async terms(root, args, { Term, Taxonomy }) {
+      const connection = await parseConnection(Term, args);
+      const { taxonomyId, taxonomy } = args;
+      if (taxonomyId) {
+        connection.taxonomy = await Taxonomy.findOneById(taxonomyId);
+      } else if (taxonomy) {
+        connection.taxonomy = await Taxonomy.findOneBySlug(taxonomy);
+      }
+      return connection;
     },
 
     async term(root, { id, slug, taxonomy }, { Term, Taxonomy }) {

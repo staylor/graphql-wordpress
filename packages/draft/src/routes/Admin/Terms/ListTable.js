@@ -80,7 +80,7 @@ const columns = [
 )
 export default class Terms extends Component {
   render() {
-    const { location, match, mutate, data: { variables, loading, terms, taxonomy } } = this.props;
+    const { location, match, mutate, data: { variables, loading, terms } } = this.props;
 
     if (loading && !terms) {
       return <Loading />;
@@ -88,12 +88,12 @@ export default class Terms extends Component {
 
     return (
       <Fragment>
-        <Heading>{taxonomy.plural}</Heading>
-        <HeaderAdd to={`/terms/${taxonomy.id}/add`}>Add {taxonomy.name}</HeaderAdd>
+        <Heading>{terms.taxonomy.plural}</Heading>
+        <HeaderAdd to={`/terms/${terms.taxonomy.id}/add`}>Add {terms.taxonomy.name}</HeaderAdd>
         <ListTable
           {...{ location, match, columns, mutate, variables }}
           data={terms}
-          path={`/terms/${taxonomy.id}`}
+          path={`/terms/${terms.taxonomy.id}`}
         />
       </Fragment>
     );
