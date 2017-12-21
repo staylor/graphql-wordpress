@@ -3,13 +3,9 @@ import { requireFiles } from 'utils/fs';
 const typeDefs = [
   `
   scalar ObjID
-  type Query {
-    id: ObjID
-  }
+  type Query
 
-  type Mutation {
-    id: ObjID
-  }
+  type Mutation
 
   type PageInfo {
     startCursor: String
@@ -17,7 +13,7 @@ const typeDefs = [
     hasPreviousPage: Boolean
     hasNextPage: Boolean
   }
-`,
+`
 ];
 
 const files = requireFiles(__dirname);

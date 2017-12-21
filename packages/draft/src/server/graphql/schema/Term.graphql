@@ -45,8 +45,12 @@ extend type Query {
   term(id: ObjID, slug: String, taxonomy: String): Term
 }
 
+extend type Query @onType
+
 extend type Mutation {
   createTerm(input: CreateTermInput!): Term
   updateTerm(id: ObjID!, input: UpdateTermInput!): Term
   removeTerm(ids: [ObjID]!): Boolean
 }
+
+extend type Mutation @onType
