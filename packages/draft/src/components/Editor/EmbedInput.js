@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { settingsShape } from 'types/PropTypes';
 
 /* eslint-disable react/prop-types */
 
@@ -9,7 +10,23 @@ export default class EmbedInput extends Component {
     embed: '',
   };
 
+  static contextTypes = {
+    settings: settingsShape,
+  };
+
+  sendData(html) {
+    this.props.setEmbedData({
+      type: 'EMBED',
+      url: this.state.embed,
+      html,
+    });
+
+    this.setState({ embed: '' });
+  }
+
   render() {
+    const { settings } = this.context;
+
     return (
       <Fragment>
         Add Embed Block:{' '}
@@ -17,20 +34,21 @@ export default class EmbedInput extends Component {
           type="text"
           onKeyDown={e => {
             if (e.which === 13) {
+              if (cache[this.state.embed]) {
+                this.sendData(cache[this.state.embed].html);
+                return;
+              }
+
               fetch(
-                `http://localhost:3000/oembed?provider=${encodeURIComponent(
+                `${settings.siteUrl}/oembed?provider=${encodeURIComponent(
                   'https://www.youtube.com/oembed'
                 )}&url=${encodeURIComponent(this.state.embed)}`
               )
                 .then(result => result.json())
                 .then(response => {
-                  cache[this.state.embed] = response.html;
+                  cache[this.state.embed] = response;
 
-                  this.props.setEmbedData({
-                    type: 'EMBED',
-                    url: this.state.embed,
-                    html: response.html,
-                  });
+                  this.sendData(response.html);
                 });
             }
           }}

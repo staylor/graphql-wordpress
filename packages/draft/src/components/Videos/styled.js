@@ -22,6 +22,7 @@ export const VideoLink = styled(Link)`
 `;
 
 export const Placeholder = styled.figure`
+  display: inline-block;
   max-width: 100%;
   overflow: hidden;
   position: relative;

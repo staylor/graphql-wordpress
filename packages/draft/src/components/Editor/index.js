@@ -12,6 +12,8 @@ import {
 } from 'draft-js';
 import cn from 'classnames';
 import EmbedInput from './EmbedInput';
+import ImageInput from './ImageInput';
+import VideoInput from './VideoInput';
 import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
 import LinkDecorator from './decorators/LinkDecorator';
@@ -200,10 +202,10 @@ export default class Editor extends Component {
     }, 10);
   }
 
-  setEmbedData = data => {
+  setEntityData = ENTITY => data => {
     const { editorState } = this.state;
     const currentContent = editorState.getCurrentContent();
-    const contentStateWithEntity = currentContent.createEntity('EMBED', 'IMMUTABLE', data);
+    const contentStateWithEntity = currentContent.createEntity(ENTITY, 'IMMUTABLE', data);
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {
       currentContent: contentStateWithEntity,
@@ -221,7 +223,9 @@ export default class Editor extends Component {
 
     return (
       <EditorWrap>
-        <EmbedInput setEmbedData={this.setEmbedData} />
+        <EmbedInput setEmbedData={this.setEntityData('EMBED')} />
+        <ImageInput setImageData={this.setEntityData('IMAGE')} />
+        <VideoInput setVideoData={this.setEntityData('VIDEO')} />
         <BlockButton
           className={cn('dashicons', {
             'dashicons-plus-alt': !this.state.blockToolbar,
@@ -323,6 +327,29 @@ Editor.fragments = {
           ... on EmbedData {
             url
             html
+          }
+          ... on ImageData {
+            id
+            image {
+              destination
+              crops {
+                width
+                fileName
+              }
+            }
+            size
+          }
+          ... on VideoData {
+            id
+            video {
+              title
+              dataId
+              thumbnails {
+                width
+                height
+                url
+              }
+            }
           }
         }
       }

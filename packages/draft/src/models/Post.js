@@ -1,17 +1,31 @@
+import { ObjectId } from 'mongodb';
 import Model from './Model';
 import { getUniqueSlug } from './utils';
 
 function convertEntityData(entityMap) {
   return entityMap.map(entity => {
-    const e = Object.assign({}, entity);
-    if (e.data.type === 'EMBED') {
-      delete e.data.href;
-      delete e.data.target;
-    } else if (e.data.type === 'LINK') {
-      delete e.data.url;
-      delete e.data.html;
+    const normalized = {};
+    if (entity.data.type === 'EMBED') {
+      const { type, url, html } = entity.data;
+      normalized.data = { type, url, html };
+    } else if (entity.data.type === 'LINK') {
+      const { type, href, target } = entity.data;
+      normalized.data = { type, href, target };
+    } else if (entity.data.type === 'IMAGE') {
+      const { type, id, size } = entity.data;
+      normalized.data = { type, id, size };
+      normalized.data.id = ObjectId(id);
+    } else if (entity.data.type === 'VIDEO') {
+      const { type, id } = entity.data;
+      normalized.data = { type, id };
+      normalized.data.id = ObjectId(id);
+    } else {
+      normalized.data = entity.data;
     }
-    return e;
+    const { type, mutability } = entity;
+    normalized.type = type;
+    normalized.mutability = mutability;
+    return normalized;
   });
 }
 

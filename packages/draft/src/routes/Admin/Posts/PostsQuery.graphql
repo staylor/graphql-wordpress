@@ -1,0 +1,16 @@
+query PostsQuery($first: Int, $after: String, $search: String) {
+  posts(first: $first, after: $after, search: $search) {
+    count
+    edges {
+      node {
+        id
+        title
+        slug
+      }
+    }
+    pageInfo {
+      hasNextPage
+    }
+  }
+}
+

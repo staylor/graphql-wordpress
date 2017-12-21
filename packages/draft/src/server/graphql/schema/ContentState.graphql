@@ -62,7 +62,20 @@ type EmbedData {
   html: String
 }
 
-union EntityData = LinkData | EmbedData
+type ImageData {
+  type: String
+  id: ObjID
+  image: ImageUpload
+  size: String
+}
+
+type VideoData {
+  type: String
+  id: ObjID
+  video: Video
+}
+
+union EntityData = LinkData | EmbedData | ImageData | VideoData
 
 input EntityDataInput {
   type: String!
@@ -72,6 +85,9 @@ input EntityDataInput {
   # LINK fields
   href: String
   target: String
+  # IMAGE fields
+  id: String
+  size: String
 }
 
 enum EntityType {
@@ -80,6 +96,7 @@ enum EntityType {
   PHOTO
   IMAGE
   EMBED
+  VIDEO
 }
 
 enum EntityMutability {

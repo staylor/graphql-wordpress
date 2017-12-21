@@ -58,14 +58,24 @@ export default class Form extends Component {
                 // Input types cannot be unions, so all fields from all
                 // entity data input types have to exist when setting
                 // data for entities
-                const entityData = Object.assign({}, entity.data);
-                entityData.type = entity.type;
-                delete entityData.__typename;
-                ['url', 'html', 'href', 'target'].forEach(key => {
-                  if (!entityData[key]) {
-                    entityData[key] = '';
-                  }
-                });
+                const entityData = { type: entity.type };
+                if (entityData.type === 'LINK') {
+                  ['href', 'target'].forEach(key => {
+                    entityData[key] = entity.data[key] || '';
+                  });
+                } else if (entityData.type === 'EMBED') {
+                  ['url', 'html'].forEach(key => {
+                    entityData[key] = entity.data[key] || '';
+                  });
+                } else if (entityData.type === 'IMAGE') {
+                  ['id', 'size'].forEach(key => {
+                    entityData[key] = entity.data[key] || '';
+                  });
+                } else if (entityData.type === 'VIDEO') {
+                  ['id'].forEach(key => {
+                    entityData[key] = entity.data[key] || '';
+                  });
+                }
                 return {
                   ...entity,
                   data: entityData,

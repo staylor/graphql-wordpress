@@ -114,6 +114,29 @@ Content.fragments = {
             url
             html
           }
+          ... on ImageData {
+            id
+            image {
+              destination
+              crops {
+                width
+                fileName
+              }
+            }
+            size
+          }
+          ... on VideoData {
+            id
+            video {
+              title
+              dataId
+              thumbnails {
+                width
+                height
+                url
+              }
+            }
+          }
         }
       }
     }

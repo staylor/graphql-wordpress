@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongodb';
 import multer from 'multer';
 import Media from 'models/Media';
+import Video from 'models/Video';
 import mediaStorage from './storage';
 
 const mediaFields = ['originalName', 'destination', 'fileName', 'mimeType', 'fileSize'];
@@ -68,6 +70,24 @@ export default function addUploads(app, db, passport, uploadDir) {
       } else {
         res.json(files);
       }
+    }
+  );
+  app.use(
+    '/preview/media/:id',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      const media = new Media({ db });
+      const model = await media.findOneById(ObjectId(req.params.id));
+      res.json(model);
+    }
+  );
+  app.use(
+    '/preview/video/:id',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      const media = new Video({ db });
+      const model = await media.findOneById(ObjectId(req.params.id));
+      res.json(model);
     }
   );
 }

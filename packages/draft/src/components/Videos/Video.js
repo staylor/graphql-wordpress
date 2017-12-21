@@ -7,7 +7,7 @@ import { VideoLink, Placeholder, Title, iframeClass, thumb640Class, thumb480Clas
 
 const maxWidth = 640;
 
-const findThumb = thumbs => {
+export const findThumb = thumbs => {
   let thumb = thumbs.find(t => t.width === 480);
   if (thumb) {
     thumb = Object.assign({}, thumb);
