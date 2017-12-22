@@ -4,18 +4,18 @@ import Select from 'components/Form/Select';
 /* eslint-disable react/prop-types */
 
 const monthChoices = [
-  { value: '01', label: 'January' },
-  { value: '02', label: 'February' },
-  { value: '03', label: 'March' },
-  { value: '04', label: 'April' },
-  { value: '05', label: 'May' },
-  { value: '06', label: 'June' },
-  { value: '07', label: 'July' },
-  { value: '08', label: 'August' },
-  { value: '09', label: 'September' },
-  { value: '10', label: 'October' },
-  { value: '11', label: 'November' },
-  { value: '12', label: 'December' },
+  { value: 0, label: 'January' },
+  { value: 1, label: 'February' },
+  { value: 2, label: 'March' },
+  { value: 3, label: 'April' },
+  { value: 4, label: 'May' },
+  { value: 5, label: 'June' },
+  { value: 6, label: 'July' },
+  { value: 7, label: 'August' },
+  { value: 8, label: 'September' },
+  { value: 9, label: 'October' },
+  { value: 10, label: 'November' },
+  { value: 11, label: 'December' },
 ];
 
 const dayChoices = ({ month = 1, year }) => {
@@ -89,7 +89,7 @@ export default class DatePicker extends Component {
       const hour = d.getHours();
       const minute = d.getMinutes();
       this.state = {
-        month: month < 10 ? `0${month}` : month,
+        month,
         day: day < 10 ? `0${day}` : day,
         year: d.getFullYear(),
         hour: hour < 10 ? `0${hour}` : hour,

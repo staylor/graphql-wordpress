@@ -10,32 +10,35 @@ import showFields from './showFields';
 /* eslint-disable react/prop-types */
 
 @compose(
-  graphql(gql`
-    query CreateShowQuery {
-      artists: terms(taxonomy: "artist", first: 100) {
-        taxonomy {
-          id
-        }
-        edges {
-          node {
+  graphql(
+    gql`
+      query CreateShowQuery {
+        artists: terms(taxonomy: "artist", first: 100) {
+          taxonomy {
             id
-            name
+          }
+          edges {
+            node {
+              id
+              name
+            }
+          }
+        }
+        venues: terms(taxonomy: "venue", first: 100) {
+          taxonomy {
+            id
+          }
+          edges {
+            node {
+              id
+              name
+            }
           }
         }
       }
-      venues: terms(taxonomy: "venue", first: 100) {
-        taxonomy {
-          id
-        }
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-    }
-  `),
+    `,
+    { options: { fetchPolicy: 'cache-and-network' } }
+  ),
   graphql(gql`
     mutation CreateShowMutation($input: CreateShowInput!) {
       createShow(input: $input) {

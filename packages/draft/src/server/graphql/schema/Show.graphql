@@ -1,7 +1,6 @@
 type Show {
   id: ObjID!
   title: String!
-  slug: String!
   notes: String
   date: Float!
   url: String

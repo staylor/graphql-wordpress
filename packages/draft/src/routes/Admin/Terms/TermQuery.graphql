@@ -12,7 +12,7 @@ query TermQuery(
     taxonomy: $taxonomy
     search: $search
   ) {
-    taxonomy(id: $taxonomyId) {
+    taxonomy {
       id
       name
       plural

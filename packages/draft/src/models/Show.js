@@ -1,5 +1,4 @@
 import Model from './Model';
-import { getUniqueSlug } from './utils';
 
 export default class Show extends Model {
   constructor(context) {
@@ -26,16 +25,5 @@ export default class Show extends Model {
       .skip(offset)
       .limit(limit)
       .toArray();
-  }
-
-  async insert(doc) {
-    const slug = await getUniqueSlug(this.collection, doc.title);
-    const docToInsert = Object.assign({}, doc, {
-      slug,
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    });
-    const id = (await this.collection.insertOne(docToInsert)).insertedId;
-    return id;
   }
 }

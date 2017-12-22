@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Heading } from 'styles/utils';
+import { Show, Time } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -38,14 +39,17 @@ export default class Sidebar extends Component {
         <Heading>Upcoming Shows</Heading>
         {shows.edges.map(({ node }) => {
           const d = new Date(node.date);
+          const m = d.getMonth() + 1;
+          const day = d.getDate();
           return (
-            <div key={node.id}>
-              {`${d.getMonth()}/${d.getDate()}/${d.getFullYear()}`}
-              <br />
+            <Show key={node.id}>
+              <Time>{`${m < 10 ? `0${m}` : m}/${
+                day < 10 ? `0${day}` : day
+              }/${d.getFullYear()}`}</Time>
               {node.artist.name}
               <br />
               {node.venue.name}
-            </div>
+            </Show>
           );
         })}
       </aside>

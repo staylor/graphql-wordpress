@@ -28,7 +28,7 @@ const columns = [
       return (
         <Fragment>
           <RowTitle>
-            <Link to={`/show/${show.id}`}>{show.title}</Link>
+            <Link to={`/show/${show.id}`}>{show.title || '(No Title)'}</Link>
           </RowTitle>
           <RowActions>
             <Link to={`/show/${show.id}`}>Edit</Link> |{' '}
@@ -52,7 +52,7 @@ const columns = [
     label: 'Date',
     render: show => {
       const d = new Date(show.date);
-      const month = d.getMonth();
+      const month = d.getMonth() + 1;
       const day = d.getDate();
       const min = d.getMinutes();
       const hour = d.getHours();

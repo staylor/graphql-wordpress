@@ -53,6 +53,7 @@ import showFields from './showFields';
     {
       options: ({ match: { params } }) => ({
         variables: { id: params.id },
+        fetchPolicy: 'cache-and-network',
       }),
     }
   ),
