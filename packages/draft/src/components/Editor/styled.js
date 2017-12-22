@@ -41,21 +41,17 @@ export const RichEditor = styled.div`
   position: relative;
   z-index: 1;
 
-  h1 {
-    ${headingStyles};
-  }
-
-  h2 {
+  h2[data-offset-key] {
     ${headingStyles};
     font-size: 24px;
   }
 
-  h3 {
+  h3[data-offset-key] {
     ${headingStyles};
     font-size: 20px;
   }
 
-  h4 {
+  h4[data-offset-key] {
     ${headingStyles};
     font-size: 18px;
   }
