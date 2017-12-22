@@ -64,6 +64,7 @@ export const RichEditor = styled.div`
     background-color: rgba(0, 0, 0, 0.05);
     font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
     font-size: 16px;
+    margin: 20px 0;
     padding: 20px;
   }
 

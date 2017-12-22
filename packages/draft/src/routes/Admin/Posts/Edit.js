@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import { settingsShape } from 'types/PropTypes';
 import Form from 'routes/Admin/Form';
-import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
+import { Heading, postTitleClass, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
@@ -25,7 +25,7 @@ const postFields = settings => [
       );
     },
   },
-  { prop: 'title', editable: true, className: titleInputClass },
+  { prop: 'title', editable: true, className: postTitleClass },
   {
     prop: 'contentState',
     type: 'editor',
@@ -107,7 +107,6 @@ export default class EditPost extends Component {
 
     return (
       <Fragment>
-        <Heading>Edit Post</Heading>
         {this.state.message === 'updated' && <Message text="Post updated." />}
         <FormWrap>
           <Form

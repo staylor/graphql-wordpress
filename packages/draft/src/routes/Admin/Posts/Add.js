@@ -4,12 +4,17 @@ import gql from 'graphql-tag';
 import Editor from 'components/Editor';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
-import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
+import { postTitleClass, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 
 const postFields = [
-  { prop: 'title', editable: true, className: titleInputClass },
+  {
+    prop: 'title',
+    editable: true,
+    className: postTitleClass,
+    placeholder: 'Add a Title',
+  },
   {
     prop: 'contentState',
     type: 'editor',
@@ -58,7 +63,6 @@ export default class AddPost extends Component {
   render() {
     return (
       <Fragment>
-        <Heading>Add Post</Heading>
         {this.state.message && <Message text={this.state.message} />}
         <FormWrap>
           <Form fields={postFields} buttonLabel="Add Post" onSubmit={this.onSubmit} />

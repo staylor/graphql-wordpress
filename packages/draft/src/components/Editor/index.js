@@ -211,6 +211,7 @@ export default class Editor extends Component {
     });
 
     this.setState({
+      blockToolbar: false,
       editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
     });
   };
@@ -249,8 +250,8 @@ export default class Editor extends Component {
           focus={this.focus}
         >
           <BlockStyleControls
-            openImageModal={() => this.setState({ imageModal: true })}
-            openVideoModal={() => this.setState({ videoModal: true })}
+            openImageModal={() => this.setState({ blockToolbar: false, imageModal: true })}
+            openVideoModal={() => this.setState({ blockToolbar: false, videoModal: true })}
             editorState={editorState}
             onToggle={this.toggleBlockType}
           />
@@ -298,7 +299,7 @@ export default class Editor extends Component {
             selectImage={this.setEntityData('IMAGE')}
             onClose={e => {
               e.preventDefault();
-              this.setState({ imageModal: false });
+              this.setState({ blockToolbar: false, imageModal: false });
             }}
           />
         )}
@@ -307,7 +308,7 @@ export default class Editor extends Component {
             selectVideo={this.setEntityData('VIDEO')}
             onClose={e => {
               e.preventDefault();
-              this.setState({ videoModal: false });
+              this.setState({ blockToolbar: false, videoModal: false });
             }}
           />
         )}

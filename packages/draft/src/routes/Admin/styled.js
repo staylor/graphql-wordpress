@@ -2,6 +2,7 @@ import { css } from 'emotion';
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
 import theme from 'styles/theme';
+import { headingStyles } from 'styles/utils';
 
 export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
@@ -26,6 +27,14 @@ export const Title = styled.h1`
     color: ${p => p.theme.colors.black};
     text-decoration: none;
   }
+`;
+
+export const postTitleClass = css`
+  ${headingStyles};
+  border: 0 none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
 `;
 
 export const titleInputClass = css`

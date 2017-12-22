@@ -17,6 +17,21 @@ export const paragraphClass = css`
 export const Image = styled.img`
   display: block;
   height: auto;
-  margin: 20px 0;
   max-width: 100%;
+`;
+
+export const ImageWrap = styled.div`
+  margin: 20px 0;
+  position: relative;
+
+  &.Image-MEDIUM,
+  &.Image-SMALL {
+    margin: 0 20px 20px 0;
+  }
+`;
+
+export const Sizer = styled.div`
+  position: absolute;
+  left: 5px;
+  top: 5px;
 `;

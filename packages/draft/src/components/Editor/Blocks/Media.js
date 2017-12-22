@@ -1,6 +1,7 @@
 import React from 'react';
+import cn from 'classnames';
 import Video from 'components/Videos/Video';
-import { Image } from './styled';
+import { ImageWrap, Image, Sizer } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -11,7 +12,8 @@ const cropMap = {
 };
 
 const Media = ({ contentState, block }) => {
-  const entity = contentState.getEntity(block.getEntityAt(0));
+  const entityKey = block.getEntityAt(0);
+  const entity = contentState.getEntity(entityKey);
   const type = entity.getType();
 
   if (type === 'EMBED') {
@@ -23,7 +25,40 @@ const Media = ({ contentState, block }) => {
   if (type === 'IMAGE') {
     const { image, size } = entity.getData();
     const crop = image.crops.find(c => c.width === cropMap[size]);
-    return <Image alt="" src={`/uploads/${image.destination}/${crop.fileName}`} />;
+    return (
+      <ImageWrap
+        className={cn({
+          'Image-FEATURE': size === 'FEATURE',
+          'Image-MEDIUM': size === 'MEDIUM',
+          'Image-SMALL': size === 'THUMB',
+        })}
+      >
+        <Sizer>
+          <button
+            onMouseDown={() => {
+              contentState.mergeEntityData(entityKey, { size: 'FEATURE' });
+            }}
+          >
+            FEATURE
+          </button>
+          <button
+            onMouseDown={() => {
+              contentState.mergeEntityData(entityKey, { size: 'MEDIUM' });
+            }}
+          >
+            MEDIUM
+          </button>
+          <button
+            onMouseDown={() => {
+              contentState.mergeEntityData(entityKey, { size: 'THUMB' });
+            }}
+          >
+            SMALL
+          </button>
+        </Sizer>
+        <Image alt="" src={`/uploads/${image.destination}/${crop.fileName}`} />
+      </ImageWrap>
+    );
   }
 
   if (type === 'VIDEO') {
