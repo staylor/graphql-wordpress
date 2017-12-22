@@ -45,7 +45,7 @@ class MediaStorage {
   handleCrop(src, size, { destination, ext, basename }) {
     return new Promise((resolve, reject) => {
       const [width = null, height = null] = size;
-      const cropName = `${basename}-${width}x${height}${ext}`;
+      const cropName = `${basename}-${width || 0}x${height || 0}${ext}`;
       const cropPath = path.join(destination, cropName);
 
       return sharp(src)

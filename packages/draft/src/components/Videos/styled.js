@@ -14,6 +14,19 @@ export const Title = styled.h1`
   }
 `;
 
+export const EmbedTitle = styled.h3`
+  font-family: ${p => p.theme.fonts.futura};
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+  margin: 0 0 ${p => p.theme.padding}px;
+
+  & a {
+    color: ${p => p.theme.colors.subhead};
+    text-decoration: none;
+  }
+`;
+
 export const VideoLink = styled(Link)`
   display: block;
   margin: 0 0 ${p => p.theme.padding}px;
@@ -21,7 +34,12 @@ export const VideoLink = styled(Link)`
   width: ${p => p.width}px;
 `;
 
+export const embedVideoLink = css`
+  margin: 0;
+`;
+
 export const Placeholder = styled.figure`
+  display: inline-block;
   max-width: 100%;
   overflow: hidden;
   position: relative;

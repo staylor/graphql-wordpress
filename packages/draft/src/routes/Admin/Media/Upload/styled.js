@@ -21,7 +21,7 @@ export const ProgressBar = styled.div`
   font-size: 14px;
   line-height: 20px;
   margin: 10px 0;
-  padding: 4px;
+  padding: 4px 20px;
   position: relative;
   width: 600px;
 `;

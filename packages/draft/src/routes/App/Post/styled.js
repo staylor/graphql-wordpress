@@ -1,11 +1,18 @@
 import styled from 'react-emotion';
+import { css } from 'emotion';
+import theme from 'styles/theme';
 
-export const Title = styled.h1`
+const headingStyle = css`
   display: block;
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 36px;
+  font-family: ${theme.fonts.futura};
   font-weight: 600;
   line-height: 1.4;
+`;
+
+export const Title = styled.h1`
+  ${headingStyle};
+  display: block;
+  font-size: 36px;
   margin-bottom: ${p => p.theme.padding}px;
 `;
 
@@ -14,24 +21,18 @@ export const Paragraph = styled.p`
 `;
 
 export const Heading = styled.h2`
-  font-family: ${p => p.theme.fonts.futura};
+  ${headingStyle};
   font-size: 24px;
-  font-weight: 600;
-  line-height: 1.4;
 `;
 
 export const SubHeading = styled.h3`
-  font-family: ${p => p.theme.fonts.futura};
+  ${headingStyle};
   font-size: 20px;
-  font-weight: 600;
-  line-height: 1.4;
 `;
 
 export const BoldHeading = styled.h4`
-  font-family: ${p => p.theme.fonts.futura};
+  ${headingStyle};
   font-size: 18px;
-  font-weight: 600;
-  line-height: 1.4;
 `;
 
 export const Embed = styled.div`
@@ -51,6 +52,6 @@ export const OrderedList = styled.ol`
 export const Image = styled.img`
   display: block;
   height: auto;
-  margin-bottom: ${p => p.theme.padding}px;
+  margin: 20px 0;
   max-width: 100%;
 `;

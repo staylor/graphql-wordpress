@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
@@ -7,6 +7,7 @@ import { offsetToCursor } from 'utils/connection';
 import { RowTitle } from 'styles/utils';
 import { Heading, HeaderAdd, RowActions } from '../styled';
 import ListTable from '../ListTable';
+import PostsQuery from './PostsQuery.graphql';
 
 /* eslint-disable react/prop-types */
 
@@ -15,17 +16,33 @@ const PER_PAGE = 20;
 const columns = [
   {
     label: 'Title',
-    render: post => (
-      <Fragment>
-        <RowTitle>
-          <Link to={`/post/${post.id}`}>{post.title}</Link>
-        </RowTitle>
-        <RowActions>
-          <Link to={`/post/${post.id}`}>Edit</Link> | <Link to={`/post/${post.id}`}>Trash</Link> |{' '}
-          <a href={`/post/${post.slug}`}>View</a>
-        </RowActions>
-      </Fragment>
-    ),
+    render: (post, { mutate, variables }) => {
+      const onClick = e => {
+        e.preventDefault();
+
+        mutate({
+          refetchQueries: [{ query: PostsQuery, variables }],
+          variables: {
+            ids: [post.id],
+          },
+        });
+      };
+
+      return (
+        <Fragment>
+          <RowTitle>
+            <Link to={`/post/${post.id}`}>{post.title}</Link>
+          </RowTitle>
+          <RowActions>
+            <Link to={`/post/${post.id}`}>Edit</Link> |{' '}
+            <a onClick={onClick} href={`/post/${post.id}`}>
+              Delete
+            </a>{' '}
+            | <a href={`/post/${post.slug}`}>View</a>
+          </RowActions>
+        </Fragment>
+      );
+    },
   },
   {
     label: 'Slug',
@@ -33,25 +50,8 @@ const columns = [
   },
 ];
 
-@graphql(
-  gql`
-    query PostsQuery($first: Int, $after: String, $search: String) {
-      posts(first: $first, after: $after, search: $search) {
-        count
-        edges {
-          node {
-            id
-            title
-            slug
-          }
-        }
-        pageInfo {
-          hasNextPage
-        }
-      }
-    }
-  `,
-  {
+@compose(
+  graphql(PostsQuery, {
     options: ({ match }) => {
       const { params } = match;
 
@@ -66,11 +66,16 @@ const columns = [
       // The alternative is to specify refetchQueries on all Post mutations.
       return { variables, fetchPolicy: 'cache-and-network' };
     },
-  }
+  }),
+  graphql(gql`
+    mutation DeletePostMutation($ids: [ObjID]!) {
+      removePost(ids: $ids)
+    }
+  `)
 )
 export default class Posts extends Component {
   render() {
-    const { location, match, data: { loading, posts } } = this.props;
+    const { location, match, mutate, data: { variables, loading, posts } } = this.props;
 
     if (loading && !posts) {
       return <Loading />;
@@ -80,7 +85,7 @@ export default class Posts extends Component {
       <Fragment>
         <Heading>Posts</Heading>
         <HeaderAdd to="/post/add">Add Post</HeaderAdd>
-        <ListTable {...{ location, match, columns }} data={posts} path="/post" />
+        <ListTable {...{ location, match, columns, mutate, variables }} data={posts} path="/post" />
       </Fragment>
     );
   }

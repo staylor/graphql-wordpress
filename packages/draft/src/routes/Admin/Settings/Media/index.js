@@ -8,12 +8,14 @@ import MediaSettingsMutation from './MediaSettingsMutation.graphql';
 
 /* eslint-disable react/prop-types */
 
-const normalizeCrops = crops =>
-  crops.map(({ name, width, height }) => ({
-    name,
-    width,
-    height,
-  }));
+const normalizeCrops = (crops = []) =>
+  crops
+    ? crops.map(({ name, width, height }) => ({
+        name,
+        width,
+        height,
+      }))
+    : [];
 
 let cropsValue;
 const updateCrops = crops => {

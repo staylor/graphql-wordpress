@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import path from 'path';
 import express from 'express';
 import passport from 'passport';
@@ -9,6 +10,8 @@ import { MongoClient } from 'mongodb';
 import authenticate from './authenticate';
 import uploads from './uploads';
 import router from './router';
+
+dotenv.config();
 
 /* eslint-disable no-console */
 
@@ -44,7 +47,7 @@ async function startServer() {
 
   const proxy = httpProxy({
     target: gqlHost,
-    changeOrigin: true,
+    changeOrigin: true
   });
 
   // proxy to the graphql server
