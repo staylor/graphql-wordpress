@@ -51,6 +51,9 @@ export default class Post extends Model {
   }
 
   async insert(doc) {
+    if (!doc.title) {
+      throw new Error('Post requires a title.');
+    }
     const slug = await getUniqueSlug(this.collection, doc.title);
     const docToInsert = Object.assign({}, doc, {
       slug,

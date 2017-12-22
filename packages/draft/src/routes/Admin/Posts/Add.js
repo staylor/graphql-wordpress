@@ -52,14 +52,14 @@ export default class AddPost extends Component {
           pathname: `/post/${createPost.id}`,
         });
       })
-      .catch(() => this.setState({ message: 'error' }));
+      .catch(err => this.setState({ message: err.message }));
   };
 
   render() {
     return (
       <Fragment>
         <Heading>Add Post</Heading>
-        {this.state.message === 'error' && <Message text="Error adding post." />}
+        {this.state.message && <Message text={this.state.message} />}
         <FormWrap>
           <Form fields={postFields} buttonLabel="Add Post" onSubmit={this.onSubmit} />
         </FormWrap>

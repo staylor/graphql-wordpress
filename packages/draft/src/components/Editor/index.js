@@ -16,15 +16,7 @@ import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
-import {
-  EditorWrap,
-  RichEditor,
-  hidePlaceholderClass,
-  BlockButton,
-  Toolbar,
-  Actions,
-  Action,
-} from './styled';
+import { EditorWrap, RichEditor, hidePlaceholderClass, BlockButton, Toolbar } from './styled';
 import styleMap from './styleMap';
 import { blockRenderer, blockStyle } from './Blocks';
 import { getSelection } from './utils';

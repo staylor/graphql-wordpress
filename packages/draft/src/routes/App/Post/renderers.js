@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Video from 'components/Videos/Video';
 import {
   Paragraph,
@@ -69,9 +68,9 @@ export default {
   entities: {
     // key is the entity key value from raw
     LINK: (children, data, { key }) => (
-      <Link key={key} to={data.href}>
+      <a key={key} href={data.href}>
         {children}
-      </Link>
+      </a>
     ),
     EMBED: (children, data, { key }) => (
       <Embed key={key} dangerouslySetInnerHTML={{ __html: data.html }} />

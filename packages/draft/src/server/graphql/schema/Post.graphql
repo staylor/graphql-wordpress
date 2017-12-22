@@ -1,8 +1,7 @@
 type Post {
   id: ObjID!
-  title: String
-  slug: String
-  content: String
+  title: String!
+  slug: String!
   contentState: ContentState
   createdAt: Float!
   updatedAt: Float!
@@ -20,7 +19,7 @@ type PostConnection {
 }
 
 input CreatePostInput {
-  title: String
+  title: String!
   contentState: ContentStateInput
 }
 
