@@ -11,7 +11,6 @@ import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
 /* eslint-disable react/prop-types */
 
 const postFields = settings => [
-  { prop: 'title', editable: true, className: titleInputClass },
   {
     prop: 'slug',
     render: post => {
@@ -26,6 +25,7 @@ const postFields = settings => [
       );
     },
   },
+  { prop: 'title', editable: true, className: titleInputClass },
   {
     prop: 'contentState',
     type: 'editor',

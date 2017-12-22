@@ -1,7 +1,5 @@
-import { DefaultDraftBlockRenderMap } from 'draft-js';
-import { Map } from 'immutable';
 import Media from './Media';
-import { blockquoteClass } from './styled';
+import { blockquoteClass, paragraphClass } from './styled';
 
 export function blockRenderer(block) {
   if (block.getType() === 'atomic') {
@@ -18,18 +16,9 @@ export function blockStyle(block) {
   switch (block.getType()) {
     case 'blockquote':
       return blockquoteClass;
+    case 'unstyled':
+      return paragraphClass;
     default:
       return null;
   }
 }
-
-export const blockRenderMap = DefaultDraftBlockRenderMap.merge(
-  Map({
-    paragraph: {
-      element: 'p',
-    },
-    unstyled: {
-      element: 'p',
-    },
-  })
-);

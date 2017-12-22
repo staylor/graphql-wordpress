@@ -1,5 +1,6 @@
 import React from 'react';
 import Video from 'components/Videos/Video';
+import { Image } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -22,7 +23,7 @@ const Media = ({ contentState, block }) => {
   if (type === 'IMAGE') {
     const { image, size } = entity.getData();
     const crop = image.crops.find(c => c.width === cropMap[size]);
-    return <img alt="" src={`/uploads/${image.destination}/${crop.fileName}`} />;
+    return <Image alt="" src={`/uploads/${image.destination}/${crop.fileName}`} />;
   }
 
   if (type === 'VIDEO') {

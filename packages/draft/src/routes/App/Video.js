@@ -28,6 +28,6 @@ export default class VideoRoute extends Component {
       return null;
     }
 
-    return <Video link={false} video={video} />;
+    return <Video single video={video} />;
   }
 }

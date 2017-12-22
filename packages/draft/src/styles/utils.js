@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 export const headingStyles = css`
   display: block;
   font-family: ${theme.fonts.futura};
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 700;
   letter-spacing: 0.3px;
   line-height: 1.3;

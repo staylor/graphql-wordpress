@@ -60,12 +60,6 @@ export const RichEditor = styled.div`
     font-size: 18px;
   }
 
-  .public-DraftEditorPlaceholder-root,
-  .public-DraftEditor-content {
-    margin: 0 -15px -15px;
-    padding: 15px;
-  }
-
   .public-DraftEditor-content {
     min-height: 100px;
   }
@@ -80,10 +74,6 @@ export const RichEditor = styled.div`
   .public-DraftStyleDefault-unorderedListItem,
   .public-DraftStyleDefault-orderedListItem {
     margin: 0;
-  }
-
-  p {
-    margin-bottom: ${p => p.theme.padding}px;
   }
 
   ol,

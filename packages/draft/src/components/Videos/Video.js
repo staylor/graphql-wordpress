@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
+import { Heading } from 'styles/utils';
 import {
   VideoLink,
   embedVideoLink,
@@ -16,8 +17,8 @@ import {
 
 const maxWidth = 640;
 
-export const findThumb = (thumbs, embed = false) => {
-  const sizes = embed ? [640, 480, 320] : [480, 640, 320];
+const findThumb = (thumbs, { single, embed }) => {
+  const sizes = embed || single ? [640, 480, 320] : [480, 640, 320];
   let thumb = thumbs.find(t => t.width === sizes[0]);
   if (thumb) {
     thumb = Object.assign({}, thumb);
@@ -49,8 +50,8 @@ export default class Video extends Component {
   };
 
   render() {
-    const { video, link = true, embed = false } = this.props;
-    const thumb = findThumb(video.thumbnails, embed);
+    const { video, single = false, embed = false } = this.props;
+    const thumb = findThumb(video.thumbnails, { single, embed });
 
     const placeholder = (
       <Placeholder>
@@ -71,7 +72,7 @@ export default class Video extends Component {
             {placeholder}
           </VideoLink>
           <EmbedTitle>
-            {link ? <Link to={`/video/${video.slug}`}>{video.title}</Link> : video.title}
+            {single ? video.title : <Link to={`/video/${video.slug}`}>{video.title}</Link>}
           </EmbedTitle>
         </Fragment>
       );
@@ -79,7 +80,14 @@ export default class Video extends Component {
 
     return (
       <article>
-        <Title>{link ? <Link to={`/video/${video.slug}`}>{video.title}</Link> : video.title}</Title>
+        {single ? (
+          <Heading>{video.title}</Heading>
+        ) : (
+          <Title>
+            <Link to={`/video/${video.slug}`}>{video.title}</Link>
+          </Title>
+        )}
+
         <VideoLink
           to={`/video/${video.slug}`}
           onClick={this.onClick}

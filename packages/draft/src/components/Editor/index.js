@@ -16,16 +16,28 @@ import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
-import { EditorWrap, RichEditor, hidePlaceholderClass, BlockButton, Toolbar } from './styled';
+import {
+  EditorWrap,
+  RichEditor,
+  hidePlaceholderClass,
+  BlockButton,
+  Toolbar,
+  Actions,
+  Action,
+} from './styled';
 import styleMap from './styleMap';
-import { blockRenderer, blockStyle, blockRenderMap } from './Blocks';
+import { blockRenderer, blockStyle } from './Blocks';
 import { getSelection } from './utils';
+import ImageModal from './Modals/Image';
+import VideoModal from './Modals/Video';
 
 /* eslint-disable react/prop-types */
 
 export default class Editor extends Component {
   state = {
     blockToolbar: false,
+    imageModal: false,
+    videoModal: false,
   };
 
   editor = null;
@@ -244,7 +256,12 @@ export default class Editor extends Component {
           className="Toolbar-sidebar"
           focus={this.focus}
         >
-          <BlockStyleControls editorState={editorState} onToggle={this.toggleBlockType} />
+          <BlockStyleControls
+            openImageModal={() => this.setState({ imageModal: true })}
+            openVideoModal={() => this.setState({ videoModal: true })}
+            editorState={editorState}
+            onToggle={this.toggleBlockType}
+          />
         </Toolbar>
         <RichEditor
           className={cn({
@@ -265,7 +282,6 @@ export default class Editor extends Component {
             onChange={this.onChange}
             onTab={this.onTab}
             handleKeyCommand={this.handleKeyCommand}
-            blockRenderMap={blockRenderMap}
             blockRendererFn={blockRenderer}
             blockStyleFn={blockStyle}
             customStyleMap={styleMap}
@@ -285,6 +301,24 @@ export default class Editor extends Component {
             />
           </Toolbar>
         </RichEditor>
+        {this.state.imageModal && (
+          <ImageModal
+            selectImage={this.setEntityData('IMAGE')}
+            onClose={e => {
+              e.preventDefault();
+              this.setState({ imageModal: false });
+            }}
+          />
+        )}
+        {this.state.videoModal && (
+          <VideoModal
+            selectVideo={this.setEntityData('VIDEO')}
+            onClose={e => {
+              e.preventDefault();
+              this.setState({ videoModal: false });
+            }}
+          />
+        )}
       </EditorWrap>
     );
   }

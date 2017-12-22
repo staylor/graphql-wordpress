@@ -3,6 +3,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Heading } from 'styles/utils';
 
+/* eslint-disable react/prop-types */
+
 @graphql(gql`
   query SidebarQuery {
     shows {

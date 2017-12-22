@@ -82,6 +82,7 @@ export default class Admin extends Component {
             <title>Admin</title>
           </Helmet>
           <Flex>
+            <div id="portal" />
             <NavMenu
               collapsed={this.state.collapsed}
               onCollapse={this.onCollapse}
