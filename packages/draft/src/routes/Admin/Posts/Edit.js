@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import { settingsShape } from 'types/PropTypes';
 import Form from 'routes/Admin/Form';
-import { Heading, postTitleClass, FormWrap } from 'routes/Admin/styled';
+import { postTitleClass, FormWrap } from 'routes/Admin/styled';
 
 /* eslint-disable react/prop-types */
 

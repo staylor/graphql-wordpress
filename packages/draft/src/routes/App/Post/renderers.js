@@ -1,5 +1,6 @@
 import React from 'react';
 import Video from 'components/Videos/Video';
+import { TwitterRedraftDecorator } from 'components/Editor/decorators/TwitterDecorator';
 import {
   Paragraph,
   Title,
@@ -85,4 +86,5 @@ export default {
       return <Video key={key} video={video} embed />;
     },
   },
+  decorators: [TwitterRedraftDecorator],
 };

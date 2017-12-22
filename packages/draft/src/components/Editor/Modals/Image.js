@@ -7,28 +7,35 @@ import { Modal, Frame, Item, LoadMore, CloseButton } from './styled';
 
 /* eslint-disable react/prop-types */
 
-@graphql(gql`
-  query ImageModalQuery($cursor: String) {
-    uploads(after: $cursor, first: 25) {
-      edges {
-        node {
-          id
-          destination
-          ... on ImageUpload {
-            crops {
-              width
-              fileName
+@graphql(
+  gql`
+    query ImageModalQuery($cursor: String) {
+      uploads(after: $cursor, first: 25) {
+        edges {
+          node {
+            id
+            destination
+            ... on ImageUpload {
+              crops {
+                width
+                fileName
+              }
             }
           }
         }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
+  `,
+  {
+    options: {
+      fetchPolicy: 'cache-and-network',
+    },
   }
-`)
+)
 export default class ImageModal extends Component {
   render() {
     const { data: { loading, uploads, fetchMore, variables } } = this.props;

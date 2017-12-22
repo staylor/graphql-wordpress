@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import {
   Editor as DraftEditor,
@@ -9,7 +10,9 @@ import {
   AtomicBlockUtils,
   convertFromRaw,
   getVisibleSelectionRect,
+  DefaultDraftBlockRenderMap,
 } from 'draft-js';
+import { Map } from 'immutable';
 import cn from 'classnames';
 import Video from 'components/Videos/Video';
 import BlockStyleControls from './Controls/BlockStyle';
@@ -26,7 +29,25 @@ import VideoModal from './Modals/Video';
 /* eslint-disable react/prop-types */
 
 export default class Editor extends Component {
+  static childContextTypes = {
+    setReadOnly: PropTypes.func,
+    setEditorState: PropTypes.func,
+  };
+
+  getChildContext() {
+    return {
+      setReadOnly: readOnly => this.setState({ readOnly }),
+      setEditorState: contentState => {
+        const editorState = EditorState.set(this.state.editorState, {
+          currentContent: contentState,
+        });
+        this.setState({ editorState });
+      },
+    };
+  }
+
   state = {
+    readOnly: false,
     blockToolbar: false,
     imageModal: false,
     videoModal: false,
@@ -36,6 +57,8 @@ export default class Editor extends Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.blockRenderMap = DefaultDraftBlockRenderMap.merge(Map({ atomic: { element: 'span' } }));
 
     const decorator = new CompositeDecorator([...LinkDecorator, ...TwitterDecorator]);
 
@@ -271,10 +294,12 @@ export default class Editor extends Component {
             ref={editor => {
               this.editor = editor;
             }}
+            readOnly={this.state.readOnly}
             editorState={editorState}
             onChange={this.onChange}
             onTab={this.onTab}
             handleKeyCommand={this.handleKeyCommand}
+            blockRenderMap={this.blockRenderMap}
             blockRendererFn={blockRenderer}
             blockStyleFn={blockStyle}
             customStyleMap={styleMap}

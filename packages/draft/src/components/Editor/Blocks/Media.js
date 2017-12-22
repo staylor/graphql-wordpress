@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import Video from 'components/Videos/Video';
 import { ImageWrap, Image, Sizer } from './styled';
@@ -11,8 +12,11 @@ const cropMap = {
   THUMB: 150,
 };
 
-const Media = ({ contentState, block }) => {
+const Media = ({ contentState, block }, { setReadOnly, setEditorState }) => {
   const entityKey = block.getEntityAt(0);
+  if (!entityKey) {
+    return null;
+  }
   const entity = contentState.getEntity(entityKey);
   const type = entity.getType();
 
@@ -25,6 +29,7 @@ const Media = ({ contentState, block }) => {
   if (type === 'IMAGE') {
     const { image, size } = entity.getData();
     const crop = image.crops.find(c => c.width === cropMap[size]);
+
     return (
       <ImageWrap
         className={cn({
@@ -32,29 +37,22 @@ const Media = ({ contentState, block }) => {
           'Image-MEDIUM': size === 'MEDIUM',
           'Image-SMALL': size === 'THUMB',
         })}
+        onMouseEnter={() => setReadOnly(true)}
+        onMouseLeave={() => setReadOnly(false)}
       >
         <Sizer>
-          <button
-            onMouseDown={() => {
-              contentState.mergeEntityData(entityKey, { size: 'FEATURE' });
-            }}
-          >
-            FEATURE
-          </button>
-          <button
-            onMouseDown={() => {
-              contentState.mergeEntityData(entityKey, { size: 'MEDIUM' });
-            }}
-          >
-            MEDIUM
-          </button>
-          <button
-            onMouseDown={() => {
-              contentState.mergeEntityData(entityKey, { size: 'THUMB' });
-            }}
-          >
-            SMALL
-          </button>
+          {['FEATURE', 'MEDIUM', 'THUMB'].map(s => (
+            <button
+              key={s}
+              onMouseDown={e => {
+                e.stopPropagation();
+                contentState.mergeEntityData(entityKey, { size: s });
+                setEditorState(contentState);
+              }}
+            >
+              {s}
+            </button>
+          ))}
         </Sizer>
         <Image alt="" src={`/uploads/${image.destination}/${crop.fileName}`} />
       </ImageWrap>
@@ -67,6 +65,11 @@ const Media = ({ contentState, block }) => {
   }
 
   return null;
+};
+
+Media.contextTypes = {
+  setReadOnly: PropTypes.func,
+  setEditorState: PropTypes.func,
 };
 
 export default Media;
