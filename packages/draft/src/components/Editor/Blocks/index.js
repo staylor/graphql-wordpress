@@ -1,3 +1,5 @@
+import { DefaultDraftBlockRenderMap } from 'draft-js';
+import { Map } from 'immutable';
 import Media from './Media';
 import { blockquoteClass } from './styled';
 
@@ -20,3 +22,14 @@ export function blockStyle(block) {
       return null;
   }
 }
+
+export const blockRenderMap = DefaultDraftBlockRenderMap.merge(
+  Map({
+    paragraph: {
+      element: 'p',
+    },
+    unstyled: {
+      element: 'p',
+    },
+  })
+);

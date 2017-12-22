@@ -12,16 +12,13 @@ import {
 } from 'draft-js';
 import cn from 'classnames';
 import Video from 'components/Videos/Video';
-import EmbedInput from './EmbedInput';
-import ImageInput from './ImageInput';
-import VideoInput from './VideoInput';
 import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
 import LinkDecorator from './decorators/LinkDecorator';
 import TwitterDecorator from './decorators/TwitterDecorator';
 import { EditorWrap, RichEditor, hidePlaceholderClass, BlockButton, Toolbar } from './styled';
 import styleMap from './styleMap';
-import { blockRenderer, blockStyle } from './Blocks';
+import { blockRenderer, blockStyle, blockRenderMap } from './Blocks';
 import { getSelection } from './utils';
 
 /* eslint-disable react/prop-types */
@@ -57,7 +54,6 @@ export default class Editor extends Component {
       });
     }
     this.state.editorState = EditorState.createWithContent(contentState, decorator);
-
     this.focus = () => this.editor.focus();
   }
 
@@ -138,9 +134,7 @@ export default class Editor extends Component {
       toolbarNode.style.transform = 'scale(0)';
       const bounds = selected.getBoundingClientRect();
       blockButton.style.transform = 'scale(1)';
-      // $TODO: Magic Number
-      const offset = editorBoundary.top - 48;
-      const topOffset = bounds.top - offset;
+      const topOffset = bounds.top - editorBoundary.top;
       blockButton.style.top = `${topOffset}px`;
       // $TODO: Magic Number
       sidebar.style.top = `${topOffset - 40}px`;
@@ -224,9 +218,6 @@ export default class Editor extends Component {
 
     return (
       <EditorWrap>
-        <EmbedInput setEmbedData={this.setEntityData('EMBED')} />
-        <ImageInput setImageData={this.setEntityData('IMAGE')} />
-        <VideoInput setVideoData={this.setEntityData('VIDEO')} />
         <BlockButton
           className={cn('dashicons', {
             'dashicons-plus-alt': !this.state.blockToolbar,
@@ -274,6 +265,7 @@ export default class Editor extends Component {
             onChange={this.onChange}
             onTab={this.onTab}
             handleKeyCommand={this.handleKeyCommand}
+            blockRenderMap={blockRenderMap}
             blockRendererFn={blockRenderer}
             blockStyleFn={blockStyle}
             customStyleMap={styleMap}

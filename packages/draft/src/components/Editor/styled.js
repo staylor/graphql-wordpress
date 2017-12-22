@@ -17,8 +17,8 @@ export const BlockButton = styled.div`
   left: -30px;
   position: absolute;
   transform: scale(0);
-  transition: transform 0.2s cubic-bezier(0.3, 1.2, 0.2, 1);
-  transition-delay: 0.5s;
+  transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
+  transition-delay: 0.25s;
 
   &:hover {
     color: ${p => p.theme.colors.dark};
@@ -27,8 +27,6 @@ export const BlockButton = styled.div`
 
 export const EditorWrap = styled.div`
   background: #fff;
-  font-size: 14px;
-  padding: 15px 0;
   position: relative;
 `;
 
@@ -38,10 +36,8 @@ export const linkClass = css`
 `;
 
 export const RichEditor = styled.div`
-  border-top: 1px solid #ddd;
   cursor: text;
   font-size: 16px;
-  margin-top: 10px;
   position: relative;
   z-index: 1;
 
@@ -80,6 +76,20 @@ export const RichEditor = styled.div`
     font-size: 16px;
     padding: 20px;
   }
+
+  .public-DraftStyleDefault-unorderedListItem,
+  .public-DraftStyleDefault-orderedListItem {
+    margin: 0;
+  }
+
+  p {
+    margin-bottom: ${p => p.theme.padding}px;
+  }
+
+  ol,
+  ul {
+    margin: 20px 0 20px 32px;
+  }
 `;
 
 export const Toolbar = styled.div`
@@ -88,7 +98,7 @@ export const Toolbar = styled.div`
   box-shadow: 0 1px 18px 0 rgba(0, 0, 0, 0.3);
   position: absolute;
   transform: scale(0);
-  transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
+  transition: transform 0.1s cubic-bezier(0.3, 1.2, 0.2, 1);
   z-index: 10;
 
   &::after {

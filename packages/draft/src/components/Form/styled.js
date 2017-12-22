@@ -5,6 +5,7 @@ import theme from 'styles/theme';
 export const Fields = styled.fieldset`
   display: block;
   float: left;
+  max-width: 640px;
   width: 100%;
 
   @media screen and (max-width: 782px) {

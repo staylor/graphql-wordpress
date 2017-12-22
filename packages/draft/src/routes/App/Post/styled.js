@@ -41,12 +41,12 @@ export const Embed = styled.div`
 
 export const List = styled.ul`
   list-style-type: disc;
-  margin: 0 0 20px 32px;
+  margin: 20px 0 20px 32px;
 `;
 
 export const OrderedList = styled.ol`
   list-style-type: decimal;
-  margin: 0 0 20px 32px;
+  margin: 20px 0 20px 32px;
 `;
 
 export const Image = styled.img`
