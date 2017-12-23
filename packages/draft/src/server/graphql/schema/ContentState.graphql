@@ -51,6 +51,7 @@ input BlockInput {
 }
 
 type LinkData {
+  id: String
   type: String
   href: String
   target: String
@@ -63,15 +64,17 @@ type EmbedData {
 }
 
 type ImageData {
-  type: String
   id: ObjID
+  type: String
+  imageId: ObjID
   image: ImageUpload
   size: String
 }
 
 type VideoData {
-  type: String
   id: ObjID
+  type: String
+  videoId: ObjID
   video: Video
 }
 
@@ -86,8 +89,10 @@ input EntityDataInput {
   href: String
   target: String
   # IMAGE fields
-  id: String
+  imageId: String
   size: String
+  # VIDEO fields
+  videoId: String
 }
 
 enum EntityType {

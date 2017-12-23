@@ -12,13 +12,13 @@ function convertEntityData(entityMap) {
       const { type, href, target } = entity.data;
       normalized.data = { type, href, target };
     } else if (entity.data.type === 'IMAGE') {
-      const { type, id, size } = entity.data;
-      normalized.data = { type, id, size };
-      normalized.data.id = ObjectId(id);
+      const { type, imageId, size } = entity.data;
+      normalized.data = { type, imageId, size };
+      normalized.data.imageId = ObjectId(imageId);
     } else if (entity.data.type === 'VIDEO') {
-      const { type, id } = entity.data;
-      normalized.data = { type, id };
-      normalized.data.id = ObjectId(id);
+      const { type, videoId } = entity.data;
+      normalized.data = { type, videoId };
+      normalized.data.videoId = ObjectId(videoId);
     } else {
       normalized.data = entity.data;
     }

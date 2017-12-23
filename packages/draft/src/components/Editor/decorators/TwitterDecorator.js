@@ -20,7 +20,11 @@ export const TwitterRedraftDecorator = {
   strategy: handleStrategy,
   // eslint-disable-next-line
   component: ({ children, decoratedText }) => (
-    <a target="_blank" href={`https://twitter.com/${decoratedText.substring(1)}`}>
+    <a
+      key={decoratedText}
+      target="_blank"
+      href={`https://twitter.com/${decoratedText.substring(1)}`}
+    >
       {children}
     </a>
   ),

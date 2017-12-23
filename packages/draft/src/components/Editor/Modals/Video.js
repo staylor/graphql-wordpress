@@ -56,7 +56,7 @@ export default class VideoModal extends Component {
                   });
 
                   this.props.selectVideo({
-                    id: node.id,
+                    videoId: node.id,
                     video: normalized,
                   });
                   this.props.onClose(e);

@@ -51,36 +51,34 @@ export default class Form extends Component {
               blocks: [...converted.blocks],
               entityMap: { ...converted.entityMap },
             };
-            const entityMap = Object.keys(value.entityMap)
-              .sort()
-              .map(i => {
-                const entity = Object.assign({}, value.entityMap[i]);
-                // Input types cannot be unions, so all fields from all
-                // entity data input types have to exist when setting
-                // data for entities
-                const entityData = { type: entity.type };
-                if (entityData.type === 'LINK') {
-                  ['href', 'target'].forEach(key => {
-                    entityData[key] = entity.data[key] || '';
-                  });
-                } else if (entityData.type === 'EMBED') {
-                  ['url', 'html'].forEach(key => {
-                    entityData[key] = entity.data[key] || '';
-                  });
-                } else if (entityData.type === 'IMAGE') {
-                  ['id', 'size'].forEach(key => {
-                    entityData[key] = entity.data[key] || '';
-                  });
-                } else if (entityData.type === 'VIDEO') {
-                  ['id'].forEach(key => {
-                    entityData[key] = entity.data[key] || '';
-                  });
-                }
-                return {
-                  ...entity,
-                  data: entityData,
-                };
-              });
+            const entityMap = Object.keys(value.entityMap).map(i => {
+              const entity = Object.assign({}, value.entityMap[i]);
+              // Input types cannot be unions, so all fields from all
+              // entity data input types have to exist when setting
+              // data for entities
+              const entityData = { type: entity.type };
+              if (entityData.type === 'LINK') {
+                ['href', 'target'].forEach(key => {
+                  entityData[key] = entity.data[key] || '';
+                });
+              } else if (entityData.type === 'EMBED') {
+                ['url', 'html'].forEach(key => {
+                  entityData[key] = entity.data[key] || '';
+                });
+              } else if (entityData.type === 'IMAGE') {
+                ['imageId', 'size'].forEach(key => {
+                  entityData[key] = entity.data[key] || '';
+                });
+              } else if (entityData.type === 'VIDEO') {
+                ['videoId'].forEach(key => {
+                  entityData[key] = entity.data[key] || '';
+                });
+              }
+              return {
+                ...entity,
+                data: entityData,
+              };
+            });
             value.entityMap = entityMap;
             this.boundRefs[field.prop] = {
               value,

@@ -17,7 +17,7 @@ export const Title = styled.h1`
 `;
 
 export const Paragraph = styled.p`
-  margin-bottom: ${p => p.theme.padding}px;
+  margin-bottom: 24px;
 `;
 
 export const Heading = styled.h2`
@@ -52,6 +52,6 @@ export const OrderedList = styled.ol`
 export const Image = styled.img`
   display: block;
   height: auto;
-  margin: 20px 0;
+  margin: 10px 0;
   max-width: 100%;
 `;

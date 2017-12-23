@@ -65,7 +65,7 @@ export default class ImageModal extends Component {
                   });
 
                   this.props.selectImage({
-                    id: node.id,
+                    imageId: node.id,
                     image: normalized,
                     size: 'FEATURE',
                   });

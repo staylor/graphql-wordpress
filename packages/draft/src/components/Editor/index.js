@@ -396,7 +396,7 @@ Editor.fragments = {
             html
           }
           ... on ImageData {
-            id
+            imageId
             image {
               destination
               crops {
@@ -407,7 +407,7 @@ Editor.fragments = {
             size
           }
           ... on VideoData {
-            id
+            videoId
             video {
               ...Video_video
             }

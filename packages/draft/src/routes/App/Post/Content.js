@@ -48,7 +48,7 @@ Content.fragments = {
             html
           }
           ... on ImageData {
-            id
+            imageId
             image {
               destination
               crops {
@@ -59,7 +59,7 @@ Content.fragments = {
             size
           }
           ... on VideoData {
-            id
+            videoId
             video {
               ...Video_video
             }

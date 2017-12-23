@@ -51,6 +51,7 @@ const postFields = settings => [
     {
       options: ({ match: { params } }) => ({
         variables: { id: params.id },
+        fetchPolicy: 'cache-and-network',
       }),
     }
   ),
