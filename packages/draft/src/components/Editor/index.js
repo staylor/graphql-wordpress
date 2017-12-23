@@ -26,7 +26,7 @@ import { getSelection } from './utils';
 import ImageModal from './Modals/Image';
 import VideoModal from './Modals/Video';
 
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types, react/no-find-dom-node, class-methods-use-this */
 
 export default class Editor extends Component {
   static childContextTypes = {
@@ -120,12 +120,7 @@ export default class Editor extends Component {
     this.focus();
   }
 
-  // eslint-disable-next-line
   getSelectedBlockElement() {
-    const bounds = getVisibleSelectionRect(window);
-    if (bounds && bounds.width > 1) {
-      return null;
-    }
     const selection = getSelection(window);
     if (selection.rangeCount === 0) {
       return null;
@@ -140,68 +135,66 @@ export default class Editor extends Component {
     return null;
   }
 
-  componentDidUpdate() {
-    const selected = this.getSelectedBlockElement();
+  showBlockToolbar(topOffset) {
+    const blockToolbar = ReactDOM.findDOMNode(this.blockToolbar);
+    // $TODO: Magic Number
+    blockToolbar.style.top = `${topOffset - 40}px`;
+    blockToolbar.style.transform = 'scale(1)';
+  }
 
-    /* eslint-disable react/no-find-dom-node */
-    const editor = ReactDOM.findDOMNode(this.editor);
-    const toolbarNode = ReactDOM.findDOMNode(this.toolbar);
-    const sidebar = ReactDOM.findDOMNode(this.sidebar);
-    const blockButton = ReactDOM.findDOMNode(this.blockButton);
-    /* eslint-enable react/no-find-dom-node */
-
+  hideBlockToolbar() {
+    const blockToolbar = ReactDOM.findDOMNode(this.blockToolbar);
+    blockToolbar.style.transform = 'scale(0)';
     if (this.state.blockToolbar) {
-      sidebar.style.transform = 'scale(1)';
-    } else {
-      sidebar.style.transform = 'scale(0)';
+      this.setState({ blockToolbar: false });
     }
+  }
 
-    if (selected) {
-      const editorBoundary = editor.getBoundingClientRect();
-      toolbarNode.style.transform = 'scale(0)';
-      const bounds = selected.getBoundingClientRect();
-      blockButton.style.transform = 'scale(1)';
-      const topOffset = bounds.top - editorBoundary.top;
-      blockButton.style.top = `${topOffset}px`;
-      // $TODO: Magic Number
-      sidebar.style.top = `${topOffset - 40}px`;
+  showBlockButton(blockButton) {
+    const editor = ReactDOM.findDOMNode(this.editor);
+    const editorBoundary = editor.getBoundingClientRect();
+    const selected = this.getSelectedBlockElement();
+    if (!selected) {
+      this.hideBlockButton(blockButton);
+      // console.log('--- NO SELECTED BLOCK ---');
       return;
     }
+    const bounds = selected.getBoundingClientRect();
+    const topOffset = bounds.top - editorBoundary.top;
+    blockButton.style.top = `${topOffset}px`;
+    blockButton.style.transform = 'scale(1)';
 
+    if (this.state.blockToolbar) {
+      this.showBlockToolbar(topOffset);
+    } else {
+      this.hideBlockToolbar();
+    }
+  }
+
+  hideBlockButton(blockButton) {
+    this.hideBlockToolbar();
+    blockButton.style.transform = 'scale(0)';
+  }
+
+  showInlineToolbar(inlineToolbar) {
+    const TOOLBAR_WIDTH = 250;
+    const TOOLBAR_HEIGHT = 32;
+
+    const editor = ReactDOM.findDOMNode(this.editor);
+    const editorBoundary = editor.getBoundingClientRect();
     const selectionBoundary = getVisibleSelectionRect(window);
     if (!selectionBoundary) {
       return;
     }
-
-    // hide block tools
-    blockButton.style.transform = 'scale(0)';
-
-    let toolbarBoundary;
-    // ensure that the animation is not triggered
-    // when the toolbar is already open
-    if (toolbarNode.style.transform === 'scale(1)') {
-      toolbarBoundary = toolbarNode.getBoundingClientRect();
-      toolbarNode.style.width = `${toolbarBoundary.width}px`;
-    } else {
-      // ensure that toolbar has dimensions
-      toolbarNode.style.visibility = 'hidden';
-      toolbarNode.style.left = '-9999px';
-      toolbarNode.style.transition = 'none';
-      toolbarNode.style.transform = 'scale(1)';
-      toolbarBoundary = toolbarNode.getBoundingClientRect();
-      toolbarNode.style.transform = 'scale(0)';
-    }
-
-    const editorBoundary = editor.getBoundingClientRect();
     // ensure that toolbar is positioned in the middle
     // and above the selection, regardless of toolbar state
-    toolbarNode.style.width = `${toolbarBoundary.width}px`;
-    toolbarNode.style.top = `${selectionBoundary.top -
+    inlineToolbar.style.width = `${TOOLBAR_WIDTH}px`;
+    inlineToolbar.style.top = `${selectionBoundary.top -
       editorBoundary.top -
-      toolbarBoundary.height -
+      TOOLBAR_HEIGHT -
       // $TODO: Magic Number
-      5}px`;
-    const widthDiff = selectionBoundary.width - toolbarBoundary.width;
+      10}px`;
+    const widthDiff = selectionBoundary.width - TOOLBAR_WIDTH;
     let leftOffset;
     if (widthDiff >= 0) {
       leftOffset = Math.max(widthDiff / 2, 0);
@@ -209,19 +202,49 @@ export default class Editor extends Component {
       const left = selectionBoundary.left - editorBoundary.left;
       leftOffset = Math.max(left + widthDiff / 2, 0);
     }
-    toolbarNode.style.left = `${leftOffset}px`;
+    inlineToolbar.style.left = `${leftOffset}px`;
     // this class allows us to style the toolbar arrow with CSS
     if (leftOffset === 0) {
-      toolbarNode.classList.add('Toolbar-flush');
+      inlineToolbar.classList.add('Toolbar-flush');
     } else {
-      toolbarNode.classList.remove('Toolbar-flush');
+      inlineToolbar.classList.remove('Toolbar-flush');
     }
-    toolbarNode.style.visibility = '';
-    // without a delay, the toolbar can sometimes appear for a split second scaled
-    setTimeout(() => {
-      toolbarNode.style.transition = 'transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1)';
-      toolbarNode.style.transform = 'scale(1)';
-    }, 10);
+    inlineToolbar.style.transform = 'scale(1)';
+  }
+
+  hideInlineToolbar(inlineToolbar) {
+    inlineToolbar.style.transform = 'scale(0)';
+  }
+
+  componentDidUpdate() {
+    if (this.state.readOnly) {
+      // console.log('--- READ ONLY ---');
+      return;
+    }
+
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    const anchorOffset = selection.get('anchorOffset');
+    const focusOffset = selection.get('focusOffset');
+
+    const blockButton = ReactDOM.findDOMNode(this.blockButton);
+    const inlineToolbar = ReactDOM.findDOMNode(this.inlineToolbar);
+
+    if (anchorOffset === 0 && focusOffset === 0) {
+      this.hideInlineToolbar(inlineToolbar);
+      this.showBlockButton(blockButton);
+      return;
+    }
+
+    this.hideBlockButton(blockButton);
+
+    if (anchorOffset === focusOffset) {
+      this.hideInlineToolbar(inlineToolbar);
+      // console.log('--- EMPTY SELECTION ---');
+      return;
+    }
+
+    this.showInlineToolbar(inlineToolbar);
   }
 
   setEntityData = ENTITY => data => {
@@ -234,7 +257,6 @@ export default class Editor extends Component {
     });
 
     this.setState({
-      blockToolbar: false,
       editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
     });
   };
@@ -254,27 +276,27 @@ export default class Editor extends Component {
           innerRef={blockButton => {
             this.blockButton = blockButton;
           }}
-          onClick={e => {
+          onMouseDown={e => {
             e.preventDefault();
             e.stopPropagation();
 
-            this.setState(prevState => ({
-              blockToolbar: !prevState.blockToolbar,
-            }));
+            this.setState({
+              blockToolbar: !this.state.blockToolbar,
+            });
           }}
         >
           {' '}
         </BlockButton>
         <Toolbar
-          innerRef={sidebar => {
-            this.sidebar = sidebar;
+          innerRef={toolbar => {
+            this.blockToolbar = toolbar;
           }}
           className="Toolbar-sidebar"
           focus={this.focus}
         >
           <BlockStyleControls
-            openImageModal={() => this.setState({ blockToolbar: false, imageModal: true })}
-            openVideoModal={() => this.setState({ blockToolbar: false, videoModal: true })}
+            openImageModal={() => this.setState({ imageModal: true })}
+            openVideoModal={() => this.setState({ videoModal: true })}
             editorState={editorState}
             onToggle={this.toggleBlockType}
           />
@@ -307,7 +329,7 @@ export default class Editor extends Component {
           />
           <Toolbar
             innerRef={toolbar => {
-              this.toolbar = toolbar;
+              this.inlineToolbar = toolbar;
             }}
             focus={this.focus}
           >
@@ -324,7 +346,7 @@ export default class Editor extends Component {
             selectImage={this.setEntityData('IMAGE')}
             onClose={e => {
               e.preventDefault();
-              this.setState({ blockToolbar: false, imageModal: false });
+              this.setState({ imageModal: false });
             }}
           />
         )}
@@ -333,7 +355,7 @@ export default class Editor extends Component {
             selectVideo={this.setEntityData('VIDEO')}
             onClose={e => {
               e.preventDefault();
-              this.setState({ blockToolbar: false, videoModal: false });
+              this.setState({ videoModal: false });
             }}
           />
         )}
