@@ -51,7 +51,6 @@ input BlockInput {
 }
 
 type LinkData {
-  id: String
   type: String
   href: String
   target: String
@@ -64,7 +63,6 @@ type EmbedData {
 }
 
 type ImageData {
-  id: ObjID
   type: String
   imageId: ObjID
   image: ImageUpload
@@ -72,7 +70,6 @@ type ImageData {
 }
 
 type VideoData {
-  id: ObjID
   type: String
   videoId: ObjID
   video: Video

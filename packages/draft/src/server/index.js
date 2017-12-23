@@ -47,7 +47,7 @@ async function startServer() {
 
   const proxy = httpProxy({
     target: gqlHost,
-    changeOrigin: true
+    changeOrigin: true,
   });
 
   // proxy to the graphql server

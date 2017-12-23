@@ -43,6 +43,7 @@ extend type Query {
     after: String
     last: Int
     before: String
+    latest: Boolean
     date: Float
     artist: ObjID
     venue: ObjID

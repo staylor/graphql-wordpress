@@ -7,8 +7,18 @@ export default class Show extends Model {
     this.collection = context.db.collection('show');
   }
 
-  async all({ limit = 10, offset = 0, artist = null, venue = null, search = null }) {
+  async all({
+    limit = 10,
+    offset = 0,
+    latest = false,
+    artist = null,
+    venue = null,
+    search = null,
+  }) {
     const criteria = {};
+    if (latest) {
+      criteria.date = { $gte: Date.now() };
+    }
     if (artist) {
       criteria.artist = artist;
     }

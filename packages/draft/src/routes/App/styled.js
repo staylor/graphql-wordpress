@@ -23,8 +23,13 @@ export const Title = styled.h1`
 
   img {
     display: block;
-    height: 54px;
-    width: auto;
+    height: auto;
+    width: 100%;
+
+    ${responsive.desktop} {
+      height: 54px;
+      width: auto;
+    }
   }
 `;
 
@@ -36,6 +41,7 @@ export const Content = styled.div`
 `;
 
 export const Primary = styled.section`
+  margin-bottom: ${p => p.theme.padding}px;
   ${responsive.desktop} {
     flex: 3;
     margin-right: ${p => p.theme.padding}px;
@@ -57,5 +63,6 @@ export const Secondary = styled.section`
 `;
 
 export const Footer = styled.footer`
+  font-size: 14px;
   text-align: center;
 `;

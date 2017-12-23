@@ -11,7 +11,7 @@ export const blockquoteClass = css`
 `;
 
 export const paragraphClass = css`
-  margin: 0 0 15px;
+  margin: 0 0 24px;
 `;
 
 export const Image = styled.img`
@@ -21,12 +21,12 @@ export const Image = styled.img`
 `;
 
 export const ImageWrap = styled.div`
-  margin: 20px 0;
+  margin: 10px 0;
   position: relative;
 
   &.Image-MEDIUM,
   &.Image-SMALL {
-    margin: 0 20px 20px 0;
+    margin: 0 20px 10px 0;
   }
 `;
 

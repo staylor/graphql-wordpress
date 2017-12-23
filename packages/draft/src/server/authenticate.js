@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import jwt from 'jwt-simple';
@@ -32,7 +33,7 @@ passport.use(
 export default function addPassport(app, db) {
   app.use(passport.initialize());
 
-  app.post('/auth', async (req, res) => {
+  app.post('/auth', bodyParser.json(), async (req, res) => {
     try {
       const { email, password } = req.body;
 

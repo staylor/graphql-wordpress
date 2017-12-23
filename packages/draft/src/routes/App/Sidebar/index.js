@@ -8,7 +8,7 @@ import { Show, Time } from './styled';
 
 @graphql(gql`
   query SidebarQuery {
-    shows {
+    shows(latest: true) {
       edges {
         node {
           id
