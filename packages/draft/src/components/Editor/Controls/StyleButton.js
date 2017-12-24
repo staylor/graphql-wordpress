@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import { StyleButton as StyledButton, activeButtonClass } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -16,7 +16,7 @@ export default class StyleButton extends Component {
       <StyledButton
         role="button"
         tabIndex="-1"
-        className={cn(this.props.className, {
+        className={cx(this.props.className, {
           [activeButtonClass]: this.props.active,
         })}
         onMouseDown={this.onToggle}

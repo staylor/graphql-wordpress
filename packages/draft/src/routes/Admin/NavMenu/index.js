@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import NavLink from './NavLink';
 import SubNav from './SubNav';
 import CollapseButton from './CollapseButton';
@@ -25,7 +25,7 @@ export default class NavMenu extends Component {
 
     return (
       <Nav
-        className={cn({
+        className={cx({
           'NavMenu-collapsed': collapsed,
           [navCollapsedClass]: collapsed,
         })}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
@@ -95,7 +95,7 @@ export default class Admin extends Component {
               routeConfig={routes}
             />
             <Content
-              className={cn({
+              className={cx({
                 [collapsedNavClass]: this.state.collapsed,
               })}
             >

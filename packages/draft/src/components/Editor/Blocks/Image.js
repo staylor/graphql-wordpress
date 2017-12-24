@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import Sizer from './Sizer';
 import { ImageWrap, Image as StyledImage } from './styled';
 
@@ -41,7 +41,7 @@ export default class Image extends Component {
 
     return (
       <ImageWrap
-        className={cn({
+        className={cx({
           'Image-FEATURE': size === 'FEATURE',
           'Image-MEDIUM': size === 'MEDIUM',
           'Image-SMALL': size === 'THUMB',

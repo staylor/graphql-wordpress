@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import { SubNav as StyledSubNav, SubNavLink, subNavActiveClass } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -8,7 +8,7 @@ export default function SubNav({ location, item, collapsed, hovered }) {
   const active = location.pathname.indexOf(item.path) === 0;
   return (
     <StyledSubNav
-      className={cn({
+      className={cx({
         'SubNav-active': active,
         'SubNav-collapsed': collapsed,
         'SubNav-hovered': hovered,

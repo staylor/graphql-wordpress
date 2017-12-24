@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { convertToRaw } from 'draft-js';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import { Field, FieldWrap, FieldName, FieldValue, Fields } from 'components/Form/styled';
 import Input from 'components/Form/Input';
 import Textarea from 'components/Form/Textarea';
@@ -44,7 +44,7 @@ export default class Form extends Component {
     if (field.type === 'editor') {
       return (
         <Editor
-          className={cn(field.className)}
+          className={cx(field.className)}
           onChange={content => {
             const converted = convertToRaw(content);
             const value = {
@@ -94,7 +94,7 @@ export default class Form extends Component {
     if (field.type === 'select') {
       return (
         <Select
-          className={cn(field.className)}
+          className={cx(field.className)}
           innerRef={this.bindRef(field.prop)}
           choices={field.choices}
           value={data[field.prop] || (field.multiple ? [] : '')}
@@ -108,7 +108,7 @@ export default class Form extends Component {
     if (field.type === 'textarea') {
       return (
         <Textarea
-          className={cn(field.className)}
+          className={cx(field.className)}
           innerRef={this.bindRef(field.prop)}
           value={data && field.render ? field.render(data) : data[field.prop]}
         />
@@ -119,7 +119,7 @@ export default class Form extends Component {
       <Input
         placeholder={field.placeholder || ''}
         type={field.inputType || 'text'}
-        className={cn(field.className)}
+        className={cx(field.className)}
         innerRef={this.bindRef(field.prop)}
         value={data && field.render ? field.render(data) : data[field.prop]}
       />

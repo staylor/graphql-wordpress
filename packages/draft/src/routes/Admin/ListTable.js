@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import Select from 'components/Form/Select';
 import Checkbox from 'components/Form/Checkbox';
 import { Table, StripedRow, CellHeading, Cell, CheckboxCell } from 'styles/utils';
@@ -85,7 +85,7 @@ export default class ListTable extends Component {
           <Checkbox checked={this.state.all} onChange={this.toggleAll} />
         </CheckboxCell>
         {columns.map((column, i) => (
-          <CellHeading className={cn(column.className)} key={i.toString(16)}>
+          <CellHeading className={cx(column.className)} key={i.toString(16)}>
             {column.label}
           </CellHeading>
         ))}
@@ -149,7 +149,7 @@ export default class ListTable extends Component {
                   />
                 </CheckboxCell>
                 {columns.map((column, i) => (
-                  <Cell key={i.toString(16)} className={cn(column.className)}>
+                  <Cell key={i.toString(16)} className={cx(column.className)}>
                     {column.render ? column.render(node, this.props) : node[column.prop]}
                   </Cell>
                 ))}

@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import { NavLink as StyledNavLink, activeClass, Dashicon } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -9,8 +9,8 @@ export default function NavLink({ item, hovered, collapsed }) {
     <StyledNavLink
       to={item.path}
       exact={item.path === '/'}
-      activeClassName={cn('NavLink-active', activeClass)}
-      className={cn({
+      activeClassName={cx('NavLink-active', activeClass)}
+      className={cx({
         'NavLink-collapsed': collapsed,
         'NavLink-hovered': hovered,
         'NavLink-hasSubNav': item.routes && item.routes.length > 0,

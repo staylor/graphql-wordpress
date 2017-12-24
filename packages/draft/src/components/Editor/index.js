@@ -11,7 +11,7 @@ import {
   convertFromRaw,
   getVisibleSelectionRect,
 } from 'draft-js';
-import cn from 'classnames';
+import { cx } from 'emotion';
 import Video from 'components/Videos/Video';
 import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
@@ -265,7 +265,7 @@ export default class Editor extends Component {
     return (
       <EditorWrap>
         <BlockButton
-          className={cn('dashicons', {
+          className={cx('dashicons', {
             'dashicons-plus-alt': !this.state.blockToolbar,
             'dashicons-no': this.state.blockToolbar,
           })}
@@ -298,7 +298,7 @@ export default class Editor extends Component {
           />
         </Toolbar>
         <RichEditor
-          className={cn({
+          className={cx({
             [hidePlaceholderClass]:
               !contentState.hasText() &&
               contentState

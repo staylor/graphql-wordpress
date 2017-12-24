@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
 import Content from './Content';
 import { Title } from './styled';
@@ -35,6 +36,9 @@ export default class PostRoute extends Component {
 
     return (
       <article>
+        <Helmet>
+          <title>{post.title}</title>
+        </Helmet>
         <Title>{post.title}</Title>
         <Content contentState={post.contentState} />
       </article>
