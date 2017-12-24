@@ -22,16 +22,18 @@ export const Image = styled.img`
 
 export const ImageWrap = styled.div`
   margin: 10px 0;
+  pointer-events: all;
   position: relative;
 
   &.Image-MEDIUM,
   &.Image-SMALL {
+    float: left;
     margin: 0 20px 10px 0;
   }
 `;
 
 export const Sizer = styled.div`
+  display: block;
   position: absolute;
-  left: 5px;
-  top: 5px;
+  z-index: 100001;
 `;

@@ -40,6 +40,10 @@ export const RichEditor = styled.div`
   position: relative;
   z-index: 1;
 
+  div[data-block] {
+    pointer-events: none;
+  }
+
   h2[data-offset-key] {
     ${headingStyles};
     font-size: 24px;

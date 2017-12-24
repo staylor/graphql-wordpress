@@ -10,9 +10,7 @@ import {
   AtomicBlockUtils,
   convertFromRaw,
   getVisibleSelectionRect,
-  DefaultDraftBlockRenderMap,
 } from 'draft-js';
-import { Map } from 'immutable';
 import cn from 'classnames';
 import Video from 'components/Videos/Video';
 import BlockStyleControls from './Controls/BlockStyle';
@@ -26,7 +24,7 @@ import { getSelection } from './utils';
 import ImageModal from './Modals/Image';
 import VideoModal from './Modals/Video';
 
-/* eslint-disable react/prop-types, react/no-find-dom-node, class-methods-use-this */
+/* eslint-disable react/prop-types, class-methods-use-this */
 
 export default class Editor extends Component {
   static childContextTypes = {
@@ -36,7 +34,7 @@ export default class Editor extends Component {
 
   getChildContext() {
     return {
-      setReadOnly: readOnly => this.setState({ readOnly }),
+      setReadOnly: (readOnly, callback = null) => this.setState({ readOnly }, callback),
       setEditorState: contentState => {
         const editorState = EditorState.set(this.state.editorState, {
           currentContent: contentState,
@@ -57,8 +55,6 @@ export default class Editor extends Component {
 
   constructor(props, context) {
     super(props, context);
-
-    this.blockRenderMap = DefaultDraftBlockRenderMap.merge(Map({ atomic: { element: 'span' } }));
 
     const decorator = new CompositeDecorator([...LinkDecorator, ...TwitterDecorator]);
 
@@ -136,33 +132,33 @@ export default class Editor extends Component {
   }
 
   showBlockToolbar(topOffset) {
-    const blockToolbar = ReactDOM.findDOMNode(this.blockToolbar);
     // $TODO: Magic Number
-    blockToolbar.style.top = `${topOffset - 40}px`;
-    blockToolbar.style.transform = 'scale(1)';
+    this.blockToolbar.style.top = `${topOffset - 40}px`;
+    this.blockToolbar.style.transform = 'scale(1)';
   }
 
   hideBlockToolbar() {
-    const blockToolbar = ReactDOM.findDOMNode(this.blockToolbar);
-    blockToolbar.style.transform = 'scale(0)';
+    this.blockToolbar.style.transform = 'scale(0)';
     if (this.state.blockToolbar) {
       this.setState({ blockToolbar: false });
     }
   }
 
-  showBlockButton(blockButton) {
+  showBlockButton() {
+    // Draft does the same thing internally #dark
+    // eslint-disable-next-line react/no-find-dom-node
     const editor = ReactDOM.findDOMNode(this.editor);
     const editorBoundary = editor.getBoundingClientRect();
     const selected = this.getSelectedBlockElement();
     if (!selected) {
-      this.hideBlockButton(blockButton);
+      this.hideBlockButton();
       // console.log('--- NO SELECTED BLOCK ---');
       return;
     }
     const bounds = selected.getBoundingClientRect();
     const topOffset = bounds.top - editorBoundary.top;
-    blockButton.style.top = `${topOffset}px`;
-    blockButton.style.transform = 'scale(1)';
+    this.blockButton.style.top = `${topOffset}px`;
+    this.blockButton.style.transform = 'scale(1)';
 
     if (this.state.blockToolbar) {
       this.showBlockToolbar(topOffset);
@@ -171,25 +167,28 @@ export default class Editor extends Component {
     }
   }
 
-  hideBlockButton(blockButton) {
+  hideBlockButton() {
     this.hideBlockToolbar();
-    blockButton.style.transform = 'scale(0)';
+    this.blockButton.style.transform = 'scale(0)';
   }
 
-  showInlineToolbar(inlineToolbar) {
-    const TOOLBAR_WIDTH = 250;
-    const TOOLBAR_HEIGHT = 32;
-
-    const editor = ReactDOM.findDOMNode(this.editor);
-    const editorBoundary = editor.getBoundingClientRect();
+  showInlineToolbar() {
     const selectionBoundary = getVisibleSelectionRect(window);
     if (!selectionBoundary) {
       return;
     }
+
+    const TOOLBAR_WIDTH = 250;
+    const TOOLBAR_HEIGHT = 32;
+
+    // Draft does the same thing internally #dark
+    // eslint-disable-next-line react/no-find-dom-node
+    const editor = ReactDOM.findDOMNode(this.editor);
+    const editorBoundary = editor.getBoundingClientRect();
     // ensure that toolbar is positioned in the middle
     // and above the selection, regardless of toolbar state
-    inlineToolbar.style.width = `${TOOLBAR_WIDTH}px`;
-    inlineToolbar.style.top = `${selectionBoundary.top -
+    this.inlineToolbar.style.width = `${TOOLBAR_WIDTH}px`;
+    this.inlineToolbar.style.top = `${selectionBoundary.top -
       editorBoundary.top -
       TOOLBAR_HEIGHT -
       // $TODO: Magic Number
@@ -202,18 +201,18 @@ export default class Editor extends Component {
       const left = selectionBoundary.left - editorBoundary.left;
       leftOffset = Math.max(left + widthDiff / 2, 0);
     }
-    inlineToolbar.style.left = `${leftOffset}px`;
+    this.inlineToolbar.style.left = `${leftOffset}px`;
     // this class allows us to style the toolbar arrow with CSS
     if (leftOffset === 0) {
-      inlineToolbar.classList.add('Toolbar-flush');
+      this.inlineToolbar.classList.add('Toolbar-flush');
     } else {
-      inlineToolbar.classList.remove('Toolbar-flush');
+      this.inlineToolbar.classList.remove('Toolbar-flush');
     }
-    inlineToolbar.style.transform = 'scale(1)';
+    this.inlineToolbar.style.transform = 'scale(1)';
   }
 
-  hideInlineToolbar(inlineToolbar) {
-    inlineToolbar.style.transform = 'scale(0)';
+  hideInlineToolbar() {
+    this.inlineToolbar.style.transform = 'scale(0)';
   }
 
   componentDidUpdate() {
@@ -227,24 +226,21 @@ export default class Editor extends Component {
     const anchorOffset = selection.get('anchorOffset');
     const focusOffset = selection.get('focusOffset');
 
-    const blockButton = ReactDOM.findDOMNode(this.blockButton);
-    const inlineToolbar = ReactDOM.findDOMNode(this.inlineToolbar);
-
     if (anchorOffset === 0 && focusOffset === 0) {
-      this.hideInlineToolbar(inlineToolbar);
-      this.showBlockButton(blockButton);
+      this.hideInlineToolbar();
+      this.showBlockButton();
       return;
     }
 
-    this.hideBlockButton(blockButton);
+    this.hideBlockButton();
 
     if (anchorOffset === focusOffset) {
-      this.hideInlineToolbar(inlineToolbar);
+      this.hideInlineToolbar();
       // console.log('--- EMPTY SELECTION ---');
       return;
     }
 
-    this.showInlineToolbar(inlineToolbar);
+    this.showInlineToolbar();
   }
 
   setEntityData = ENTITY => data => {
@@ -321,7 +317,6 @@ export default class Editor extends Component {
             onChange={this.onChange}
             onTab={this.onTab}
             handleKeyCommand={this.handleKeyCommand}
-            blockRenderMap={this.blockRenderMap}
             blockRendererFn={blockRenderer}
             blockStyleFn={blockStyle}
             customStyleMap={styleMap}

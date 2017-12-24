@@ -7,8 +7,8 @@ import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
 import theme from 'styles/theme';
 import Loading from 'components/Loading';
-import { settingsShape } from 'types/PropTypes';
-import { PageWrapper, Flex, Content, collapsedNavClass } from './styled';
+import { settingsShape, mediaSettingsShape } from 'types/PropTypes';
+import { PageWrapper, Flex, Content, collapsedNavClass, AtomicToolbar } from './styled';
 import NavMenu from './NavMenu';
 import NotFound from './NotFound';
 import routeConfig from './routeConfig';
@@ -17,13 +17,21 @@ import routeConfig from './routeConfig';
 
 @graphql(
   gql`
-    query AdminQuery($id: String) {
-      settings(id: $id) {
-        id
+    query AdminQuery {
+      settings(id: "site") {
         ... on SiteSettings {
           siteTitle
           siteUrl
           language
+        }
+      }
+      mediaSettings: settings(id: "media") {
+        ... on MediaSettings {
+          crops {
+            name
+            width
+            height
+          }
         }
       }
       taxonomies {
@@ -37,21 +45,18 @@ import routeConfig from './routeConfig';
         }
       }
     }
-  `,
-  {
-    options: {
-      variables: { id: 'site' },
-    },
-  }
+  `
 )
 export default class Admin extends Component {
   static childContextTypes = {
     settings: settingsShape,
+    mediaSettings: mediaSettingsShape,
   };
 
   getChildContext() {
     return {
       settings: this.props.data.settings,
+      mediaSettings: this.props.data.mediaSettings,
     };
   }
 
@@ -83,6 +88,7 @@ export default class Admin extends Component {
           </Helmet>
           <Flex>
             <div id="portal" />
+            <AtomicToolbar id="atomicToolbar" />
             <NavMenu
               collapsed={this.state.collapsed}
               onCollapse={this.onCollapse}

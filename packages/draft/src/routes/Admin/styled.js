@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import theme from 'styles/theme';
 import { headingStyles } from 'styles/utils';
 
+export const AtomicToolbar = styled.div`
+  position: absolute;
+`;
+
 export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
   margin: 0 auto;
