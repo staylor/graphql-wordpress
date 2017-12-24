@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import 'styles/inject';
+import { settingsShape } from 'types/PropTypes';
 import logo from 'public/logo.png';
 import Home from './Home';
 import Videos from './Videos';
@@ -48,6 +49,16 @@ import {
 )
 @withRouter
 export default class App extends Component {
+  static childContextTypes = {
+    settings: settingsShape,
+  };
+
+  getChildContext() {
+    return {
+      settings: this.props.data.settings,
+    };
+  }
+
   render() {
     const { data: { loading, settings } } = this.props;
 
