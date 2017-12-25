@@ -31,6 +31,12 @@ const postFields = settings => [
     type: 'editor',
     editable: true,
   },
+  {
+    label: 'Summary',
+    prop: 'summary',
+    type: 'textarea',
+    editable: true,
+  },
 ];
 
 @compose(
@@ -44,6 +50,7 @@ const postFields = settings => [
           contentState {
             ...Editor_contentState
           }
+          summary
         }
       }
       ${Editor.fragments.contentState}
@@ -64,6 +71,7 @@ const postFields = settings => [
         contentState {
           ...Editor_contentState
         }
+        summary
       }
     }
     ${Editor.fragments.contentState}

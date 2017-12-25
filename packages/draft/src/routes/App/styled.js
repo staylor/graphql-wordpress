@@ -5,10 +5,11 @@ export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
   margin: 0 auto;
   max-width: ${p => p.theme.contentWidth}px;
-  padding: ${p => p.theme.padding}px;
+  padding: 20px;
 `;
 
 export const Header = styled.header`
+  margin-bottom: ${p => p.theme.padding}px;
   position: relative;
 `;
 
@@ -51,12 +52,7 @@ export const Primary = styled.section`
 `;
 
 export const PrimaryWrapper = styled.section`
-  margin: 0 auto;
   max-width: 100%;
-  width: 640px;
-  ${responsive.desktop} {
-    margin: 0;
-  }
 `;
 
 export const Secondary = styled.section`

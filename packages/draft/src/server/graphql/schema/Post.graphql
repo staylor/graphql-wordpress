@@ -3,6 +3,7 @@ type Post {
   title: String!
   slug: String!
   contentState: ContentState
+  summary: String
   createdAt: Float!
   updatedAt: Float!
 }
@@ -21,11 +22,13 @@ type PostConnection {
 input CreatePostInput {
   title: String!
   contentState: ContentStateInput
+  summary: String
 }
 
 input UpdatePostInput {
   title: String
   contentState: ContentStateInput
+  summary: String
 }
 
 extend type Query {

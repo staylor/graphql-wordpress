@@ -65,6 +65,10 @@ export default class App extends Component {
     return { settings, socialSettings };
   }
 
+  componentDidUpdate() {
+    document.documentElement.scrollTop = 0;
+  }
+
   render() {
     const { data: { loading, settings, socialSettings } } = this.props;
 

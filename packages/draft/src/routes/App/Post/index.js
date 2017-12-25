@@ -18,6 +18,7 @@ import { Title } from './styled';
         contentState {
           ...Content_contentState
         }
+        summary
       }
     }
     ${Content.fragments.contentState}
@@ -52,11 +53,13 @@ export default class PostRoute extends Component {
           <link rel="canonical" href={postUrl} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={post.summary} />
           <meta property="og:url" content={postUrl} />
           <meta name="twitter:card" value="summary" />
           {twitterUsername && <meta name="twitter:site" value={`@${twitterUsername}`} />}
           {twitterUsername && <meta name="twitter:creator" value={`@${twitterUsername}`} />}
           <meta name="twitter:title" content={post.title} />
+          <meta name="twitter:description" content={post.summary} />
           <meta name="twitter:url" content={postUrl} />
         </Helmet>
         <Title>{post.title}</Title>

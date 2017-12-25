@@ -21,6 +21,12 @@ const postFields = [
     editable: true,
     placeholder: 'Post goes here...',
   },
+  {
+    label: 'Summary',
+    prop: 'summary',
+    type: 'textarea',
+    editable: true,
+  },
 ];
 
 @graphql(gql`
@@ -32,6 +38,7 @@ const postFields = [
       contentState {
         ...Editor_contentState
       }
+      summary
     }
   }
   ${Editor.fragments.contentState}
