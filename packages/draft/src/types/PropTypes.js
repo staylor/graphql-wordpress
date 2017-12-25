@@ -14,3 +14,10 @@ export const mediaSettingsShape = PropTypes.shape({
     })
   ),
 });
+
+export const socialSettingsShape = PropTypes.shape({
+  facebookUrl: PropTypes.string,
+  facebookAppId: PropTypes.string,
+  twitterUsername: PropTypes.string,
+  instagramUsername: PropTypes.string,
+});

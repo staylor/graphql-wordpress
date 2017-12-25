@@ -88,11 +88,7 @@ export default class Video extends Component {
           </Title>
         )}
 
-        <VideoLink
-          to={`/video/${video.slug}`}
-          onClick={this.onClick}
-          width={thumb ? thumb.width : maxWidth}
-        >
+        <VideoLink to={`/video/${video.slug}`} onClick={this.onClick}>
           {placeholder}
         </VideoLink>
       </article>

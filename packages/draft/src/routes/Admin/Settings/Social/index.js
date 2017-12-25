@@ -16,6 +16,11 @@ const settingsFields = [
     prop: 'facebookUrl',
     editable: true,
   },
+  {
+    label: 'Facebook App ID',
+    prop: 'facebookAppId',
+    editable: true,
+  },
 ];
 
 function SocialSettings({ data, mutate }) {

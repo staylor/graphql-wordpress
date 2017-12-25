@@ -9,7 +9,7 @@ export const PageWrapper = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: 0 0 ${p => p.theme.padding}px;
+  position: relative;
 `;
 
 export const Title = styled.h1`
@@ -17,17 +17,19 @@ export const Title = styled.h1`
   margin: 0;
 
   a {
-    color: ${p => p.theme.colors.black};
     text-decoration: none;
   }
 
   img {
     display: block;
     height: auto;
+    margin: 0 auto;
+    max-width: 615px;
     width: 100%;
 
     ${responsive.desktop} {
       height: 54px;
+      margin: 0;
       width: auto;
     }
   }
@@ -43,26 +45,79 @@ export const Content = styled.div`
 export const Primary = styled.section`
   margin-bottom: ${p => p.theme.padding}px;
   ${responsive.desktop} {
-    flex: 3;
+    flex: 4;
     margin-right: ${p => p.theme.padding}px;
   }
 `;
 
 export const PrimaryWrapper = styled.section`
+  margin: 0 auto;
   max-width: 100%;
   width: 640px;
+  ${responsive.desktop} {
+    margin: 0;
+  }
 `;
 
 export const Secondary = styled.section`
+  border-top: 1px solid ${p => p.theme.colors.detail};
   display: block;
-  min-height: 212px;
-  min-width: 212px;
+  margin: ${p => p.theme.padding * 3}px auto 0;
+  max-width: 100%;
+  padding-top: ${p => p.theme.padding}px;
+  width: 640px;
   ${responsive.desktop} {
-    flex: 1;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 220px;
   }
 `;
 
 export const Footer = styled.footer`
   font-size: 14px;
+  text-align: center;
+`;
+
+export const SocialLinks = styled.nav`
+  margin: 20px 0 0;
+  text-align: center;
+  ${responsive.desktop} {
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 13px;
+  }
+`;
+export const SocialIcon = styled.a`
+  color: ${p => p.theme.colors.dark};
+  display: inline-block;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  width: 35px;
+  ${responsive.desktop} {
+    font-size: 28px;
+    height: 28px;
+    line-height: 28px;
+    width: 45px;
+  }
+
+  &.icons-facebook {
+    width: 22px;
+    ${responsive.desktop} {
+      width: 30px;
+    }
+  }
+
+  &:hover {
+    color: ${p => p.theme.colors.black};
+  }
+`;
+
+export const FooterLinks = styled.nav`
+  margin: 10px 0;
   text-align: center;
 `;

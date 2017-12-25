@@ -1,6 +1,7 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
 import theme from 'styles/theme';
+import responsive from 'styles/responsive';
 
 const headingStyle = css`
   display: block;
@@ -12,8 +13,13 @@ const headingStyle = css`
 export const Title = styled.h1`
   ${headingStyle};
   display: block;
-  font-size: 36px;
-  margin-bottom: ${p => p.theme.padding}px;
+  font-size: 30px;
+  margin-bottom: 10px;
+
+  ${responsive.desktop} {
+    font-size: 36px;
+    margin-bottom: ${p => p.theme.padding}px;
+  }
 `;
 
 export const Paragraph = styled.p`

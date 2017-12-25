@@ -31,7 +31,6 @@ export const VideoLink = styled(Link)`
   display: block;
   margin: 0 0 ${p => p.theme.padding}px;
   max-width: 100%;
-  width: ${p => p.width}px;
 `;
 
 export const embedVideoLink = css`

@@ -12,7 +12,7 @@ export const PageWrapper = styled.div`
   background: ${p => p.theme.colors.white};
   margin: 0 auto;
   min-height: calc(100vh - ${p => p.theme.padding * 2}px);
-  padding: ${p => p.theme.padding}px;
+  padding: ${p => p.theme.padding}px ${p => p.theme.padding * 2}px;
 `;
 
 export const Header = styled.header`

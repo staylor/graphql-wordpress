@@ -24,12 +24,14 @@ input SiteSettingsInput {
 type SocialSettings implements Settings {
   id: String
   facebookUrl: String
+  facebookAppId: String
   twitterUsername: String
   instagramUsername: String
 }
 
 input SocialSettingsInput {
   facebookUrl: String
+  facebookAppId: String
   twitterUsername: String
   instagramUsername: String
 }
