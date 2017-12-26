@@ -9,8 +9,8 @@ export default (req, res, next) => {
 
   const app = (
     <ApolloProvider client={res.locals.client}>
-      <StaticRouter location={req.url} context={staticContext}>
-        <Route path="/login/:action?" component={Login} />
+      <StaticRouter location={req.url} context={staticContext} basename="/login">
+        <Route path="/:action?" component={Login} />
       </StaticRouter>
     </ApolloProvider>
   );

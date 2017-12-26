@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { withRouter } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
 import fetch from 'isomorphic-fetch';
 import Cookies from 'js-cookie';
@@ -29,7 +28,6 @@ import { PageWrapper, Content, Title, Form, Label, Input, Button } from './style
     },
   }
 )
-@withRouter
 export default class Login extends Component {
   constructor(props, context) {
     super(props, context);
