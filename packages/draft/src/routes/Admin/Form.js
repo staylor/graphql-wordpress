@@ -134,7 +134,7 @@ export default class Form extends Component {
     return (
       <Fields>
         {fields.map((f, i) => {
-          const field = typeof f === 'function' ? f() : f;
+          const field = typeof f === 'function' ? f(data) : f;
           if (field.condition && !field.condition(data)) {
             return null;
           }

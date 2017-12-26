@@ -45,8 +45,8 @@ const postFields = settings => [
     type: 'textarea',
     editable: true,
   },
-  () => {
-    let featuredMedia = [];
+  post => {
+    let featuredMedia = post.featuredMedia.map(media => media.id);
     const onChange = value => {
       featuredMedia = value;
     };
@@ -55,7 +55,7 @@ const postFields = settings => [
       type: 'custom',
       editable: true,
       value: () => featuredMedia,
-      render: post => <FeaturedMedia onChange={onChange} media={post.featuredMedia} />,
+      render: p => <FeaturedMedia onChange={onChange} media={p.featuredMedia} />,
     };
   },
   {
