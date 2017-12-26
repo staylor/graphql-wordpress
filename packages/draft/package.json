@@ -72,7 +72,7 @@
     "clean": "rimraf graphql-build",
     "dev": "BABEL_ENV=app kyt dev -C kyt.dev.js",
     "graphql-dev": "BABEL_ENV=graphql nodemon --config nodemon.json --exec babel-node src/server/graphql/index.js",
-    "build": "kyt build -C kyt.prod.js",
+    "build": "BABEL_ENV=app kyt build -C kyt.prod.js",
     "start": "forever start build/server/main.js",
     "prod": "npm run build && npm run start",
     "graphql-schema": "mkdirp graphql-build/schema && cp -R src/server/graphql/schema graphql-build",
