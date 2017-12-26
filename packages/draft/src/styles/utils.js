@@ -1,19 +1,51 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
 import theme from 'styles/theme';
+import responsive from 'styles/responsive';
 
 export const headingStyles = css`
   display: block;
-  font-family: ${theme.fonts.futura};
-  font-size: 25px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.3px;
   line-height: 1.3;
-  margin: 0 0 ${theme.padding}px;
+  margin-bottom: 10px;
+
+  ${responsive.desktop} {
+    margin-bottom: ${theme.padding}px;
+  }
+`;
+
+export const h1styles = css`
+  ${headingStyles};
+  font-size: 30px;
+
+  ${responsive.desktop} {
+    font-size: 36px;
+  }
+`;
+
+export const h2Styles = css`
+  ${headingStyles};
+  font-family: ${theme.fonts.futura};
+  font-size: 24px;
+`;
+
+export const h3Styles = css`
+  ${headingStyles};
+  font-family: ${theme.fonts.futura};
+  font-size: 20px;
+`;
+
+export const h4Styles = css`
+  ${headingStyles};
+  font-family: ${theme.fonts.futura};
+  font-size: 18px;
 `;
 
 export const Heading = styled.h2`
   ${headingStyles};
+  font-family: ${theme.fonts.futura};
+  font-size: 25px;
 `;
 
 export const Table = styled.table`

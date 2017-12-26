@@ -1,6 +1,6 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
-import { headingStyles } from 'styles/utils';
+import { h2Styles, h3Styles, h4Styles } from 'styles/utils';
 import theme from 'styles/theme';
 
 export const hidePlaceholderClass = css`
@@ -45,18 +45,15 @@ export const RichEditor = styled.div`
   }
 
   h2[data-offset-key] {
-    ${headingStyles};
-    font-size: 24px;
+    ${h2Styles};
   }
 
   h3[data-offset-key] {
-    ${headingStyles};
-    font-size: 20px;
+    ${h3Styles};
   }
 
   h4[data-offset-key] {
-    ${headingStyles};
-    font-size: 18px;
+    ${h4Styles};
   }
 
   .public-DraftEditor-content {

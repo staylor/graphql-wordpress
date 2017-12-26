@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { settingsShape } from 'types/PropTypes';
 import Editor from 'components/Editor';
 import Form from 'routes/Admin/Form';
-import { postTitleClass } from 'routes/Admin/styled';
+import { postTitleClass } from './styled';
 
 /* eslint-disable react/prop-types */
 

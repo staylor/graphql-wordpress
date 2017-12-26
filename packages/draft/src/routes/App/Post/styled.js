@@ -1,30 +1,13 @@
 import styled from 'react-emotion';
-import { css } from 'emotion';
-import theme from 'styles/theme';
-import responsive from 'styles/responsive';
+import { h1styles, h2Styles, h3Styles, h4Styles } from 'styles/utils';
 
 export const Wrapper = styled.article`
   width: 640px;
   max-width: 100%;
 `;
 
-const headingStyle = css`
-  display: block;
-  font-weight: 600;
-  line-height: 1.4;
-`;
-
 export const Title = styled.h1`
-  ${headingStyle};
-  display: block;
-  font-size: 30px;
-  letter-spacing: 0.3px;
-  margin-bottom: 10px;
-
-  ${responsive.desktop} {
-    font-size: 36px;
-    margin-bottom: ${p => p.theme.padding}px;
-  }
+  ${h1styles};
 `;
 
 export const Paragraph = styled.p`
@@ -32,21 +15,15 @@ export const Paragraph = styled.p`
 `;
 
 export const Heading = styled.h2`
-  ${headingStyle};
-  font-family: ${theme.fonts.futura};
-  font-size: 24px;
+  ${h2Styles};
 `;
 
 export const SubHeading = styled.h3`
-  ${headingStyle};
-  font-family: ${theme.fonts.futura};
-  font-size: 20px;
+  ${h3Styles};
 `;
 
 export const BoldHeading = styled.h4`
-  ${headingStyle};
-  font-family: ${theme.fonts.futura};
-  font-size: 18px;
+  ${h4Styles};
 `;
 
 export const Embed = styled.div`
