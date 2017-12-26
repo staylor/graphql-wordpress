@@ -76,7 +76,7 @@
     "start": "forever start build/server/main.js",
     "prod": "npm run build && npm run start",
     "graphql-build": "npm run clean && babel --ignore __tests__,__mocks__ src/server/graphql -d graphql-build",
-    "graphql-start": "forever start graphql-build/server/index.js",
+    "graphql-start": "forever start graphql-build/index.js",
     "graphql-prod": "npm run graphql-build && npm run graphql-start",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
     "youtube": "BABEL_ENV=graphql babel-node src/data/youtube.js"
