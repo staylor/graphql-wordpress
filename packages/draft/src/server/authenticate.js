@@ -3,8 +3,9 @@ import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import jwt from 'jwt-simple';
 import bcrypt from 'bcrypt';
-import { TOKEN_KEY, TOKEN_SECRET } from 'utils/constants';
-import User from 'models/User';
+import User from 'server/graphql/models/User';
+
+const { TOKEN_KEY, TOKEN_SECRET } = process.env;
 
 passport.use(
   new Strategy(

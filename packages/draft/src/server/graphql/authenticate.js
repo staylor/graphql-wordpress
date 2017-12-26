@@ -1,7 +1,8 @@
 import passport from 'passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ObjectId } from 'mongodb';
-import { TOKEN_SECRET } from 'utils/constants';
+
+const { TOKEN_SECRET } = process.env;
 
 async function userFromPayload({ context: { User } }, jwtPayload) {
   if (!jwtPayload.userId) {

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import multer from 'multer';
-import Media from 'models/Media';
-import Video from 'models/Video';
+import Media from 'server/graphql/models/Media';
+import Video from 'server/graphql/models/Video';
 import mediaStorage from './storage';
 
 const mediaFields = ['originalName', 'destination', 'fileName', 'mimeType', 'fileSize'];

@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { GraphQLScalarType } from 'graphql';
 import { Kind } from 'graphql/language';
 import { merge } from 'lodash';
-import { requireModules } from 'utils/fs';
+import { requireModules } from 'server/graphql/utils';
 
 const modules = requireModules(__dirname);
 const resolvers = Object.keys(modules).reduce((memo, name) => {

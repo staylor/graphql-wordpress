@@ -6,7 +6,7 @@ import sharp from 'sharp';
 import mm from 'musicmetadata';
 import ffprobe from 'ffprobe';
 import ffprobeStatic from 'ffprobe-static';
-import Settings from 'models/Settings';
+import Settings from 'server/graphql/models/Settings';
 
 /* eslint-disable class-methods-use-this, consistent-return */
 

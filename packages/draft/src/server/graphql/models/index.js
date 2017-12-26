@@ -1,4 +1,4 @@
-import { requireModules } from 'utils/fs';
+import { requireModules } from 'server/graphql/utils';
 
 const models = requireModules(__dirname);
 

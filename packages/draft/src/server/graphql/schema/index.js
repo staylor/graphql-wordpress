@@ -1,4 +1,4 @@
-import { requireFiles } from 'utils/fs';
+import { requireFiles } from 'server/graphql/utils';
 
 const typeDefs = [
   `
@@ -13,7 +13,7 @@ const typeDefs = [
     hasPreviousPage: Boolean
     hasNextPage: Boolean
   }
-`
+`,
 ];
 
 const files = requireFiles(__dirname);

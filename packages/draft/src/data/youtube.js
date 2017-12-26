@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { MongoClient } from 'mongodb';
 import { URL } from 'url';
 import fetch from 'node-fetch';
-import { slugify } from 'models/utils';
+import { slugify } from 'server/graphql/models/utils';
 
 /* eslint-disable no-console */
 

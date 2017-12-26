@@ -5,9 +5,9 @@ import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
-import addModelsToContext from 'models';
 import typeDefs from 'server/graphql/schema';
 import resolvers from 'server/graphql/resolvers';
+import addModelsToContext from './models';
 import authenticate from './authenticate';
 
 /* eslint-disable no-console */
