@@ -1,11 +1,10 @@
+import 'dotenv/config';
 import { MongoClient } from 'mongodb';
 import { URL } from 'url';
 import fetch from 'node-fetch';
 import { slugify } from 'models/utils';
 
 /* eslint-disable no-console */
-
-const MONGO_URI = 'mongodb://127.0.0.1:27017/highforthis';
 
 const API_HOST = 'https://www.googleapis.com';
 const API_PATH = '/youtube/v3/playlistItems';
@@ -145,8 +144,7 @@ async function fetchPlaylist(playlistId) {
     );
 }
 
-MongoClient.connect(MONGO_URI, (err, conn) => {
-  db = conn;
-
+(async () => {
+  db = await MongoClient.connect(process.env.MONGO_URL);
   Promise.all(Object.keys(playlistMap).map(fetchPlaylist)).then(() => db.close());
-});
+})();
