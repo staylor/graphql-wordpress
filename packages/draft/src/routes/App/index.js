@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Switch, Route, Link, withRouter } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
@@ -13,6 +13,7 @@ import Video from './Video';
 import Post from './Post';
 import NotFound from './NotFound';
 import Sidebar from './Sidebar';
+import Navigation from './Nav';
 import {
   PageWrapper,
   Header,
@@ -53,7 +54,6 @@ import {
     }
   `
 )
-@withRouter
 export default class App extends Component {
   static childContextTypes = {
     settings: settingsShape,
@@ -115,6 +115,7 @@ export default class App extends Component {
               </Link>
             </Title>
             <SocialLinks>{social}</SocialLinks>
+            <Navigation />
           </Header>
           <Content>
             <Primary>

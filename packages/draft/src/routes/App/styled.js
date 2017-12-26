@@ -1,5 +1,6 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
+import { Link } from 'react-router-dom';
 import theme from 'styles/theme';
 import responsive from 'styles/responsive';
 
@@ -135,4 +136,22 @@ export const InstagramIcon = styled.a`
 export const FooterLinks = styled.nav`
   margin: 10px 0;
   text-align: center;
+`;
+
+export const Nav = styled.nav`
+  height: 28px;
+  margin: 10px 0;
+`;
+
+export const NavItem = styled(Link)`
+  color: ${p => p.theme.colors.dark};
+  display: inline-block;
+  font-family: ${p => p.theme.fonts.futura};
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 28px;
+  margin: 0 20px 0 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
 `;

@@ -10,7 +10,6 @@ export const Wrapper = styled.article`
 
 const headingStyle = css`
   display: block;
-  font-family: ${theme.fonts.futura};
   font-weight: 600;
   line-height: 1.4;
 `;
@@ -19,6 +18,7 @@ export const Title = styled.h1`
   ${headingStyle};
   display: block;
   font-size: 30px;
+  letter-spacing: 0.3px;
   margin-bottom: 10px;
 
   ${responsive.desktop} {
@@ -33,16 +33,19 @@ export const Paragraph = styled.p`
 
 export const Heading = styled.h2`
   ${headingStyle};
+  font-family: ${theme.fonts.futura};
   font-size: 24px;
 `;
 
 export const SubHeading = styled.h3`
   ${headingStyle};
+  font-family: ${theme.fonts.futura};
   font-size: 20px;
 `;
 
 export const BoldHeading = styled.h4`
   ${headingStyle};
+  font-family: ${theme.fonts.futura};
   font-size: 18px;
 `;
 
