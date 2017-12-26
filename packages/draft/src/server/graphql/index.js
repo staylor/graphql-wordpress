@@ -14,7 +14,7 @@ import authenticate from './authenticate';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const { PORT = 8080, MONGO_URL } = process.env;
+const { GRAPHQL_PORT = 8080, MONGO_URL } = process.env;
 
 async function startServer() {
   const db = await MongoClient.connect(MONGO_URL);
@@ -46,7 +46,9 @@ async function startServer() {
     })
   );
 
-  app.listen(PORT, () => console.log(`API Server is now running on http://localhost:${PORT}`));
+  app.listen(GRAPHQL_PORT, () =>
+    console.log(`API Server is now running on http://localhost:${GRAPHQL_PORT}`)
+  );
 }
 
 startServer()
