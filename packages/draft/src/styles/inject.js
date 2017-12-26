@@ -59,101 +59,17 @@ export default function inject() {
       font-weight: normal;
       font-style: normal;
     }
-    [class^='icons-'],
-    [class*=' icons-'] {
+
+    .icon-font {
       font-family: 'icons';
-      speak: none;
       font-style: normal;
-      font-weight: normal;
       font-variant: normal;
-      text-transform: none;
+      font-weight: normal;
       line-height: 1;
+      speak: none;
+      text-transform: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-    }
-    .icons-envelope::before {
-      content: '\\e903';
-    }
-    .icons-share::before {
-      content: '\\e905';
-    }
-    .icons-spotify::before {
-      content: '\\e900';
-    }
-    .icons-snapchat::before {
-      content: '\\e901';
-    }
-    .icons-shazam::before {
-      content: '\\e902';
-    }
-    .icons-twitter::before {
-      content: '\\ea91';
-    }
-    .icons-vimeo::before {
-      content: '\\ea9c';
-    }
-    .icons-tumblr::before {
-      content: '\\eabb';
-    }
-    .icons-apple::before {
-      content: '\\eabf';
-    }
-    .icons-soundcloud::before {
-      content: '\\eac4';
-    }
-    .icons-linkedin2::before {
-      content: '\\eac9';
-    }
-    .icons-pinterest::before {
-      content: '\\ead0';
-    }
-    .icons-pinterest-p::before {
-      content: '\\e904';
-    }
-    .icons-arrow-down::before {
-      content: '\\e609';
-    }
-    .icons-arrow-left::before {
-      content: '\\e607';
-    }
-    .icons-arrow-right::before {
-      content: '\\e608';
-    }
-    .icons-facebook::before {
-      content: '\\e605';
-    }
-    .icons-scs::before {
-      content: '\\e600';
-    }
-    .icons-cross::before {
-      content: '\\e601';
-    }
-    .icons-plus::before {
-      content: '\\e602';
-    }
-    .icons-book::before {
-      content: '\\e606';
-    }
-    .icons-link::before {
-      content: '\\e60f';
-    }
-    .icons-reply::before {
-      content: '\\e60a';
-    }
-    .icons-retweet::before {
-      content: '\\e60b';
-    }
-    .icons-star-outlined::before {
-      content: '\\e60c';
-    }
-    .icons-google::before {
-      content: '\\e60d';
-    }
-    .icons-instagram::before {
-      content: '\\e603';
-    }
-    .icons-youtube::before {
-      content: '\\e604';
     }
   `;
 }

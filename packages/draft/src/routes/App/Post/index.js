@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
 import Content from './Content';
-import { Title } from './styled';
+import { Wrapper, Title } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -47,7 +47,7 @@ export default class PostRoute extends Component {
     const postUrl = `${siteUrl}/post/${post.slug}`;
 
     return (
-      <article>
+      <Wrapper>
         <Helmet>
           <title>{post.title}</title>
           <link rel="canonical" href={postUrl} />
@@ -64,7 +64,7 @@ export default class PostRoute extends Component {
         </Helmet>
         <Title>{post.title}</Title>
         <Content contentState={post.contentState} />
-      </article>
+      </Wrapper>
     );
   }
 }

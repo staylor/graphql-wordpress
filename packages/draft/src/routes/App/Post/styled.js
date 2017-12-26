@@ -3,6 +3,11 @@ import { css } from 'emotion';
 import theme from 'styles/theme';
 import responsive from 'styles/responsive';
 
+export const Wrapper = styled.article`
+  width: 640px;
+  max-width: 100%;
+`;
+
 const headingStyle = css`
   display: block;
   font-family: ${theme.fonts.futura};

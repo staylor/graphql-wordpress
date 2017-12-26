@@ -5,7 +5,6 @@ import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
-import 'styles/inject';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
 import logo from 'public/logo.png';
 import Home from './Home';
@@ -20,11 +19,12 @@ import {
   Title,
   Content,
   Primary,
-  PrimaryWrapper,
   Secondary,
   Footer,
   SocialLinks,
-  SocialIcon,
+  FacebookIcon,
+  TwitterIcon,
+  InstagramIcon,
   FooterLinks,
 } from './styled';
 
@@ -79,19 +79,19 @@ export default class App extends Component {
     const social = (
       <Fragment>
         {socialSettings.instagramUsername && (
-          <SocialIcon
-            className="icons-instagram"
+          <InstagramIcon
+            className="icon-font"
             href={`$https://instagram.com/${socialSettings.instagramUsername}`}
           />
         )}
         {socialSettings.twitterUsername && (
-          <SocialIcon
-            className="icons-twitter"
+          <TwitterIcon
+            className="icon-font"
             href={`https://twitter.com/${socialSettings.twitterUsername}`}
           />
         )}
         {socialSettings.facebookUrl && (
-          <SocialIcon className="icons-facebook" href={socialSettings.facebookUrl} />
+          <FacebookIcon className="icon-font" href={socialSettings.facebookUrl} />
         )}
       </Fragment>
     );
@@ -118,15 +118,13 @@ export default class App extends Component {
           </Header>
           <Content>
             <Primary>
-              <PrimaryWrapper>
-                <Switch>
-                  <Route exact path="/videos/:year(\d{4})?" component={Videos} />
-                  <Route path="/video/:slug" component={Video} />
-                  <Route path="/post/:slug" component={Post} />
-                  <Route exact path="/" component={Home} />
-                  <Route path="*" component={NotFound} />
-                </Switch>
-              </PrimaryWrapper>
+              <Switch>
+                <Route exact path="/videos/:year(\d{4})?" component={Videos} />
+                <Route path="/video/:slug" component={Video} />
+                <Route path="/post/:slug" component={Post} />
+                <Route exact path="/" component={Home} />
+                <Route path="*" component={NotFound} />
+              </Switch>
             </Primary>
             <Secondary>
               <Sidebar />

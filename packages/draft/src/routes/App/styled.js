@@ -1,4 +1,6 @@
 import styled from 'react-emotion';
+import { css } from 'emotion';
+import theme from 'styles/theme';
 import responsive from 'styles/responsive';
 
 export const PageWrapper = styled.div`
@@ -45,14 +47,11 @@ export const Content = styled.div`
 
 export const Primary = styled.section`
   margin-bottom: ${p => p.theme.padding}px;
+  max-width: 100%;
   ${responsive.desktop} {
     flex: 4;
     margin-right: ${p => p.theme.padding}px;
   }
-`;
-
-export const PrimaryWrapper = styled.section`
-  max-width: 100%;
 `;
 
 export const Secondary = styled.section`
@@ -85,8 +84,9 @@ export const SocialLinks = styled.nav`
     top: 13px;
   }
 `;
-export const SocialIcon = styled.a`
-  color: ${p => p.theme.colors.dark};
+
+const socialIcon = css`
+  color: ${theme.colors.dark};
   display: inline-block;
   font-size: 20px;
   height: 20px;
@@ -101,15 +101,34 @@ export const SocialIcon = styled.a`
     width: 45px;
   }
 
-  &.icons-facebook {
-    width: 22px;
-    ${responsive.desktop} {
-      width: 30px;
-    }
+  &:hover {
+    color: ${theme.colors.black};
+  }
+`;
+
+export const FacebookIcon = styled.a`
+  ${socialIcon};
+  width: 22px;
+  ${responsive.desktop} {
+    width: 30px;
   }
 
-  &:hover {
-    color: ${p => p.theme.colors.black};
+  &::before {
+    content: '\\e605';
+  }
+`;
+export const TwitterIcon = styled.a`
+  ${socialIcon};
+
+  &::before {
+    content: '\\ea91';
+  }
+`;
+export const InstagramIcon = styled.a`
+  ${socialIcon};
+
+  &::before {
+    content: '\\e603';
   }
 `;
 
