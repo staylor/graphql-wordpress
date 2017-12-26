@@ -20,6 +20,15 @@ import { Wrapper, Title } from './styled';
           ...Content_contentState
         }
         summary
+        featuredMedia {
+          destination
+          ... on ImageUpload {
+            crops {
+              fileName
+              width
+            }
+          }
+        }
       }
     }
     ${Content.fragments.contentState}
@@ -51,6 +60,13 @@ export default class PostRoute extends Component {
     const { twitterUsername } = this.context.socialSettings;
     const postUrl = `${siteUrl}/post/${post.slug}`;
 
+    let featuredImage = null;
+    if (post.featuredMedia && post.featuredMedia.length > 0) {
+      const media = post.featuredMedia[0];
+      const crop = media.crops.find(c => c.width === 640);
+      featuredImage = `${siteUrl}/uploads/${media.destination}/${crop.fileName}`;
+    }
+
     return (
       <Wrapper>
         <Helmet>
@@ -60,12 +76,14 @@ export default class PostRoute extends Component {
           <meta property="og:title" content={post.title} />
           <meta property="og:description" content={post.summary} />
           <meta property="og:url" content={postUrl} />
+          {featuredImage && <meta property="og:image" content={featuredImage} />}
           <meta name="twitter:card" value="summary" />
           {twitterUsername && <meta name="twitter:site" value={`@${twitterUsername}`} />}
           {twitterUsername && <meta name="twitter:creator" value={`@${twitterUsername}`} />}
           <meta name="twitter:title" content={post.title} />
           <meta name="twitter:description" content={post.summary} />
           <meta name="twitter:url" content={postUrl} />
+          {featuredImage && <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <Title>{post.title}</Title>
         <Content contentState={post.contentState} />
