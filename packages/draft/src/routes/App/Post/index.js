@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
+import NotFound from 'routes/App/NotFound';
 import Content from './Content';
 import { Wrapper, Title } from './styled';
 
@@ -36,7 +37,11 @@ export default class PostRoute extends Component {
   };
 
   render() {
-    const { data: { loading, post } } = this.props;
+    const { data: { loading, error, post } } = this.props;
+
+    if (error) {
+      return <NotFound />;
+    }
 
     if (loading && !post) {
       return null;

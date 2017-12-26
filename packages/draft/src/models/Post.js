@@ -13,11 +13,11 @@ function convertEntityData(entityMap) {
       normalized.data = { type, href, target };
     } else if (entity.data.type === 'IMAGE') {
       const { type, imageId, size } = entity.data;
-      normalized.data = { type, imageId, size };
+      normalized.data = { type, size };
       normalized.data.imageId = ObjectId(imageId);
     } else if (entity.data.type === 'VIDEO') {
       const { type, videoId } = entity.data;
-      normalized.data = { type, videoId };
+      normalized.data = { type };
       normalized.data.videoId = ObjectId(videoId);
     } else {
       normalized.data = entity.data;
@@ -36,8 +36,11 @@ export default class Post extends Model {
     this.collection = context.db.collection('post');
   }
 
-  all({ limit = 10, offset = 0, search = null }) {
+  all({ limit = 10, offset = 0, status = null, search = null }) {
     const criteria = {};
+    if (status) {
+      criteria.status = status;
+    }
     if (search) {
       criteria.$text = { $search: search };
     }
@@ -55,7 +58,7 @@ export default class Post extends Model {
       throw new Error('Post requires a title.');
     }
     const slug = await getUniqueSlug(this.collection, doc.title);
-    const docToInsert = Object.assign({}, doc, {
+    const docToInsert = Object.assign({ status: 'DRAFT' }, doc, {
       slug,
       createdAt: Date.now(),
       updatedAt: Date.now(),

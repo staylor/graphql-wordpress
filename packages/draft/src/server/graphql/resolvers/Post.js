@@ -7,15 +7,29 @@ const resolvers = {
     },
   },
   Query: {
-    async posts(root, args, { Post }) {
-      return parseConnection(Post, args);
+    async posts(root, args, { Post, authUser }) {
+      const connectionArgs = Object.assign({}, args);
+      const userCanSee = authUser && authUser.roles.includes('admin');
+      if (!userCanSee) {
+        connectionArgs.status = 'PUBLISH';
+      }
+      return parseConnection(Post, connectionArgs);
     },
 
-    post(root, { id, slug }, { Post }) {
+    async post(root, { id, slug }, { Post, authUser }) {
+      let post;
       if (id) {
-        return Post.findOneById(id);
+        post = await Post.findOneById(id);
+      } else {
+        post = await Post.findOneBySlug(slug);
       }
-      return Post.findOneBySlug(slug);
+
+      const userCanSee = authUser && authUser.roles.includes('admin');
+      if (post.status === 'DRAFT' && !userCanSee) {
+        throw new Error('You do not have permission');
+      }
+
+      return post;
     },
   },
   Mutation: {

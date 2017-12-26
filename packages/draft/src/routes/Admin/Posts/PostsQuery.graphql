@@ -6,6 +6,7 @@ query PostsQuery($first: Int, $after: String, $search: String) {
         id
         title
         slug
+        status
       }
     }
     pageInfo {
@@ -13,4 +14,3 @@ query PostsQuery($first: Int, $after: String, $search: String) {
     }
   }
 }
-

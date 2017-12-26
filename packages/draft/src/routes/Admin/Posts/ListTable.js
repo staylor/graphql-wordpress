@@ -32,6 +32,7 @@ const columns = [
         <Fragment>
           <RowTitle>
             <Link to={`/post/${post.id}`}>{post.title}</Link>
+            {post.status === 'DRAFT' ? ' - Draft' : ''}
           </RowTitle>
           <RowActions>
             <Link to={`/post/${post.id}`}>Edit</Link> |{' '}

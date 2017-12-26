@@ -1,59 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Editor from 'components/Editor';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import { settingsShape } from 'types/PropTypes';
-import Form from 'routes/Admin/Form';
-import { postTitleClass, FormWrap } from 'routes/Admin/styled';
+import { FormWrap } from 'routes/Admin/styled';
+import PostForm from './Form';
 
 /* eslint-disable react/prop-types */
-
-const postFields = settings => [
-  {
-    prop: 'slug',
-    render: post => {
-      const url = `${settings.siteUrl}/post/${post.slug}`;
-      return (
-        <Fragment>
-          <strong>Permalink:</strong>{' '}
-          <a href={url} target="_blank">
-            {url}
-          </a>
-        </Fragment>
-      );
-    },
-  },
-  { prop: 'title', editable: true, className: postTitleClass },
-  {
-    prop: 'contentState',
-    type: 'editor',
-    editable: true,
-  },
-  {
-    label: 'Summary',
-    prop: 'summary',
-    type: 'textarea',
-    editable: true,
-  },
-];
 
 @compose(
   graphql(
     gql`
       query PostAdminQuery($id: ObjID!) {
         post(id: $id) {
-          id
-          title
-          slug
-          contentState {
-            ...Editor_contentState
-          }
-          summary
+          ...PostForm_post
         }
       }
-      ${Editor.fragments.contentState}
+      ${PostForm.fragments.post}
     `,
     {
       options: ({ match: { params } }) => ({
@@ -65,23 +28,13 @@ const postFields = settings => [
   graphql(gql`
     mutation UpdatePostMutation($id: ObjID!, $input: UpdatePostInput!) {
       updatePost(id: $id, input: $input) {
-        id
-        title
-        slug
-        contentState {
-          ...Editor_contentState
-        }
-        summary
+        ...PostForm_post
       }
     }
-    ${Editor.fragments.contentState}
+    ${PostForm.fragments.post}
   `)
 )
 export default class EditPost extends Component {
-  static contextTypes = {
-    settings: settingsShape,
-  };
-
   state = {
     message: null,
   };
@@ -107,8 +60,11 @@ export default class EditPost extends Component {
   };
 
   render() {
-    const { settings } = this.context;
-    const { data: { loading, post } } = this.props;
+    const { data: { loading, error, post } } = this.props;
+
+    if (error) {
+      return <Message text={error.message} />;
+    }
 
     if (loading && !post) {
       return <Loading />;
@@ -118,12 +74,7 @@ export default class EditPost extends Component {
       <Fragment>
         {this.state.message === 'updated' && <Message text="Post updated." />}
         <FormWrap>
-          <Form
-            fields={postFields(settings)}
-            data={post}
-            buttonLabel="Update Post"
-            onSubmit={this.onSubmit}
-          />
+          <PostForm post={post} buttonLabel="Update Post" onSubmit={this.onSubmit} />
         </FormWrap>
       </Fragment>
     );

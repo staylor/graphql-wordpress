@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import path from 'path';
 import express from 'express';
 import passport from 'passport';
@@ -10,8 +10,6 @@ import { MongoClient } from 'mongodb';
 import authenticate from './authenticate';
 import uploads from './uploads';
 import router from './router';
-
-dotenv.config();
 
 /* eslint-disable no-console */
 

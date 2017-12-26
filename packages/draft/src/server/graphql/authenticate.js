@@ -37,4 +37,13 @@ passport.use(
 
 export default function addPassport(app) {
   app.use(passport.initialize());
+
+  app.use('/graphql', (req, res, next) => {
+    passport.authenticate('jwt', (err, user) => {
+      if (user) {
+        req.context.authUser = user;
+      }
+      next();
+    })(req, res, next);
+  });
 }

@@ -8,57 +8,41 @@ import template from 'server/template';
 import injectStyles from 'styles/inject';
 
 export default async (req, res) => {
+  const { app, client, stylesheets = [], assets = {} } = res.locals;
+
   try {
     injectStyles();
 
-    const {
-      app,
-      client,
-      user = null,
-      staticContext = {},
-      stylesheets = [],
-      assets = {},
-    } = res.locals;
-
     await getDataFromTree(app);
-    const helmet = Helmet.renderStatic();
-    const state = client.cache.extract();
-
-    const settings = {};
-    if (user) {
-      settings.user = user;
-    }
-    if (staticContext.siteUrl) {
-      settings.siteUrl = staticContext.siteUrl;
-    }
-
-    const [header, footer] = template({
-      helmet,
-      stylesheets,
-      state,
-      assets,
-      settings,
-    });
-
-    res.status(200);
-    res.write(header);
-    renderToNodeStream(app)
-      .pipe(renderStylesToNodeStream())
-      .pipe(
-        through(
-          function write(data) {
-            this.queue(data);
-          },
-          function end() {
-            this.queue(footer);
-            this.queue(null);
-          }
-        )
-      )
-      .pipe(res);
   } catch (e) {
     // eslint-disable-next-line
     console.log(e);
-    res.send(e.message);
   }
+
+  const helmet = Helmet.renderStatic();
+  const state = client.cache.extract();
+
+  const [header, footer] = template({
+    helmet,
+    stylesheets,
+    state,
+    assets,
+  });
+
+  res.status(200);
+  res.write(header);
+  renderToNodeStream(app)
+    .pipe(renderStylesToNodeStream())
+    .pipe(
+      through(
+        function write(data) {
+          this.queue(data);
+        },
+        function end() {
+          this.queue(footer);
+          this.queue(null);
+        }
+      )
+    )
+    .pipe(res);
 };

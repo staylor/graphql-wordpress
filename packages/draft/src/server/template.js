@@ -1,4 +1,4 @@
-export default ({ helmet, stylesheets = [], state = {}, settings = {}, assets = {} }) => [
+export default ({ helmet, stylesheets = [], state = {}, assets = {} }) => [
   `<!DOCTYPE html>
 <html ${helmet.htmlAttributes.toString()}>
 <head>
@@ -13,7 +13,6 @@ ${stylesheets.map(sheet => `<link rel="stylesheet" href="${sheet}" />`).join('')
   <main id="main">`,
   `</main>
   <script>window.__APOLLO_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')};</script>
-  ${settings ? `<script>window.__APP_SETTINGS__ = ${JSON.stringify(settings)}</script>` : ''}
 ${assets.manifestJSBundle ? `<script defer src="${assets.manifestJSBundle}"></script>` : ''}
 ${assets.vendorJSBundle ? `<script defer src="${assets.vendorJSBundle}"></script>` : ''}
 ${assets.mainJSBundle ? `<script defer src="${assets.mainJSBundle}"></script>` : ''}

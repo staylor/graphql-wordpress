@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function NotFound() {
-  return <p>No route found.</p>;
+  return <p>Nothing found. Try harder.</p>;
 }

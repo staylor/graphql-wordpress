@@ -17,7 +17,6 @@ export default (req, res, next) => {
   );
 
   res.locals.staticContext = staticContext;
-  res.locals.user = req.user;
   res.locals.app = app;
   res.locals.stylesheets = [dashiconsCSS, draftCSS];
 
