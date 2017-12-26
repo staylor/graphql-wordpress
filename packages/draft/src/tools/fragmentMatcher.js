@@ -5,6 +5,24 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
     __schema: {
       types: [
         {
+          kind: 'INTERFACE',
+          name: 'MediaUpload',
+          possibleTypes: [
+            {
+              name: 'ImageUpload',
+            },
+            {
+              name: 'AudioUpload',
+            },
+            {
+              name: 'VideoUpload',
+            },
+            {
+              name: 'FileUpload',
+            },
+          ],
+        },
+        {
           kind: 'UNION',
           name: 'EntityData',
           possibleTypes: [
@@ -14,6 +32,12 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
             {
               name: 'EmbedData',
             },
+            {
+              name: 'ImageData',
+            },
+            {
+              name: 'VideoData',
+            },
           ],
         },
         {
@@ -22,6 +46,12 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
           possibleTypes: [
             {
               name: 'SiteSettings',
+            },
+            {
+              name: 'SocialSettings',
+            },
+            {
+              name: 'MediaSettings',
             },
           ],
         },

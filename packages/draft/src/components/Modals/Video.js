@@ -29,8 +29,15 @@ export default class VideoModal extends Component {
   render() {
     const { data: { loading, videos, fetchMore, variables } } = this.props;
 
+    const portal = document.getElementById('portal');
+
     if (loading && !videos) {
-      return <Loading />;
+      return ReactDOM.createPortal(
+        <Modal>
+          <Loading />
+        </Modal>,
+        portal
+      );
     }
 
     return ReactDOM.createPortal(

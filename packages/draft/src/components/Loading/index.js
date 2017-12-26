@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 
 const Container = styled.div`
   background: ${p => p.theme.colors.white};
-  min-height: ${p => (p.compact ? 100 : 400)}px;
+  min-height: ${p => (p.compact ? 100 : 300)}px;
   padding: ${p => (p.compact ? 50 : 100)}px 0 0;
 `;
 

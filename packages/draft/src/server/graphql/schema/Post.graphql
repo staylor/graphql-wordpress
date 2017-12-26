@@ -10,6 +10,7 @@ type Post {
   contentState: ContentState
   summary: String
   status: PostStatus
+  featuredMedia: [MediaUpload]
   createdAt: Float!
   updatedAt: Float!
 }
@@ -30,6 +31,7 @@ input CreatePostInput {
   contentState: ContentStateInput
   summary: String
   status: PostStatus
+  featuredMedia: [String]
 }
 
 input UpdatePostInput {
@@ -37,6 +39,7 @@ input UpdatePostInput {
   contentState: ContentStateInput
   summary: String
   status: PostStatus
+  featuredMedia: [String]
 }
 
 extend type Query {

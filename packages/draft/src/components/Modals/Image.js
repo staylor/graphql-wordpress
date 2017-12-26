@@ -40,8 +40,15 @@ export default class ImageModal extends Component {
   render() {
     const { data: { loading, uploads, fetchMore, variables } } = this.props;
 
+    const portal = document.getElementById('portal');
+
     if (loading && !uploads) {
-      return <Loading />;
+      return ReactDOM.createPortal(
+        <Modal>
+          <Loading />
+        </Modal>,
+        portal
+      );
     }
 
     return ReactDOM.createPortal(
@@ -105,7 +112,7 @@ export default class ImageModal extends Component {
           </LoadMore>
         )}
       </Modal>,
-      document.getElementById('portal')
+      portal
     );
   }
 }

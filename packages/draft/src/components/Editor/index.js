@@ -13,6 +13,8 @@ import {
 } from 'draft-js';
 import { cx } from 'emotion';
 import Video from 'components/Videos/Video';
+import ImageModal from 'components/Modals/Image';
+import VideoModal from 'components/Modals/Video';
 import BlockStyleControls from './Controls/BlockStyle';
 import InlineStyleControls from './Controls/InlineStyle';
 import LinkDecorator from './decorators/LinkDecorator';
@@ -21,8 +23,6 @@ import { EditorWrap, RichEditor, hidePlaceholderClass, BlockButton, Toolbar } fr
 import styleMap from './styleMap';
 import { blockRenderer, blockStyle } from './Blocks';
 import { getSelection } from './utils';
-import ImageModal from './Modals/Image';
-import VideoModal from './Modals/Video';
 
 /* eslint-disable react/prop-types, class-methods-use-this */
 

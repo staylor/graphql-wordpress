@@ -12,6 +12,7 @@ import { Button } from './styled';
 
 export default class Form extends Component {
   boundRefs = {};
+  fields = {};
 
   bindRef = prop => ref => {
     this.boundRefs[prop] = ref;
@@ -21,7 +22,8 @@ export default class Form extends Component {
     e.preventDefault();
     e.target.blur();
 
-    const { fields, onSubmit } = this.props;
+    const { onSubmit } = this.props;
+    const fields = Object.keys(this.fields).map(key => this.fields[key]);
 
     const updates = fields.reduce((memo, field) => {
       if (field.editable && (!field.condition || field.condition(this.props.data))) {
@@ -131,12 +133,14 @@ export default class Form extends Component {
 
     return (
       <Fields>
-        {fields.map((field, i) => {
+        {fields.map((f, i) => {
+          const field = typeof f === 'function' ? f() : f;
           if (field.condition && !field.condition(data)) {
             return null;
           }
 
           const key = field.prop || i.toString(16);
+          this.fields[key] = field;
           if (field.type === 'custom') {
             return (
               <FieldWrap key={key}>

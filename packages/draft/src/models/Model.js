@@ -11,6 +11,10 @@ export default class Model {
     return this.loader.load(id);
   }
 
+  findByIds(ids) {
+    return this.loader.loadMany(ids);
+  }
+
   findOneBySlug(slug) {
     return this.collection.findOne({
       slug,

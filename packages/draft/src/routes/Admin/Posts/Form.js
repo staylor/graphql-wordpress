@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { settingsShape } from 'types/PropTypes';
 import Editor from 'components/Editor';
 import Form from 'routes/Admin/Form';
+import FeaturedMedia from './FeaturedMedia';
 import { postTitleClass } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -44,6 +45,19 @@ const postFields = settings => [
     type: 'textarea',
     editable: true,
   },
+  () => {
+    let featuredMedia = [];
+    const onChange = value => {
+      featuredMedia = value;
+    };
+    return {
+      prop: 'featuredMedia',
+      type: 'custom',
+      editable: true,
+      value: () => featuredMedia,
+      render: post => <FeaturedMedia onChange={onChange} media={post.featuredMedia} />,
+    };
+  },
   {
     prop: 'status',
     type: 'select',
@@ -71,7 +85,11 @@ PostForm.fragments = {
       }
       summary
       status
+      featuredMedia {
+        ...FeaturedMedia_media
+      }
     }
     ${Editor.fragments.contentState}
+    ${FeaturedMedia.fragments.media}
   `,
 };

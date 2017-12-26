@@ -5,6 +5,9 @@ const resolvers = {
     id(post) {
       return post._id;
     },
+    featuredMedia(post, args, { Media }) {
+      return Media.findByIds(post.featuredMedia || []);
+    },
   },
   Query: {
     async posts(root, args, { Post, authUser }) {

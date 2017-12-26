@@ -58,8 +58,11 @@ export default class Post extends Model {
       throw new Error('Post requires a title.');
     }
     const slug = await getUniqueSlug(this.collection, doc.title);
+    const featuredMedia = (doc.featuredMedia || []).map(id => ObjectId(id));
+
     const docToInsert = Object.assign({ status: 'DRAFT' }, doc, {
       slug,
+      featuredMedia,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -71,6 +74,11 @@ export default class Post extends Model {
   async updateById(id, doc) {
     const docToUpdate = Object.assign({}, doc);
     docToUpdate.contentState.entityMap = convertEntityData(docToUpdate.contentState.entityMap);
+    if (typeof docToUpdate.featuredMedia !== 'undefined') {
+      docToUpdate.featuredMedia = (docToUpdate.featuredMedia || []).map(mediaId =>
+        ObjectId(mediaId)
+      );
+    }
     const ret = await this.collection.update(
       { _id: id },
       {
