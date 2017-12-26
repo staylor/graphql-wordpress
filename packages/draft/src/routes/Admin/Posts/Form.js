@@ -19,13 +19,13 @@ const postFields = settings => [
       const url = `${settings.siteUrl}/post/${post.slug}`;
       return (
         <Fragment>
-          <strong>Permalink:</strong>{' '}
           <a href={url} target="_blank">
-            {url}
+            View Post
           </a>
         </Fragment>
       );
     },
+    position: 'info',
   },
   {
     prop: 'title',
@@ -39,12 +39,6 @@ const postFields = settings => [
     editable: true,
     placeholder: 'Post goes here...',
   },
-  {
-    label: 'Summary',
-    prop: 'summary',
-    type: 'textarea',
-    editable: true,
-  },
   post => {
     let featuredMedia = post.featuredMedia.map(media => media.id);
     const onChange = value => {
@@ -56,13 +50,23 @@ const postFields = settings => [
       editable: true,
       value: () => featuredMedia,
       render: p => <FeaturedMedia onChange={onChange} media={p.featuredMedia} />,
+      position: 'info',
     };
   },
   {
+    label: 'Summary',
+    prop: 'summary',
+    type: 'textarea',
+    editable: true,
+    position: 'info',
+  },
+  {
+    label: 'Status',
     prop: 'status',
     type: 'select',
     editable: true,
     choices: [{ label: 'Publish', value: 'PUBLISH' }, { label: 'Draft', value: 'DRAFT' }],
+    position: 'info',
   },
 ];
 

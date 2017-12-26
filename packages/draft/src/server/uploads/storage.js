@@ -80,9 +80,14 @@ class MediaStorage {
     outStream.on('error', cb);
     outStream.on('finish', async () => {
       const settings = await this.getSettings();
-      const sizes = settings.crops
-        .filter(crop => crop.width <= original.width && crop.height <= original.height)
-        .map(({ width, height }) => [width, height]);
+      const sizes = settings.crops.map(({ width, height }) => {
+        if (width < original.width && height > original.height) {
+          return [width];
+        } else if (height < original.height && width > original.width) {
+          return [null, height];
+        }
+        return [width, height];
+      });
       const crops = await Promise.all(
         sizes.map(size => this.handleCrop(finalPath, size, { destination, ext, basename }))
       );

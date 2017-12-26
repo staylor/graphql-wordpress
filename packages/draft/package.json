@@ -9,6 +9,7 @@
   },
   "author": "Scott Taylor <scott.c.taylor@mac.com>",
   "license": "MIT",
+  "engines" : { "node" : ">=8.9.0" },
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.4",
     "apollo-client": "^2.0.3",
@@ -36,6 +37,7 @@
     "graphql-tag": "^2.6.0",
     "graphql-tools": "^2.14.1",
     "http-proxy-middleware": "^0.17.4",
+    "invariant": "^2.2.2",
     "isomorphic-fetch": "^2.2.1",
     "js-cookie": "^2.2.0",
     "jwt-simple": "^0.5.1",

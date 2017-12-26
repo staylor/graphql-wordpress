@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { convertToRaw } from 'draft-js';
 import { cx } from 'emotion';
+import invariant from 'invariant';
 import { Field, FieldWrap, FieldName, FieldValue, Fields } from 'components/Form/styled';
 import Input from 'components/Form/Input';
 import Textarea from 'components/Form/Textarea';
 import Select from 'components/Form/Select';
 import Editor from 'components/Editor';
+import InfoBox from 'routes/Admin/InfoBox';
 import { Button } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -29,6 +31,7 @@ export default class Form extends Component {
       if (field.editable && (!field.condition || field.condition(this.props.data))) {
         const prop = this.boundRefs[field.prop];
         if (!prop) {
+          invariant(field.value, 'Custom editable fields must provide a value() method.');
           memo[field.prop] = field.value();
         } else if (field.type === 'select' && field.multiple) {
           memo[field.prop] = [...prop.selectedOptions].map(o => o.value);
@@ -42,50 +45,49 @@ export default class Form extends Component {
     onSubmit(e, updates);
   };
 
-  getEditableField(field, data = {}) {
+  editorOnChange = field => content => {
+    const converted = convertToRaw(content);
+    const value = {
+      blocks: [...converted.blocks],
+      entityMap: { ...converted.entityMap },
+    };
+    const entityMap = Object.keys(value.entityMap).map(i => {
+      const entity = Object.assign({}, value.entityMap[i]);
+      const entityData = { type: entity.type };
+      if (entityData.type === 'LINK') {
+        ['href', 'target'].forEach(key => {
+          entityData[key] = entity.data[key] || '';
+        });
+      } else if (entityData.type === 'EMBED') {
+        ['url', 'html'].forEach(key => {
+          entityData[key] = entity.data[key] || '';
+        });
+      } else if (entityData.type === 'IMAGE') {
+        ['imageId', 'size'].forEach(key => {
+          entityData[key] = entity.data[key] || '';
+        });
+      } else if (entityData.type === 'VIDEO') {
+        ['videoId'].forEach(key => {
+          entityData[key] = entity.data[key] || '';
+        });
+      }
+      return {
+        ...entity,
+        data: entityData,
+      };
+    });
+    value.entityMap = entityMap;
+    this.boundRefs[field.prop] = {
+      value,
+    };
+  };
+
+  editableField(field, data = {}) {
     if (field.type === 'editor') {
       return (
         <Editor
           className={cx(field.className)}
-          onChange={content => {
-            const converted = convertToRaw(content);
-            const value = {
-              blocks: [...converted.blocks],
-              entityMap: { ...converted.entityMap },
-            };
-            const entityMap = Object.keys(value.entityMap).map(i => {
-              const entity = Object.assign({}, value.entityMap[i]);
-              // Input types cannot be unions, so all fields from all
-              // entity data input types have to exist when setting
-              // data for entities
-              const entityData = { type: entity.type };
-              if (entityData.type === 'LINK') {
-                ['href', 'target'].forEach(key => {
-                  entityData[key] = entity.data[key] || '';
-                });
-              } else if (entityData.type === 'EMBED') {
-                ['url', 'html'].forEach(key => {
-                  entityData[key] = entity.data[key] || '';
-                });
-              } else if (entityData.type === 'IMAGE') {
-                ['imageId', 'size'].forEach(key => {
-                  entityData[key] = entity.data[key] || '';
-                });
-              } else if (entityData.type === 'VIDEO') {
-                ['videoId'].forEach(key => {
-                  entityData[key] = entity.data[key] || '';
-                });
-              }
-              return {
-                ...entity,
-                data: entityData,
-              };
-            });
-            value.entityMap = entityMap;
-            this.boundRefs[field.prop] = {
-              value,
-            };
-          }}
+          onChange={this.editorOnChange(field)}
           editorKey={field.prop}
           content={data && field.render ? field.render(data) : data[field.prop]}
           placeholder={field.placeholder || 'Content goes here...'}
@@ -131,47 +133,62 @@ export default class Form extends Component {
   render() {
     const { data = {}, fields, buttonLabel = 'Submit' } = this.props;
 
+    const primaryFields = [];
+    const infoFields = [];
+
+    fields.forEach((f, i) => {
+      const field = typeof f === 'function' ? f(data) : f;
+      if (field.condition && !field.condition(data)) {
+        return;
+      }
+
+      const isInfo = field.position === 'info';
+      const key = field.prop || i.toString(16);
+      this.fields[key] = field;
+
+      let formField;
+      if (field.type === 'custom') {
+        formField = (
+          <FieldWrap key={key}>
+            {field.label && <FieldName>{field.label}</FieldName>}
+            {field.render(data)}
+          </FieldWrap>
+        );
+      } else if (field.type === 'editor') {
+        formField = (
+          <FieldWrap key={key}>
+            {field.label && <FieldName>{field.label}</FieldName>}
+            {this.editableField(field, data)}
+          </FieldWrap>
+        );
+      } else {
+        formField = (
+          <Field key={key}>
+            {field.label && <FieldName>{field.label}</FieldName>}
+            {field.editable ? (
+              this.editableField(field, data)
+            ) : (
+              <FieldValue>{(field.render && field.render(data)) || data[field.prop]}</FieldValue>
+            )}
+          </Field>
+        );
+      }
+
+      if (isInfo) {
+        infoFields.push(formField);
+      } else {
+        primaryFields.push(formField);
+      }
+    });
+
     return (
-      <Fields>
-        {fields.map((f, i) => {
-          const field = typeof f === 'function' ? f(data) : f;
-          if (field.condition && !field.condition(data)) {
-            return null;
-          }
-
-          const key = field.prop || i.toString(16);
-          this.fields[key] = field;
-          if (field.type === 'custom') {
-            return (
-              <FieldWrap key={key}>
-                {field.label && <FieldName>{field.label}</FieldName>}
-                {field.render(data)}
-              </FieldWrap>
-            );
-          }
-
-          if (field.type === 'editor') {
-            return (
-              <FieldWrap key={key}>
-                {field.label && <FieldName>{field.label}</FieldName>}
-                {this.getEditableField(field, data)}
-              </FieldWrap>
-            );
-          }
-
-          return (
-            <Field key={key}>
-              {field.label && <FieldName>{field.label}</FieldName>}
-              {field.editable ? (
-                this.getEditableField(field, data)
-              ) : (
-                <FieldValue>{(field.render && field.render(data)) || data[field.prop]}</FieldValue>
-              )}
-            </Field>
-          );
-        })}
-        <Button onClick={this.onSubmit}>{buttonLabel}</Button>
-      </Fields>
+      <Fragment>
+        <Fields>{primaryFields}</Fields>
+        <InfoBox label="Post Details">
+          {infoFields}
+          <Button onClick={this.onSubmit}>{buttonLabel}</Button>
+        </InfoBox>
+      </Fragment>
     );
   }
 }

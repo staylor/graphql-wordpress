@@ -3,7 +3,6 @@ import { compose, graphql } from 'react-apollo';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from 'routes/Admin/Form';
-import InfoBox from 'routes/Admin/InfoBox';
 import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
 import MediaAdminQuery from './MediaAdminQuery.graphql';
 import UpdateMediaMutation from './UpdateMediaMutation.graphql';
@@ -74,6 +73,20 @@ const mediaFields = [
     editable: true,
     condition: media => media.type === 'image',
   },
+  {
+    type: 'custom',
+    render: media => {
+      if (media.type === 'audio') {
+        return <AudioInfo media={media} />;
+      } else if (media.type === 'video') {
+        return <VideoInfo media={media} />;
+      } else if (media.type === 'image') {
+        return <ImageInfo media={media} />;
+      }
+      return null;
+    },
+    position: 'info',
+  },
 ];
 
 class EditMedia extends Component {
@@ -108,15 +121,6 @@ class EditMedia extends Component {
       return <Loading />;
     }
 
-    let mediaInfo = null;
-    if (media.type === 'audio') {
-      mediaInfo = <AudioInfo media={media} />;
-    } else if (media.type === 'video') {
-      mediaInfo = <VideoInfo media={media} />;
-    } else if (media.type === 'image') {
-      mediaInfo = <ImageInfo media={media} />;
-    }
-
     return (
       <Fragment>
         <Heading>Edit Media</Heading>
@@ -128,7 +132,6 @@ class EditMedia extends Component {
             buttonLabel="Update Media"
             onSubmit={this.onSubmit}
           />
-          <InfoBox label="Media Details">{mediaInfo}</InfoBox>
         </FormWrap>
       </Fragment>
     );

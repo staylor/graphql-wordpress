@@ -13,5 +13,7 @@ export const postTitleClass = css`
 
 export const FeaturedImage = styled.img`
   display: block;
-  margin: 0 10px 10px;
+  height: auto;
+  margin: 0 10px 10px 0;
+  max-width: 100%;
 `;

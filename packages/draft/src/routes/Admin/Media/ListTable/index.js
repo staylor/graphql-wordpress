@@ -103,7 +103,7 @@ const columns = [
       const queryParams = qs.parse(location.search);
       const { params } = match;
 
-      const variables = { first: 10 };
+      const variables = { first: PER_PAGE };
       if (queryParams.search) {
         // $TODO: sanitize this
         variables.search = queryParams.search;
