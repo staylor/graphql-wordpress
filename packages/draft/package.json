@@ -9,7 +9,9 @@
   },
   "author": "Scott Taylor <scott.c.taylor@mac.com>",
   "license": "MIT",
-  "engines" : { "node" : ">=7.2.0" },
+  "engines": {
+    "node": ">=7.2.0"
+  },
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.4",
     "apollo-client": "^2.0.3",
@@ -61,16 +63,21 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redraft": "^0.9.0",
+    "rimraf": "^2.6.2",
     "sharp": "^0.18.4",
     "slugify": "^1.2.7",
     "through": "^2.3.8"
   },
   "scripts": {
+    "clean": "rimraf graphql-build",
     "dev": "BABEL_ENV=app kyt dev -C kyt.dev.js",
     "graphql-dev": "BABEL_ENV=graphql nodemon --config nodemon.json --exec babel-node src/server/graphql/index.js",
-    "prod": "npm run build && npm run start",
     "build": "kyt build -C kyt.prod.js",
     "start": "forever start build/server/main.js",
+    "prod": "npm run build && npm run start",
+    "graphql-build": "BABEL_ENV=graphql npm run clean && babel --ignore __tests__,__mocks__ src/server/graphql -d graphql-build",
+    "graphql-start": "forever start graphql-build/server.js",
+    "graphql-prod": "npm run graphql-build && npm run graphql-start",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
     "youtube": "BABEL_ENV=graphql babel-node src/data/youtube.js"
   },
