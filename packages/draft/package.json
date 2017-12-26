@@ -75,7 +75,7 @@
     "build": "kyt build -C kyt.prod.js",
     "start": "forever start build/server/main.js",
     "prod": "npm run build && npm run start",
-    "graphql-build": "BABEL_ENV=graphql npm run clean && babel --ignore __tests__,__mocks__ src/server/graphql -d graphql-build",
+    "graphql-build": "npm run clean && babel --ignore __tests__,__mocks__ src/server/graphql -d graphql-build",
     "graphql-start": "forever start graphql-build/server.js",
     "graphql-prod": "npm run graphql-build && npm run graphql-start",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
