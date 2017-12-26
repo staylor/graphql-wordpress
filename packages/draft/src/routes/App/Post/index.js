@@ -77,7 +77,7 @@ export default class PostRoute extends Component {
           <meta property="og:description" content={post.summary} />
           <meta property="og:url" content={postUrl} />
           {featuredImage && <meta property="og:image" content={featuredImage} />}
-          <meta name="twitter:card" value="summary" />
+          <meta name="twitter:card" value="summary_large_image" />
           {twitterUsername && <meta name="twitter:site" value={`@${twitterUsername}`} />}
           {twitterUsername && <meta name="twitter:creator" value={`@${twitterUsername}`} />}
           <meta name="twitter:title" content={post.title} />
