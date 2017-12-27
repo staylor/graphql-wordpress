@@ -263,9 +263,9 @@ apollo-cache@^1.0.2:
   dependencies:
     apollo-utilities "^1.0.3"
 
-apollo-client@^2.0.3:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.1.0.tgz#1d3716cb5d4ad70c3a4147da629fdfcb53925e7b"
+apollo-client@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.0.4.tgz#425c2944e068602b4e002b3f1ad08ddd893f1a0c"
   dependencies:
     "@types/zen-observable" "^0.5.3"
     apollo-cache "^1.0.2"
@@ -289,7 +289,7 @@ apollo-link-error@^1.0.3:
   dependencies:
     apollo-link "^1.0.6"
 
-apollo-link-http@^1.3.1:
+apollo-link-http@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/apollo-link-http/-/apollo-link-http-1.3.2.tgz#63537ee5ecf9c004efb0317f1222b7dbc6f21559"
   dependencies:
@@ -319,7 +319,7 @@ apollo-server-core@^1.3.2:
     apollo-tracing "^0.1.0"
     graphql-extensions "^0.0.x"
 
-apollo-server-express@^1.3.0:
+apollo-server-express@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-1.3.2.tgz#0ff8201c0bf362804a151e1399767dae6ab7e309"
   dependencies:
@@ -1571,10 +1571,6 @@ buffer-from@~0.1.1:
 buffer-indexof@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-indexof/-/buffer-indexof-1.1.1.tgz#52fabcc6a606d1a00302802648ef68f639da268c"
-
-buffer-shims@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/buffer-shims/-/buffer-shims-1.0.0.tgz#9978ce317388c649ad8793028c3477ef044a8b51"
 
 buffer-xor@^1.0.3:
   version "1.0.3"
@@ -2917,10 +2913,6 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
 
-es6-promise@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.2.1.tgz#ec56233868032909207170c39448e24449dd1fc4"
-
 es6-promise@^3.0.2:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
@@ -4068,7 +4060,7 @@ graphql-extensions@^0.0.x:
     core-js "^2.5.1"
     source-map-support "^0.5.0"
 
-graphql-tag@^2.6.0:
+graphql-tag@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.6.1.tgz#4788d509f6e29607d947fc47a40c4e18f736d34a"
 
@@ -6040,20 +6032,18 @@ mongo-find-by-ids@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/mongo-find-by-ids/-/mongo-find-by-ids-1.0.0.tgz#c4e7a108e2b9fb98f59eb8be5d3801b2bfb52222"
 
-mongodb-core@2.1.17:
-  version "2.1.17"
-  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.17.tgz#a418b337a14a14990fb510b923dee6a813173df8"
+mongodb-core@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.0.1.tgz#ff6dc36ee96ff596953d80a6840d6731bc92efed"
   dependencies:
     bson "~1.0.4"
-    require_optional "~1.0.0"
+    require_optional "^1.0.1"
 
-mongodb@2.2.33:
-  version "2.2.33"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.33.tgz#b537c471d34a6651b48f36fdbf29750340e08b50"
+mongodb@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.1.tgz#278ee8006257ec22798594a6259546825d6de1b2"
   dependencies:
-    es6-promise "3.2.1"
-    mongodb-core "2.1.17"
-    readable-stream "2.2.7"
+    mongodb-core "3.0.1"
 
 morgan@^1.9.0:
   version "1.9.0"
@@ -7755,18 +7745,6 @@ readable-stream@1.1.x, readable-stream@^1.0.33, readable-stream@~1.1.9:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@2.2.7:
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.7.tgz#07057acbe2467b22042d36f98c5ad507054e95b1"
-  dependencies:
-    buffer-shims "~1.0.0"
-    core-util-is "~1.0.0"
-    inherits "~2.0.1"
-    isarray "~1.0.0"
-    process-nextick-args "~1.0.6"
-    string_decoder "~1.0.0"
-    util-deprecate "~1.0.1"
-
 "readable-stream@>=1.0.33-1 <1.1.0-0", readable-stream@~1.0.17, readable-stream@~1.0.27-1:
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.34.tgz#125820e34bc842d2f2aaafafe4c2916ee32c157c"
@@ -8051,7 +8029,7 @@ require-uncached@^1.0.2, require-uncached@^1.0.3:
     caller-path "^0.1.0"
     resolve-from "^1.0.0"
 
-require_optional@~1.0.0:
+require_optional@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require_optional/-/require_optional-1.0.1.tgz#4cf35a4247f64ca3df8c2ef208cc494b1ca8fc2e"
   dependencies:
@@ -8460,7 +8438,7 @@ slide@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
 
-slugify@^1.2.7:
+slugify@^1.2.8:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.2.8.tgz#f74581b0376d1ccec9a4abfaf06c7aaa9737caef"
 
@@ -8721,7 +8699,7 @@ string_decoder@^0.10.25, string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
 
-string_decoder@~1.0.0, string_decoder@~1.0.3:
+string_decoder@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
   dependencies:

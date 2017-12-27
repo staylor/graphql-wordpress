@@ -13,12 +13,13 @@ import router from './router';
 
 /* eslint-disable no-console */
 
-const { MONGO_URL } = process.env;
+const { MONGO_URL, MONGO_DB } = process.env;
 
 process.env.TZ = 'America/New_York';
 
 async function startServer() {
-  const db = await MongoClient.connect(MONGO_URL);
+  const client = await MongoClient.connect(MONGO_URL);
+  const db = client.db(MONGO_DB);
 
   const app = express();
 

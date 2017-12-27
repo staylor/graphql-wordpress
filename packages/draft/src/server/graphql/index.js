@@ -14,10 +14,11 @@ import authenticate from './authenticate';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const { GRAPHQL_PORT = 8080, MONGO_URL } = process.env;
+const { GRAPHQL_PORT = 8080, MONGO_URL, MONGO_DB } = process.env;
 
 async function startServer() {
-  const db = await MongoClient.connect(MONGO_URL);
+  const client = await MongoClient.connect(MONGO_URL);
+  const db = client.db(MONGO_DB);
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
