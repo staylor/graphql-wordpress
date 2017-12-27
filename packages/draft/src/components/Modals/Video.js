@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Video from 'components/Videos/Video';
-import { Modal, Frame, Item, LoadMore, CloseButton } from './styled';
+import { Modal, Frame, Item, ItemTitle, LoadMore, CloseButton } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -70,6 +70,7 @@ export default class VideoModal extends Component {
                 }}
               >
                 <img alt="" src={crop.url} />
+                <ItemTitle>{node.title}</ItemTitle>
               </Item>
             );
           })}

@@ -31,6 +31,16 @@ export const Item = styled.div`
   cursor: pointer;
   float: left;
   margin: 5px;
+  overflow: hidden;
+  width: 120px;
+`;
+
+export const ItemTitle = styled.span`
+  display: block;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const LoadMore = styled.button`

@@ -145,6 +145,7 @@ async function fetchPlaylist(playlistId) {
 }
 
 (async () => {
-  db = await MongoClient.connect(process.env.MONGO_URL);
-  Promise.all(Object.keys(playlistMap).map(fetchPlaylist)).then(() => db.close());
+  const client = await MongoClient.connect(process.env.MONGO_URL);
+  db = client.db(process.env.MONGO_DB);
+  Promise.all(Object.keys(playlistMap).map(fetchPlaylist)).then(() => client.close());
 })();
