@@ -6,12 +6,12 @@ import Helmet from 'react-helmet';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
+import NotFound from 'components/NotFound';
 import logo from 'public/logo.png';
 import Home from './Home';
 import Videos from './Videos';
 import Video from './Video';
 import Post from './Post';
-import NotFound from './NotFound';
 import Sidebar from './Sidebar';
 import Navigation from './Nav';
 import {

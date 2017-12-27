@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { SecondaryButton } from 'routes/Admin/styled';
 import Input from 'components/Form/Input';
 import { fieldNumberClass } from 'components/Form/styled';
+import { SecondaryButton } from 'styles/utils';
 import { Table, Cell, CellHeading } from './styled';
 
 /* eslint-disable react/prop-types */

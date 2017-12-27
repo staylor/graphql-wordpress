@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'routes/Admin/Form';
+import Form from 'components/Form';
 import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
 import MediaAdminQuery from './MediaAdminQuery.graphql';
 import UpdateMediaMutation from './UpdateMediaMutation.graphql';

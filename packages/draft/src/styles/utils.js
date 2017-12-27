@@ -139,3 +139,32 @@ export const LoadMore = styled.button`
     outline: 0 none;
   }
 `;
+
+const buttonStyles = css`
+  appearance: none;
+  background: ${theme.colors.detail};
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: ${theme.colors.dark};
+  cursor: pointer;
+  font-size: 13px;
+  vertical-align: baseline;
+
+  &:hover {
+    color: ${theme.colors.black};
+  }
+`;
+
+export const Button = styled.button`
+  ${buttonStyles};
+  height: 30px;
+  line-height: 28px;
+  padding: 0 12px 2px;
+`;
+
+export const SecondaryButton = styled.button`
+  ${buttonStyles};
+  height: 24px;
+  line-height: 22px;
+  padding: 0 6px 2px;
+`;

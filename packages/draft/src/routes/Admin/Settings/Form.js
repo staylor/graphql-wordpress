@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from '../Form';
+import Form from 'components/Form';
 import { Heading } from '../styled';
 
 /* eslint-disable react/prop-types */

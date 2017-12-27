@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Message from 'components/Form/Message';
-import Form from 'routes/Admin/Form';
+import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
 import userFields from './userFields';
 

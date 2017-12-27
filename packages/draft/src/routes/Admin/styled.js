@@ -1,7 +1,6 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
-import theme from 'styles/theme';
 
 export const AtomicToolbar = styled.div`
   position: absolute;
@@ -70,35 +69,6 @@ export const Content = styled.section`
 
 export const collapsedNavClass = css`
   margin-left: 36px;
-`;
-
-const buttonStyles = css`
-  appearance: none;
-  background: ${theme.colors.detail};
-  border-radius: 3px;
-  box-sizing: border-box;
-  color: ${theme.colors.dark};
-  cursor: pointer;
-  font-size: 13px;
-  vertical-align: baseline;
-
-  &:hover {
-    color: ${theme.colors.black};
-  }
-`;
-
-export const Button = styled.button`
-  ${buttonStyles};
-  height: 30px;
-  line-height: 28px;
-  padding: 0 12px 2px;
-`;
-
-export const SecondaryButton = styled.button`
-  ${buttonStyles};
-  height: 24px;
-  line-height: 22px;
-  padding: 0 6px 2px;
 `;
 
 export const RowActions = styled.nav`

@@ -81,14 +81,15 @@
     "graphql-start": "forever start graphql-build/index.js",
     "graphql-prod": "npm run graphql-build && npm run graphql-start",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
-    "youtube": "BABEL_ENV=graphql babel-node src/data/youtube.js"
+    "youtube": "BABEL_ENV=graphql babel-node src/data/youtube.js",
+    "precommit": "eslint src/"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.1",
+    "babel-eslint": "^8.1.2",
     "babel-plugin-emotion": "9.0.0-1",
-    "babel-plugin-module-resolver": "^3.0.0-beta.5",
+    "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
@@ -98,8 +99,8 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-kyt-react": "^0.3.0",
-    "enzyme": "^3.1.0",
-    "eslint": "^4.13.1",
+    "enzyme": "^3.2.0",
+    "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-kyt": "^0.5.0",
     "eslint-config-prettier": "^2.9.0",
@@ -108,12 +109,13 @@
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.4.0",
-    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react": "^7.5.1",
     "flow-bin": "^0.61.0",
-    "nodemon": "^1.13.3",
+    "husky": "^0.14.3",
+    "nodemon": "^1.14.3",
     "prettier": "^1.9.2",
-    "prettier-eslint": "^8.5.0",
-    "prettier-eslint-cli": "^4.6.1",
-    "react-test-renderer": "^16.0.0"
+    "prettier-eslint": "^8.6.2",
+    "prettier-eslint-cli": "^4.7.0",
+    "react-test-renderer": "^16.2.0"
   }
 }

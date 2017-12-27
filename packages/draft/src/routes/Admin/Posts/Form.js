@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 import { settingsShape } from 'types/PropTypes';
 import Editor from 'components/Editor';
-import Form from 'routes/Admin/Form';
+import Form from 'components/Form';
 import FeaturedMedia from './FeaturedMedia';
 import { postTitleClass } from './styled';
 

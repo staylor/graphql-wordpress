@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
-import NotFound from 'routes/App/NotFound';
+import NotFound from 'components/NotFound';
 import Content from './Content';
 import { Wrapper, Title } from './styled';
 

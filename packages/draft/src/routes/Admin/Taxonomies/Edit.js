@@ -3,7 +3,7 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'routes/Admin/Form';
+import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
 import TaxonomyQuery from './TaxonomyQuery.graphql';
 

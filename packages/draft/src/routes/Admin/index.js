@@ -7,10 +7,10 @@ import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
 import theme from 'styles/theme';
 import Loading from 'components/Loading';
+import NotFound from 'components/NotFound';
 import { settingsShape, mediaSettingsShape } from 'types/PropTypes';
 import { PageWrapper, Flex, Content, collapsedNavClass, AtomicToolbar } from './styled';
 import NavMenu from './NavMenu';
-import NotFound from './NotFound';
 import routeConfig from './routeConfig';
 
 /* eslint-disable react/prop-types */

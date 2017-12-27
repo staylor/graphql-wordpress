@@ -3,10 +3,10 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
+import ListTable from 'components/ListTable';
 import { offsetToCursor } from 'utils/connection';
 import { RowTitle } from 'styles/utils';
 import { Heading, HeaderAdd, RowActions } from 'routes/Admin/styled';
-import ListTable from 'routes/Admin/ListTable';
 import TermQuery from './TermQuery.graphql';
 
 /* eslint-disable react/prop-types */
