@@ -131,7 +131,7 @@ export default class Form extends Component {
   }
 
   render() {
-    const { data = {}, fields, buttonLabel = 'Submit' } = this.props;
+    const { data = {}, fields, boxLabel = 'Details', buttonLabel = 'Submit' } = this.props;
 
     const primaryFields = [];
     const infoFields = [];
@@ -181,13 +181,20 @@ export default class Form extends Component {
       }
     });
 
+    const button = <Button onClick={this.onSubmit}>{buttonLabel}</Button>;
+
     return (
       <Fragment>
-        <Fields>{primaryFields}</Fields>
-        <InfoBox label="Post Details">
-          {infoFields}
-          <Button onClick={this.onSubmit}>{buttonLabel}</Button>
-        </InfoBox>
+        <Fields>
+          {primaryFields}
+          {infoFields.length === 0 ? button : null}
+        </Fields>
+        {infoFields.length > 0 ? (
+          <InfoBox label={boxLabel}>
+            {infoFields}
+            {button}
+          </InfoBox>
+        ) : null}
       </Fragment>
     );
   }

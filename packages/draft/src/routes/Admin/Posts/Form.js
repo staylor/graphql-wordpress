@@ -40,7 +40,7 @@ const postFields = settings => [
     placeholder: 'Post goes here...',
   },
   post => {
-    let featuredMedia = post.featuredMedia.map(media => media.id);
+    let featuredMedia = post.featuredMedia ? post.featuredMedia.map(media => media.id) : [];
     const onChange = value => {
       featuredMedia = value;
     };

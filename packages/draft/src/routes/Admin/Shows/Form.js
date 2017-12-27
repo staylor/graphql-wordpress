@@ -59,9 +59,10 @@ function showFields({ artists, venues }) {
 
 export default function ShowForm({ show = {}, artists, venues, buttonLabel, onSubmit }) {
   const data = Object.assign({}, show);
-  data.artist = show.artist.id;
-  data.venue = show.venue.id;
-
+  if (show.id) {
+    data.artist = show.artist.id;
+    data.venue = show.venue.id;
+  }
   return <Form fields={showFields({ venues, artists })} {...{ data, buttonLabel, onSubmit }} />;
 }
 

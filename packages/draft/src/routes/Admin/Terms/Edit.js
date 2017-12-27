@@ -71,7 +71,7 @@ export default class EditTerm extends Component {
         {this.state.message === 'updated' && <Message text={`${term.taxonomy.name} updated.`} />}
         <FormWrap>
           <TermForm
-            data={term}
+            term={term}
             buttonLabel={`Update ${term.taxonomy.name}`}
             onSubmit={this.onSubmit}
           />

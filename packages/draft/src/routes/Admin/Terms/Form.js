@@ -6,7 +6,7 @@ import Form from 'components/Form';
 
 const termFields = [
   { label: 'Name', prop: 'name', editable: true },
-  { label: 'Slug', prop: 'slug' },
+  { label: 'Slug', prop: 'slug', condition: term => term.slug },
   {
     label: 'Description',
     prop: 'description',

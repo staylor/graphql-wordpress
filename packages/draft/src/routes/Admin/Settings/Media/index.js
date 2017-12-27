@@ -17,22 +17,23 @@ const normalizeCrops = (crops = []) =>
       }))
     : [];
 
-let cropsValue;
-const updateCrops = crops => {
-  cropsValue = normalizeCrops(crops);
-};
-
 const settingsFields = [
-  {
-    label: 'Crop Sizes',
-    prop: 'crops',
-    editable: true,
-    type: 'custom',
-    value: () => cropsValue.filter(({ name, width, height }) => name && (width || height)),
-    render: settings => {
-      cropsValue = normalizeCrops(settings.crops) || [{}];
-      return <Crops onUpdate={updateCrops} settings={settings} />;
-    },
+  mediaSettings => {
+    let cropsValue = normalizeCrops(mediaSettings.crops) || [{}];
+    const updateCrops = crops => {
+      cropsValue = normalizeCrops(crops);
+    };
+    return {
+      label: 'Crop Sizes',
+      prop: 'crops',
+      editable: true,
+      type: 'custom',
+      value: () => cropsValue.filter(({ name, width, height }) => name && (width || height)),
+      render: settings => {
+        cropsValue = normalizeCrops(settings.crops) || [{}];
+        return <Crops onUpdate={updateCrops} settings={settings} />;
+      },
+    };
   },
 ];
 

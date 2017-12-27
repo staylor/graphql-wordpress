@@ -22,10 +22,6 @@ export default class FeaturedMedia extends Component {
     this.setState({ media: [data.image] });
   };
 
-  componentDidMount() {
-    this.props.onChange(this.props.media.map(m => m.id));
-  }
-
   render() {
     let media = [];
     if (this.state.media) {
