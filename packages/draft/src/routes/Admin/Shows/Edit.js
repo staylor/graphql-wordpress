@@ -3,9 +3,8 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
-import showFields from './showFields';
+import ShowForm from './Form';
 
 /* eslint-disable react/prop-types */
 
@@ -14,41 +13,17 @@ import showFields from './showFields';
     gql`
       query ShowAdminQuery($id: ObjID!) {
         show(id: $id) {
-          id
-          title
-          date
-          url
-          notes
-          artist {
-            id
-          }
-          venue {
-            id
-          }
+          ...ShowForm_show
         }
         artists: terms(taxonomy: "artist", first: 100) {
-          taxonomy {
-            id
-          }
-          edges {
-            node {
-              id
-              name
-            }
-          }
+          ...ShowForm_terms
         }
         venues: terms(taxonomy: "venue", first: 100) {
-          taxonomy {
-            id
-          }
-          edges {
-            node {
-              id
-              name
-            }
-          }
+          ...ShowForm_terms
         }
       }
+      ${ShowForm.fragments.show}
+      ${ShowForm.fragments.terms}
     `,
     {
       options: ({ match: { params } }) => ({
@@ -60,19 +35,10 @@ import showFields from './showFields';
   graphql(gql`
     mutation UpdateShowMutation($id: ObjID!, $input: UpdateShowInput!) {
       updateShow(id: $id, input: $input) {
-        id
-        title
-        date
-        url
-        notes
-        artist {
-          id
-        }
-        venue {
-          id
-        }
+        ...ShowForm_show
       }
     }
+    ${ShowForm.fragments.show}
   `)
 )
 export default class EditShow extends Component {
@@ -104,19 +70,13 @@ export default class EditShow extends Component {
     if (loading && !show) {
       return <Loading />;
     }
-
-    const normalized = Object.assign({}, show);
-    normalized.artist = show.artist.id;
-    normalized.venue = show.venue.id;
-
     return (
       <Fragment>
         <Heading>Edit Show</Heading>
         {this.state.message === 'updated' && <Message text="Show updated." />}
         <FormWrap>
-          <Form
-            fields={showFields({ venues, artists })}
-            data={normalized}
+          <ShowForm
+            {...{ show, artists, venues }}
             buttonLabel="Update Show"
             onSubmit={this.onSubmit}
           />

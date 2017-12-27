@@ -3,31 +3,20 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
+import TermForm from './Form';
 
 /* eslint-disable react/prop-types */
-
-const taxonomyFields = [
-  { label: 'Name', prop: 'name', editable: true },
-  {
-    label: 'Description',
-    prop: 'description',
-    type: 'textarea',
-    editable: true,
-  },
-];
 
 @compose(
   graphql(
     gql`
       query TermTaxonomyQuery($id: ObjID) {
         taxonomy(id: $id) {
-          id
-          name
-          plural
+          ...TermForm_taxonomy
         }
       }
+      ${TermForm.fragments.taxonomy}
     `,
     {
       options: ({ match: { params } }) => ({
@@ -39,12 +28,10 @@ const taxonomyFields = [
     gql`
       mutation CreateTermMutation($input: CreateTermInput!) {
         createTerm(input: $input) {
-          id
-          taxonomy {
-            id
-          }
+          ...TermForm_term
         }
       }
+      ${TermForm.fragments.term}
     `
   )
 )
@@ -87,11 +74,7 @@ export default class AddTerm extends Component {
         <Heading>{`Add ${taxonomy.name}`}</Heading>
         {this.state.message === 'error' && <Message text={`Error adding ${taxonomy.name}.`} />}
         <FormWrap>
-          <Form
-            fields={taxonomyFields}
-            buttonLabel={`Add ${taxonomy.name}`}
-            onSubmit={this.onSubmit}
-          />
+          <TermForm buttonLabel={`Add ${taxonomy.name}`} onSubmit={this.onSubmit} />
         </FormWrap>
       </Fragment>
     );

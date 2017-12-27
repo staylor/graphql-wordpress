@@ -3,36 +3,21 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
 import TaxonomyQuery from './TaxonomyQuery.graphql';
+import TaxonomyForm from './Form';
 
 /* eslint-disable react/prop-types */
-
-const taxonomyFields = [
-  { label: 'Name', prop: 'name', editable: true },
-  { label: 'Slug', prop: 'slug' },
-  { label: 'Plural Name', prop: 'plural', editable: true },
-  {
-    label: 'Description',
-    prop: 'description',
-    type: 'textarea',
-    editable: true,
-  },
-];
 
 @compose(
   graphql(
     gql`
       query TaxonomyAdminQuery($id: ObjID) {
         taxonomy(id: $id) {
-          id
-          name
-          plural
-          slug
-          description
+          ...TaxonomyForm_taxonomy
         }
       }
+      ${TaxonomyForm.fragments.taxonomy}
     `,
     {
       options: ({ match: { params } }) => ({
@@ -44,13 +29,10 @@ const taxonomyFields = [
     gql`
       mutation UpdateTaxonomyMutation($id: ObjID!, $input: UpdateTaxonomyInput!) {
         updateTaxonomy(id: $id, input: $input) {
-          id
-          name
-          plural
-          slug
-          description
+          ...TaxonomyForm_taxonomy
         }
       }
+      ${TaxonomyForm.fragments.taxonomy}
     `,
     {
       options: {
@@ -94,9 +76,8 @@ export default class EditTaxonomy extends Component {
         <Heading>Edit Taxonomy</Heading>
         {this.state.message === 'updated' && <Message text="Taxonomy updated." />}
         <FormWrap>
-          <Form
-            fields={taxonomyFields}
-            data={taxonomy}
+          <TaxonomyForm
+            taxonomy={taxonomy}
             buttonLabel="Update Taxonomy"
             onSubmit={this.onSubmit}
           />

@@ -2,9 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Message from 'components/Form/Message';
-import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
-import userFields from './userFields';
+import UserForm from './Form';
 
 /* eslint-disable react/prop-types */
 
@@ -45,7 +44,7 @@ export default class AddUser extends Component {
         <Heading>Add User</Heading>
         {this.state.message === 'error' && <Message text="Error adding user." />}
         <FormWrap>
-          <Form fields={userFields} buttonLabel="Add User" onSubmit={this.onSubmit} />
+          <UserForm buttonLabel="Add User" onSubmit={this.onSubmit} />
         </FormWrap>
       </Fragment>
     );

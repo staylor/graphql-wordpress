@@ -3,9 +3,8 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
-import showFields from './showFields';
+import ShowForm from './Form';
 
 /* eslint-disable react/prop-types */
 
@@ -14,28 +13,13 @@ import showFields from './showFields';
     gql`
       query CreateShowQuery {
         artists: terms(taxonomy: "artist", first: 100) {
-          taxonomy {
-            id
-          }
-          edges {
-            node {
-              id
-              name
-            }
-          }
+          ...ShowForm_terms
         }
         venues: terms(taxonomy: "venue", first: 100) {
-          taxonomy {
-            id
-          }
-          edges {
-            node {
-              id
-              name
-            }
-          }
+          ...ShowForm_terms
         }
       }
+      ${ShowForm.fragments.terms}
     `,
     { options: { fetchPolicy: 'cache-and-network' } }
   ),
@@ -62,6 +46,7 @@ export default class AddShow extends Component {
         },
       })
       .then(({ data: { createShow } }) => {
+        document.documentElement.scrollTop = 0;
         this.props.history.push({
           pathname: `/show/${createShow.id}`,
         });
@@ -81,11 +66,7 @@ export default class AddShow extends Component {
         <Heading>Add Show</Heading>
         {this.state.message === 'error' && <Message text="Error adding show." />}
         <FormWrap>
-          <Form
-            fields={showFields({ artists, venues })}
-            buttonLabel="Add Show"
-            onSubmit={this.onSubmit}
-          />
+          <ShowForm {...{ artists, venues }} buttonLabel="Add Show" onSubmit={this.onSubmit} />
         </FormWrap>
       </Fragment>
     );

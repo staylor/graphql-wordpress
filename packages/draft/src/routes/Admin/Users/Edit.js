@@ -3,9 +3,8 @@ import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
-import Form from 'components/Form';
 import { Heading, FormWrap } from 'routes/Admin/styled';
-import userFields from './userFields';
+import UserForm from './Form';
 
 /* eslint-disable react/prop-types */
 
@@ -14,13 +13,10 @@ import userFields from './userFields';
     gql`
       query UserAdminQuery($id: ObjID!) {
         user(id: $id) {
-          id
-          name
-          email
-          bio
-          roles
+          ...UserForm_user
         }
       }
+      ${UserForm.fragments.user}
     `,
     {
       options: ({ match: { params } }) => ({
@@ -31,13 +27,10 @@ import userFields from './userFields';
   graphql(gql`
     mutation UpdateUserMutation($id: ObjID!, $input: UpdateUserInput!) {
       updateUser(id: $id, input: $input) {
-        id
-        name
-        email
-        bio
-        roles
+        ...UserForm_user
       }
     }
+    ${UserForm.fragments.user}
   `)
 )
 export default class EditUser extends Component {
@@ -75,12 +68,7 @@ export default class EditUser extends Component {
         <Heading>Edit User</Heading>
         {this.state.message === 'updated' && <Message text="User updated." />}
         <FormWrap>
-          <Form
-            fields={userFields}
-            data={user}
-            buttonLabel="Update User"
-            onSubmit={this.onSubmit}
-          />
+          <UserForm user={user} buttonLabel="Update User" onSubmit={this.onSubmit} />
         </FormWrap>
       </Fragment>
     );
