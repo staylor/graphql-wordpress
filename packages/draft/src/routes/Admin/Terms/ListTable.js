@@ -4,9 +4,9 @@ import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
 import ListTable from 'components/ListTable';
+import { RowActions, RowTitle } from 'components/ListTable/styled';
 import { offsetToCursor } from 'utils/connection';
-import { RowTitle } from 'styles/utils';
-import { Heading, HeaderAdd, RowActions } from 'routes/Admin/styled';
+import { Heading, HeaderAdd } from 'routes/Admin/styled';
 import TermQuery from './TermQuery.graphql';
 
 /* eslint-disable react/prop-types */

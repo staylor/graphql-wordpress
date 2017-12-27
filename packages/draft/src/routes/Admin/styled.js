@@ -53,6 +53,10 @@ export const HeaderAdd = styled(Link)`
   z-index: 1;
 `;
 
+export const Line = styled.br`
+  display: block;
+`;
+
 export const Flex = styled.section``;
 
 export const Content = styled.section`
@@ -69,19 +73,6 @@ export const Content = styled.section`
 
 export const collapsedNavClass = css`
   margin-left: 36px;
-`;
-
-export const RowActions = styled.nav`
-  color: ${p => p.theme.colors.subnav.details};
-  font-size: 13px;
-
-  a {
-    text-decoration: none;
-  }
-`;
-
-export const SearchBox = styled.div`
-  float: right;
 `;
 
 export const FormWrap = styled.div`

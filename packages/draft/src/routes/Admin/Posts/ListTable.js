@@ -4,9 +4,9 @@ import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
 import ListTable from 'components/ListTable';
+import { RowActions, RowTitle } from 'components/ListTable/styled';
 import { offsetToCursor } from 'utils/connection';
-import { RowTitle } from 'styles/utils';
-import { Heading, HeaderAdd, RowActions } from '../styled';
+import { Heading, HeaderAdd } from '../styled';
 import PostsQuery from './PostsQuery.graphql';
 
 /* eslint-disable react/prop-types */

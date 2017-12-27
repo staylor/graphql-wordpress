@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { cx } from 'emotion';
 import Select from 'components/Form/Select';
 import Checkbox from 'components/Form/Checkbox';
-import { Table, StripedRow, CellHeading, Cell, CheckboxCell } from 'styles/utils';
-import { Filters, Pagination } from './styled';
+import { Filters, Pagination, Table, Cell, StripedRow, CellHeading, CheckboxCell } from './styled';
 
 /* eslint-disable react/prop-types */
 

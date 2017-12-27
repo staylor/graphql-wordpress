@@ -4,8 +4,8 @@ import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Loading from 'components/Loading';
 import ListTable from 'components/ListTable';
-import { RowTitle } from 'styles/utils';
-import { Heading, HeaderAdd, RowActions } from 'routes/Admin/styled';
+import { RowActions, RowTitle } from 'components/ListTable/styled';
+import { Heading, HeaderAdd } from 'routes/Admin/styled';
 import TaxonomyQuery from './TaxonomyQuery.graphql';
 
 /* eslint-disable react/prop-types */

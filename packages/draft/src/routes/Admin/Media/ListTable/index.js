@@ -8,9 +8,9 @@ import Loading from 'components/Loading';
 import Input from 'components/Form/Input';
 import Select from 'components/Form/Select';
 import ListTable from 'components/ListTable';
+import { RowActions, RowTitle, SearchBox } from 'components/ListTable/styled';
 import { offsetToCursor } from 'utils/connection';
-import { RowTitle } from 'styles/utils';
-import { Heading, HeaderAdd, RowActions, SearchBox } from 'routes/Admin/styled';
+import { Heading, HeaderAdd } from 'routes/Admin/styled';
 import { Thumbnail, thumbnailColumnClass, titleColumnClass } from './styled';
 import UploadsQuery from './UploadsQuery.graphql';
 
