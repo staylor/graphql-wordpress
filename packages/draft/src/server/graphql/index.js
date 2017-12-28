@@ -9,6 +9,7 @@ import typeDefs from 'server/graphql/schema';
 import resolvers from 'server/graphql/resolvers';
 import addModelsToContext from './models';
 import authenticate from './authenticate';
+import createIndexes from './database/indexes';
 
 /* eslint-disable no-console */
 
@@ -19,6 +20,7 @@ const { GRAPHQL_PORT = 8080, MONGO_URL, MONGO_DB } = process.env;
 async function startServer() {
   const client = await MongoClient.connect(MONGO_URL);
   const db = client.db(MONGO_DB);
+  createIndexes(db);
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
