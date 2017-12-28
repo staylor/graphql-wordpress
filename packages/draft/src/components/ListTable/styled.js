@@ -137,7 +137,7 @@ export const CheckboxCell = styled.th`
 `;
 
 export const StripedRow = styled.tr`
-  tbody &:nth-child(odd) {
+  tbody &:nth-of-type(odd) {
     background: ${p => p.theme.colors.background};
   }
 `;

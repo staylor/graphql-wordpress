@@ -252,8 +252,24 @@ export default class Editor extends Component {
       currentContent: contentStateWithEntity,
     });
 
+    const insertedState = AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
+    const contentState = insertedState.getCurrentContent();
+    const blockMap = contentState.getBlockMap();
+    const lastKey = blockMap.last().getKey();
+    const cleanBlockMap = blockMap.filter(
+      block =>
+        block.getKey() === lastKey || block.getType() !== 'unstyled' || block.getText() !== ''
+    );
+    const mergedContent = contentState.merge({
+      blockMap: cleanBlockMap,
+    });
+
     this.setState({
-      editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
+      editorState: EditorState.set(editorState, {
+        currentContent: mergedContent,
+        selection: mergedContent.getSelectionAfter(),
+        forceSelection: true,
+      }),
     });
   };
 
