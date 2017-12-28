@@ -4,7 +4,7 @@ import { settingsShape } from 'types/PropTypes';
 import Editor from 'components/Editor';
 import Form from 'components/Form';
 import FeaturedMedia from './FeaturedMedia';
-import { postTitleClass } from './styled';
+import { postTitleClass, ViewPost } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -19,9 +19,9 @@ const postFields = settings => [
       const url = `${settings.siteUrl}/post/${post.slug}`;
       return (
         <Fragment>
-          <a href={url} target="_blank">
+          <ViewPost href={url} target="_blank">
             View Post
-          </a>
+          </ViewPost>
         </Fragment>
       );
     },
@@ -45,6 +45,7 @@ const postFields = settings => [
       featuredMedia = value;
     };
     return {
+      label: 'Featured Media',
       prop: 'featuredMedia',
       type: 'custom',
       editable: true,

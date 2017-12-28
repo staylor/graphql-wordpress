@@ -19,6 +19,7 @@ export const InfoBox = styled.aside`
 
 export const InfoBoxHeader = styled.h3`
   border-bottom: 1px solid ${p => p.theme.colors.detail};
+  color: ${p => p.theme.colors.dark};
   font-size: 14px;
   font-weight: ${p => p.theme.fonts.weight.bold};
   padding: 8px 12px;

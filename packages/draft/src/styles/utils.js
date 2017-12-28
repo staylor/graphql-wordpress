@@ -72,7 +72,7 @@ export const LoadMore = styled.button`
   }
 `;
 
-const buttonStyles = css`
+export const buttonStyles = css`
   appearance: none;
   border-radius: 3px;
   box-sizing: border-box;
@@ -96,7 +96,7 @@ const buttonStyles = css`
   }
 `;
 
-const buttonColors = css`
+export const buttonColors = css`
   background: ${theme.buttons.base.background};
   border-color: ${theme.buttons.base.border};
   box-shadow: ${theme.buttons.base.boxShadow};

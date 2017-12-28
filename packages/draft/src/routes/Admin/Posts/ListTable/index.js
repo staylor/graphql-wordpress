@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 import ListTable from 'components/ListTable';
 import { RowActions, RowTitle } from 'components/ListTable/styled';
 import { offsetToCursor } from 'utils/connection';
-import { Heading, HeaderAdd } from '../styled';
+import { Heading, HeaderAdd } from 'routes/Admin/styled';
 import PostsQuery from './PostsQuery.graphql';
 
 /* eslint-disable react/prop-types */

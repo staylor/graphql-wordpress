@@ -1,6 +1,6 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
-import { h1styles } from 'styles/utils';
+import { h1styles, buttonStyles, buttonColors } from 'styles/utils';
 
 export const postTitleClass = css`
   ${h1styles};
@@ -16,4 +16,9 @@ export const FeaturedImage = styled.img`
   height: auto;
   margin: 0 10px 10px 0;
   max-width: 100%;
+`;
+
+export const ViewPost = styled.a`
+  ${buttonStyles};
+  ${buttonColors};
 `;
