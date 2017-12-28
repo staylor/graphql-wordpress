@@ -66,7 +66,7 @@ export const Title = styled.h1`
   margin: 0 0 ${p => p.theme.padding}px;
 
   & a {
-    color: ${p => p.theme.colors.subhead};
+    color: ${p => p.theme.colors.dark};
     text-decoration: none;
   }
 `;

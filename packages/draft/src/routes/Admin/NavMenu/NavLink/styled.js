@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 
 export const NavLink = styled(RRNavLink)`
   box-sizing: border-box;
-  color: ${p => p.theme.colors.dark};
+  color: ${p => p.theme.colors.text};
   display: block;
   font-size: 14px;
   line-height: 18px;
@@ -75,14 +75,14 @@ export const NavLink = styled(RRNavLink)`
 `;
 
 export const activeClass = css`
-  background-color: ${theme.colors.pink};
+  background-color: ${theme.colors.dark};
   color: ${theme.colors.white};
 
   &:visited,
   &:link,
   &:active,
   &:hover {
-    background-color: ${theme.colors.pink};
+    background-color: ${theme.colors.dark};
     color: ${theme.colors.white};
   }
 

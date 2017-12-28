@@ -9,7 +9,7 @@ export default function inject() {
   return injectGlobal`
     body {
       background: ${theme.colors.background};
-      color: ${theme.colors.dark};
+      color: ${theme.colors.text};
       font-family: ${theme.fonts.body};
       font-size: 1em;
       line-height: 1.5;
@@ -21,10 +21,10 @@ export default function inject() {
     }
 
     a {
-      color: ${theme.colors.pink};
+      color: ${theme.colors.dark};
 
       &:hover, &:active {
-        color: deeppink;
+        color: ${theme.colors.pink};
       }
     }
 
@@ -37,7 +37,7 @@ export default function inject() {
     }
 
     strong {
-      font-weight: ${theme.weightBold};
+      font-weight: ${theme.fonts.weight.bold};
     }
 
     sup {

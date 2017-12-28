@@ -2,7 +2,7 @@ import styled from 'react-emotion';
 
 export const Dropzone = styled.div`
   border: 4px dashed ${p => p.theme.colors.dark};
-  color: ${p => p.theme.colors.dark};
+  color: ${p => p.theme.colors.text};
   display: block;
   height: 200px;
   margin: 20px 0;

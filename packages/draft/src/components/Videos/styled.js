@@ -10,7 +10,7 @@ export const Title = styled.h1`
   margin: 0 0 ${p => p.theme.padding}px;
 
   & a {
-    color: ${p => p.theme.colors.subhead};
+    color: ${p => p.theme.colors.dark};
     text-decoration: none;
   }
 `;
@@ -23,7 +23,7 @@ export const EmbedTitle = styled.h3`
   margin: 0 0 ${p => p.theme.padding}px;
 
   & a {
-    color: ${p => p.theme.colors.subhead};
+    color: ${p => p.theme.colors.text};
     text-decoration: none;
   }
 `;

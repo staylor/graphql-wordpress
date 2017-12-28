@@ -23,10 +23,9 @@ export const FieldWrap = styled.div`
   margin: ${p => p.theme.padding}px 0;
 `;
 
-export const FieldName = styled.strong`
+export const FieldName = styled.span`
   display: block;
   font-size: 14px;
-  font-weight: 600;
   letter-spacing: 0.2px;
   line-height: 1.3;
   margin: 0 0 5px;
@@ -106,7 +105,7 @@ export const FieldCheckbox = styled.input`
   background-color: ${p => p.theme.colors.white};
   border: 1px solid ${p => p.theme.colors.form.checkbox.border};
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  color: ${p => p.theme.colors.table.cell};
+  color: ${p => p.theme.colors.text};
   cursor: pointer;
   display: inline-block;
   height: 16px;
@@ -136,7 +135,7 @@ export const FieldCheckbox = styled.input`
 `;
 
 export const MessageWrap = styled.div`
-  background: ${p => p.theme.colors.detail};
+  background: ${p => p.theme.colors.background};
   border-left: 4px solid ${p => p.theme.colors.pink};
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   display: block;
@@ -146,6 +145,7 @@ export const MessageWrap = styled.div`
 `;
 
 export const MessageText = styled.p`
+  color: ${p => p.theme.colors.dark};
   font-size: 13px;
   line-height: 1.5;
   margin: 0.5em 0;
@@ -164,7 +164,7 @@ export const DismissButton = styled.button`
 
   &::before {
     background: none;
-    color: ${p => p.theme.colors.dark};
+    color: ${p => p.theme.colors.text};
     content: '\f153';
     display: block;
     font: normal 16px/20px dashicons;

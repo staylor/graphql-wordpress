@@ -3,7 +3,7 @@ import styled from 'react-emotion';
 export const CollapseButton = styled.button`
   background: none;
   border: none;
-  color: ${p => p.theme.colors.dark};
+  color: ${p => p.theme.colors.text};
   cursor: pointer;
   display: block;
   font-size: 13px;

@@ -4,7 +4,7 @@ import { cx } from 'emotion';
 import invariant from 'invariant';
 import Editor from 'components/Editor';
 import InfoBox from 'components/InfoBox';
-import { Button } from 'styles/utils';
+import { PrimaryButton } from 'styles/utils';
 import { Field, FieldWrap, FieldName, FieldValue, Fields } from './styled';
 import Input from './Input';
 import Textarea from './Textarea';
@@ -181,7 +181,7 @@ export default class Form extends Component {
       }
     });
 
-    const button = <Button onClick={this.onSubmit}>{buttonLabel}</Button>;
+    const button = <PrimaryButton onClick={this.onSubmit}>{buttonLabel}</PrimaryButton>;
 
     return (
       <Fragment>

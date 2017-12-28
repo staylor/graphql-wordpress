@@ -22,7 +22,7 @@ export const NavItem = styled(Link)`
   display: inline-block;
   font-family: ${p => p.theme.fonts.futura};
   font-size: 20px;
-  font-weight: bold;
+  font-weight: ${p => p.theme.fonts.weight.bold};
   line-height: 28px;
   margin: 0 10px 0 0;
   text-decoration: none;

@@ -50,7 +50,7 @@ export const LoadMore = styled.button`
 `;
 
 export const CloseButton = styled.i`
-  color: ${p => p.theme.colors.dark};
+  color: ${p => p.theme.colors.text};
   cursor: pointer;
   display: block;
   font-size: 20px;

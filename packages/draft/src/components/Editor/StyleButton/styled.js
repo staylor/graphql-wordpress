@@ -26,7 +26,7 @@ export const StyleButton = styled.span`
 `;
 
 export const activeButtonClass = css`
-  color: ${theme.colors.pink};
+  color: ${theme.colors.dark};
 
   &:hover {
     color: ${theme.colors.pink};

@@ -55,12 +55,12 @@ export const StyleButton = styled.span`
   }
 
   &:hover {
-    color: ${p => p.theme.colors.black};
+    color: ${p => p.theme.colors.dark};
   }
 `;
 
 export const activeButtonClass = css`
-  color: ${theme.colors.pink};
+  color: ${theme.colors.dark};
 
   &:hover {
     color: ${theme.colors.pink};

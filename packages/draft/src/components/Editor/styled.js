@@ -20,7 +20,7 @@ export const BlockButton = styled.div`
   transition: transform 0.25s cubic-bezier(0.3, 1.2, 0.2, 1);
 
   &:hover {
-    color: ${p => p.theme.colors.dark};
+    color: ${p => p.theme.colors.text};
   }
 `;
 

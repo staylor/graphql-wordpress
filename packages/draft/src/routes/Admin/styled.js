@@ -25,10 +25,11 @@ export const titleInputClass = css`
 `;
 
 export const Heading = styled.h1`
+  color: ${p => p.theme.colors.dark};
   display: inline-block;
   font-family: ${p => p.theme.fonts.futura};
   font-size: 23px;
-  font-weight: 400;
+  font-weight: normal;
   letter-spacing: 0.3px;
   line-height: 1.3;
   margin: 0 9px 0 0;
@@ -39,10 +40,10 @@ export const HeaderAdd = styled(Link)`
   background: ${p => p.theme.colors.detail};
   border: 1px solid ${p => p.theme.colors.background};
   border-radius: 2px;
-  color: ${p => p.theme.colors.pink};
+  color: ${p => p.theme.colors.dark};
   cursor: pointer;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: ${p => p.theme.fonts.weight.bold};
   line-height: normal;
   outline: 0;
   padding: 4px 8px;

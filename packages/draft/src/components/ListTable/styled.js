@@ -1,23 +1,32 @@
 import styled from 'react-emotion';
 
 export const RowActions = styled.nav`
-  color: ${p => p.theme.colors.subnav.details};
   font-size: 13px;
 
   a {
+    color: ${p => p.theme.colors.text};
     text-decoration: none;
+
+    &.delete {
+      color: ${p => p.theme.colors.pink};
+    }
   }
 `;
 
 export const RowTitle = styled.strong`
   display: block;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: ${p => p.theme.fonts.weight.bold};
   margin-bottom: 0.2em;
   word-wrap: break-word;
 
   & a {
     text-decoration: none;
+  }
+
+  & span {
+    font-size: 13px;
+    font-weight: normal;
   }
 `;
 
@@ -37,7 +46,7 @@ export const Pagination = styled.nav`
 
   strong {
     display: inline-block;
-    font-weight: 400;
+    font-weight: normal;
     margin: 0 3px;
     min-width: 65px;
     text-align: center;
@@ -48,7 +57,7 @@ export const Pagination = styled.nav`
   a {
     display: inline-block;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: normal;
     height: 16px;
     line-height: 1;
     margin: 0 2px;
@@ -59,29 +68,31 @@ export const Pagination = styled.nav`
   }
 
   span {
-    border: 1px solid #ddd;
-    background: #f7f7f7;
-    color: #a0a5aa;
+    border: 1px solid ${p => p.theme.colors.detail};
+    background: ${p => p.theme.colors.background};
   }
 
   a {
-    border: 1px solid #ccc;
-    background: #e5e5e5;
+    border: 1px solid ${p => p.theme.colors.detail};
+    background: ${p => p.theme.colors.white};
+    color: ${p => p.theme.colors.dark};
     text-decoration: none;
+
+    &:hover {
+      color: ${p => p.theme.colors.black};
+    }
   }
 `;
 
 export const Table = styled.table`
-  border: 1px solid ${p => p.theme.colors.table.border};
+  border: 1px solid ${p => p.theme.colors.detail};
   border-spacing: 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-  color: ${p => p.theme.colors.table.text};
   table-layout: fixed;
   width: 100%;
 `;
 
 export const Cell = styled.td`
-  color: ${p => p.theme.colors.table.cell};
   font-size: 13px;
   line-height: 1.5;
   padding: 8px 10px;
@@ -96,11 +107,11 @@ export const CellHeading = styled.th`
   text-align: left;
 
   thead & {
-    border-bottom: 1px solid ${p => p.theme.colors.table.metaborder};
+    border-bottom: 1px solid ${p => p.theme.colors.detail};
   }
 
   tfoot & {
-    border-top: 1px solid ${p => p.theme.colors.table.metaborder};
+    border-top: 1px solid ${p => p.theme.colors.detail};
   }
 `;
 
@@ -117,16 +128,16 @@ export const CheckboxCell = styled.th`
   }
 
   thead & {
-    border-bottom: 1px solid ${p => p.theme.colors.table.metaborder};
+    border-bottom: 1px solid ${p => p.theme.colors.detail};
   }
 
   tfoot & {
-    border-top: 1px solid ${p => p.theme.colors.table.metaborder};
+    border-top: 1px solid ${p => p.theme.colors.detail};
   }
 `;
 
 export const StripedRow = styled.tr`
-  &:nth-child(odd) {
-    background: ${p => p.theme.colors.table.oddrow};
+  tbody &:nth-child(odd) {
+    background: ${p => p.theme.colors.background};
   }
 `;

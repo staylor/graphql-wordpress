@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Heading } from 'styles/utils';
-import { Show, Time } from './styled';
+import { Heading, Show, Time } from './styled';
 
 /* eslint-disable react/prop-types */
 

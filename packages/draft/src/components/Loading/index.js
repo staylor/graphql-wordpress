@@ -29,7 +29,7 @@ const bouncing = css`
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: ${theme.colors.pink};
+  background-color: ${theme.colors.dark};
   opacity: 0.6;
   position: absolute;
   top: 0;

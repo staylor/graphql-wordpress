@@ -4,6 +4,7 @@ import { NavLink as RRNavLink } from 'react-router-dom';
 import theme from 'styles/theme';
 
 const flyout = css`
+  background-color: ${theme.colors.dark};
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
   display: block;
   min-width: 160px;
@@ -14,7 +15,7 @@ const flyout = css`
 `;
 
 export const SubNav = styled.nav`
-  background-color: ${p => p.theme.colors.dark};
+  background-color: ${p => p.theme.colors.white};
   display: none;
   left: 160px;
   padding: 7px 0 8px;
@@ -49,16 +50,35 @@ export const SubNav = styled.nav`
 `;
 
 export const SubNavLink = styled(RRNavLink)`
-  color: ${p => p.theme.colors.detail};
+  color: ${p => p.theme.colors.dark};
   display: block;
   font-size: 13px;
   letter-spacing: 0.3px;
   line-height: 1.2;
   padding: 6px 12px;
   text-decoration: none;
+
+  &:hover,
+  &:active {
+    color: ${p => p.theme.colors.black};
+  }
+
+  .SubNav-flyout & {
+    color: ${p => p.theme.colors.white};
+
+    &:hover,
+    &:active {
+      color: ${p => p.theme.colors.pink};
+    }
+  }
 `;
 
 export const subNavActiveClass = css`
-  color: ${theme.colors.white};
-  font-weight: 600;
+  color: ${theme.colors.black};
+  font-weight: ${theme.fonts.weight.bold};
+
+  &:hover,
+  &:active {
+    color: ${theme.colors.pink};
+  }
 `;
