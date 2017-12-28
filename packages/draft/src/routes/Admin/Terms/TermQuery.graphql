@@ -11,7 +11,7 @@ query TermQuery(
     taxonomyId: $taxonomyId
     taxonomy: $taxonomy
     search: $search
-  ) {
+  ) @connection(key: "terms", filter: ["taxonomyId", "taxonomy", "search"]) {
     taxonomy {
       id
       name

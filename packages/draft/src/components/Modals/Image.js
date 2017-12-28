@@ -10,7 +10,7 @@ import { Modal, Frame, Item, ItemImage, CloseButton } from './styled';
 @graphql(
   gql`
     query ImageModalQuery($cursor: String) {
-      uploads(after: $cursor, first: 25) {
+      uploads(after: $cursor, first: 25) @connection(key: "images") {
         edges {
           node {
             id

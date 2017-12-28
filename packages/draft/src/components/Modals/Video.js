@@ -11,7 +11,7 @@ import { Modal, Frame, ItemTitle, ItemImage, VideoItem, CloseButton } from './st
 @graphql(
   gql`
     query VideoModalQuery($cursor: String, $first: Int) {
-      videos(after: $cursor, first: $first) {
+      videos(after: $cursor, first: $first) @connection(key: "videos") {
         edges {
           node {
             id

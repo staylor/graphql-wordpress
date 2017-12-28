@@ -38,7 +38,7 @@ function Latest({ data: { loading, posts } }) {
 
 const composed = graphql(gql`
   query LatestPostsQuery {
-    posts(first: 2, status: PUBLISH) {
+    posts(first: 2, status: PUBLISH) @connection(key: "status") {
       edges {
         node {
           id

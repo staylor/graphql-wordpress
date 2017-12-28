@@ -1,5 +1,6 @@
 query PostsQuery($first: Int, $after: String, $search: String) {
-  posts(first: $first, after: $after, search: $search) {
+  posts(first: $first, after: $after, search: $search)
+    @connection(key: "posts", filter: ["search"]) {
     count
     edges {
       node {

@@ -11,7 +11,7 @@ query UploadsQuery(
     type: $type
     mimeType: $mimeType
     search: $search
-  ) {
+  ) @connection(key: "uploads", filter: ["type", "mimeType", "search"]) {
     types
     mimeTypes
     count
@@ -42,4 +42,3 @@ query UploadsQuery(
     }
   }
 }
-

@@ -34,7 +34,7 @@ import routeConfig from './routeConfig';
           }
         }
       }
-      taxonomies {
+      taxonomies @connection(key: "taxonomies") {
         edges {
           node {
             id

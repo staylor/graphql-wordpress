@@ -12,10 +12,12 @@ import ShowForm from './Form';
   graphql(
     gql`
       query CreateShowQuery {
-        artists: terms(taxonomy: "artist", first: 100) {
+        artists: terms(taxonomy: "artist", first: 100)
+          @connection(key: "terms", filter: ["taxonomy"]) {
           ...ShowForm_terms
         }
-        venues: terms(taxonomy: "venue", first: 100) {
+        venues: terms(taxonomy: "venue", first: 100)
+          @connection(key: "terms", filter: ["taxonomy"]) {
           ...ShowForm_terms
         }
       }

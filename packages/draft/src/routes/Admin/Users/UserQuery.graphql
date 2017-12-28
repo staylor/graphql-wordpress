@@ -1,5 +1,5 @@
-query TaxonomyQuery {
-  users {
+query UsersQuery {
+  users @connection(key: "users") {
     count
     edges {
       node {

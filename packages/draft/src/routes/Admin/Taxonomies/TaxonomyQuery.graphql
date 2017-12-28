@@ -1,5 +1,5 @@
 query TaxonomyQuery {
-  taxonomies {
+  taxonomies @connection(key: "taxonomies") {
     count
     edges {
       node {

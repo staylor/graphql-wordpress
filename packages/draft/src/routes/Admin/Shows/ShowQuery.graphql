@@ -13,7 +13,7 @@ query ShowQuery(
     artist: $artist
     venue: $venue
     search: $search
-  ) {
+  ) @connection(key: "shows", filter: ["date", "artist", "venue", "search"]) {
     count
     edges {
       node {
