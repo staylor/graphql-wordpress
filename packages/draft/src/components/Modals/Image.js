@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
-import { Modal, Frame, Item, LoadMore, CloseButton } from './styled';
+import { Modal, Frame, Item, ItemImage, CloseButton } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -37,8 +37,45 @@ import { Modal, Frame, Item, LoadMore, CloseButton } from './styled';
   }
 )
 export default class ImageModal extends Component {
+  loadMore = () => {
+    const { fetchMore, variables, uploads } = this.props.data;
+    return fetchMore({
+      variables: {
+        ...variables,
+        cursor: uploads.pageInfo.endCursor,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const { edges: previousEdges } = previousResult.uploads;
+        const { edges: newEdges } = fetchMoreResult.uploads;
+        const newUploads = {
+          uploads: {
+            ...fetchMoreResult.uploads,
+            edges: [...previousEdges, ...newEdges],
+          },
+        };
+        return newUploads;
+      },
+    });
+  };
+
+  frameHandler = frame => {
+    if (!frame) {
+      return;
+    }
+    frame.addEventListener('scroll', () => {
+      const { uploads, loading } = this.props.data;
+      const hasNext = uploads.pageInfo.hasNextPage;
+      if (!hasNext || loading) {
+        return;
+      }
+      if (frame.scrollTop + frame.offsetHeight >= frame.scrollHeight) {
+        this.loadMore();
+      }
+    });
+  };
+
   render() {
-    const { data: { loading, uploads, fetchMore, variables } } = this.props;
+    const { data: { loading, uploads } } = this.props;
 
     const portal = document.getElementById('portal');
 
@@ -54,7 +91,7 @@ export default class ImageModal extends Component {
     return ReactDOM.createPortal(
       <Modal>
         <CloseButton className="dashicons dashicons-no" onClick={this.props.onClose} />
-        <Frame>
+        <Frame innerRef={this.frameHandler}>
           {uploads.edges.map(({ node }) => {
             const crop = node.crops.find(c => c.width === 150);
             return (
@@ -79,38 +116,11 @@ export default class ImageModal extends Component {
                   this.props.onClose(e);
                 }}
               >
-                <img alt="" src={`/uploads/${node.destination}/${crop.fileName}`} />
+                <ItemImage alt="" src={`/uploads/${node.destination}/${crop.fileName}`} />
               </Item>
             );
           })}
         </Frame>
-        {uploads.pageInfo.hasNextPage && (
-          <LoadMore
-            onClick={e => {
-              e.preventDefault();
-
-              fetchMore({
-                variables: {
-                  ...variables,
-                  cursor: uploads.pageInfo.endCursor,
-                },
-                updateQuery: (previousResult, { fetchMoreResult }) => {
-                  const { edges: previousEdges } = previousResult.uploads;
-                  const { edges: newEdges } = fetchMoreResult.uploads;
-                  const newUploads = {
-                    uploads: {
-                      ...fetchMoreResult.uploads,
-                      edges: [...previousEdges, ...newEdges],
-                    },
-                  };
-                  return newUploads;
-                },
-              });
-            }}
-          >
-            Load More
-          </LoadMore>
-        )}
       </Modal>,
       portal
     );

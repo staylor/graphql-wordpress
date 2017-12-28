@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
 import ImageModal from 'components/Modals/Image';
+import { Button } from 'styles/utils';
 import { FeaturedImage } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -45,7 +46,7 @@ export default class FeaturedMedia extends Component {
             />
           );
         })}
-        <button onClick={this.onClick}>Set Featured Media</button>
+        <Button onClick={this.onClick}>Set Featured Media</Button>
       </Fragment>
     );
   }

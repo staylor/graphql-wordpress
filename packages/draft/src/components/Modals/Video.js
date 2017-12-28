@@ -4,30 +4,74 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
 import Video from 'components/Videos/Video';
-import { Modal, Frame, Item, ItemTitle, LoadMore, CloseButton } from './styled';
+import { Modal, Frame, ItemTitle, ItemImage, VideoItem, CloseButton } from './styled';
 
 /* eslint-disable react/prop-types */
 
-@graphql(gql`
-  query VideoModalQuery($cursor: String) {
-    videos(after: $cursor, first: 25) {
-      edges {
-        node {
-          id
-          ...Video_video
+@graphql(
+  gql`
+    query VideoModalQuery($cursor: String, $first: Int) {
+      videos(after: $cursor, first: $first) {
+        edges {
+          node {
+            id
+            ...Video_video
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
         }
       }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
     }
+    ${Video.fragments.video}
+  `,
+  {
+    options: {
+      variables: { first: 50 },
+    },
   }
-  ${Video.fragments.video}
-`)
+)
 export default class VideoModal extends Component {
+  loadMore = () => {
+    const { fetchMore, variables, videos } = this.props.data;
+    return fetchMore({
+      variables: {
+        ...variables,
+        first: 25,
+        cursor: videos.pageInfo.endCursor,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        const { edges: previousEdges } = previousResult.videos;
+        const { edges: newEdges } = fetchMoreResult.videos;
+        const newVideos = {
+          videos: {
+            ...fetchMoreResult.videos,
+            edges: [...previousEdges, ...newEdges],
+          },
+        };
+        return newVideos;
+      },
+    });
+  };
+
+  frameHandler = frame => {
+    if (!frame) {
+      return;
+    }
+    frame.addEventListener('scroll', () => {
+      const hasNext = this.props.data.videos.pageInfo.hasNextPage;
+      if (!hasNext || this.props.data.loading) {
+        return;
+      }
+      if (frame.scrollTop + frame.offsetHeight >= frame.scrollHeight) {
+        this.loadMore();
+      }
+    });
+  };
+
   render() {
-    const { data: { loading, videos, fetchMore, variables } } = this.props;
+    const { data: { loading, videos } } = this.props;
 
     const portal = document.getElementById('portal');
 
@@ -43,11 +87,11 @@ export default class VideoModal extends Component {
     return ReactDOM.createPortal(
       <Modal>
         <CloseButton className="dashicons dashicons-no" onClick={this.props.onClose} />
-        <Frame>
+        <Frame innerRef={this.frameHandler}>
           {videos.edges.map(({ node }) => {
             const crop = node.thumbnails.find(c => c.width === 120);
             return (
-              <Item
+              <VideoItem
                 key={node.id}
                 onClick={e => {
                   e.preventDefault();
@@ -69,39 +113,12 @@ export default class VideoModal extends Component {
                   this.props.onClose(e);
                 }}
               >
-                <img alt="" src={crop.url} />
+                <ItemImage alt="" src={crop.url} />
                 <ItemTitle>{node.title}</ItemTitle>
-              </Item>
+              </VideoItem>
             );
           })}
         </Frame>
-        {videos.pageInfo.hasNextPage && (
-          <LoadMore
-            onClick={e => {
-              e.preventDefault();
-
-              fetchMore({
-                variables: {
-                  ...variables,
-                  cursor: videos.pageInfo.endCursor,
-                },
-                updateQuery: (previousResult, { fetchMoreResult }) => {
-                  const { edges: previousEdges } = previousResult.videos;
-                  const { edges: newEdges } = fetchMoreResult.videos;
-                  const newVideos = {
-                    videos: {
-                      ...fetchMoreResult.videos,
-                      edges: [...previousEdges, ...newEdges],
-                    },
-                  };
-                  return newVideos;
-                },
-              });
-            }}
-          >
-            Load More
-          </LoadMore>
-        )}
       </Modal>,
       document.getElementById('portal')
     );

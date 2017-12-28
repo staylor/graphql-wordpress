@@ -35,6 +35,15 @@ export const Item = styled.div`
   width: 120px;
 `;
 
+export const VideoItem = styled.div`
+  cursor: pointer;
+  float: left;
+  height: 110px;
+  margin: 5px;
+  overflow: hidden;
+  width: 120px;
+`;
+
 export const ItemTitle = styled.span`
   display: block;
   font-size: 13px;
@@ -43,14 +52,14 @@ export const ItemTitle = styled.span`
   white-space: nowrap;
 `;
 
-export const LoadMore = styled.button`
-  bottom: 10px;
-  left: 30px;
-  position: absolute;
+export const ItemImage = styled.img`
+  display: block;
+  height: auto;
+  max-width: 100%;
 `;
 
 export const CloseButton = styled.i`
-  color: ${p => p.theme.colors.text};
+  color: ${p => p.theme.colors.dark};
   cursor: pointer;
   display: block;
   font-size: 20px;
