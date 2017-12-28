@@ -35,11 +35,10 @@ const columns = [
             {post.status === 'DRAFT' ? ' - Draft' : ''}
           </RowTitle>
           <RowActions>
-            <Link to={`/post/${post.id}`}>Edit</Link> |{' '}
-            <a onClick={onClick} href={`/post/${post.id}`}>
+            <Link to={`/post/${post.id}`}>Edit</Link> | <a href={`/post/${post.slug}`}>View</a> |{' '}
+            <a className="delete" onClick={onClick} href={`/post/${post.id}`}>
               Delete
-            </a>{' '}
-            | <a href={`/post/${post.slug}`}>View</a>
+            </a>
           </RowActions>
         </Fragment>
       );

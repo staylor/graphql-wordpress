@@ -32,7 +32,7 @@ const columns = [
           </RowTitle>
           <RowActions>
             <Link to={`/show/${show.id}`}>Edit</Link> |{' '}
-            <a onClick={onClick} href={`/show/${show.id}`}>
+            <a className="delete" onClick={onClick} href={`/show/${show.id}`}>
               Delete
             </a>
           </RowActions>

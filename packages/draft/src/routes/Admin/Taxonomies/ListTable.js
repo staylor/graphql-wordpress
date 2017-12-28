@@ -31,7 +31,7 @@ const columns = [
           </RowTitle>
           <RowActions>
             <Link to={`/taxonomy/${taxonomy.id}`}>Edit</Link> |{' '}
-            <a onClick={onClick} href={`/taxonomy/${taxonomy.id}`}>
+            <a className="delete" onClick={onClick} href={`/taxonomy/${taxonomy.id}`}>
               Delete
             </a>
           </RowActions>

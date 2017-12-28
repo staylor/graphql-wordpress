@@ -37,7 +37,7 @@ const columns = [
           </RowTitle>
           <RowActions>
             <Link to={urlPath}>Edit</Link> |{' '}
-            <a onClick={onClick} href={urlPath}>
+            <a className="delete" onClick={onClick} href={urlPath}>
               Delete
             </a>
           </RowActions>

@@ -62,11 +62,11 @@ const columns = [
           <RowTitle>
             <Link to={`/media/${media.id}`}>{media.title || '(no title)'}</Link>
             <br />
-            {media.originalName}
+            <span>{media.originalName}</span>
           </RowTitle>
           <RowActions>
             <Link to={`/media/${media.id}`}>Edit</Link> |{' '}
-            <a onClick={onClick} href={`/media/${media.id}`}>
+            <a className="delete" onClick={onClick} href={`/media/${media.id}`}>
               Delete
             </a>
           </RowActions>

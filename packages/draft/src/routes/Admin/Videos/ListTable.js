@@ -25,8 +25,7 @@ const columns = [
           <Link to={`/video/${video.id}`}>{video.title}</Link>
         </RowTitle>
         <RowActions>
-          <Link to={`/video/${video.id}`}>Edit</Link> | <Link to={`/video/${video.id}`}>Trash</Link>{' '}
-          | <a href={`/video/${video.slug}`}>View</a>
+          <Link to={`/video/${video.id}`}>Edit</Link> | <a href={`/video/${video.slug}`}>View</a>
         </RowActions>
       </Fragment>
     ),
