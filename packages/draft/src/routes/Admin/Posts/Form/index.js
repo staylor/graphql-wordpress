@@ -52,7 +52,7 @@ const postFields = settings => [
       editable: true,
       value: () => featuredMedia,
       render: p => <FeaturedMedia onChange={onChange} media={p.featuredMedia} />,
-      position: 'info',
+      position: 'meta',
     };
   },
   {
@@ -60,7 +60,7 @@ const postFields = settings => [
     prop: 'summary',
     type: 'textarea',
     editable: true,
-    position: 'info',
+    position: 'meta',
   },
   post => {
     let tags = post.artists ? post.artists.map(t => t.name) : [];
@@ -73,9 +73,16 @@ const postFields = settings => [
       type: 'custom',
       value: () => tags,
       editable: true,
-      position: 'info',
+      position: 'meta',
       render: ({ artists = [] }) => <Tags tags={artists.map(t => t.name)} onChange={onChange} />,
     };
+  },
+  {
+    label: 'Publish Date',
+    prop: 'date',
+    type: 'date',
+    editable: true,
+    position: 'info',
   },
   {
     label: 'Status',
@@ -112,6 +119,7 @@ PostForm.fragments = {
       artists {
         name
       }
+      date
     }
     ${Editor.fragments.contentState}
     ${FeaturedMedia.fragments.media}

@@ -1,7 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
-import DatePicker from 'components/Form/Date';
 import Form from 'components/Form';
 
 /* eslint-disable react/prop-types */
@@ -9,22 +8,10 @@ import Form from 'components/Form';
 function showFields({ artists, venues }) {
   return [
     { label: 'Title', prop: 'title', editable: true },
-    show => {
-      let dateValue = show.date;
-      return {
-        prop: 'date',
-        type: 'custom',
-        editable: true,
-        value: () => dateValue,
-        render: item => (
-          <DatePicker
-            date={item && item.date}
-            onChange={value => {
-              dateValue = value;
-            }}
-          />
-        ),
-      };
+    {
+      prop: 'date',
+      type: 'date',
+      editable: true,
     },
     {
       label: 'Artist',

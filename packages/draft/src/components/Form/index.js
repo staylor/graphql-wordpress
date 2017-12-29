@@ -3,12 +3,22 @@ import { convertToRaw } from 'draft-js';
 import { cx } from 'emotion';
 import invariant from 'invariant';
 import Editor from 'components/Editor';
-import InfoBox from 'components/InfoBox';
 import { PrimaryButton } from 'styles/utils';
-import { Field, FieldWrap, FieldName, FieldValue, Fields } from './styled';
+import {
+  Field,
+  FieldWrap,
+  FieldName,
+  FieldValue,
+  Fields,
+  InfoColumn,
+  InfoBox,
+  InfoBoxHeader,
+  InfoBoxContent,
+} from './styled';
 import Input from './Input';
 import Textarea from './Textarea';
 import Select from './Select';
+import Date from './Date';
 
 /* eslint-disable react/prop-types */
 
@@ -43,6 +53,16 @@ export default class Form extends Component {
     }, {});
 
     onSubmit(e, updates);
+  };
+
+  bindOnChange = (field, data) => {
+    let initialValue = data[field.prop];
+
+    field.value = () => initialValue;
+
+    return value => {
+      initialValue = value;
+    };
   };
 
   editorOnChange = field => content => {
@@ -95,6 +115,16 @@ export default class Form extends Component {
       );
     }
 
+    if (field.type === 'date') {
+      return (
+        <Date
+          date={data[field.prop] || null}
+          className={cx(field.className)}
+          onChange={this.bindOnChange(field, data)}
+        />
+      );
+    }
+
     if (field.type === 'select') {
       return (
         <Select
@@ -135,6 +165,7 @@ export default class Form extends Component {
 
     const primaryFields = [];
     const infoFields = [];
+    const metaFields = [];
 
     fields.forEach((f, i) => {
       const field = typeof f === 'function' ? f(data) : f;
@@ -142,7 +173,6 @@ export default class Form extends Component {
         return;
       }
 
-      const isInfo = field.position === 'info';
       const key = field.prop || i.toString(16);
       this.fields[key] = field;
 
@@ -154,7 +184,7 @@ export default class Form extends Component {
             {field.render(data)}
           </FieldWrap>
         );
-      } else if (field.type === 'editor') {
+      } else if (field.type === 'date' || field.type === 'editor') {
         formField = (
           <FieldWrap key={key}>
             {field.label && <FieldName>{field.label}</FieldName>}
@@ -174,8 +204,10 @@ export default class Form extends Component {
         );
       }
 
-      if (isInfo) {
+      if (field.position === 'info') {
         infoFields.push(formField);
+      } else if (field.position === 'meta') {
+        metaFields.push(formField);
       } else {
         primaryFields.push(formField);
       }
@@ -189,12 +221,22 @@ export default class Form extends Component {
           {primaryFields}
           {infoFields.length === 0 ? button : null}
         </Fields>
-        {infoFields.length > 0 ? (
-          <InfoBox label={boxLabel}>
-            {infoFields}
-            {button}
-          </InfoBox>
-        ) : null}
+        <InfoColumn>
+          {infoFields.length > 0 ? (
+            <InfoBox>
+              <InfoBoxHeader>{boxLabel}</InfoBoxHeader>
+              <InfoBoxContent>
+                {infoFields}
+                {button}
+              </InfoBoxContent>
+            </InfoBox>
+          ) : null}
+          {metaFields.length > 0 ? (
+            <InfoBox>
+              <InfoBoxContent>{metaFields}</InfoBoxContent>
+            </InfoBox>
+          ) : null}
+        </InfoColumn>
       </Fragment>
     );
   }

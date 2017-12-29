@@ -12,8 +12,7 @@ type Post {
   status: PostStatus
   featuredMedia: [MediaUpload]
   artists: [Term]
-  createdAt: Float!
-  updatedAt: Float!
+  date: Float
 }
 
 type PostEdge {
@@ -34,6 +33,7 @@ input CreatePostInput {
   status: PostStatus
   featuredMedia: [String]
   artists: [String]
+  date: Float
 }
 
 input UpdatePostInput {
@@ -43,6 +43,7 @@ input UpdatePostInput {
   status: PostStatus
   featuredMedia: [String]
   artists: [String]
+  date: Float
 }
 
 extend type Query {
