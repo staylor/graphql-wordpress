@@ -1,0 +1,685 @@
+
+scalar ObjID
+type Query
+
+type Mutation
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean
+  hasNextPage: Boolean
+}type InlineStyleRange {
+  offset: Int
+  length: Int
+  style: String
+}
+
+input InlineStyleRangeInput {
+  offset: Int
+  length: Int
+  style: String
+}
+
+type EntityRange {
+  offset: Int
+  length: Int
+  key: Int
+}
+
+input EntityRangeInput {
+  offset: Int
+  length: Int
+  key: Int
+}
+
+type Data {
+  id: String
+}
+
+input DataInput {
+  id: String
+}
+
+type Block {
+  key: String
+  text: String
+  type: String
+  depth: Int
+  inlineStyleRanges: [InlineStyleRange]
+  entityRanges: [EntityRange]
+  data: Data
+}
+
+input BlockInput {
+  key: String
+  text: String
+  type: String
+  depth: Int
+  inlineStyleRanges: [InlineStyleRangeInput]
+  entityRanges: [EntityRangeInput]
+  data: DataInput
+}
+
+type LinkData {
+  type: String
+  href: String
+  target: String
+}
+
+type EmbedData {
+  type: String
+  url: String
+  html: String
+}
+
+type ImageData {
+  type: String
+  imageId: ObjID
+  image: ImageUpload
+  size: String
+}
+
+type VideoData {
+  type: String
+  videoId: ObjID
+  video: Video
+}
+
+union EntityData = LinkData | EmbedData | ImageData | VideoData
+
+input EntityDataInput {
+  type: String!
+  # EMBED fields
+  url: String
+  html: String
+  # LINK fields
+  href: String
+  target: String
+  # IMAGE fields
+  imageId: String
+  size: String
+  # VIDEO fields
+  videoId: String
+}
+
+enum EntityType {
+  LINK
+  TOKEN
+  PHOTO
+  IMAGE
+  EMBED
+  VIDEO
+}
+
+enum EntityMutability {
+  MUTABLE
+  IMMUTABLE
+  SEGMENTED
+}
+
+type Entity {
+  type: EntityType
+  mutability: EntityMutability
+  data: EntityData
+}
+
+input EntityInput {
+  type: EntityType
+  mutability: EntityMutability
+  data: EntityDataInput
+}
+
+type ContentState {
+  blocks: [Block]
+  entityMap: [Entity]
+}
+
+input ContentStateInput {
+  blocks: [BlockInput]
+  entityMap: [EntityInput]
+}
+interface MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+}
+
+type ImageUploadCrop {
+  fileName: String
+  width: Int
+  height: Int
+  fileSize: Int
+}
+
+input ImageUploadCropInput {
+  fileName: String
+  width: Int
+  height: Int
+  fileSize: Int
+}
+
+type ImageUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  width: Int
+  height: Int
+  caption: String
+  altText: String
+  crops: [ImageUploadCrop]
+}
+
+type AudioUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  description: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  artist: [String]
+  album: String
+  albumArtist: [String]
+  genre: [String]
+  year: Int
+  duration: Float
+  images: [ImageUploadCrop]
+}
+
+type VideoUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  description: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+  width: Int
+  height: Int
+  duration: Float
+}
+
+type FileUpload implements MediaUpload {
+  id: ObjID!
+  title: String
+  description: String
+  originalName: String
+  destination: String
+  fileName: String
+  mimeType: String
+  type: String
+  fileSize: Int
+}
+
+type MediaUploadEdge {
+  node: MediaUpload
+  cursor: String
+}
+
+type MediaUploadConnection {
+  types: [String]
+  mimeTypes: [String]
+  count: Int
+  edges: [MediaUploadEdge]
+  pageInfo: PageInfo
+}
+
+extend type Query {
+  uploads(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    type: String
+    mimeType: String
+    search: String
+  ): MediaUploadConnection
+  media(id: ObjID): MediaUpload
+}
+
+input UpdateMediaUploadInput {
+  title: String
+  description: String
+  # Image fields
+  caption: String
+  altText: String
+}
+
+extend type Mutation {
+  updateMediaUpload(id: ObjID!, input: UpdateMediaUploadInput!): MediaUpload
+  removeMediaUpload(ids: [ObjID]!): Boolean
+}
+enum PostStatus {
+  DRAFT
+  PUBLISH
+}
+
+type Post {
+  id: ObjID!
+  title: String!
+  slug: String!
+  contentState: ContentState
+  summary: String
+  status: PostStatus
+  featuredMedia: [MediaUpload]
+  artists: [Term]
+  date: Float
+}
+
+type PostEdge {
+  node: Post
+  cursor: String
+}
+
+type PostConnection {
+  count: Int
+  edges: [PostEdge]
+  pageInfo: PageInfo
+}
+
+input CreatePostInput {
+  title: String!
+  contentState: ContentStateInput
+  summary: String
+  status: PostStatus
+  featuredMedia: [String]
+  artists: [String]
+  date: Float
+}
+
+input UpdatePostInput {
+  title: String
+  contentState: ContentStateInput
+  summary: String
+  status: PostStatus
+  featuredMedia: [String]
+  artists: [String]
+  date: Float
+}
+
+extend type Query {
+  posts(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    year: Int
+    status: PostStatus
+    search: String
+  ): PostConnection
+  post(id: ObjID, slug: String): Post
+}
+
+extend type Mutation {
+  createPost(input: CreatePostInput!): Post
+  updatePost(id: ObjID!, input: UpdatePostInput!): Post
+  removePost(ids: [ObjID]!): Boolean
+}
+interface Settings {
+  id: String
+}
+
+type SiteSettings implements Settings {
+  id: String
+  siteTitle: String
+  tagline: String
+  siteUrl: String
+  emailAddress: String
+  language: String
+  copyrightText: String
+}
+
+input SiteSettingsInput {
+  siteTitle: String
+  tagline: String
+  siteUrl: String
+  emailAddress: String
+  language: String
+  copyrightText: String
+}
+
+type SocialSettings implements Settings {
+  id: String
+  facebookUrl: String
+  facebookAppId: String
+  twitterUsername: String
+  instagramUsername: String
+}
+
+input SocialSettingsInput {
+  facebookUrl: String
+  facebookAppId: String
+  twitterUsername: String
+  instagramUsername: String
+}
+
+type MediaCropSetting {
+  name: String
+  width: Int
+  height: Int
+}
+
+input MediaCropSettingInput {
+  name: String
+  width: Int
+  height: Int
+}
+
+type MediaSettings implements Settings {
+  id: String
+  crops: [MediaCropSetting]
+}
+
+input MediaSettingsInput {
+  crops: [MediaCropSettingInput]
+}
+
+extend type Query {
+  settings(id: String): Settings
+}
+
+extend type Mutation {
+  updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
+  updateSocialSettings(id: String!, input: SocialSettingsInput!): Settings
+  updateMediaSettings(id: String!, input: MediaSettingsInput!): Settings
+}
+type Show {
+  id: ObjID!
+  title: String!
+  notes: String
+  date: Float!
+  url: String
+  artist: Term
+  venue: Term
+}
+
+type ShowEdge {
+  node: Show
+  cursor: String
+}
+
+type ShowConnection {
+  count: Int
+  edges: [ShowEdge]
+  pageInfo: PageInfo
+}
+
+input CreateShowInput {
+  title: String!
+  notes: String
+  date: Float!
+  url: String
+  artist: ObjID!
+  venue: ObjID!
+}
+
+input UpdateShowInput {
+  title: String
+  notes: String
+  date: Float
+  url: String
+  artist: ObjID
+  venue: ObjID
+}
+
+extend type Query {
+  shows(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    latest: Boolean
+    date: Float
+    artist: ObjID
+    venue: ObjID
+    search: String
+  ): ShowConnection
+  show(id: ObjID, slug: String): Show
+}
+
+extend type Mutation {
+  createShow(input: CreateShowInput!): Show
+  updateShow(id: ObjID!, input: UpdateShowInput!): Show
+  removeShow(ids: [ObjID]!): Boolean
+}
+type Taxonomy {
+  id: ObjID!
+  name: String
+  plural: String
+  slug: String
+  description: String
+}
+
+type TaxonomyEdge {
+  node: Taxonomy
+  cursor: String
+}
+
+type TaxonomyConnection {
+  count: Int
+  edges: [TaxonomyEdge]
+  pageInfo: PageInfo
+}
+
+input CreateTaxonomyInput {
+  name: String!
+  plural: String
+  slug: String
+  description: String
+}
+
+input UpdateTaxonomyInput {
+  name: String
+  plural: String
+  slug: String
+  description: String
+}
+
+extend type Query {
+  taxonomies(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): TaxonomyConnection
+  taxonomy(id: ObjID, slug: String): Taxonomy
+}
+
+extend type Mutation {
+  createTaxonomy(input: CreateTaxonomyInput!): Taxonomy
+  updateTaxonomy(id: ObjID!, input: UpdateTaxonomyInput!): Taxonomy
+  removeTaxonomy(ids: [ObjID]!): Boolean
+}
+type Term {
+  id: ObjID!
+  name: String
+  slug: String
+  description: String
+  taxonomy: Taxonomy
+}
+
+type TermEdge {
+  node: Term
+  cursor: String
+}
+
+type TermConnection {
+  taxonomy: Taxonomy
+  count: Int
+  edges: [TermEdge]
+  pageInfo: PageInfo
+}
+
+input CreateTermInput {
+  name: String!
+  slug: String
+  description: String
+  taxonomy: ObjID!
+}
+
+input UpdateTermInput {
+  name: String
+  slug: String
+  description: String
+  taxonomy: ObjID
+}
+
+extend type Query {
+  terms(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    taxonomyId: ObjID
+    taxonomy: String
+    search: String
+  ): TermConnection
+  term(id: ObjID, slug: String, taxonomy: String): Term
+}
+
+extend type Mutation {
+  createTerm(input: CreateTermInput!): Term
+  updateTerm(id: ObjID!, input: UpdateTermInput!): Term
+  removeTerm(ids: [ObjID]!): Boolean
+}
+type User {
+  id: ObjID!
+  name: String
+  email: String!
+  bio: String
+  roles: [String]
+}
+
+type UserEdge {
+  node: User
+  cursor: String
+}
+
+type UserConnection {
+  count: Int
+  edges: [UserEdge]
+  pageInfo: PageInfo
+}
+
+input CreateUserInput {
+  name: String
+  email: String
+  bio: String
+  password: String
+  roles: [String]
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  bio: String
+  password: String
+  roles: [String]
+}
+
+extend type Query {
+  users(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    search: String
+  ): UserConnection
+  user(id: ObjID!): User
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): User
+  updateUser(id: ObjID!, input: UpdateUserInput!): User
+  removeUser(ids: [ObjID]!): Boolean
+}
+type Video {
+  id: ObjID!
+  dataId: String
+  slug: String
+  dataType: String
+  dataPlaylistIds: [String]
+  year: Int
+  publishedAt: Float!
+  publishedISO: String
+  title: String
+  thumbnails: [VideoThumbnail]
+  position: Int
+  createdAt: Float!
+  updatedAt: Float!
+}
+
+type VideoThumbnail {
+  url: String
+  width: Int
+  height: Int
+}
+
+type VideoEdge {
+  node: Video
+  cursor: String
+}
+
+type VideoConnection {
+  years: [Int]
+  count: Int
+  edges: [VideoEdge]
+  pageInfo: PageInfo
+}
+
+input CreateVideoInput {
+  dataId: String
+  slug: String!
+  dataType: String
+  dataPlaylistIds: [String]
+  year: Int!
+  publishedAt: Float!
+  publishedISO: String
+  title: String!
+  position: Int
+}
+
+input UpdateVideoInput {
+  dataId: String
+  slug: String
+  dataType: String
+  dataPlaylistIds: [String]
+  year: Int
+  publishedAt: Float
+  publishedISO: String
+  title: String
+  position: Int
+}
+
+extend type Query {
+  videos(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    year: Int
+    search: String
+  ): VideoConnection
+  video(id: ObjID, slug: String): Video
+}
+
+extend type Mutation {
+  createVideo(input: CreateVideoInput!): Video
+  updateVideo(id: ObjID!, input: UpdateVideoInput!): Video
+  removeVideo(id: ObjID!): Boolean
+}

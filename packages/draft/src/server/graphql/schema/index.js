@@ -2,18 +2,17 @@ import { requireFiles } from 'server/graphql/utils';
 
 const typeDefs = [
   `
-  scalar ObjID
-  type Query
+scalar ObjID
+type Query
 
-  type Mutation
+type Mutation
 
-  type PageInfo {
-    startCursor: String
-    endCursor: String
-    hasPreviousPage: Boolean
-    hasNextPage: Boolean
-  }
-`,
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean
+  hasNextPage: Boolean
+}`,
 ];
 
 const files = requireFiles(__dirname);
