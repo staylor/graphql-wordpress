@@ -3,6 +3,12 @@ import React, { Component, Fragment } from 'react';
 import Select from 'components/Form/Select';
 import type { Groups } from 'components/Form/Select';
 
+const FEBRUARY = 1;
+const APRIL = 3;
+const JUNE = 5;
+const SEPTEMBER = 8;
+const NOVEMBER = 10;
+
 const monthChoices = [
   { value: 0, label: 'January' },
   { value: 1, label: 'February' },
@@ -22,12 +28,12 @@ const dayChoices = ({ month = 1, year }): Array<string> => {
   const monthNum = parseInt(month, 10);
   const yearNum = parseInt(year, 10);
   let days = 31;
-  if (monthNum === 2) {
+  if (monthNum === FEBRUARY) {
     days = 28;
     if ((yearNum % 4 === 0 && yearNum % 100 !== 0) || yearNum % 400 === 0) {
       days = 29;
     }
-  } else if ([4, 6, 9, 11].includes(monthNum)) {
+  } else if ([APRIL, JUNE, SEPTEMBER, NOVEMBER].includes(monthNum)) {
     days = 30;
   }
   return [...Array(days).keys()].map(i => (i < 9 ? `0${i + 1}` : `${i + 1}`));
@@ -76,7 +82,7 @@ const hourChoices: Groups = [
   },
 ];
 
-const minuteChoices = ['00', '05', 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+const minuteChoices = [...Array(60).keys()].map(i => (i < 10 ? `0${i}` : `${i}`));
 
 type Props = {
   date: number | null,
@@ -92,34 +98,24 @@ type State = {
 };
 
 export default class DatePicker extends Component<Props, State> {
-  currentYear: number;
+  yearChoices: Array<number>;
 
   constructor(props: Props) {
     super(props);
 
-    this.currentYear = new Date().getFullYear();
-    if (props.date) {
-      const d = new Date(props.date);
-      const day = d.getDate();
-      const month = d.getMonth();
-      const hour = d.getHours();
-      const minute = d.getMinutes();
-      this.state = {
-        month: `${month}`,
-        day: `${day < 10 ? `0${day}` : day}`,
-        year: `${d.getFullYear()}`,
-        hour: `${hour < 10 ? `0${hour}` : hour}`,
-        minutes: `${minute < 10 ? `0${minute}` : minute}`,
-      };
-    } else {
-      this.state = {
-        month: '0',
-        day: '01',
-        year: `${this.currentYear}`,
-        hour: '20',
-        minutes: '00',
-      };
-    }
+    const d = props.date ? new Date(props.date) : new Date();
+    const day = d.getDate();
+    const month = d.getMonth();
+    const hour = d.getHours();
+    const minute = d.getMinutes();
+    this.state = {
+      month: `${month}`,
+      day: `${day < 10 ? `0${day}` : day}`,
+      year: `${d.getFullYear()}`,
+      hour: `${hour < 10 ? `0${hour}` : hour}`,
+      minutes: `${minute < 10 ? `0${minute}` : minute}`,
+    };
+    this.yearChoices = yearChoices(d.getFullYear());
   }
 
   changeDate() {
@@ -173,12 +169,8 @@ export default class DatePicker extends Component<Props, State> {
           })}
           value={this.state.day}
         />
-        <Select
-          onChange={this.setYear}
-          choices={yearChoices(this.currentYear)}
-          value={this.state.year}
-        />{' '}
-        at <Select onChange={this.setHour} groups={hourChoices} value={this.state.hour} />
+        <Select onChange={this.setYear} choices={this.yearChoices} value={this.state.year} /> at{' '}
+        <Select onChange={this.setHour} groups={hourChoices} value={this.state.hour} />
         <Select
           onChange={this.setMinutes}
           choices={minuteChoices}
