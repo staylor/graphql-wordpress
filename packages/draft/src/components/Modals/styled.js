@@ -15,7 +15,7 @@ export const Modal = styled.div`
 export const Frame = styled.div`
   bottom: 40px;
   left: 30px;
-  overflow: scroll;
+  overflow: auto;
   position: absolute;
   right: 40px;
   top: 30px;

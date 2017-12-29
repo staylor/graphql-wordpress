@@ -25,6 +25,9 @@ export const NavLink = styled(RRNavLink)`
       }
 
       &.NavLink-active {
+        background-color: ${p => p.theme.colors.dark};
+        color: ${p => p.theme.colors.white};
+
         &::after {
           border-right-color: ${p => p.theme.colors.white};
         }
