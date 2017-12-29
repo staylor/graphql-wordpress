@@ -1,10 +1,27 @@
+// @flow
 import React, { Component } from 'react';
 import { FieldSelect } from 'components/Form/styled';
 
-/* eslint-disable react/prop-types */
+export type Choice = { label: string, value: string | number };
+export type Choices = Array<any>;
+export type Groups = Array<{ label: string, choices: Choices }>;
 
-export default class Select extends Component {
-  onChange = e => {
+type Props = {
+  multiple?: boolean,
+  onChange?: (value: any) => any,
+  value?: any,
+  placeholder?: string,
+  choices?: Choices,
+  groups?: Groups,
+  children?: any,
+};
+
+type State = {
+  value: any,
+};
+
+export default class Select extends Component<Props, State> {
+  onChange = (e: { target: HTMLSelectElement }) => {
     let { value } = e.target;
     if (this.props.multiple) {
       value = [...e.target.selectedOptions].map(o => o.value);
@@ -17,15 +34,15 @@ export default class Select extends Component {
 
   didMount = false;
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props: Props) {
+    super(props);
 
     this.state = {
       value: props.value || (props.multiple ? [] : ''),
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (!this.didMount || nextProps.value === this.state.value) {
       return;
     }

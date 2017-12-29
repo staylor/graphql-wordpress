@@ -1,5 +1,24 @@
-export default ({ helmet, stylesheets = [], state = {}, assets = {} }) => [
-  `<!DOCTYPE html>
+// @flow
+
+type Template = {
+  helmet: any,
+  stylesheets: Array<string>,
+  state: {},
+  assets: {
+    manifestJSBundle?: string,
+    vendorJSBundle?: string,
+    mainJSBundle?: string,
+  },
+};
+
+export default function template({
+  helmet,
+  stylesheets = [],
+  state = {},
+  assets = {},
+}: Template): Array<string> {
+  return [
+    `<!DOCTYPE html>
 <html ${helmet.htmlAttributes.toString()}>
 <head>
 <meta charset="utf-8" />
@@ -11,11 +30,12 @@ ${stylesheets.map(sheet => `<link rel="stylesheet" href="${sheet}" />`).join('')
 </head>
 <body ${helmet.bodyAttributes.toString()}>
   <main id="main">`,
-  `</main>
+    `</main>
   <script>window.__APOLLO_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')};</script>
 ${assets.manifestJSBundle ? `<script defer src="${assets.manifestJSBundle}"></script>` : ''}
 ${assets.vendorJSBundle ? `<script defer src="${assets.vendorJSBundle}"></script>` : ''}
 ${assets.mainJSBundle ? `<script defer src="${assets.mainJSBundle}"></script>` : ''}
 </body>
 </html>`,
-];
+  ];
+}

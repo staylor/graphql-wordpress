@@ -1,10 +1,11 @@
+// @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { cx } from 'emotion';
+import type { ContentState } from 'draft-js';
+import type DraftEntityInstance from 'draft-js/lib/DraftEntityInstance';
 import Sizer from './Sizer';
 import { ImageWrap, Image as StyledImage } from './styled';
-
-/* eslint-disable react/prop-types */
 
 const cropMap = {
   FEATURE: 640,
@@ -12,14 +13,29 @@ const cropMap = {
   THUMB: 150,
 };
 
-export default class Image extends Component {
-  state = {};
+type Props = {
+  contentState: ContentState,
+  entityKey: string,
+  entity: DraftEntityInstance,
+};
+
+type State = {
+  showTools: boolean,
+  bounds: {},
+};
+
+export default class Image extends Component<Props, State> {
+  state = {
+    showTools: false,
+    bounds: {},
+  };
+  image: HTMLImageElement;
 
   static contextTypes = {
     setReadOnly: PropTypes.func,
   };
 
-  showTools(e) {
+  showTools(e: Event) {
     e.stopPropagation();
     this.context.setReadOnly(true, () => {
       const bounds = this.image.getBoundingClientRect();
@@ -27,7 +43,7 @@ export default class Image extends Component {
     });
   }
 
-  hideTools(e) {
+  hideTools(e: Event) {
     e.stopPropagation();
     this.context.setReadOnly(false, () => {
       this.setState({ showTools: false, bounds: {} });

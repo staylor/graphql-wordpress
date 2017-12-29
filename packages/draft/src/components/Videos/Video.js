@@ -1,3 +1,4 @@
+// @flow
 import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
@@ -13,11 +14,27 @@ import {
   thumb480Class,
 } from './styled';
 
-/* eslint-disable react/prop-types */
+type Thumbnail = {
+  width: number,
+  height: number,
+  url: string,
+  className?: string,
+};
+
+type Props = {
+  video: {
+    dataId: string,
+    title: string,
+    slug: string,
+    thumbnails: Array<Thumbnail>,
+  },
+  single: boolean,
+  embed: boolean,
+};
 
 const maxWidth = 640;
 
-const findThumb = (thumbs, { single, embed }) => {
+const findThumb = (thumbs: Array<Thumbnail>, { single, embed }) => {
   const sizes = embed || single ? [640, 480, 320] : [480, 640, 320];
   let thumb = thumbs.find(t => t.width === sizes[0]);
   if (thumb) {
@@ -35,17 +52,19 @@ const findThumb = (thumbs, { single, embed }) => {
   return thumb;
 };
 
-export default class Video extends Component {
-  onClick = e => {
+export default class Video extends Component<Props> {
+  onClick = (e: Event & { currentTarget: HTMLElement }) => {
     e.preventDefault();
 
     const iframe = document.createElement('iframe');
-    iframe.height = Math.ceil(9 / 16 * e.currentTarget.offsetWidth);
-    iframe.width = maxWidth;
+    // $FlowFixMe
+    iframe.height = `${Math.ceil(9 / 16 * e.currentTarget.offsetWidth)}`;
+    iframe.width = `${maxWidth}`;
     iframe.className = this.props.embed ? '' : iframeClass;
-    iframe.frameBorder = 0;
+    iframe.frameBorder = '0';
     iframe.src = `https://www.youtube.com/embed/${this.props.video.dataId}?autoplay=1`;
 
+    // $FlowFixMe
     e.currentTarget.innerHTML = iframe.outerHTML;
   };
 
@@ -96,6 +115,7 @@ export default class Video extends Component {
   }
 }
 
+// $FlowFixMe
 Video.fragments = {
   video: gql`
     fragment Video_video on Video {

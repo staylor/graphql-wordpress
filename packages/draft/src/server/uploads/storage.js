@@ -1,3 +1,4 @@
+// @flow
 import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
@@ -10,8 +11,40 @@ import Settings from 'server/graphql/models/Settings';
 
 /* eslint-disable class-methods-use-this, consistent-return */
 
+type Callback = (err: any, value?: any) => any;
+
+type FileParts = {
+  destination: string,
+  ext: string,
+  basename: string,
+};
+
+type FileUpload = {
+  destination: string,
+  path: string,
+  originalname: string,
+  mimetype: string,
+  encoding: string,
+  filename: string,
+  stream: ReadableStream,
+};
+
+type CropInfo = {
+  fileName: string,
+  fileSize: number,
+  width: number,
+  height: number,
+};
+
+type StorageOpts = {
+  db: any,
+  uploadDir: string,
+};
+
 class MediaStorage {
-  constructor(opts) {
+  opts: StorageOpts;
+
+  constructor(opts: StorageOpts) {
     this.opts = opts;
   }
 
@@ -20,7 +53,7 @@ class MediaStorage {
     return settings.findOneById('media');
   }
 
-  getDestination() {
+  getDestination(): string {
     const d = new Date();
     const month = d.getMonth() + 1;
     const monthStr = month < 10 ? `0${month}` : `${month}`;
@@ -29,7 +62,7 @@ class MediaStorage {
     return uploadsFolder;
   }
 
-  getFilename() {
+  getFilename(): Promise<string> {
     return new Promise((resolve, reject) => {
       crypto.pseudoRandomBytes(8, (err, raw) => {
         if (err) {
@@ -42,7 +75,11 @@ class MediaStorage {
     });
   }
 
-  handleCrop(src, size, { destination, ext, basename }) {
+  handleCrop(
+    src: string,
+    size: [number, number],
+    { destination, ext, basename }: FileParts
+  ): Promise<CropInfo> {
     return new Promise((resolve, reject) => {
       const [width = null, height = null] = size;
       const cropName = `${basename}-${width || 0}x${height || 0}${ext}`;
@@ -66,10 +103,10 @@ class MediaStorage {
     });
   }
 
-  async handleImage(file, { destination, ext, basename }, cb) {
+  async handleImage(file: FileUpload, { destination, ext, basename }: FileParts, cb: Callback) {
     const fileName = `${basename}${ext}`;
-    const finalPath = path.join(destination, fileName);
-    const original = { fileName };
+    const finalPath = `${path.join(destination, fileName)}`;
+    const original = { fileName, width: 0, height: 0, fileSize: 0 };
     const imageMeta = sharp().on('info', info => {
       original.width = info.width;
       original.height = info.height;
@@ -100,10 +137,11 @@ class MediaStorage {
         crops,
       });
     });
+    // $FlowFixMe
     file.stream.pipe(imageMeta).pipe(outStream);
   }
 
-  async handleAudio(file, { destination, ext, basename }, cb) {
+  async handleAudio(file: FileUpload, { destination, ext, basename }: FileParts, cb: Callback) {
     const fileName = `${basename}${ext}`;
     const finalPath = path.join(destination, fileName);
 
@@ -160,13 +198,15 @@ class MediaStorage {
         originalName: file.originalname,
         destination: destination.replace(`${this.opts.uploadDir}/`, ''),
         fileName,
+        // $FlowFixMe
         fileSize: outStream.bytesWritten,
       });
     });
+    // $FlowFixMe
     file.stream.pipe(outStream);
   }
 
-  async handleVideo(file, { destination, ext, basename }, cb) {
+  async handleVideo(file: FileUpload, { destination, ext, basename }: FileParts, cb: Callback) {
     const fileName = `${basename}${ext}`;
     const finalPath = path.join(destination, fileName);
 
@@ -183,13 +223,15 @@ class MediaStorage {
         originalName: file.originalname,
         destination: destination.replace(`${this.opts.uploadDir}/`, ''),
         fileName,
+        // $FlowFixMe
         fileSize: outStream.bytesWritten,
       });
     });
+    // $FlowFixMe
     file.stream.pipe(outStream);
   }
 
-  async _handleFile(req, file, cb) {
+  async _handleFile(req, file: FileUpload, cb: Callback) {
     const destination = this.getDestination();
     const name = file.originalname;
     const ext = name.substring(name.lastIndexOf('.'));
@@ -212,14 +254,16 @@ class MediaStorage {
           originalName: file.originalname,
           destination: destination.replace(`${this.opts.uploadDir}/`, ''),
           fileName,
+          // $FlowFixMe
           fileSize: outStream.bytesWritten,
         });
       });
+      // $FlowFixMe
       file.stream.pipe(outStream);
     }
   }
 
-  _removeFile(req, file, cb) {
+  _removeFile(req, file: FileUpload, cb: Callback) {
     const { path: filePath } = file;
 
     delete file.destination;
@@ -230,4 +274,4 @@ class MediaStorage {
   }
 }
 
-export default opts => new MediaStorage(opts);
+export default (opts: StorageOpts): MediaStorage => new MediaStorage(opts);

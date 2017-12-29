@@ -56,7 +56,7 @@ export default class Editor extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const decorator = new CompositeDecorator([...LinkDecorator, ...TwitterDecorator]);
+    const decorator = new CompositeDecorator([LinkDecorator, TwitterDecorator]);
 
     let contentState;
     if (props.content) {

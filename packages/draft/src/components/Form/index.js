@@ -1,5 +1,7 @@
+// @flow
 import React, { Component, Fragment } from 'react';
 import { convertToRaw } from 'draft-js';
+import type { ContentState } from 'draft-js';
 import { cx } from 'emotion';
 import invariant from 'invariant';
 import Editor from 'components/Editor';
@@ -18,20 +20,50 @@ import {
 import Input from './Input';
 import Textarea from './Textarea';
 import Select from './Select';
+import type { Choices } from './Select';
 import Date from './Date';
 
-/* eslint-disable react/prop-types */
+type Data = {};
+type Updates = {};
+type F = {
+  prop: string,
+  value?: () => any,
+  render?: (?Data) => any,
+  className?: string,
+  label?: string,
+  type?: string,
+  placeholder?: string,
+  choices?: Choices,
+  inputType?: string,
+  editable?: boolean,
+  multiple?: boolean,
+  condition?: Data => boolean,
+};
 
-export default class Form extends Component {
+type Props = {
+  data: Data,
+  fields: Array<F>,
+  boxLabel?: string,
+  buttonLabel?: string,
+  onSubmit: (Event, Updates) => void,
+};
+
+type RawContent = {
+  blocks: Array<{}>,
+  entityMap: any,
+};
+
+export default class Form extends Component<Props> {
   boundRefs = {};
   fields = {};
 
-  bindRef = prop => ref => {
+  bindRef = (prop: string) => (ref: HTMLElement) => {
     this.boundRefs[prop] = ref;
   };
 
-  onSubmit = e => {
+  onSubmit = (e: Event & { target: HTMLButtonElement }) => {
     e.preventDefault();
+    // $FlowFixMe
     e.target.blur();
 
     const { onSubmit } = this.props;
@@ -55,19 +87,19 @@ export default class Form extends Component {
     onSubmit(e, updates);
   };
 
-  bindOnChange = (field, data) => {
+  bindOnChange = (field: F, data: Data) => {
     let initialValue = data[field.prop];
 
     field.value = () => initialValue;
 
-    return value => {
+    return (value: string) => {
       initialValue = value;
     };
   };
 
-  editorOnChange = field => content => {
+  editorOnChange = (field: F) => (content: ContentState) => {
     const converted = convertToRaw(content);
-    const value = {
+    const value: RawContent = {
       blocks: [...converted.blocks],
       entityMap: { ...converted.entityMap },
     };
@@ -102,7 +134,7 @@ export default class Form extends Component {
     };
   };
 
-  editableField(field, data = {}) {
+  editableField(field: F, data: Data = {}) {
     if (field.type === 'editor') {
       return (
         <Editor
@@ -118,7 +150,7 @@ export default class Form extends Component {
     if (field.type === 'date') {
       return (
         <Date
-          date={data[field.prop] || null}
+          date={data[field.prop]}
           className={cx(field.className)}
           onChange={this.bindOnChange(field, data)}
         />
@@ -178,6 +210,11 @@ export default class Form extends Component {
 
       let formField;
       if (field.type === 'custom') {
+        invariant(
+          field.render,
+          'You must specify a render property for a custom field: %s',
+          field.prop
+        );
         formField = (
           <FieldWrap key={key}>
             {field.label && <FieldName>{field.label}</FieldName>}

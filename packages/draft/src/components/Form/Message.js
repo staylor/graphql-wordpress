@@ -1,9 +1,16 @@
+// @flow
 import React, { Component } from 'react';
 import { MessageWrap, MessageText, DismissButton } from './styled';
 
-/* eslint-disable react/prop-types */
+type Props = {
+  text: string,
+};
 
-export default class Message extends Component {
+type State = {
+  hidden: boolean,
+};
+
+export default class Message extends Component<Props, State> {
   state = {
     hidden: false,
   };

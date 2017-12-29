@@ -1,38 +1,43 @@
+// @flow
 import React from 'react';
+import type { ContentBlock } from 'draft-js';
 import theme from 'styles/theme';
 import { findWithRegex } from '../utils';
 
-/* eslint-disable react/prop-types */
-
 const HANDLE_REGEX = /@[\w]+/g;
 
-const HandleSpan = props => (
+function handleStrategy(contentBlock: ContentBlock, callback: () => void) {
+  findWithRegex(HANDLE_REGEX, contentBlock, callback);
+}
+
+type RedraftProps = {
+  decoratedText: string,
+  children: any,
+};
+
+const RedraftHandle = ({ children, decoratedText }: RedraftProps) => (
+  <a key={decoratedText} target="_blank" href={`https://twitter.com/${decoratedText.substring(1)}`}>
+    {children}
+  </a>
+);
+
+export const TwitterRedraftDecorator = {
+  strategy: handleStrategy,
+  component: RedraftHandle,
+};
+
+type Props = {
+  offsetKey: string,
+  children: any,
+};
+
+const HandleSpan = (props: Props) => (
   <span style={{ color: theme.colors.pink }} data-offset-key={props.offsetKey}>
     {props.children}
   </span>
 );
 
-function handleStrategy(contentBlock, callback) {
-  findWithRegex(HANDLE_REGEX, contentBlock, callback);
-}
-
-export const TwitterRedraftDecorator = {
+export default {
   strategy: handleStrategy,
-  // eslint-disable-next-line
-  component: ({ children, decoratedText }) => (
-    <a
-      key={decoratedText}
-      target="_blank"
-      href={`https://twitter.com/${decoratedText.substring(1)}`}
-    >
-      {children}
-    </a>
-  ),
+  component: HandleSpan,
 };
-
-export default [
-  {
-    strategy: handleStrategy,
-    component: HandleSpan,
-  },
-];

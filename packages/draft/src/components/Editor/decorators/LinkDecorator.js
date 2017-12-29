@@ -1,16 +1,29 @@
+// @flow
 import React from 'react';
+import type { ContentBlock, ContentState } from 'draft-js';
 import { linkClass } from '../styled';
 
-/* eslint-disable react/prop-types */
-
-function findLinkEntities(contentBlock, callback, contentState) {
+function findLinkEntities(
+  contentBlock: ContentBlock,
+  callback: () => void,
+  contentState: ContentState
+) {
   contentBlock.findEntityRanges(character => {
     const entityKey = character.getEntity();
-    return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK';
+    if (!entityKey) {
+      return false;
+    }
+    return contentState.getEntity(entityKey).getType() === 'LINK';
   }, callback);
 }
 
-const Link = ({ contentState, entityKey, children }) => {
+type Props = {
+  contentState: ContentState,
+  entityKey: string,
+  children: any,
+};
+
+const Link = ({ contentState, entityKey, children }: Props) => {
   const { href } = contentState.getEntity(entityKey).getData();
   return (
     <a href={href} className={linkClass}>
@@ -19,9 +32,7 @@ const Link = ({ contentState, entityKey, children }) => {
   );
 };
 
-export default [
-  {
-    strategy: findLinkEntities,
-    component: Link,
-  },
-];
+export default {
+  strategy: findLinkEntities,
+  component: Link,
+};

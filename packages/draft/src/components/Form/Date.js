@@ -1,7 +1,7 @@
+// @flow
 import React, { Component, Fragment } from 'react';
 import Select from 'components/Form/Select';
-
-/* eslint-disable react/prop-types */
+import type { Groups } from 'components/Form/Select';
 
 const monthChoices = [
   { value: 0, label: 'January' },
@@ -18,27 +18,28 @@ const monthChoices = [
   { value: 11, label: 'December' },
 ];
 
-const dayChoices = ({ month = 1, year }) => {
+const dayChoices = ({ month = 1, year }): Array<string> => {
   const monthNum = parseInt(month, 10);
+  const yearNum = parseInt(year, 10);
   let days = 31;
   if (monthNum === 2) {
     days = 28;
-    if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+    if ((yearNum % 4 === 0 && yearNum % 100 !== 0) || yearNum % 400 === 0) {
       days = 29;
     }
   } else if ([4, 6, 9, 11].includes(monthNum)) {
     days = 30;
   }
-  return [...Array(days).keys()].map(i => (i < 9 ? `0${i + 1}` : i + 1));
+  return [...Array(days).keys()].map(i => (i < 9 ? `0${i + 1}` : `${i + 1}`));
 };
 
-const yearChoices = currentYear => {
+const yearChoices = (currentYear: number): Array<number> => {
   const start = currentYear - 100;
   const end = currentYear + 10;
   return [...Array(end - start).keys()].map(i => start + i);
 };
 
-const hourChoices = [
+const hourChoices: Groups = [
   {
     label: 'AM',
     choices: [
@@ -77,8 +78,23 @@ const hourChoices = [
 
 const minuteChoices = ['00', '05', 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
-export default class DatePicker extends Component {
-  constructor(props) {
+type Props = {
+  date: number | null,
+  onChange: (value: any) => void,
+};
+
+type State = {
+  month: string,
+  day: string,
+  year: string,
+  hour: string,
+  minutes: string,
+};
+
+export default class DatePicker extends Component<Props, State> {
+  currentYear: number;
+
+  constructor(props: Props) {
     super(props);
 
     this.currentYear = new Date().getFullYear();
@@ -89,17 +105,17 @@ export default class DatePicker extends Component {
       const hour = d.getHours();
       const minute = d.getMinutes();
       this.state = {
-        month,
-        day: day < 10 ? `0${day}` : day,
-        year: d.getFullYear(),
-        hour: hour < 10 ? `0${hour}` : hour,
-        minutes: minute < 10 ? `0${minute}` : minute,
+        month: `${month}`,
+        day: `${day < 10 ? `0${day}` : day}`,
+        year: `${d.getFullYear()}`,
+        hour: `${hour < 10 ? `0${hour}` : hour}`,
+        minutes: `${minute < 10 ? `0${minute}` : minute}`,
       };
     } else {
       this.state = {
-        month: monthChoices[0].value,
+        month: '0',
         day: '01',
-        year: this.currentYear,
+        year: `${this.currentYear}`,
         hour: '20',
         minutes: '00',
       };
@@ -107,26 +123,35 @@ export default class DatePicker extends Component {
   }
 
   changeDate() {
-    this.props.onChange(
-      new Date(
-        this.state.year,
-        parseInt(this.state.month, 10),
-        parseInt(this.state.day, 10),
-        parseInt(this.state.hour, 10),
-        parseInt(this.state.minutes, 10)
-      ).getTime()
+    const date = new Date(
+      parseInt(this.state.year, 10),
+      parseInt(this.state.month, 10),
+      parseInt(this.state.day, 10),
+      parseInt(this.state.hour, 10),
+      parseInt(this.state.minutes, 10)
     );
+    this.props.onChange(date.getTime());
   }
 
-  setProp = (prop, value) => {
+  setProp = (prop: string, value: any) => {
     this.setState({ [prop]: value }, () => this.changeDate());
   };
 
-  setDay = day => this.setProp('day', day);
-  setYear = year => this.setProp('year', year);
-  setMonth = month => this.setProp('month', month);
-  setHour = hour => this.setProp('hour', hour);
-  setMinutes = minutes => this.setProp('minutes', minutes);
+  setDay = (day: string) => {
+    this.setProp('day', day);
+  };
+  setYear = (year: string) => {
+    this.setProp('year', year);
+  };
+  setMonth = (month: string) => {
+    this.setProp('month', month);
+  };
+  setHour = (hour: string) => {
+    this.setProp('hour', hour);
+  };
+  setMinutes = (minutes: string) => {
+    this.setProp('minutes', minutes);
+  };
 
   componentDidMount() {
     this.changeDate();

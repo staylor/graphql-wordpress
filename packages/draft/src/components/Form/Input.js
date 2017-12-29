@@ -1,10 +1,20 @@
+// @flow
 import React, { Component } from 'react';
 import { FieldInput } from 'components/Form/styled';
 
-/* eslint-disable react/prop-types */
+type Props = {
+  value: any,
+  onChange?: string => void,
+};
 
-export default class Input extends Component {
-  onChange = e => {
+type State = {
+  value: any,
+};
+
+export default class Input extends Component<Props, State> {
+  didMount = false;
+
+  onChange = (e: { target: HTMLInputElement }) => {
     const { value } = e.target;
 
     this.setState({ value }, () => {
@@ -14,15 +24,15 @@ export default class Input extends Component {
     });
   };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props: Props) {
+    super(props);
 
     this.state = {
       value: props.value || '',
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (!this.didMount || nextProps.value === this.state.value) {
       return;
     }

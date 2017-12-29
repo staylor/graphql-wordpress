@@ -1,25 +1,35 @@
+// @flow
 import React, { Component } from 'react';
 import { FieldTextarea } from 'components/Form/styled';
 
-/* eslint-disable react/prop-types */
+type Props = {
+  value: string,
+  onChange?: string => void,
+};
 
-export default class Textarea extends Component {
-  onChange = e => {
+type State = {
+  value: string,
+};
+
+export default class Textarea extends Component<Props, State> {
+  didMount = false;
+
+  onChange = (e: { target: HTMLTextAreaElement }) => {
     if (this.props.onChange) {
       this.props.onChange(e.target.value);
     }
     this.setState({ value: e.target.value });
   };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props: Props) {
+    super(props);
 
     this.state = {
       value: props.value || '',
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (!this.didMount || nextProps.value === this.state.value) {
       return;
     }

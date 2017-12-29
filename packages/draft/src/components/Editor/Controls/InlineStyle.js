@@ -1,9 +1,8 @@
+// @flow
 import React, { Component, Fragment } from 'react';
 import { RichUtils, EditorState } from 'draft-js';
 import StyleButton from './StyleButton';
 import { LinkInput, LinkAction, Controls } from './styled';
-
-/* eslint-disable react/prop-types */
 
 const INLINE_STYLES = [
   { label: '', style: 'BOLD', className: 'dashicons dashicons-editor-bold' },
@@ -44,11 +43,23 @@ const INLINE_STYLES = [
   { label: '', style: 'LINK', className: 'dashicons dashicons-admin-links' },
 ];
 
-export default class InlineStyleControls extends Component {
+type Props = {
+  editorState: EditorState,
+  onChange: EditorState => void,
+  onToggle: string => void,
+};
+
+type State = {
+  mode: string,
+  urlValue: string,
+};
+
+export default class InlineStyleControls extends Component<Props, State> {
   state = {
     mode: '',
     urlValue: '',
   };
+  linkInput: HTMLInputElement;
 
   // event propagation is already handled
   showLink = () => {
@@ -74,7 +85,7 @@ export default class InlineStyleControls extends Component {
     });
   };
 
-  addLink = e => {
+  addLink = (e: Event) => {
     e.preventDefault();
     const { editorState } = this.props;
     const { urlValue } = this.state;
@@ -94,7 +105,7 @@ export default class InlineStyleControls extends Component {
     });
   };
 
-  removeLink = e => {
+  removeLink = (e: Event) => {
     e.preventDefault();
     const { editorState } = this.props;
     const selection = editorState.getSelection();
@@ -109,23 +120,23 @@ export default class InlineStyleControls extends Component {
     });
   };
 
-  cancelLink = e => {
+  cancelLink = (e: Event) => {
     e.preventDefault();
 
     this.setState({ mode: '', urlValue: '' });
   };
 
-  onLinkInputChange = e => {
+  onLinkInputChange = (e: { target: HTMLInputElement }) => {
     this.setState({ urlValue: e.target.value });
   };
 
-  onLinkInputKeyDown = e => {
+  onLinkInputKeyDown = (e: Event) => {
     if (e.which === 13) {
       this.addLink(e);
     }
   };
 
-  onLinkInputMouseDown = e => {
+  onLinkInputMouseDown = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
   };
@@ -142,7 +153,7 @@ export default class InlineStyleControls extends Component {
     const { editorState, onToggle } = this.props;
     const currentStyle = editorState.getCurrentInlineStyle();
     const selection = editorState.getSelection();
-    let linkKey = null;
+    let linkKey = '';
     if (!selection.isCollapsed()) {
       const contentState = editorState.getCurrentContent();
       const blockWithLink = contentState.getBlockForKey(selection.getStartKey());
@@ -177,7 +188,7 @@ export default class InlineStyleControls extends Component {
             <StyleButton
               key={type.style}
               className={type.className}
-              active={currentStyle.has(type.style) || (type.style === 'LINK' && linkKey)}
+              active={currentStyle.has(type.style) || (type.style === 'LINK' && linkKey !== '')}
               label={type.label}
               onToggle={type.style === 'LINK' ? this.showLink : onToggle}
               style={type.style}

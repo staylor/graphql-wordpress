@@ -1,3 +1,4 @@
+// @flow
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
@@ -16,13 +17,19 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-export default function apolloClient(uri, headers, opts) {
+type ClientOps = {
+  ssrMode?: boolean,
+  cache?: any,
+};
+
+export default function apolloClient(uri: string, headers: {}, opts: ClientOps) {
   const params = Object.assign({}, opts);
   if (!params.cache) {
     params.cache = new InMemoryCache({ fragmentMatcher });
   }
   return new ApolloClient(
     Object.assign(
+      {},
       {
         link: ApolloLink.from([
           errorLink,

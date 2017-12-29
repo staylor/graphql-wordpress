@@ -1,10 +1,20 @@
+// @flow
 import React, { Component } from 'react';
 import { FieldCheckbox } from 'components/Form/styled';
 
-/* eslint-disable react/prop-types */
+type Props = {
+  id: string,
+  text: string,
+  checked: boolean,
+  onChange: (checked: boolean, id?: string | null) => void,
+};
 
-export default class Checkbox extends Component {
-  onChange = e => {
+type State = {
+  checked: boolean,
+};
+
+export default class Checkbox extends Component<Props, State> {
+  onChange = (e: { target: HTMLInputElement }) => {
     const { checked } = e.target;
     if (this.props.onChange) {
       this.props.onChange(checked, this.props.id || null);
@@ -13,15 +23,15 @@ export default class Checkbox extends Component {
     }
   };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props: Props) {
+    super(props);
 
     this.state = {
       checked: props.checked || false,
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (!Object.keys(nextProps).includes('checked')) {
       return;
     }

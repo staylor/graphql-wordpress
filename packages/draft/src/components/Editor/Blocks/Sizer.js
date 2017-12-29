@@ -1,16 +1,36 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import type { ContentState } from 'draft-js';
 import { mediaSettingsShape } from 'types/PropTypes';
 import { Sizer as SizerWrap } from './styled';
 
 const OFFSET_TOP = 8;
 const OFFSET_LEFT = 8;
 
+type Props = {
+  contentState: ContentState,
+  entityKey: string,
+  bounds: Object,
+};
+
+type Context = {
+  setEditorState: ContentState => void,
+  mediaSettings: {
+    crops: Array<{
+      name: string,
+      width: number,
+      height: number,
+    }>,
+  },
+};
+
 export default function Sizer(
-  { contentState, entityKey, bounds },
-  { setEditorState, mediaSettings }
+  { contentState, entityKey, bounds }: Props,
+  { setEditorState, mediaSettings }: Context
 ) {
+  const portal: any = document.getElementById('atomicToolbar');
   return ReactDOM.createPortal(
     <SizerWrap
       style={{
@@ -31,7 +51,7 @@ export default function Sizer(
         </button>
       ))}
     </SizerWrap>,
-    document.getElementById('atomicToolbar')
+    portal
   );
 }
 
