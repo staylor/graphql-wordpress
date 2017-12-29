@@ -59,10 +59,12 @@ export default class Post extends Model {
     }
     const slug = await getUniqueSlug(this.collection, doc.title);
     const featuredMedia = (doc.featuredMedia || []).map(id => ObjectId(id));
+    const artists = (doc.artists || []).map(id => ObjectId(id));
 
     const docToInsert = Object.assign({ status: 'DRAFT' }, doc, {
       slug,
       featuredMedia,
+      artists,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -79,6 +81,7 @@ export default class Post extends Model {
         ObjectId(mediaId)
       );
     }
+    docToUpdate.artists = (docToUpdate.artists || []).map(artistId => ObjectId(artistId));
     const ret = await this.collection.update(
       { _id: id },
       {

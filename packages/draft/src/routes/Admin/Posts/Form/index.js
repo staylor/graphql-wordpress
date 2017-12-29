@@ -4,6 +4,7 @@ import { settingsShape } from 'types/PropTypes';
 import Editor from 'components/Editor';
 import Form from 'components/Form';
 import FeaturedMedia from './FeaturedMedia';
+import Tags from './Tags';
 import { postTitleClass, ViewPost } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -61,6 +62,21 @@ const postFields = settings => [
     editable: true,
     position: 'info',
   },
+  post => {
+    let tags = post.artists ? post.artists.map(t => t.name) : [];
+    const onChange = value => {
+      tags = value;
+    };
+    return {
+      label: 'Artists',
+      prop: 'artists',
+      type: 'custom',
+      value: () => tags,
+      editable: true,
+      position: 'info',
+      render: ({ artists = [] }) => <Tags tags={artists.map(t => t.name)} onChange={onChange} />,
+    };
+  },
   {
     label: 'Status',
     prop: 'status',
@@ -92,6 +108,9 @@ PostForm.fragments = {
       status
       featuredMedia {
         ...FeaturedMedia_media
+      }
+      artists {
+        name
       }
     }
     ${Editor.fragments.contentState}

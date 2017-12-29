@@ -1,4 +1,5 @@
 import { parseConnection } from './utils/collection';
+import resolveTags from './utils/resolveTags';
 
 const resolvers = {
   Post: {
@@ -7,6 +8,9 @@ const resolvers = {
     },
     featuredMedia(post, args, { Media }) {
       return Media.findByIds(post.featuredMedia || []);
+    },
+    artists(post, args, { Term }) {
+      return Term.findByIds(post.artists || []);
     },
   },
   Query: {
@@ -36,12 +40,30 @@ const resolvers = {
     },
   },
   Mutation: {
-    async createPost(root, { input }, { Post }) {
+    async createPost(root, { input }, { Post, Taxonomy, Term }) {
+      if (input.artists && input.artists.length > 0) {
+        input.artists = resolveTags('Artist', input.artists, {
+          Taxonomy,
+          Term,
+        });
+      } else {
+        input.artists = [];
+      }
+
       const id = await Post.insert(input);
       return Post.findOneById(id);
     },
 
-    async updatePost(root, { id, input }, { Post }) {
+    async updatePost(root, { id, input }, { Post, Taxonomy, Term }) {
+      if (input.artists && input.artists.length > 0) {
+        input.artists = await resolveTags('Artist', input.artists, {
+          Taxonomy,
+          Term,
+        });
+      } else {
+        input.artists = [];
+      }
+
       await Post.updateById(id, input);
       return Post.findOneById(id);
     },
