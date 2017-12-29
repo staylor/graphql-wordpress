@@ -2,6 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import Model from './Model';
 
+/* eslint-disable no-console */
+const deleteFile = file =>
+  new Promise(resolve => {
+    fs.unlink(file, err => {
+      if (err) {
+        console.log(err);
+      }
+      resolve();
+    });
+  });
+
 export default class Media extends Model {
   constructor(context) {
     super(context);
@@ -35,15 +46,11 @@ export default class Media extends Model {
     this.loader.clear(id);
     const uploadsDir = path.resolve(path.join(__dirname, '../uploads', media.destination));
     if (media.type === 'image' && media.crops.length > 0) {
-      media.crops.forEach(crop => {
-        fs.unlinkSync(`${uploadsDir}/${crop.fileName}`);
-      });
+      await Promise.all(media.crops.map(crop => deleteFile(`${uploadsDir}/${crop.fileName}`)));
     } else if (media.type === 'audio' && media.images.length > 0) {
-      media.images.forEach(image => {
-        fs.unlinkSync(`${uploadsDir}/${image.fileName}`);
-      });
+      await Promise.all(media.images.map(image => deleteFile(`${uploadsDir}/${image.fileName}`)));
     }
-    fs.unlinkSync(`${uploadsDir}/${media.fileName}`);
+    await deleteFile(`${uploadsDir}/${media.fileName}`);
     return ret;
   }
 }
