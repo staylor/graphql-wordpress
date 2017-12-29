@@ -5,7 +5,7 @@ import Select from 'components/Form/Select';
 import Checkbox from 'components/Form/Checkbox';
 import { Filters, Pagination, Table, Cell, StripedRow, CellHeading, CheckboxCell } from './styled';
 
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types, class-methods-use-this */
 
 const PER_PAGE = 20;
 
@@ -66,6 +66,17 @@ export default class ListTable extends Component {
     }
     this.setState({ checked: ids, all });
   };
+
+  formatDate(date) {
+    const d = new Date(date);
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    const min = d.getMinutes();
+    const hour = d.getHours();
+    return `${month < 10 ? `0${month}` : month}/${day < 10 ? `0${day}` : day}/${d.getFullYear()}
+    ${' '}at${' '}
+    ${hour % 12}:${min < 10 ? `0${min}` : min}${hour < 12 ? 'am' : 'pm'}`;
+  }
 
   render() {
     const { location, match: { params }, data, path, columns, filters } = this.props;
@@ -147,11 +158,19 @@ export default class ListTable extends Component {
                     onChange={this.toggleCheck}
                   />
                 </CheckboxCell>
-                {columns.map((column, i) => (
-                  <Cell key={i.toString(16)} className={cx(column.className)}>
-                    {column.render ? column.render(node, this.props) : node[column.prop]}
-                  </Cell>
-                ))}
+                {columns.map((column, i) => {
+                  let content = null;
+                  if (column.type && column.type === 'date') {
+                    content = node[column.prop] ? this.formatDate(node[column.prop]) : null;
+                  } else {
+                    content = column.render ? column.render(node, this.props) : node[column.prop];
+                  }
+                  return (
+                    <Cell key={i.toString(16)} className={cx(column.className)}>
+                      {content}
+                    </Cell>
+                  );
+                })}
               </StripedRow>
             ))}
           </tbody>

@@ -50,22 +50,15 @@ const columns = [
   },
   {
     label: 'Date',
-    render: show => {
-      const d = new Date(show.date);
-      const month = d.getMonth() + 1;
-      const day = d.getDate();
-      const min = d.getMinutes();
-      const hour = d.getHours();
-      return `${month < 10 ? `0${month}` : month}/${day < 10 ? `0${day}` : day}/${d.getFullYear()}
-      ${' '}at${' '}
-      ${hour % 12}:${min < 10 ? `0${min}` : min}${hour < 12 ? 'am' : 'pm'}`;
-    },
+    prop: 'date',
+    type: 'date',
   },
 ];
 
 @compose(
   graphql(ShowQuery, {
     options: {
+      variables: { first: 20 },
       // This ensures that the table is up to date when shows are mutated.
       // The alternative is to specify refetchQueries on all Show mutations.
       fetchPolicy: 'cache-and-network',

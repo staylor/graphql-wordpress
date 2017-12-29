@@ -8,6 +8,7 @@ query PostsQuery($first: Int, $after: String, $search: String) {
         title
         slug
         status
+        date
       }
     }
     pageInfo {

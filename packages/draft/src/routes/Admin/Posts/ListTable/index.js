@@ -48,6 +48,11 @@ const columns = [
     label: 'Slug',
     prop: 'slug',
   },
+  {
+    label: 'Date',
+    prop: 'date',
+    type: 'date',
+  },
 ];
 
 @compose(
