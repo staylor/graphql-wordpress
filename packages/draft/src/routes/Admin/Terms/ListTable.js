@@ -56,7 +56,7 @@ const columns = [
     options: ({ match }) => {
       const { params } = match;
 
-      const variables = { first: 10, taxonomyId: params.taxonomyId };
+      const variables = { first: PER_PAGE, taxonomyId: params.taxonomyId };
       if (params.page) {
         const pageOffset = parseInt(params.page, 10) - 1;
         if (pageOffset > 0) {

@@ -54,6 +54,7 @@ const columns = [
 @compose(
   graphql(TaxonomyQuery, {
     options: {
+      variables: { first: 1000 },
       // This ensures that the table is up to date when taxonomies are mutated.
       // The alternative is to specify refetchQueries on all Taxonomy mutations.
       fetchPolicy: 'cache-and-network',
@@ -70,7 +71,7 @@ const columns = [
 )
 export default class Taxonomies extends Component {
   render() {
-    const { location, match, mutate, data: { loading, taxonomies } } = this.props;
+    const { location, match, mutate, data: { loading, taxonomies, variables } } = this.props;
 
     if (loading && !taxonomies) {
       return <Loading />;
@@ -80,7 +81,11 @@ export default class Taxonomies extends Component {
       <Fragment>
         <Heading>Taxonomy</Heading>
         <HeaderAdd to="/taxonomy/add">Add Taxonomy</HeaderAdd>
-        <ListTable {...{ location, match, columns, mutate }} data={taxonomies} path="/taxonomy" />
+        <ListTable
+          {...{ location, match, columns, mutate, variables }}
+          data={taxonomies}
+          path="/taxonomy"
+        />
       </Fragment>
     );
   }

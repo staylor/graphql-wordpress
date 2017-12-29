@@ -45,6 +45,7 @@ const columns = [
 @compose(
   graphql(UserQuery, {
     options: {
+      variables: { first: 1000 },
       // This ensures that the table is up to date when users are mutated.
       // The alternative is to specify refetchQueries on all User mutations.
       fetchPolicy: 'cache-and-network',

@@ -118,7 +118,7 @@ export default class Videos extends Component {
   }
 
   render() {
-    const { location, match, data: { loading, videos } } = this.props;
+    const { location, match, data: { loading, videos, variables } } = this.props;
 
     if (loading && !videos) {
       return <Loading />;
@@ -148,7 +148,11 @@ export default class Videos extends Component {
             onChange={this.updateSearch}
           />
         </SearchBox>
-        <ListTable {...{ location, match, columns, filters }} data={videos} path="/video" />
+        <ListTable
+          {...{ location, match, columns, filters, variables }}
+          data={videos}
+          path="/video"
+        />
       </Fragment>
     );
   }

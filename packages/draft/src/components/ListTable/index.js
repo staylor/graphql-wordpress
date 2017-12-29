@@ -7,8 +7,6 @@ import { Filters, Pagination, Table, Cell, StripedRow, CellHeading, CheckboxCell
 
 /* eslint-disable react/prop-types, class-methods-use-this */
 
-const PER_PAGE = 20;
-
 export default class ListTable extends Component {
   state = {
     checked: [],
@@ -79,7 +77,7 @@ export default class ListTable extends Component {
   }
 
   render() {
-    const { location, match: { params }, data, path, columns, filters } = this.props;
+    const { location, match: { params }, data, path, columns, filters, variables } = this.props;
 
     if (!data || !data.edges || !data.edges.length) {
       return <p>No items found.</p>;
@@ -102,7 +100,7 @@ export default class ListTable extends Component {
       </tr>
     );
 
-    const pages = data.count > 0 ? Math.ceil(data.count / PER_PAGE) : 0;
+    const pages = data.count > 0 ? Math.ceil(data.count / variables.first) : 0;
     const firstPage = pages === 0 ? 0 : 1;
     const currentPage = params.page ? parseInt(params.page, 10) : firstPage;
     const paginated = currentPage && currentPage > 1;
