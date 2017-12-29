@@ -61,12 +61,8 @@ extend type Query {
   settings(id: String): Settings
 }
 
-extend type Query @drPepper
-
 extend type Mutation {
   updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
   updateSocialSettings(id: String!, input: SocialSettingsInput!): Settings
   updateMediaSettings(id: String!, input: MediaSettingsInput!): Settings
 }
-
-extend type Mutation @drPepper

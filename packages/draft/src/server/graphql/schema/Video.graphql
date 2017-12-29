@@ -68,12 +68,8 @@ extend type Query {
   video(id: ObjID, slug: String): Video
 }
 
-extend type Query @drPepper
-
 extend type Mutation {
   createVideo(input: CreateVideoInput!): Video
   updateVideo(id: ObjID!, input: UpdateVideoInput!): Video
   removeVideo(id: ObjID!): Boolean
 }
-
-extend type Mutation @drPepper

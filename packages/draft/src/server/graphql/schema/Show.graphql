@@ -52,12 +52,8 @@ extend type Query {
   show(id: ObjID, slug: String): Show
 }
 
-extend type Query @drPepper
-
 extend type Mutation {
   createShow(input: CreateShowInput!): Show
   updateShow(id: ObjID!, input: UpdateShowInput!): Show
   removeShow(ids: [ObjID]!): Boolean
 }
-
-extend type Mutation @drPepper

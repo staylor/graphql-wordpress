@@ -41,12 +41,8 @@ extend type Query {
   taxonomy(id: ObjID, slug: String): Taxonomy
 }
 
-extend type Query @drPepper
-
 extend type Mutation {
   createTaxonomy(input: CreateTaxonomyInput!): Taxonomy
   updateTaxonomy(id: ObjID!, input: UpdateTaxonomyInput!): Taxonomy
   removeTaxonomy(ids: [ObjID]!): Boolean
 }
-
-extend type Mutation @drPepper
