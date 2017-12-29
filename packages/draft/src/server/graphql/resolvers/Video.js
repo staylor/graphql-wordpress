@@ -8,9 +8,9 @@ const resolvers = {
   },
   VideoConnection: {
     async years(connection, args, { Video }) {
-      const years = await Video.collection.distinct('year');
-      years.sort().reverse();
-      return years;
+      const years = (await Video.collection.distinct('year')).filter(y => y);
+      years.sort();
+      return years.reverse();
     },
   },
   Query: {

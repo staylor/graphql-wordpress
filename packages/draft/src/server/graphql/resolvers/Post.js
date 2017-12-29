@@ -16,7 +16,7 @@ const resolvers = {
   Query: {
     async posts(root, args, { Post, authUser }) {
       const connectionArgs = Object.assign({}, args);
-      const userCanSee = authUser && authUser.roles.includes('admin');
+      const userCanSee = authUser && authUser.roles && authUser.roles.includes('admin');
       if (!userCanSee) {
         connectionArgs.status = 'PUBLISH';
       }
@@ -31,7 +31,7 @@ const resolvers = {
         post = await Post.findOneBySlug(slug);
       }
 
-      const userCanSee = authUser && authUser.roles.includes('admin');
+      const userCanSee = authUser && authUser.roles && authUser.roles.includes('admin');
       if (post.status === 'DRAFT' && !userCanSee) {
         throw new Error('You do not have permission');
       }
@@ -42,7 +42,7 @@ const resolvers = {
   Mutation: {
     async createPost(root, { input }, { Post, Taxonomy, Term }) {
       if (input.artists && input.artists.length > 0) {
-        input.artists = resolveTags('Artist', input.artists, {
+        input.artists = await resolveTags('Artist', input.artists, {
           Taxonomy,
           Term,
         });
