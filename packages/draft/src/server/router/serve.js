@@ -1,5 +1,4 @@
 import through from 'through';
-import Helmet from 'react-helmet';
 import { renderToNodeStream } from 'react-dom/server';
 import { renderStylesToNodeStream } from 'emotion-server';
 import { getDataFromTree } from 'react-apollo';
@@ -19,11 +18,10 @@ export default async (req, res) => {
     console.log(e);
   }
 
-  const helmet = Helmet.renderStatic();
   const state = client.cache.extract();
 
   const [header, footer] = template({
-    helmet,
+    helmet: res.locals.helmet,
     stylesheets,
     state,
     assets,

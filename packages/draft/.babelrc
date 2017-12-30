@@ -19,7 +19,7 @@
         ["module-resolver", {
           "root": ["./src"]
         }]
-      ],
+      ]
     },
     "graphql": {
       "presets": [

@@ -4,7 +4,7 @@ import { ThemeProvider } from 'emotion-theming';
 import { cx } from 'emotion';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Helmet from 'react-helmet';
+import Helmet from 'components/Helmet';
 import theme from 'styles/theme';
 import Loading from 'components/Loading';
 import NotFound from 'components/NotFound';

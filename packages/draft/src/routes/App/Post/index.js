@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
+import Helmet from 'components/Helmet';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
 import NotFound from 'components/NotFound';
 import Content from './Content';

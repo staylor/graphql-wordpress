@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Helmet from 'components/Helmet';
 import Video from 'components/Videos/Video';
 
 /* eslint-disable react/prop-types */
@@ -28,6 +29,13 @@ export default class VideoRoute extends Component {
       return null;
     }
 
-    return <Video single video={video} />;
+    return (
+      <Fragment>
+        <Helmet>
+          <title>{video.title}</title>
+        </Helmet>
+        <Video single video={video} />
+      </Fragment>
+    );
   }
 }
