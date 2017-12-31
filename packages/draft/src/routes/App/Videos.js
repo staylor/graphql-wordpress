@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Videos from 'components/Videos';
+import Helmet from 'components/Helmet';
 import { Heading } from 'styles/utils';
 
 /* eslint-disable react/prop-types */
@@ -9,6 +10,9 @@ export default function VideosRoute(props) {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>{params.year ? `${params.year} » ` : ''}Videos</title>
+      </Helmet>
       <Heading>{params.year || 'Videos'}</Heading>
       <Videos {...props} />
     </Fragment>

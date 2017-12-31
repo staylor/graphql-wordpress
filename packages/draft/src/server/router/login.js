@@ -7,10 +7,10 @@ import dashiconsCSS from 'public/css/dashicons.min.css';
 
 export default (req, res, next) => {
   const staticContext = {};
-  const helmet = {};
+  const context = {};
 
   const app = (
-    <HelmetProvider context={helmet}>
+    <HelmetProvider context={context}>
       <ApolloProvider client={res.locals.client}>
         <StaticRouter location={req.url} context={staticContext} basename="/login">
           <Route path="/:action?" component={Login} />
@@ -21,7 +21,7 @@ export default (req, res, next) => {
 
   res.locals.staticContext = staticContext;
   res.locals.app = app;
-  res.locals.helmet = helmet;
+  res.locals.helmetContext = context;
   res.locals.stylesheets = [dashiconsCSS];
 
   next();

@@ -1,24 +1,22 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import shallowEqual from 'shallowequal';
 import handleStateChangeOnClient from './client';
 import mapStateOnServer from './server';
 import { reducePropsToState } from './utils';
+import { providerShape } from './Provider';
 
 const canUseDOM = typeof document !== 'undefined';
-const mountedInstances = [];
 
 export default class InstanceStore extends Component {
-  static contextTypes = {
-    helmet: PropTypes.func,
-  };
+  static contextTypes = providerShape;
 
   shouldComponentUpdate(nextProps) {
     return !shallowEqual(nextProps, this.props);
   }
 
   emitChange() {
-    let state = reducePropsToState(mountedInstances.map(instance => instance.props));
+    const { helmetInstances } = this.context;
+    let state = reducePropsToState(helmetInstances.get().map(instance => instance.props));
     if (canUseDOM) {
       handleStateChangeOnClient(state);
     } else if (mapStateOnServer) {
@@ -28,7 +26,8 @@ export default class InstanceStore extends Component {
   }
 
   componentWillMount() {
-    mountedInstances.push(this);
+    const { helmetInstances } = this.context;
+    helmetInstances.add(this);
     this.emitChange();
   }
 
@@ -37,8 +36,8 @@ export default class InstanceStore extends Component {
   }
 
   componentWillUnmount() {
-    const index = mountedInstances.indexOf(this);
-    mountedInstances.splice(index, 1);
+    const { helmetInstances } = this.context;
+    helmetInstances.remove(this);
     this.emitChange();
   }
 

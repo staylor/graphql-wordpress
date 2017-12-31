@@ -6,10 +6,10 @@ import App from 'routes/App';
 
 export default (req, res, next) => {
   const staticContext = {};
-  const helmet = {};
+  const context = {};
 
   const app = (
-    <HelmetProvider context={helmet}>
+    <HelmetProvider context={context}>
       <ApolloProvider client={res.locals.client}>
         <StaticRouter location={req.url} context={staticContext}>
           <App />
@@ -18,11 +18,9 @@ export default (req, res, next) => {
     </HelmetProvider>
   );
 
-  console.log(helmet);
-
   res.locals.staticContext = staticContext;
   res.locals.app = app;
-  res.locals.helmet = helmet;
+  res.locals.helmetContext = context;
 
   next();
 };

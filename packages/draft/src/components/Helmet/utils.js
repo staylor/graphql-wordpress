@@ -22,9 +22,11 @@ const getInnermostProperty = (propsList, property) => {
 };
 
 const getTitleFromPropsList = propsList => {
-  const innermostTitle = getInnermostProperty(propsList, TAG_NAMES.TITLE);
+  let innermostTitle = getInnermostProperty(propsList, TAG_NAMES.TITLE);
   const innermostTemplate = getInnermostProperty(propsList, HELMET_PROPS.TITLE_TEMPLATE);
-
+  if (Array.isArray(innermostTitle)) {
+    innermostTitle = innermostTitle.join('');
+  }
   if (innermostTemplate && innermostTitle) {
     // use function arg to avoid need to escape $ characters
     return innermostTemplate.replace(/%s/g, () => innermostTitle);

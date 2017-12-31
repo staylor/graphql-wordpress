@@ -21,7 +21,7 @@ export default async (req, res) => {
   const state = client.cache.extract();
 
   const [header, footer] = template({
-    helmet: res.locals.helmet,
+    helmet: res.locals.helmetContext.helmet,
     stylesheets,
     state,
     assets,
