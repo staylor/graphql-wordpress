@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaticRouter, Route } from 'react-router';
 import { ApolloProvider } from 'react-apollo';
-import HelmetProvider from 'components/Helmet/Provider';
+import { HelmetProvider } from 'react-helmet-async';
 import Login from 'routes/Login';
 import dashiconsCSS from 'public/css/dashicons.min.css';
 

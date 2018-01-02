@@ -1,7 +1,7 @@
 import React from 'react';
 import { StaticRouter } from 'react-router';
 import { ApolloProvider } from 'react-apollo';
-import HelmetProvider from 'components/Helmet/Provider';
+import { HelmetProvider } from 'react-helmet-async';
 import App from 'routes/App';
 
 export default (req, res, next) => {

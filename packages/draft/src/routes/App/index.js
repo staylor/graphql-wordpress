@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { ThemeProvider } from 'emotion-theming';
 import theme from 'styles/theme';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
-import Helmet from 'components/Helmet';
+import Helmet from 'react-helmet-async';
 import NotFound from 'components/NotFound';
 import logo from 'public/logo.png';
 import Home from './Home';

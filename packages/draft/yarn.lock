@@ -7788,6 +7788,15 @@ react-emotion@9.0.0-1:
     babel-plugin-emotion "^9.0.0-1"
     create-emotion-styled "^9.0.0-0"
 
+react-helmet-async@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-0.0.2.tgz#10c2d23bb8e29354a3bd3d5723da4d7ea980b010"
+  dependencies:
+    deep-equal "^1.0.1"
+    invariant "^2.2.2"
+    prop-types "^15.6.0"
+    shallowequal "^1.0.2"
+
 react-hot-loader@3.0.0-beta.6:
   version "3.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.6.tgz#463fac0bfc8b63a8385258af20c91636abce75f4"

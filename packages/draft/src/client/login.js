@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
-import HelmetProvider from 'components/Helmet/Provider';
+import { HelmetProvider } from 'react-helmet-async';
 import Login from 'routes/Login';
 import client from './apolloClient';
 

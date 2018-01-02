@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Videos from 'components/Videos';
-import Helmet from 'components/Helmet';
+import Helmet from 'react-helmet-async';
 import { Heading } from 'styles/utils';
 
 /* eslint-disable react/prop-types */

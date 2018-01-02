@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Helmet from 'components/Helmet';
+import Helmet from 'react-helmet-async';
 import Video from 'components/Videos/Video';
 
 /* eslint-disable react/prop-types */
