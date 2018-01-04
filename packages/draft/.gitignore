@@ -5,3 +5,4 @@
 /graphql-build
 /node_modules
 /yarn-error.log
+*.emotion.css

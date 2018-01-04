@@ -7788,9 +7788,9 @@ react-emotion@9.0.0-1:
     babel-plugin-emotion "^9.0.0-1"
     create-emotion-styled "^9.0.0-0"
 
-react-helmet-async@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-0.0.2.tgz#10c2d23bb8e29354a3bd3d5723da4d7ea980b010"
+react-helmet-async@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-0.0.4.tgz#641c19b4c5cd2257be00e681944bf7d200f3dc14"
   dependencies:
     deep-equal "^1.0.1"
     invariant "^2.2.2"
