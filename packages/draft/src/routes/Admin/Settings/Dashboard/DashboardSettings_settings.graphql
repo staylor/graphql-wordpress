@@ -1,0 +1,5 @@
+fragment DashboardSettings_settings on DashboardSettings {
+  id
+  googleClientId
+  googleTrackingId
+}

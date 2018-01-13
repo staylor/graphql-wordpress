@@ -40,6 +40,13 @@ function SiteSettings({ data, mutate }) {
   );
 }
 
-const composed = compose(graphql(SiteSettingsQuery), graphql(SiteSettingsMutation));
+const composed = compose(
+  graphql(SiteSettingsQuery, {
+    options: {
+      fetchPolicy: 'cache-and-network',
+    },
+  }),
+  graphql(SiteSettingsMutation)
+);
 
 export default composed(SiteSettings);

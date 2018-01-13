@@ -45,6 +45,13 @@ function MediaSettings({ data, mutate }) {
   );
 }
 
-const composed = compose(graphql(MediaSettingsQuery), graphql(MediaSettingsMutation));
+const composed = compose(
+  graphql(MediaSettingsQuery, {
+    options: {
+      fetchPolicy: 'cache-and-network',
+    },
+  }),
+  graphql(MediaSettingsMutation)
+);
 
 export default composed(MediaSettings);
