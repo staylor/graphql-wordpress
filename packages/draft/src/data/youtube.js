@@ -1,6 +1,5 @@
 // @flow
 import 'dotenv/config';
-import { MongoClient } from 'mongodb';
 import { URL } from 'url';
 import fetch from 'node-fetch';
 import { slugify } from 'server/graphql/models/utils';
@@ -37,8 +36,6 @@ const playlistMap = Object.keys(PLAYLISTS).reduce((memo, year) => {
   memo[PLAYLISTS[year]] = parseInt(year, 10);
   return memo;
 }, {});
-
-let db;
 
 function getPlaylistUrl(playlistId: string, pageToken?: string) {
   const requestURL = new URL(API_PATH, API_HOST);
@@ -82,7 +79,7 @@ async function fetchPlaylistItems(playlistId: string) {
   });
 }
 
-function updateVideo({ contentDetails, snippet }, playlistId: string) {
+function updateVideo(db: any, { contentDetails, snippet }, playlistId: string) {
   const data = {
     dataId: contentDetails.videoId,
     dataType: 'youtube',
@@ -118,7 +115,7 @@ function updateVideo({ contentDetails, snippet }, playlistId: string) {
   });
 }
 
-async function fetchPlaylist(playlistId: string) {
+async function fetchPlaylist(db: any, playlistId: string) {
   const items = await fetchPlaylistItems(playlistId);
   const cursor = db.collection('video').find({ dataPlaylistIds: playlistId }, { dataId: 1 });
   const year = playlistMap[playlistId];
@@ -126,7 +123,7 @@ async function fetchPlaylist(playlistId: string) {
     .toArray()
     .then(ids => ids.map(({ dataId }) => dataId))
     .then(ids =>
-      Promise.all(items.map(item => updateVideo(item, playlistId))).then(dataIds => {
+      Promise.all(items.map(item => updateVideo(db, item, playlistId))).then(dataIds => {
         if (ids.length) {
           const orphans = ids.filter(id => dataIds.indexOf(id) < 0);
           if (orphans.length) {
@@ -145,8 +142,5 @@ async function fetchPlaylist(playlistId: string) {
     );
 }
 
-(async () => {
-  const client = await MongoClient.connect(process.env.MONGO_URL);
-  db = client.db(process.env.MONGO_DB);
-  Promise.all(Object.keys(playlistMap).map(fetchPlaylist)).then(() => client.close());
-})();
+export default async (db: any) =>
+  Promise.all(Object.keys(playlistMap).map(p => fetchPlaylist(db, p)));

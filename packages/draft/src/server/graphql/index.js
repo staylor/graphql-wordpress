@@ -1,10 +1,12 @@
 import 'dotenv/config';
 import express from 'express';
+import { CronJob } from 'cron';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
+import youtubeData from 'data/youtube';
 import typeDefs from 'server/graphql/schema';
 import resolvers from 'server/graphql/resolvers';
 import addModelsToContext from './models';
@@ -21,6 +23,15 @@ async function startServer() {
   const client = await MongoClient.connect(MONGO_URL);
   const db = client.db(MONGO_DB);
   createIndexes(db);
+
+  const ytJob = new CronJob({
+    cronTime: '*/15 * * * *',
+    onTick: async () => {
+      await youtubeData(db);
+    },
+    timeZone: 'America/New_York',
+    start: false,
+  });
 
   const app = express().use('*', cors());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,9 +60,10 @@ async function startServer() {
     })
   );
 
-  app.listen(GRAPHQL_PORT, () =>
-    console.log(`API Server is now running on http://localhost:${GRAPHQL_PORT}`)
-  );
+  app.listen(GRAPHQL_PORT, () => {
+    ytJob.start();
+    console.log(`API Server is now running on http://localhost:${GRAPHQL_PORT}`);
+  });
 }
 
 startServer()
