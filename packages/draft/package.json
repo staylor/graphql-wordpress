@@ -89,7 +89,6 @@
     "schema": "npm run schema-sdl && npm run schema-json",
     "types": "apollo-codegen generate src/server/graphql/generated/schema.graphql --schema src/server/graphql/generated/schema.json --target flow --output src/types/flow.js",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
-    "youtube": "BABEL_ENV=graphql babel-node src/data/youtube.js",
     "precommit": "eslint src/"
   },
   "devDependencies": {

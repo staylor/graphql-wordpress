@@ -6,12 +6,12 @@ import bodyParser from 'body-parser';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
-import youtubeData from 'data/youtube';
 import typeDefs from 'server/graphql/schema';
 import resolvers from 'server/graphql/resolvers';
 import addModelsToContext from './models';
 import authenticate from './authenticate';
 import createIndexes from './database/indexes';
+import youtubeData from './data/youtube';
 
 /* eslint-disable no-console */
 
