@@ -36,9 +36,15 @@ type CropInfo = {
   height: number,
 };
 
+type FileInfo = {
+  fileName: string,
+  destination: string,
+};
+
 type StorageOpts = {
   db: any,
   uploadDir: string,
+  adapter: (fileInfo: FileInfo) => Promise<void>,
 };
 
 class MediaStorage {
@@ -75,6 +81,11 @@ class MediaStorage {
     });
   }
 
+  async upload(fileInfo: FileInfo): Promise<void> {
+    const dest = fileInfo.destination.replace(`${this.opts.uploadDir}/`, '');
+    return this.opts.adapter({ ...fileInfo, destination: dest });
+  }
+
   handleCrop(
     src: string,
     size: [number, number],
@@ -92,11 +103,13 @@ class MediaStorage {
           if (err) {
             reject(err);
           } else {
-            resolve({
-              fileName: cropName,
-              fileSize: info.size,
-              width: info.width,
-              height: info.height,
+            this.upload({ destination, fileName: cropName }).then(() => {
+              resolve({
+                fileName: cropName,
+                fileSize: info.size,
+                width: info.width,
+                height: info.height,
+              });
             });
           }
         });
@@ -116,6 +129,8 @@ class MediaStorage {
     const outStream = fs.createWriteStream(finalPath);
     outStream.on('error', cb);
     outStream.on('finish', async () => {
+      await this.upload({ destination, fileName });
+
       const settings = await this.getSettings();
       const sizes = settings.crops.map(({ width, height }) => {
         if (width < original.width && height > original.height) {
@@ -141,6 +156,32 @@ class MediaStorage {
     file.stream.pipe(imageMeta).pipe(outStream);
   }
 
+  async extractCovers(metadata, { basename, destination }) {
+    return Promise.all(
+      metadata.picture.map(
+        ({ data, format }, i) =>
+          new Promise((resolve, reject) => {
+            const coverName = `${basename}-cover-${i}.${format}`;
+            const coverPath = path.join(destination, coverName);
+            sharp(data).toFile(coverPath, (err, info) => {
+              if (err) {
+                reject(err);
+              } else {
+                this.upload({ destination, fileName: coverName }).then(() => {
+                  resolve({
+                    fileName: coverName,
+                    fileSize: info.size,
+                    width: info.width,
+                    height: info.height,
+                  });
+                });
+              }
+            });
+          })
+      )
+    );
+  }
+
   async handleAudio(file: FileUpload, { destination, ext, basename }: FileParts, cb: Callback) {
     const fileName = `${basename}${ext}`;
     const finalPath = path.join(destination, fileName);
@@ -148,6 +189,7 @@ class MediaStorage {
     const outStream = fs.createWriteStream(finalPath);
     outStream.on('error', cb);
     outStream.on('finish', async () => {
+      await this.upload({ destination, fileName });
       const readMetadata = () =>
         new Promise((resolve, reject) => {
           const audioStream = fs.createReadStream(finalPath);
@@ -162,27 +204,7 @@ class MediaStorage {
       const metadata = await readMetadata();
       let images = [];
       if (metadata.picture && metadata.picture.length > 0) {
-        images = await Promise.all(
-          metadata.picture.map(
-            ({ data, format }, i) =>
-              new Promise((resolve, reject) => {
-                const coverName = `${basename}-cover-${i}.${format}`;
-                const coverPath = path.join(destination, coverName);
-                sharp(data).toFile(coverPath, (err, info) => {
-                  if (err) {
-                    reject(err);
-                  } else {
-                    resolve({
-                      fileName: coverName,
-                      fileSize: info.size,
-                      width: info.width,
-                      height: info.height,
-                    });
-                  }
-                });
-              })
-          )
-        );
+        images = await this.extractCovers(metadata, { basename, destination });
       }
 
       cb(null, {
@@ -213,12 +235,33 @@ class MediaStorage {
     const outStream = fs.createWriteStream(finalPath);
     outStream.on('error', cb);
     outStream.on('finish', async () => {
+      await this.upload({ destination, fileName });
       const metadata = await ffprobe(finalPath, { path: ffprobeStatic.path });
       const [video] = metadata.streams;
       cb(null, {
         width: video.width,
         height: video.height,
         duration: parseFloat(video.duration),
+        mimeType: file.mimetype,
+        originalName: file.originalname,
+        destination: destination.replace(`${this.opts.uploadDir}/`, ''),
+        fileName,
+        // $FlowFixMe
+        fileSize: outStream.bytesWritten,
+      });
+    });
+    // $FlowFixMe
+    file.stream.pipe(outStream);
+  }
+
+  handleAny(file: FileUpload, { destination, ext, basename }: FileParts, cb: Callback) {
+    const fileName = `${basename}${ext}`;
+    const finalPath = path.join(destination, fileName);
+    const outStream = fs.createWriteStream(finalPath);
+    outStream.on('error', cb);
+    outStream.on('finish', async () => {
+      await this.upload({ destination, fileName });
+      cb(null, {
         mimeType: file.mimetype,
         originalName: file.originalname,
         destination: destination.replace(`${this.opts.uploadDir}/`, ''),
@@ -244,22 +287,7 @@ class MediaStorage {
     } else if (file.mimetype.indexOf('video/') === 0) {
       this.handleVideo(file, { destination, ext, basename }, cb);
     } else {
-      const fileName = `${basename}${ext}`;
-      const finalPath = path.join(destination, fileName);
-      const outStream = fs.createWriteStream(finalPath);
-      outStream.on('error', cb);
-      outStream.on('finish', () => {
-        cb(null, {
-          mimeType: file.mimetype,
-          originalName: file.originalname,
-          destination: destination.replace(`${this.opts.uploadDir}/`, ''),
-          fileName,
-          // $FlowFixMe
-          fileSize: outStream.bytesWritten,
-        });
-      });
-      // $FlowFixMe
-      file.stream.pipe(outStream);
+      this.handleAny(file, { destination, ext, basename }, cb);
     }
   }
 

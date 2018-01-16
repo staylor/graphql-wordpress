@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import Helmet from 'react-helmet-async';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
 import NotFound from 'components/NotFound';
+import { uploadUrl } from 'utils/media';
 import Content from './Content';
 import { Wrapper, Title } from './styled';
 
@@ -64,7 +65,7 @@ export default class PostRoute extends Component {
     if (post.featuredMedia && post.featuredMedia.length > 0) {
       const media = post.featuredMedia[0];
       const crop = media.crops.find(c => c.width === 640);
-      featuredImage = `${siteUrl}/uploads/${media.destination}/${crop.fileName}`;
+      featuredImage = uploadUrl(media.destination, crop.fileName);
     }
 
     return (

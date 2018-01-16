@@ -4,6 +4,7 @@ import Loading from 'components/Loading';
 import Message from 'components/Form/Message';
 import Form from 'components/Form';
 import { Heading, titleInputClass, FormWrap } from 'routes/Admin/styled';
+import { uploadUrl } from 'utils/media';
 import MediaAdminQuery from './MediaAdminQuery.graphql';
 import UpdateMediaMutation from './UpdateMediaMutation.graphql';
 import ImageInfo from './ImageInfo';
@@ -27,13 +28,13 @@ const mediaFields = [
         let src;
         const imageCrop = media.crops.find(c => c.width === 300);
         if (imageCrop) {
-          src = `/uploads/${media.destination}/${imageCrop.fileName}`;
+          src = uploadUrl(media.destination, imageCrop.fileName);
         } else {
-          src = `/uploads/${media.destination}/${media.fileName}`;
+          src = uploadUrl(media.destination, media.fileName);
         }
         mediaInfo = <CroppedImage src={src} />;
       } else if (media.type === 'audio') {
-        mediaInfo = <Audio controls src={`/uploads/${media.destination}/${media.fileName}`} />;
+        mediaInfo = <Audio controls src={uploadUrl(media.destination, media.fileName)} />;
       } else if (media.type === 'video') {
         mediaInfo = (
           <Video
@@ -41,7 +42,7 @@ const mediaFields = [
             width={media.width}
             height={media.height}
             controls
-            src={`/uploads/${media.destination}/${media.fileName}`}
+            src={uploadUrl(media.destination, media.fileName)}
           />
         );
       }

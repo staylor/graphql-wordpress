@@ -13,6 +13,7 @@
     "node": ">=7.2.0"
   },
   "dependencies": {
+    "@google-cloud/storage": "^1.5.2",
     "apollo-cache-inmemory": "^1.1.5",
     "apollo-client": "^2.2.0",
     "apollo-link-error": "^1.0.3",
@@ -89,7 +90,8 @@
     "schema": "npm run schema-sdl && npm run schema-json",
     "types": "apollo-codegen generate src/server/graphql/generated/schema.graphql --schema src/server/graphql/generated/schema.json --target flow --output src/types/flow.js",
     "prettier": "prettier-eslint \"src/**/*.js\" --ignore \"src/public/**\" --write",
-    "precommit": "eslint src/"
+    "precommit": "eslint src/",
+    "media": "BABEL_ENV=graphql babel-node src/server/graphql/data/media.js"
   },
   "devDependencies": {
     "apollo-codegen": "^0.18.3",

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { cx } from 'emotion';
 import type { ContentState } from 'draft-js';
 import type DraftEntityInstance from 'draft-js/lib/DraftEntityInstance';
+import { uploadUrl } from 'utils/media';
 import Sizer from './Sizer';
 import { ImageWrap, Image as StyledImage } from './styled';
 
@@ -71,7 +72,7 @@ export default class Image extends Component<Props, State> {
         {this.state.showTools && (
           <Sizer bounds={this.state.bounds} {...{ contentState, entityKey }} />
         )}
-        <StyledImage alt="" src={`/uploads/${image.destination}/${crop.fileName}`} />
+        <StyledImage alt="" src={uploadUrl(image.destination, crop.fileName)} />
       </ImageWrap>
     );
   }

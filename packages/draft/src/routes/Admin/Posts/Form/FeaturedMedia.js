@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import gql from 'graphql-tag';
 import ImageModal from 'components/Modals/Image';
 import { Button } from 'styles/utils';
+import { uploadUrl } from 'utils/media';
 import { FeaturedImage } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -42,7 +43,7 @@ export default class FeaturedMedia extends Component {
             <FeaturedImage
               key={crop.fileName}
               alt=""
-              src={`/uploads/${item.destination}/${crop.fileName}`}
+              src={uploadUrl(item.destination, crop.fileName)}
             />
           );
         })}

@@ -59,7 +59,7 @@ const resolvers = {
       return Media.findOneById(id);
     },
 
-    removeMediaUpload(root, { ids }, { Media }) {
+    async removeMediaUpload(root, { ids }, { Media }) {
       return Promise.all(ids.map(id => Media.removeById(id)));
     },
   },

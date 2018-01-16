@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/Loading';
+import { uploadUrl } from 'utils/media';
 import { Modal, Frame, Item, ItemImage, CloseButton } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -116,7 +117,7 @@ export default class ImageModal extends Component {
                   this.props.onClose(e);
                 }}
               >
-                <ItemImage alt="" src={`/uploads/${node.destination}/${crop.fileName}`} />
+                <ItemImage alt="" src={uploadUrl(node.destination, crop.fileName)} />
               </Item>
             );
           })}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Video from 'components/Videos/Video';
 import { TwitterRedraftDecorator } from 'components/Editor/decorators/TwitterDecorator';
+import { uploadUrl } from 'utils/media';
 import {
   Paragraph,
   Title,
@@ -79,7 +80,7 @@ export default {
     IMAGE: (children, data, { key }) => {
       const { image } = data;
       const crop = image.crops.find(c => c.width === 640);
-      return <Image key={key} src={`/uploads/${image.destination}/${crop.fileName}`} />;
+      return <Image key={key} src={uploadUrl(image.destination, crop.fileName)} />;
     },
     VIDEO: (children, data, { key }) => {
       const { video } = data;

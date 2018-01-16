@@ -2,7 +2,9 @@
 /.nyc_output
 /images
 /build
+/src/uploads
 /graphql-build
+keyfile.json
 /node_modules
 /yarn-error.log
 *.emotion.css

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import filesize from 'filesize';
+import { uploadUrl } from 'utils/media';
 import { CroppedImage } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -8,7 +9,7 @@ export default function AudioInfo({ media }) {
   const crops = [...media.images];
   crops.sort((a, b) => a.width - b.width);
   const first = crops.shift();
-  const src = `/uploads/${media.destination}/${first.fileName}`;
+  const src = uploadUrl(media.destination, first.fileName);
   const cropInfo = (
     <Fragment>
       <CroppedImage src={src} />
@@ -36,7 +37,7 @@ export default function AudioInfo({ media }) {
       {crops.map(crop => (
         <Fragment key={crop.fileName}>
           <br />
-          <a href={`/uploads/${media.destination}/${crop.fileName}`}>
+          <a href={uploadUrl(media.destination, crop.fileName)}>
             {crop.width} x {crop.height}
           </a>{' '}
         </Fragment>

@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
+import { uploadUrl } from 'utils/media';
 import { LatestWrap, LatestItem, Title, Paragraph, FeaturedImage } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -25,7 +26,7 @@ function Latest({ data: { loading, posts } }) {
                 <FeaturedImage
                   key={crop.fileName}
                   alt=""
-                  src={`/uploads/${media.destination}/${crop.fileName}`}
+                  src={uploadUrl(media.destination, crop.fileName)}
                 />
               );
             })}

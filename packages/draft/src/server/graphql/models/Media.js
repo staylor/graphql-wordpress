@@ -42,9 +42,9 @@ export default class Media extends Model {
 
   async removeById(id) {
     const media = await this.loader.load(id);
-    const ret = this.collection.remove({ _id: id });
+    const ret = this.collection.remove({ _id: id }, { skipSessions: true });
     this.loader.clear(id);
-    const uploadsDir = path.resolve(path.join(__dirname, '../uploads', media.destination));
+    const uploadsDir = path.resolve(path.join(__dirname, '../../../uploads', media.destination));
     if (media.type === 'image' && media.crops.length > 0) {
       await Promise.all(media.crops.map(crop => deleteFile(`${uploadsDir}/${crop.fileName}`)));
     } else if (media.type === 'audio' && media.images.length > 0) {

@@ -10,6 +10,7 @@ import Select from 'components/Form/Select';
 import ListTable from 'components/ListTable';
 import { RowActions, RowTitle, SearchBox } from 'components/ListTable/styled';
 import { offsetToCursor } from 'utils/connection';
+import { uploadUrl } from 'utils/media';
 import { Heading, HeaderAdd } from 'routes/Admin/styled';
 import { Thumbnail, thumbnailColumnClass, titleColumnClass } from './styled';
 import UploadsQuery from './UploadsQuery.graphql';
@@ -24,7 +25,7 @@ const renderThumbnail = (media, field) => {
   }
   const sorted = [...media[field]];
   sorted.sort((a, b) => a.width - b.width);
-  return <Thumbnail src={`/uploads/${media.destination}/${sorted[0].fileName}`} />;
+  return <Thumbnail src={uploadUrl(media.destination, sorted[0].fileName)} />;
 };
 
 const columns = [
