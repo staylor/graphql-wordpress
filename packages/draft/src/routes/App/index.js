@@ -43,6 +43,11 @@ import {
           copyrightText
         }
       }
+      dashboardSettings: settings(id: "dashboard") {
+        ... on DashboardSettings {
+          googleTrackingId
+        }
+      }
       socialSettings: settings(id: "social") {
         ... on SocialSettings {
           facebookUrl
@@ -70,7 +75,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { data: { loading, settings, socialSettings } } = this.props;
+    const { data: { loading, settings, socialSettings, dashboardSettings } } = this.props;
 
     if (loading && !settings) {
       return null;
@@ -102,6 +107,20 @@ export default class App extends Component {
           <Helmet defaultTitle={settings.siteTitle} titleTemplate={`%s » ${settings.siteTitle}`}>
             <html lang={settings.language} />
             <title>{settings.tagline}</title>
+            {dashboardSettings.googleTrackingId && (
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${
+                  dashboardSettings.googleTrackingId
+                }`}
+              />
+            )}
+            {dashboardSettings.googleTrackingId && (
+              <script
+              >{`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${
+                dashboardSettings.googleTrackingId
+              }');`}</script>
+            )}
             <link rel="canonical" href={settings.siteUrl} />
             {socialSettings.facebookAppId && (
               <meta property="fb:app_id" content={socialSettings.facebookAppId} />

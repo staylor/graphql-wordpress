@@ -31,6 +31,13 @@ function SocialSettings({ data, mutate }) {
   );
 }
 
-const composed = compose(graphql(SocialSettingsQuery), graphql(SocialSettingsMutation));
+const composed = compose(
+  graphql(SocialSettingsQuery, {
+    options: {
+      fetchPolicy: 'cache-and-network',
+    },
+  }),
+  graphql(SocialSettingsMutation)
+);
 
 export default composed(SocialSettings);

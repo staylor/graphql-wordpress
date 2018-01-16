@@ -1,0 +1,9 @@
+#import "./DashboardSettings_settings.graphql"
+
+query DashboardSettingsQuery {
+  settings(id: "dashboard") {
+    ... on DashboardSettings {
+      ...DashboardSettings_settings
+    }
+  }
+}

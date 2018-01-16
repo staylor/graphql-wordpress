@@ -1,0 +1,7 @@
+#import "./DashboardSettings_settings.graphql"
+
+mutation UpdateSettingsMutation($id: String!, $input: DashboardSettingsInput!) {
+  updateDashboardSettings(id: $id, input: $input) {
+    ...DashboardSettings_settings
+  }
+}

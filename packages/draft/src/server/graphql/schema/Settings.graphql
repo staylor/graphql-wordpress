@@ -21,6 +21,17 @@ input SiteSettingsInput {
   copyrightText: String
 }
 
+type DashboardSettings implements Settings {
+  id: String
+  googleClientId: String
+  googleTrackingId: String
+}
+
+input DashboardSettingsInput {
+  googleClientId: String
+  googleTrackingId: String
+}
+
 type SocialSettings implements Settings {
   id: String
   facebookUrl: String
@@ -63,6 +74,7 @@ extend type Query {
 
 extend type Mutation {
   updateSiteSettings(id: String!, input: SiteSettingsInput!): Settings
+  updateDashboardSettings(id: String!, input: DashboardSettingsInput!): Settings
   updateSocialSettings(id: String!, input: SocialSettingsInput!): Settings
   updateMediaSettings(id: String!, input: MediaSettingsInput!): Settings
 }

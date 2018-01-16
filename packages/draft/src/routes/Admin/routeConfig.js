@@ -140,6 +140,10 @@ export default ({ taxonomies = [] }) => {
             label: 'General',
           },
           {
+            path: '/settings/dashboard',
+            label: 'Dashboard',
+          },
+          {
             path: '/settings/social',
             label: 'Social',
           },

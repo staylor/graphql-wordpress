@@ -5,6 +5,8 @@ const resolvers = {
         return 'SiteSettings';
       } else if (settings._id === 'social') {
         return 'SocialSettings';
+      } else if (settings._id === 'dashboard') {
+        return 'DashboardSettings';
       } else if (settings._id === 'media') {
         return 'MediaSettings';
       }
@@ -12,6 +14,11 @@ const resolvers = {
     },
   },
   SiteSettings: {
+    id(settings) {
+      return settings._id;
+    },
+  },
+  DashboardSettings: {
     id(settings) {
       return settings._id;
     },
@@ -33,6 +40,10 @@ const resolvers = {
   },
   Mutation: {
     async updateSiteSettings(root, { id, input }, { Settings }) {
+      await Settings.updateById(id, input);
+      return Settings.findOneById(id);
+    },
+    async updateDashboardSettings(root, { id, input }, { Settings }) {
       await Settings.updateById(id, input);
       return Settings.findOneById(id);
     },
