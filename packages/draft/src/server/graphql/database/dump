@@ -1,0 +1,1 @@
+mongodump --host Cluster0-shard-0/cluster0-shard-00-00-bgtu2.mongodb.net:27017,cluster0-shard-00-01-bgtu2.mongodb.net:27017,cluster0-shard-00-02-bgtu2.mongodb.net:27017 --ssl --username $MONGO_USER --password $MONGO_PASSWORD --authenticationDatabase admin --db highforthis-prod

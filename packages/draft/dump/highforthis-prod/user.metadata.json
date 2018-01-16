@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"highforthis-prod.user"},{"v":2,"key":{"_fts":"text","_ftsx":1},"name":"name_text_bio_text","ns":"highforthis-prod.user","background":true,"weights":{"bio":1,"name":1},"default_language":"english","language_override":"language","textIndexVersion":3}]}

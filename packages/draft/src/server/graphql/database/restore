@@ -1,0 +1,1 @@
+mongorestore --drop --db highforthis dump/highforthis-prod
