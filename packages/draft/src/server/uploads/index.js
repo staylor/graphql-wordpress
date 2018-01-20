@@ -1,5 +1,5 @@
 import multer from 'multer';
-import mediaStorage from './storage';
+import mediaStorage from './Storage';
 import mediaAdapter from './adapter';
 import mediaHandler from './handler';
 

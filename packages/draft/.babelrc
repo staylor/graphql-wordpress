@@ -15,7 +15,6 @@
         "transform-decorators-legacy",
         "transform-class-properties",
         "transform-object-rest-spread",
-        "transform-flow-strip-types",
         ["module-resolver", {
           "root": ["./src"]
         }]
@@ -23,13 +22,13 @@
     },
     "graphql": {
       "presets": [
-        ["kyt-core", {"modules": true}]
+        ["kyt-core", {"modules": true}],
+        "flow"
       ],
       "plugins": [
         "transform-class-properties",
         "transform-es2015-modules-commonjs",
         "transform-object-rest-spread",
-        "transform-flow-strip-types",
         "transform-runtime",
         ["module-resolver", {
           "root": ["./src"]
