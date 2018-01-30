@@ -1,8 +1,9 @@
 import styled from 'react-emotion';
+import theme from 'styles/theme';
 
 export const Dropzone = styled.div`
-  border: 4px dashed ${p => p.theme.colors.dark};
-  color: ${p => p.theme.colors.text};
+  border: 4px dashed ${theme.colors.dark};
+  color: ${theme.colors.text};
   display: block;
   height: 200px;
   margin: 20px 0;
@@ -32,7 +33,7 @@ export const ProgressText = styled.div`
 `;
 
 export const StatusBar = styled.div`
-  background-color: ${p => p.theme.colors.pink};
+  background-color: ${theme.colors.pink};
   height: 30px;
   left: 0;
   position: absolute;

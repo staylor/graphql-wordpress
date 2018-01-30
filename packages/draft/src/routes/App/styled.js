@@ -1,21 +1,20 @@
-import styled from 'react-emotion';
 import { css } from 'emotion';
 import theme from 'styles/theme';
 import responsive from 'styles/responsive';
 
-export const PageWrapper = styled.div`
-  background: ${p => p.theme.colors.white};
+export const wrapperClass = css`
+  background: ${theme.colors.white};
   margin: 0 auto;
-  max-width: ${p => p.theme.contentWidth}px;
+  max-width: ${theme.contentWidth}px;
   padding: 20px;
 `;
 
-export const Header = styled.header`
-  margin-bottom: ${p => p.theme.padding}px;
+export const headerClass = css`
+  margin-bottom: ${theme.padding}px;
   position: relative;
 `;
 
-export const Title = styled.h1`
+export const titleClass = css`
   display: block;
   margin: 0;
 
@@ -38,28 +37,28 @@ export const Title = styled.h1`
   }
 `;
 
-export const Content = styled.div`
-  padding: ${p => p.theme.padding}px 0;
+export const contentClass = css`
+  padding: ${theme.padding}px 0;
   ${responsive.desktop} {
     display: flex;
   }
 `;
 
-export const Primary = styled.section`
-  margin-bottom: ${p => p.theme.padding}px;
+export const primaryClass = css`
+  margin-bottom: ${theme.padding}px;
   max-width: 100%;
   ${responsive.desktop} {
     flex: 4;
-    margin-right: ${p => p.theme.padding}px;
+    margin-right: ${theme.padding}px;
   }
 `;
 
-export const Secondary = styled.section`
-  border-top: 1px solid ${p => p.theme.colors.detail};
+export const secondaryClass = css`
+  border-top: 1px solid ${theme.colors.detail};
   display: block;
-  margin: ${p => p.theme.padding * 3}px auto 0;
+  margin: ${theme.padding * 3}px auto 0;
   max-width: 100%;
-  padding-top: ${p => p.theme.padding}px;
+  padding-top: ${theme.padding}px;
   width: 640px;
   ${responsive.desktop} {
     border: 0;
@@ -69,12 +68,12 @@ export const Secondary = styled.section`
   }
 `;
 
-export const Footer = styled.footer`
+export const footerClass = css`
   font-size: 14px;
   text-align: center;
 `;
 
-export const SocialLinks = styled.nav`
+export const socialNavClass = css`
   margin: 20px 0 0;
   text-align: center;
   ${responsive.desktop} {
@@ -104,9 +103,13 @@ const socialIcon = css`
   &:hover {
     color: ${theme.colors.black};
   }
+
+  span {
+    display: none;
+  }
 `;
 
-export const FacebookIcon = styled.a`
+export const facebookIconClass = css`
   ${socialIcon};
   width: 22px;
   ${responsive.desktop} {
@@ -117,14 +120,14 @@ export const FacebookIcon = styled.a`
     content: '\\e605';
   }
 `;
-export const TwitterIcon = styled.a`
+export const twitterIconClass = css`
   ${socialIcon};
 
   &::before {
     content: '\\ea91';
   }
 `;
-export const InstagramIcon = styled.a`
+export const instagramIconClass = css`
   ${socialIcon};
 
   &::before {
@@ -132,7 +135,7 @@ export const InstagramIcon = styled.a`
   }
 `;
 
-export const FooterLinks = styled.nav`
+export const footerNavClass = css`
   margin: 10px 0;
   text-align: center;
 `;

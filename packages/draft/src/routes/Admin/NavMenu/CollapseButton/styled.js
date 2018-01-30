@@ -1,9 +1,10 @@
 import styled from 'react-emotion';
+import theme from 'styles/theme';
 
 export const CollapseButton = styled.button`
   background: none;
   border: none;
-  color: ${p => p.theme.colors.text};
+  color: ${theme.colors.text};
   cursor: pointer;
   display: block;
   font-size: 13px;
@@ -18,7 +19,7 @@ export const CollapseButton = styled.button`
   width: 100%;
 
   &:hover {
-    color: ${p => p.theme.colors.black};
+    color: ${theme.colors.black};
   }
 
   .NavMenu-collapsed & {

@@ -10,7 +10,7 @@ export const hidePlaceholderClass = css`
 `;
 
 export const BlockButton = styled.div`
-  color: ${p => p.theme.colors.detail};
+  color: ${theme.colors.detail};
   cursor: pointer;
   display: block;
   font-size: 24px;
@@ -20,7 +20,7 @@ export const BlockButton = styled.div`
   transition: transform 0.25s cubic-bezier(0.3, 1.2, 0.2, 1);
 
   &:hover {
-    color: ${p => p.theme.colors.text};
+    color: ${theme.colors.text};
   }
 `;
 
@@ -80,7 +80,7 @@ export const RichEditor = styled.div`
 `;
 
 export const Toolbar = styled.div`
-  background: ${p => p.theme.colors.white};
+  background: ${theme.colors.white};
   border-radius: 4px;
   box-shadow: 0 1px 18px 0 rgba(0, 0, 0, 0.3);
   position: absolute;
@@ -90,7 +90,7 @@ export const Toolbar = styled.div`
 
   &::after {
     border: 6px solid transparent;
-    border-top-color: ${p => p.theme.colors.white};
+    border-top-color: ${theme.colors.white};
     content: ' ';
     height: 0;
     position: absolute;

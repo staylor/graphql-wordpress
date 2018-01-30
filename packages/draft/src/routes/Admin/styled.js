@@ -1,5 +1,6 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
+import theme from 'styles/theme';
 import { Link } from 'react-router-dom';
 
 export const AtomicToolbar = styled.div`
@@ -7,14 +8,14 @@ export const AtomicToolbar = styled.div`
 `;
 
 export const PageWrapper = styled.div`
-  background: ${p => p.theme.colors.white};
+  background: ${theme.colors.white};
   margin: 0 auto;
-  min-height: calc(100vh - ${p => p.theme.padding * 2}px);
-  padding: ${p => p.theme.padding}px ${p => p.theme.padding * 2}px;
+  min-height: calc(100vh - ${theme.padding * 2}px);
+  padding: ${theme.padding}px ${theme.padding * 2}px;
 `;
 
 export const Header = styled.header`
-  padding: ${p => p.theme.padding}px 0;
+  padding: ${theme.padding}px 0;
 `;
 
 export const titleInputClass = css`
@@ -25,9 +26,9 @@ export const titleInputClass = css`
 `;
 
 export const Heading = styled.h1`
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
   display: inline-block;
-  font-family: ${p => p.theme.fonts.futura};
+  font-family: ${theme.fonts.futura};
   font-size: 23px;
   font-weight: normal;
   letter-spacing: 0.3px;
@@ -37,13 +38,13 @@ export const Heading = styled.h1`
 `;
 
 export const HeaderAdd = styled(Link)`
-  background: ${p => p.theme.colors.detail};
-  border: 1px solid ${p => p.theme.colors.background};
+  background: ${theme.colors.detail};
+  border: 1px solid ${theme.colors.background};
   border-radius: 2px;
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
   cursor: pointer;
   font-size: 13px;
-  font-weight: ${p => p.theme.fonts.weight.bold};
+  font-weight: ${theme.fonts.weight.bold};
   line-height: normal;
   outline: 0;
   padding: 4px 8px;

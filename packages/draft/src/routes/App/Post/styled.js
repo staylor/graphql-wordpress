@@ -1,4 +1,5 @@
 import styled from 'react-emotion';
+import theme from 'styles/theme';
 import { h1styles, h2Styles, h3Styles, h4Styles } from 'styles/utils';
 
 export const Wrapper = styled.article`
@@ -8,30 +9,30 @@ export const Wrapper = styled.article`
 
 export const Title = styled.h1`
   ${h1styles};
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
 `;
 
 export const Paragraph = styled.p`
   margin-bottom: 24px;
 
   a {
-    color: ${p => p.theme.colors.pink};
+    color: ${theme.colors.pink};
   }
 `;
 
 export const Heading = styled.h2`
   ${h2Styles};
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
 `;
 
 export const SubHeading = styled.h3`
   ${h3Styles};
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
 `;
 
 export const BoldHeading = styled.h4`
   ${h4Styles};
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
 `;
 
 export const Embed = styled.div`

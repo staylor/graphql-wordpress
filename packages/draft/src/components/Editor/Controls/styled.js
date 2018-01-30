@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 export const Controls = styled.div`
   display: block;
   font-size: 14px;
-  height: ${p => p.theme.editor.buttons.height}px;
+  height: ${theme.editor.buttons.height}px;
   position: relative;
   user-select: none;
 `;
@@ -39,8 +39,8 @@ export const LinkAction = styled.span`
 export const StyleButton = styled.span`
   cursor: pointer;
   display: inline-block;
-  height: ${p => p.theme.editor.buttons.height}px;
-  line-height: ${p => p.theme.editor.buttons.height}px;
+  height: ${theme.editor.buttons.height}px;
+  line-height: ${theme.editor.buttons.height}px;
   overflow: hidden;
   padding: 0 6px;
 
@@ -55,7 +55,7 @@ export const StyleButton = styled.span`
   }
 
   &:hover {
-    color: ${p => p.theme.colors.dark};
+    color: ${theme.colors.dark};
   }
 `;
 

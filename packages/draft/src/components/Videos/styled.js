@@ -4,33 +4,33 @@ import { Link } from 'react-router-dom';
 import theme from 'styles/theme';
 
 export const Title = styled.h1`
-  font-family: ${p => p.theme.fonts.futura};
+  font-family: ${theme.fonts.futura};
   font-size: 20px;
   line-height: 1.4;
-  margin: 0 0 ${p => p.theme.padding}px;
+  margin: 0 0 ${theme.padding}px;
 
   & a {
-    color: ${p => p.theme.colors.dark};
+    color: ${theme.colors.dark};
     text-decoration: none;
   }
 `;
 
 export const EmbedTitle = styled.h3`
-  font-family: ${p => p.theme.fonts.futura};
+  font-family: ${theme.fonts.futura};
   font-size: 16px;
   letter-spacing: 0.3px;
   line-height: 1.4;
-  margin: 0 0 ${p => p.theme.padding}px;
+  margin: 0 0 ${theme.padding}px;
 
   & a {
-    color: ${p => p.theme.colors.text};
+    color: ${theme.colors.text};
     text-decoration: none;
   }
 `;
 
 export const VideoLink = styled(Link)`
   display: block;
-  margin: 0 0 ${p => p.theme.padding}px;
+  margin: 0 0 ${theme.padding}px;
   max-width: 100%;
 `;
 
@@ -91,7 +91,7 @@ export const Placeholder = styled.figure`
 `;
 
 export const ThumbWrapper = styled.figure`
-  margin: 0 0 ${p => p.theme.padding}px;
+  margin: 0 0 ${theme.padding}px;
   max-width: 100%;
   overflow: hidden;
 

@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 
 export const NavLink = styled(RRNavLink)`
   box-sizing: border-box;
-  color: ${p => p.theme.colors.text};
+  color: ${theme.colors.text};
   display: block;
   font-size: 14px;
   line-height: 18px;
@@ -16,31 +16,31 @@ export const NavLink = styled(RRNavLink)`
   z-index: 3;
 
   &.NavLink-hovered {
-    background-color: ${p => p.theme.colors.white};
-    color: ${p => p.theme.colors.black};
+    background-color: ${theme.colors.white};
+    color: ${theme.colors.black};
 
     &.NavLink-hasSubNav {
       &::after {
-        border-right-color: ${p => p.theme.colors.dark};
+        border-right-color: ${theme.colors.dark};
       }
 
       &.NavLink-active {
-        background-color: ${p => p.theme.colors.dark};
-        color: ${p => p.theme.colors.white};
+        background-color: ${theme.colors.dark};
+        color: ${theme.colors.white};
 
         &::after {
-          border-right-color: ${p => p.theme.colors.white};
+          border-right-color: ${theme.colors.white};
         }
 
         &.NavLink-collapsed {
           &::after {
-            border-right-color: ${p => p.theme.colors.dark};
+            border-right-color: ${theme.colors.dark};
           }
         }
 
         @media screen and (max-width: 782px) {
           &::after {
-            border-right-color: ${p => p.theme.colors.dark};
+            border-right-color: ${theme.colors.dark};
           }
         }
       }
@@ -102,6 +102,6 @@ export const Dashicon = styled.i`
   width: 36px;
 
   .NavLink-active & {
-    color: ${p => p.theme.colors.white};
+    color: ${theme.colors.white};
   }
 `;

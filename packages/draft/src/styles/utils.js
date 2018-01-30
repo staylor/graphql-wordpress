@@ -50,10 +50,10 @@ export const Heading = styled.h2`
 
 export const LoadMore = styled.button`
   appearance: none;
-  background: ${p => p.theme.colors.white};
-  border: 1px solid ${p => p.theme.colors.detail};
+  background: ${theme.colors.white};
+  border: 1px solid ${theme.colors.detail};
   box-sizing: border-box;
-  color: ${p => p.theme.colors.inactive};
+  color: ${theme.colors.inactive};
   cursor: pointer;
   font-size: 16px;
   height: 32px;
@@ -66,8 +66,8 @@ export const LoadMore = styled.button`
   &:hover,
   &:active,
   &:focus {
-    border: 1px solid ${p => p.theme.colors.black};
-    color: ${p => p.theme.colors.black};
+    border: 1px solid ${theme.colors.black};
+    color: ${theme.colors.black};
     outline: 0 none;
   }
 `;

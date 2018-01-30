@@ -1,8 +1,9 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
+import theme from 'styles/theme';
 
 export const Nav = styled.nav`
-  background-color: ${p => p.theme.colors.background};
+  background-color: ${theme.colors.background};
   bottom: -120px;
   height: 100%;
   left: 0;

@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { cx } from 'emotion';
 import { ThemeProvider } from 'emotion-theming';
-import theme from 'styles/theme';
 import { settingsShape, socialSettingsShape } from 'types/PropTypes';
 import Helmet from 'react-helmet-async';
 import NotFound from 'components/NotFound';
@@ -15,18 +15,18 @@ import Post from './Post';
 import Sidebar from './Sidebar';
 import Navigation from './Nav';
 import {
-  PageWrapper,
-  Header,
-  Title,
-  Content,
-  Primary,
-  Secondary,
-  Footer,
-  SocialLinks,
-  FacebookIcon,
-  TwitterIcon,
-  InstagramIcon,
-  FooterLinks,
+  wrapperClass,
+  headerClass,
+  titleClass,
+  contentClass,
+  primaryClass,
+  secondaryClass,
+  footerClass,
+  socialNavClass,
+  facebookIconClass,
+  twitterIconClass,
+  instagramIconClass,
+  footerNavClass,
 } from './styled';
 
 /* eslint-disable react/prop-types */
@@ -84,26 +84,32 @@ export default class App extends Component {
     const social = (
       <Fragment>
         {socialSettings.instagramUsername && (
-          <InstagramIcon
-            className="icon-font"
+          <a
+            className={cx('icon-font', instagramIconClass)}
             href={`$https://instagram.com/${socialSettings.instagramUsername}`}
-          />
+          >
+            <span>Instagram</span>
+          </a>
         )}
         {socialSettings.twitterUsername && (
-          <TwitterIcon
-            className="icon-font"
+          <a
+            className={cx('icon-font', twitterIconClass)}
             href={`https://twitter.com/${socialSettings.twitterUsername}`}
-          />
+          >
+            <span>Twitter</span>
+          </a>
         )}
         {socialSettings.facebookUrl && (
-          <FacebookIcon className="icon-font" href={socialSettings.facebookUrl} />
+          <a className={cx('icon-font', facebookIconClass)} href={socialSettings.facebookUrl}>
+            <span>Facebook</span>
+          </a>
         )}
       </Fragment>
     );
 
     return (
-      <ThemeProvider theme={theme}>
-        <PageWrapper>
+      <ThemeProvider theme={{}}>
+        <div className={wrapperClass}>
           <Helmet defaultTitle={settings.siteTitle} titleTemplate={`%s » ${settings.siteTitle}`}>
             <html lang={settings.language} />
             <title>{settings.tagline}</title>
@@ -127,17 +133,17 @@ export default class App extends Component {
             )}
             <meta property="og:site_name" content={settings.siteTitle} />
           </Helmet>
-          <Header>
-            <Title>
+          <header className={headerClass}>
+            <h1 className={titleClass}>
               <Link to="/">
                 <img src={logo} alt={settings.siteTitle} />
               </Link>
-            </Title>
-            <SocialLinks>{social}</SocialLinks>
+            </h1>
+            <nav className={socialNavClass}>{social}</nav>
             <Navigation />
-          </Header>
-          <Content>
-            <Primary>
+          </header>
+          <div className={contentClass}>
+            <section className={primaryClass}>
               <Switch>
                 <Route exact path="/videos/:year(\d{4})?" component={Videos} />
                 <Route path="/video/:slug" component={Video} />
@@ -145,14 +151,18 @@ export default class App extends Component {
                 <Route exact path="/" component={Home} />
                 <Route path="*" component={NotFound} />
               </Switch>
-            </Primary>
-            <Secondary>
+            </section>
+            <section className={secondaryClass}>
               <Sidebar />
-            </Secondary>
-          </Content>
-          <FooterLinks>{social}</FooterLinks>
-          <Footer dangerouslySetInnerHTML={{ __html: settings.copyrightText }} />
-        </PageWrapper>
+            </section>
+          </div>
+          <nav className={footerNavClass}>{social}</nav>
+          <footer
+            className={footerClass}
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: settings.copyrightText }}
+          />
+        </div>
       </ThemeProvider>
     );
   }

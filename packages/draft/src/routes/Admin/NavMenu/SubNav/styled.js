@@ -15,7 +15,7 @@ const flyout = css`
 `;
 
 export const SubNav = styled.nav`
-  background-color: ${p => p.theme.colors.white};
+  background-color: ${theme.colors.white};
   display: none;
   left: 160px;
   padding: 7px 0 8px;
@@ -50,7 +50,7 @@ export const SubNav = styled.nav`
 `;
 
 export const SubNavLink = styled(RRNavLink)`
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
   display: block;
   font-size: 13px;
   letter-spacing: 0.3px;
@@ -60,15 +60,15 @@ export const SubNavLink = styled(RRNavLink)`
 
   &:hover,
   &:active {
-    color: ${p => p.theme.colors.black};
+    color: ${theme.colors.black};
   }
 
   .SubNav-flyout & {
-    color: ${p => p.theme.colors.white};
+    color: ${theme.colors.white};
 
     &:hover,
     &:active {
-      color: ${p => p.theme.colors.pink};
+      color: ${theme.colors.pink};
     }
   }
 `;

@@ -20,7 +20,7 @@ export const Field = styled.p`
 
 export const FieldWrap = styled.div`
   display: block;
-  margin: ${p => p.theme.padding}px 0;
+  margin: ${theme.padding}px 0;
 `;
 
 export const FieldName = styled.span`
@@ -67,7 +67,7 @@ export const FieldInput = styled.input`
   width: 100%;
 
   &::placeholder {
-    color: ${p => p.theme.colors.detail};
+    color: ${theme.colors.detail};
   }
 `;
 
@@ -102,10 +102,10 @@ export const FieldValue = styled.span`
 
 export const FieldCheckbox = styled.input`
   appearance: none;
-  background-color: ${p => p.theme.colors.white};
-  border: 1px solid ${p => p.theme.colors.form.checkbox.border};
+  background-color: ${theme.colors.white};
+  border: 1px solid ${theme.colors.form.checkbox.border};
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  color: ${p => p.theme.colors.text};
+  color: ${theme.colors.text};
   cursor: pointer;
   display: inline-block;
   height: 16px;
@@ -119,7 +119,7 @@ export const FieldCheckbox = styled.input`
 
   &:checked {
     &::before {
-      color: ${p => p.theme.colors.pink};
+      color: ${theme.colors.pink};
       content: '\f147';
       float: left;
       display: inline-block;
@@ -135,8 +135,8 @@ export const FieldCheckbox = styled.input`
 `;
 
 export const MessageWrap = styled.div`
-  background: ${p => p.theme.colors.background};
-  border-left: 4px solid ${p => p.theme.colors.pink};
+  background: ${theme.colors.background};
+  border-left: 4px solid ${theme.colors.pink};
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   display: block;
   margin: 5px 0 15px;
@@ -145,7 +145,7 @@ export const MessageWrap = styled.div`
 `;
 
 export const MessageText = styled.p`
-  color: ${p => p.theme.colors.dark};
+  color: ${theme.colors.dark};
   font-size: 13px;
   line-height: 1.5;
   margin: 0.5em 0;
@@ -164,7 +164,7 @@ export const DismissButton = styled.button`
 
   &::before {
     background: none;
-    color: ${p => p.theme.colors.text};
+    color: ${theme.colors.text};
     content: '\f153';
     display: block;
     font: normal 16px/20px dashicons;
@@ -190,7 +190,7 @@ export const InfoColumn = styled.section`
 `;
 
 export const InfoBox = styled.aside`
-  border: 1px solid ${p => p.theme.colors.detail};
+  border: 1px solid ${theme.colors.detail};
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
   display: block;
@@ -198,10 +198,10 @@ export const InfoBox = styled.aside`
 `;
 
 export const InfoBoxHeader = styled.h3`
-  border-bottom: 1px solid ${p => p.theme.colors.detail};
-  color: ${p => p.theme.colors.dark};
+  border-bottom: 1px solid ${theme.colors.detail};
+  color: ${theme.colors.dark};
   font-size: 14px;
-  font-weight: ${p => p.theme.fonts.weight.bold};
+  font-weight: ${theme.fonts.weight.bold};
   padding: 8px 12px;
   user-select: none;
 `;

@@ -1,5 +1,6 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
+import theme from 'styles/theme';
 import { h1styles, buttonStyles, buttonColors } from 'styles/utils';
 
 export const postTitleClass = css`
@@ -48,7 +49,7 @@ export const DeleteTag = styled.a`
 
   &::before {
     border-radius: 50%;
-    color: ${p => p.theme.colors.dark};
+    color: ${theme.colors.dark};
     content: '\\f153';
     display: block;
     font: 400 16px/20px dashicons;
