@@ -1,5 +1,5 @@
 import styled from 'react-emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 import responsive from 'styles/responsive';
 
 export const ContentWrap = styled.div`
@@ -32,15 +32,15 @@ export const LatestWrap = styled.div`
   }
 
   @media only screen and (min-width: 1090px) {
-    margin-right: ${theme.padding * 2}px;
+    margin-right: ${themeUtils.padding * 2}px;
     width: 300px;
   }
 `;
 
 export const VideosWrap = styled.div`
-  border-top: 1px solid ${theme.colors.detail};
-  margin: ${theme.padding * 2}px auto 0;
-  padding-top: ${theme.padding}px;
+  border-top: 1px solid ${themeUtils.colors.detail};
+  margin: ${themeUtils.padding * 2}px auto 0;
+  padding-top: ${themeUtils.padding}px;
 
   ${responsive.tablet} {
     border: 0 none;
@@ -52,7 +52,7 @@ export const VideosWrap = styled.div`
 `;
 
 export const LatestItem = styled.article`
-  margin: 0 0 ${theme.padding}px;
+  margin: 0 0 ${themeUtils.padding}px;
   &::after {
     clear: both;
     content: ' ';
@@ -61,13 +61,13 @@ export const LatestItem = styled.article`
 `;
 
 export const Title = styled.h1`
-  font-family: ${theme.fonts.futura};
+  font-family: ${themeUtils.fonts.futura};
   font-size: 20px;
   line-height: 1.4;
-  margin: 0 0 ${theme.padding}px;
+  margin: 0 0 ${themeUtils.padding}px;
 
   & a {
-    color: ${theme.colors.dark};
+    color: ${themeUtils.colors.dark};
     text-decoration: none;
   }
 `;

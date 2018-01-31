@@ -1,7 +1,7 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
 import { h2Styles, h3Styles, h4Styles } from 'styles/utils';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 export const hidePlaceholderClass = css`
   .public-DraftEditorPlaceholder-root {
@@ -10,7 +10,7 @@ export const hidePlaceholderClass = css`
 `;
 
 export const BlockButton = styled.div`
-  color: ${theme.colors.detail};
+  color: ${themeUtils.colors.detail};
   cursor: pointer;
   display: block;
   font-size: 24px;
@@ -20,7 +20,7 @@ export const BlockButton = styled.div`
   transition: transform 0.25s cubic-bezier(0.3, 1.2, 0.2, 1);
 
   &:hover {
-    color: ${theme.colors.text};
+    color: ${themeUtils.colors.text};
   }
 `;
 
@@ -30,7 +30,7 @@ export const EditorWrap = styled.div`
 `;
 
 export const linkClass = css`
-  color: ${theme.colors.pink};
+  color: ${themeUtils.colors.pink};
   text-decoration: underline;
 `;
 
@@ -80,7 +80,7 @@ export const RichEditor = styled.div`
 `;
 
 export const Toolbar = styled.div`
-  background: ${theme.colors.white};
+  background: ${themeUtils.colors.white};
   border-radius: 4px;
   box-shadow: 0 1px 18px 0 rgba(0, 0, 0, 0.3);
   position: absolute;
@@ -90,7 +90,7 @@ export const Toolbar = styled.div`
 
   &::after {
     border: 6px solid transparent;
-    border-top-color: ${theme.colors.white};
+    border-top-color: ${themeUtils.colors.white};
     content: ' ';
     height: 0;
     position: absolute;

@@ -1,8 +1,8 @@
 import styled from 'react-emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 export const PageWrapper = styled.div`
-  background: ${theme.colors.white};
+  background: ${themeUtils.colors.white};
   display: block;
   min-height: 100vh;
 `;
@@ -15,9 +15,9 @@ export const Content = styled.div`
 
 export const Title = styled.h1`
   display: block;
-  font-family: ${theme.fonts.futura};
+  font-family: ${themeUtils.fonts.futura};
   font-size: 54px;
-  font-weight: ${theme.fonts.weight.bold};
+  font-weight: ${themeUtils.fonts.weight.bold};
   letter-spacing: 0.3px;
   line-height: 54px;
   margin: 0 0 12px;
@@ -42,7 +42,7 @@ export const Input = styled.input`
   border-radius: 0;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
   box-sizing: border-box;
-  color: ${theme.colors.text};
+  color: ${themeUtils.colors.text};
   font-size: 24px;
   margin: 2px 6px 16px 0;
   outline: none;
@@ -51,18 +51,18 @@ export const Input = styled.input`
   width: 100%;
 
   &:focus {
-    border-color: ${theme.colors.dark};
+    border-color: ${themeUtils.colors.dark};
     box-shadow: 0 0 2px rgba(229, 0, 130, 0.8);
   }
 `;
 
 export const Button = styled.button`
   apperance: none;
-  background: ${theme.colors.white};
-  border: 1px solid ${theme.colors.detail};
+  background: ${themeUtils.colors.white};
+  border: 1px solid ${themeUtils.colors.detail};
   border-radius: 3px;
   box-sizing: border-box;
-  color: ${theme.colors.text};
+  color: ${themeUtils.colors.text};
   cursor: pointer;
   font-size: 13px;
   height: 30px;

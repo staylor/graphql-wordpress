@@ -1,16 +1,16 @@
 import { css } from 'emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 import responsive from 'styles/responsive';
 
 export const wrapperClass = css`
-  background: ${theme.colors.white};
+  background: ${themeUtils.colors.white};
   margin: 0 auto;
-  max-width: ${theme.contentWidth}px;
+  max-width: ${themeUtils.contentWidth}px;
   padding: 20px;
 `;
 
 export const headerClass = css`
-  margin-bottom: ${theme.padding}px;
+  margin-bottom: ${themeUtils.padding}px;
   position: relative;
 `;
 
@@ -38,27 +38,27 @@ export const titleClass = css`
 `;
 
 export const contentClass = css`
-  padding: ${theme.padding}px 0;
+  padding: ${themeUtils.padding}px 0;
   ${responsive.desktop} {
     display: flex;
   }
 `;
 
 export const primaryClass = css`
-  margin-bottom: ${theme.padding}px;
+  margin-bottom: ${themeUtils.padding}px;
   max-width: 100%;
   ${responsive.desktop} {
     flex: 4;
-    margin-right: ${theme.padding}px;
+    margin-right: ${themeUtils.padding}px;
   }
 `;
 
 export const secondaryClass = css`
-  border-top: 1px solid ${theme.colors.detail};
+  border-top: 1px solid ${themeUtils.colors.detail};
   display: block;
-  margin: ${theme.padding * 3}px auto 0;
+  margin: ${themeUtils.padding * 3}px auto 0;
   max-width: 100%;
-  padding-top: ${theme.padding}px;
+  padding-top: ${themeUtils.padding}px;
   width: 640px;
   ${responsive.desktop} {
     border: 0;
@@ -85,7 +85,7 @@ export const socialNavClass = css`
 `;
 
 const socialIcon = css`
-  color: ${theme.colors.dark};
+  color: ${themeUtils.colors.dark};
   display: inline-block;
   font-size: 20px;
   height: 20px;
@@ -101,7 +101,7 @@ const socialIcon = css`
   }
 
   &:hover {
-    color: ${theme.colors.black};
+    color: ${themeUtils.colors.black};
   }
 
   span {

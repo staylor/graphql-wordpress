@@ -5,7 +5,6 @@ import { ThemeProvider } from 'emotion-theming';
 import fetch from 'isomorphic-fetch';
 import Cookies from 'js-cookie';
 import Message from 'components/Form/Message';
-import theme from 'styles/theme';
 import { TOKEN_KEY } from 'utils/constants';
 import { PageWrapper, Content, Title, Form, Label, Input, Button } from './styled';
 
@@ -88,7 +87,7 @@ export default class Login extends Component {
     }
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{}}>
         <PageWrapper>
           <Content>
             <Title>{settings.siteTitle}</Title>

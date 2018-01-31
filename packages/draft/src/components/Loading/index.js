@@ -1,10 +1,10 @@
 import React from 'react';
 import { css, keyframes } from 'emotion';
 import styled from 'react-emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 const Container = styled.div`
-  background: ${theme.colors.white};
+  background: ${themeUtils.colors.white};
   min-height: ${p => (p.compact ? 100 : 300)}px;
   padding: ${p => (p.compact ? 50 : 100)}px 0 0;
 `;
@@ -29,7 +29,7 @@ const bouncing = css`
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: ${theme.colors.dark};
+  background-color: ${themeUtils.colors.dark};
   opacity: 0.6;
   position: absolute;
   top: 0;

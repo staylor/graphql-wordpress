@@ -1,36 +1,36 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
 import { Link } from 'react-router-dom';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 export const Title = styled.h1`
-  font-family: ${theme.fonts.futura};
+  font-family: ${themeUtils.fonts.futura};
   font-size: 20px;
   line-height: 1.4;
-  margin: 0 0 ${theme.padding}px;
+  margin: 0 0 ${themeUtils.padding}px;
 
   & a {
-    color: ${theme.colors.dark};
+    color: ${themeUtils.colors.dark};
     text-decoration: none;
   }
 `;
 
 export const EmbedTitle = styled.h3`
-  font-family: ${theme.fonts.futura};
+  font-family: ${themeUtils.fonts.futura};
   font-size: 16px;
   letter-spacing: 0.3px;
   line-height: 1.4;
-  margin: 0 0 ${theme.padding}px;
+  margin: 0 0 ${themeUtils.padding}px;
 
   & a {
-    color: ${theme.colors.text};
+    color: ${themeUtils.colors.text};
     text-decoration: none;
   }
 `;
 
 export const VideoLink = styled(Link)`
   display: block;
-  margin: 0 0 ${theme.padding}px;
+  margin: 0 0 ${themeUtils.padding}px;
   max-width: 100%;
 `;
 
@@ -56,7 +56,7 @@ export const Placeholder = styled.figure`
   }
 
   &::before {
-    background: ${theme.colors.pink};
+    background: ${themeUtils.colors.pink};
     border-radius: 10px;
     content: ' ';
     height: 52px;
@@ -71,7 +71,7 @@ export const Placeholder = styled.figure`
 
   &::after {
     border-bottom: 10px solid transparent;
-    border-left: 20px solid ${theme.colors.white};
+    border-left: 20px solid ${themeUtils.colors.white};
     border-top: 10px solid transparent;
     content: ' ';
     height: 0;
@@ -85,13 +85,13 @@ export const Placeholder = styled.figure`
 
   &:hover {
     &::before {
-      background: ${theme.colors.black};
+      background: ${themeUtils.colors.black};
     }
   }
 `;
 
 export const ThumbWrapper = styled.figure`
-  margin: 0 0 ${theme.padding}px;
+  margin: 0 0 ${themeUtils.padding}px;
   max-width: 100%;
   overflow: hidden;
 

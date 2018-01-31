@@ -1,12 +1,12 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 export const StyleButton = styled.span`
   cursor: pointer;
   display: inline-block;
-  height: ${theme.editor.buttons.height}px;
-  line-height: ${theme.editor.buttons.height}px;
+  height: ${themeUtils.editor.buttons.height}px;
+  line-height: ${themeUtils.editor.buttons.height}px;
   overflow: hidden;
   padding: 0 6px;
 
@@ -21,14 +21,14 @@ export const StyleButton = styled.span`
   }
 
   &:hover {
-    color: ${theme.colors.black};
+    color: ${themeUtils.colors.black};
   }
 `;
 
 export const activeButtonClass = css`
-  color: ${theme.colors.dark};
+  color: ${themeUtils.colors.dark};
 
   &:hover {
-    color: ${theme.colors.pink};
+    color: ${themeUtils.colors.pink};
   }
 `;

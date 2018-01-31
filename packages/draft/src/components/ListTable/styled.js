@@ -1,15 +1,15 @@
 import styled from 'react-emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 export const RowActions = styled.nav`
   font-size: 13px;
 
   a {
-    color: ${theme.colors.text};
+    color: ${themeUtils.colors.text};
     text-decoration: none;
 
     &.delete {
-      color: ${theme.colors.pink};
+      color: ${themeUtils.colors.pink};
     }
   }
 `;
@@ -17,7 +17,7 @@ export const RowActions = styled.nav`
 export const RowTitle = styled.strong`
   display: block;
   font-size: 14px;
-  font-weight: ${theme.fonts.weight.bold};
+  font-weight: ${themeUtils.fonts.weight.bold};
   margin-bottom: 0.2em;
   word-wrap: break-word;
 
@@ -69,24 +69,24 @@ export const Pagination = styled.nav`
   }
 
   span {
-    border: 1px solid ${theme.colors.detail};
-    background: ${theme.colors.background};
+    border: 1px solid ${themeUtils.colors.detail};
+    background: ${themeUtils.colors.background};
   }
 
   a {
-    border: 1px solid ${theme.colors.detail};
-    background: ${theme.colors.white};
-    color: ${theme.colors.dark};
+    border: 1px solid ${themeUtils.colors.detail};
+    background: ${themeUtils.colors.white};
+    color: ${themeUtils.colors.dark};
     text-decoration: none;
 
     &:hover {
-      color: ${theme.colors.black};
+      color: ${themeUtils.colors.black};
     }
   }
 `;
 
 export const Table = styled.table`
-  border: 1px solid ${theme.colors.detail};
+  border: 1px solid ${themeUtils.colors.detail};
   border-spacing: 0;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   table-layout: fixed;
@@ -108,11 +108,11 @@ export const CellHeading = styled.th`
   text-align: left;
 
   thead & {
-    border-bottom: 1px solid ${theme.colors.detail};
+    border-bottom: 1px solid ${themeUtils.colors.detail};
   }
 
   tfoot & {
-    border-top: 1px solid ${theme.colors.detail};
+    border-top: 1px solid ${themeUtils.colors.detail};
   }
 `;
 
@@ -129,16 +129,16 @@ export const CheckboxCell = styled.th`
   }
 
   thead & {
-    border-bottom: 1px solid ${theme.colors.detail};
+    border-bottom: 1px solid ${themeUtils.colors.detail};
   }
 
   tfoot & {
-    border-top: 1px solid ${theme.colors.detail};
+    border-top: 1px solid ${themeUtils.colors.detail};
   }
 `;
 
 export const StripedRow = styled.tr`
   tbody &:nth-of-type(odd) {
-    background: ${theme.colors.background};
+    background: ${themeUtils.colors.background};
   }
 `;

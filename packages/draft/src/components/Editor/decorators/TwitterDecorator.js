@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import type { ContentBlock } from 'draft-js';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 import { findWithRegex } from '../utils';
 
 const HANDLE_REGEX = /@[\w]+/g;
@@ -32,7 +32,7 @@ type Props = {
 };
 
 const HandleSpan = (props: Props) => (
-  <span style={{ color: theme.colors.pink }} data-offset-key={props.offsetKey}>
+  <span style={{ color: themeUtils.colors.pink }} data-offset-key={props.offsetKey}>
     {props.children}
   </span>
 );

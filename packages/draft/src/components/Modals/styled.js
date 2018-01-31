@@ -1,9 +1,9 @@
 import styled from 'react-emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 
 export const Modal = styled.div`
-  background: ${theme.colors.white};
-  border: 2px solid ${theme.colors.dark};
+  background: ${themeUtils.colors.white};
+  border: 2px solid ${themeUtils.colors.dark};
   bottom: 10%;
   left: 10%;
   padding: 30px;
@@ -60,7 +60,7 @@ export const ItemImage = styled.img`
 `;
 
 export const CloseButton = styled.i`
-  color: ${theme.colors.dark};
+  color: ${themeUtils.colors.dark};
   cursor: pointer;
   display: block;
   font-size: 20px;

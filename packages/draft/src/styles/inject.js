@@ -1,5 +1,5 @@
 import { injectGlobal } from 'emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
 import iconsWoff from 'public/fonts/icons/icons.woff';
 import iconsWoff2 from 'public/fonts/icons/icons.woff2';
 import iconsTtf from 'public/fonts/icons/icons.ttf';
@@ -8,9 +8,9 @@ import iconsSvg from 'public/fonts/icons/icons.svg';
 export default function inject() {
   return injectGlobal`
     body {
-      background: ${theme.colors.background};
-      color: ${theme.colors.text};
-      font-family: ${theme.fonts.body};
+      background: ${themeUtils.colors.background};
+      color: ${themeUtils.colors.text};
+      font-family: ${themeUtils.fonts.body};
       font-size: 1em;
       line-height: 1.5;
       text-rendering: optimizeLegibility;
@@ -21,15 +21,15 @@ export default function inject() {
     }
 
     a {
-      color: ${theme.colors.dark};
+      color: ${themeUtils.colors.dark};
 
       &:hover, &:active {
-        color: ${theme.colors.pink};
+        color: ${themeUtils.colors.pink};
       }
     }
 
     blockquote {
-      margin: 0 ${theme.padding}px;
+      margin: 0 ${themeUtils.padding}px;
     }
 
     em {
@@ -37,7 +37,7 @@ export default function inject() {
     }
 
     strong {
-      font-weight: ${theme.fonts.weight.bold};
+      font-weight: ${themeUtils.fonts.weight.bold};
     }
 
     sup {
