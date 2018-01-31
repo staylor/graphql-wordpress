@@ -6,6 +6,9 @@ const resolvers = {
     id(post) {
       return post._id;
     },
+    date(post) {
+      return post.createdAt;
+    },
     featuredMedia(post, args, { Media }) {
       return Media.findByIds(post.featuredMedia || []);
     },

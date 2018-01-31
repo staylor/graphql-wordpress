@@ -28,6 +28,7 @@ const PLAYLISTS = {
   '2015': 'PLsfCTX0EqVcuZ8pz_IPXI1fzwwX9h3-AR',
   '2016': 'PLsfCTX0EqVcv1fJg5nlLYbguhqUnDSs-K',
   '2017': 'PLsfCTX0EqVcv2t3KPBP9rbYxExJbrcc-1',
+  '2018': 'PLsfCTX0EqVctVu9qhZdQFNdL1cDgsjQQS',
 };
 /* eslint-enable */
 /* eslint-disable no-console */

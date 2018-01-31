@@ -46,14 +46,17 @@ export const RichEditor = styled.div`
 
   h2[data-offset-key] {
     ${h2Styles};
+    color: ${themeUtils.colors.dark};
   }
 
   h3[data-offset-key] {
     ${h3Styles};
+    color: ${themeUtils.colors.dark};
   }
 
   h4[data-offset-key] {
     ${h4Styles};
+    color: ${themeUtils.colors.dark};
   }
 
   .public-DraftEditor-content {
