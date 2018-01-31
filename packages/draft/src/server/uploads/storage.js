@@ -1,4 +1,3 @@
-// @flow
 import fs from 'fs';
 import Settings from 'server/graphql/models/Settings';
 import Upload from './types/Upload';
@@ -62,7 +61,12 @@ class Storage {
     } else {
       upload = new Upload(uploadOpts);
     }
-    upload.save(file, cb);
+    upload.save(file, async (err, fileData) => {
+      if (this.opts.adapter) {
+        await upload.runAdapter(this.opts.adapter);
+      }
+      cb(err, fileData);
+    });
   }
 
   _removeFile(req, file: FileUpload, cb: Callback) {

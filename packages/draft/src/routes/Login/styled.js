@@ -43,7 +43,7 @@ export const inputClass = css`
   border-radius: 0;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
   box-sizing: border-box;
-  color: ${themeUtils.colors.text};
+  color: ${themeUtils.colors.dark};
   font-size: 24px;
   margin: 2px 6px 16px 0;
   outline: none;

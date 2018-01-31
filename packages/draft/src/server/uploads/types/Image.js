@@ -1,4 +1,3 @@
-// @flow
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
@@ -13,6 +12,8 @@ type CropInfo = {
 };
 
 export default class Image extends Upload {
+  crops = [];
+
   handleCrop(src: string, size: [number, number]): Promise<CropInfo> {
     return new Promise((resolve, reject) => {
       const [width = null, height = null] = size;
@@ -59,17 +60,30 @@ export default class Image extends Upload {
         }
         return [width, height];
       });
-      const crops = await Promise.all(sizes.map(size => this.handleCrop(finalPath, size)));
+      this.crops = await Promise.all(sizes.map(size => this.handleCrop(finalPath, size)));
 
       cb(null, {
         ...original,
         mimeType: file.mimetype,
         originalName: file.originalname,
         destination: this.destination.replace(`${this.uploadDir}/`, ''),
-        crops,
+        title: '',
+        caption: '',
+        altText: '',
+        type: 'image',
+        crops: this.crops,
       });
     });
     // $FlowFixMe
     file.stream.pipe(imageMeta).pipe(outStream);
+  }
+
+  toArray() {
+    return super.toArray().concat(
+      this.crops.map(image => ({
+        destination: this.destination,
+        fileName: image.fileName,
+      }))
+    );
   }
 }

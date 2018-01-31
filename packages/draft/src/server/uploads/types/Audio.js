@@ -1,4 +1,3 @@
-// @flow
 import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
@@ -61,6 +60,8 @@ export default class Audio extends Upload {
         year: metadata.year ? parseInt(metadata.year, 10) : null,
         album: metadata.album,
         duration: metadata.duration,
+        description: '',
+        type: 'audio',
         images: this.images,
       });
     };

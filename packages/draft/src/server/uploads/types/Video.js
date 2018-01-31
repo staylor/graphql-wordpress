@@ -1,4 +1,3 @@
-// @flow
 import path from 'path';
 import ffprobe from 'ffprobe';
 import ffprobeStatic from 'ffprobe-static';
@@ -16,6 +15,8 @@ export default class Video extends Upload {
         width: video.width,
         height: video.height,
         duration: parseFloat(video.duration),
+        description: '',
+        type: 'video',
       });
     };
     super.save(file, callback);

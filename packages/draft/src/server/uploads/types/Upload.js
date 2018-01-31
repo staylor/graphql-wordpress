@@ -1,4 +1,3 @@
-// @flow
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
@@ -68,5 +67,18 @@ export default class Upload {
 
   toArray() {
     return [{ destination: this.destination, fileName: this.fileName }];
+  }
+
+  async runAdapter(adapter = null) {
+    if (!adapter) {
+      return Promise.resolve();
+    }
+
+    const files = this.toArray();
+    if (!files || !files.length) {
+      return Promise.resolve();
+    }
+
+    return adapter.run(files);
   }
 }

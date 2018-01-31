@@ -8,7 +8,6 @@ const bucketName = process.env.GCS_BUCKET;
 class StorageAdapter {
   uploadDir;
   bucket;
-  uploads = [];
 
   constructor(uploadDir) {
     this.uploadDir = uploadDir;
@@ -18,16 +17,8 @@ class StorageAdapter {
     this.bucket = storage.bucket(bucketName);
   }
 
-  queue(file) {
-    this.uploads.push(file);
-  }
-
-  clear() {
-    this.uploads = [];
-  }
-
   async upload({ fileName, destination }) {
-    const relativeFile = `${destination}/${fileName}`;
+    const relativeFile = `${destination.replace(`${this.uploadDir}/`, '')}/${fileName}`;
     const filePath = `${this.uploadDir}/${relativeFile}`;
     try {
       await this.bucket.upload(filePath, { destination: relativeFile });
@@ -38,8 +29,8 @@ class StorageAdapter {
     }
   }
 
-  run() {
-    return Promise.all(this.queue.map(this.upload, this)).then(() => this.clear());
+  run(files) {
+    return Promise.all(files.map(this.upload, this));
   }
 }
 
