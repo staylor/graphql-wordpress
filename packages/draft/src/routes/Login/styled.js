@@ -1,19 +1,20 @@
-import styled from 'react-emotion';
+import { css } from 'emotion';
 import themeUtils from 'styles/theme';
 
-export const PageWrapper = styled.div`
+export const wrapperClass = css`
   background: ${themeUtils.colors.white};
   display: block;
   min-height: 100vh;
 `;
 
-export const Content = styled.div`
+export const contentClass = css`
   margin: auto;
   padding: 8% 0 0;
   width: 320px;
 `;
 
-export const Title = styled.h1`
+export const titleClass = css`
+  color: ${themeUtils.colors.dark};
   display: block;
   font-family: ${themeUtils.fonts.futura};
   font-size: 54px;
@@ -23,7 +24,7 @@ export const Title = styled.h1`
   margin: 0 0 12px;
 `;
 
-export const Form = styled.form`
+export const formClass = css`
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
   display: block;
@@ -32,11 +33,11 @@ export const Form = styled.form`
   padding: 26px 24px 46px;
 `;
 
-export const Label = styled.label`
+export const labelClass = css`
   letter-spacing: 0.2px;
 `;
 
-export const Input = styled.input`
+export const inputClass = css`
   background: #fbfbfb;
   border: 1px solid #ddd;
   border-radius: 0;
@@ -56,7 +57,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Button = styled.button`
+export const buttonClass = css`
   apperance: none;
   background: ${themeUtils.colors.white};
   border: 1px solid ${themeUtils.colors.detail};

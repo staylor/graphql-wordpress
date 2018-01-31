@@ -6,7 +6,15 @@ import fetch from 'isomorphic-fetch';
 import Cookies from 'js-cookie';
 import Message from 'components/Form/Message';
 import { TOKEN_KEY } from 'utils/constants';
-import { PageWrapper, Content, Title, Form, Label, Input, Button } from './styled';
+import {
+  wrapperClass,
+  contentClass,
+  titleClass,
+  formClass,
+  labelClass,
+  inputClass,
+  buttonClass,
+} from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -88,29 +96,32 @@ export default class Login extends Component {
 
     return (
       <ThemeProvider theme={{}}>
-        <PageWrapper>
-          <Content>
-            <Title>{settings.siteTitle}</Title>
+        <div className={wrapperClass}>
+          <div className={contentClass}>
+            <h1 className={titleClass}>{settings.siteTitle}</h1>
             {this.state.error && <Message text={this.state.error} />}
-            <Form
+            <form
+              className={formClass}
               method="post"
-              innerRef={form => {
+              ref={form => {
                 this.form = form;
               }}
-              onSubmit={e => {
-                e.preventDefault();
-
-                this.submitForm(e);
-              }}
+              onSubmit={this.submitForm}
             >
-              <Label htmlFor="email">Email</Label>
-              <Input type="text" name="email" />
-              <Label htmlFor="password">Password</Label>
-              <Input type="password" name="password" />
-              <Button type="submit">Log In</Button>
-            </Form>
-          </Content>
-        </PageWrapper>
+              <label className={labelClass} htmlFor="email">
+                Email
+                <input className={inputClass} type="text" name="email" />
+              </label>
+              <label className={labelClass} htmlFor="password">
+                Password
+                <input className={inputClass} type="password" name="password" />
+              </label>
+              <button className={buttonClass} type="submit">
+                Log In
+              </button>
+            </form>
+          </div>
+        </div>
       </ThemeProvider>
     );
   }
