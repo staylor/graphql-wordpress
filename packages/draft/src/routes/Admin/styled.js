@@ -3,11 +3,13 @@ import styled from 'react-emotion';
 import themeUtils from 'styles/theme';
 import { Link } from 'react-router-dom';
 
-export const AtomicToolbar = styled.div`
+const mediumQuery = `@media screen and (max-width: ${themeUtils.breakpoint.medium}px)`;
+
+export const atomicToolbarClass = css`
   position: absolute;
 `;
 
-export const PageWrapper = styled.div`
+export const wrapperClass = css`
   background: ${themeUtils.colors.white};
   margin: 0 auto;
   min-height: calc(100vh - ${themeUtils.padding * 2}px);
@@ -59,22 +61,17 @@ export const Line = styled.br`
   display: block;
 `;
 
-export const Flex = styled.section``;
-
 export const Content = styled.section`
   height: 100%;
-  margin-left: 160px;
+  margin-left: ${({ theme: { isCollapsed } }) =>
+    isCollapsed ? themeUtils.menuWidth.collapsed : themeUtils.menuWidth.open}px;
   padding: 0 20px 65px;
   position: relative;
   z-index: 3;
 
-  @media screen and (max-width: 782px) {
-    margin-left: 36px;
+  ${mediumQuery} {
+    margin-left: ${themeUtils.menuWidth.collapsed}px;
   }
-`;
-
-export const collapsedNavClass = css`
-  margin-left: 36px;
 `;
 
 export const FormWrap = styled.div`
@@ -87,7 +84,7 @@ export const FormWrap = styled.div`
     display: table;
   }
 
-  @media screen and (max-width: 782px) {
+  ${mediumQuery} {
     margin-right: 0;
   }
 `;

@@ -1,17 +1,20 @@
 import React from 'react';
-import { CollapseButton as StyledButton, CollapseButtonIcon, CollapseButtonLabel } from './styled';
+import { withTheme } from 'emotion-theming';
+import { CollapseButton as StyledButton, buttonIconClass, buttonLabelClass } from './styled';
 
 /* eslint-disable react/prop-types */
 
-export default function CollapseButton({ collapsed, ...rest }) {
+function CollapseButton({ theme: { isCollapsed }, ...rest }) {
   return (
     <StyledButton
       {...rest}
-      aria-expanded={!collapsed}
-      aria-label={collapsed ? 'Expand menu' : 'Collapse menu'}
+      aria-expanded={!isCollapsed}
+      aria-label={isCollapsed ? 'Expand menu' : 'Collapse menu'}
     >
-      <CollapseButtonIcon />
-      {!collapsed && <CollapseButtonLabel>Collapse menu</CollapseButtonLabel>}
+      <i className={buttonIconClass} />
+      {!isCollapsed && <i className={buttonLabelClass}>Collapse menu</i>}
     </StyledButton>
   );
 }
+
+export default withTheme(CollapseButton);

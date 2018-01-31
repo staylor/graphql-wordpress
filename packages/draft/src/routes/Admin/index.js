@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'emotion-theming';
-import { cx } from 'emotion';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Helmet from 'react-helmet-async';
-import theme from 'styles/theme';
 import Loading from 'components/Loading';
 import NotFound from 'components/NotFound';
 import { settingsShape, mediaSettingsShape } from 'types/PropTypes';
-import { PageWrapper, Flex, Content, collapsedNavClass, AtomicToolbar } from './styled';
+import { wrapperClass, Content, atomicToolbarClass } from './styled';
 import NavMenu from './NavMenu';
 import routeConfig from './routeConfig';
 
@@ -79,26 +77,20 @@ export default class Admin extends Component {
       taxonomies: taxonomies.edges.map(({ node }) => node),
     });
 
+    const collapsed = this.state.collapsed ? 'collapsed' : 'open';
+
     return (
-      <ThemeProvider theme={theme}>
-        <PageWrapper>
+      <ThemeProvider theme={{ collapsed, isCollapsed: this.state.collapsed }}>
+        <div className={wrapperClass}>
           <Helmet defaultTitle={settings.siteTitle} titleTemplate={`%s » ${settings.siteTitle}`}>
             <html lang={settings.language} />
             <title>Admin</title>
           </Helmet>
-          <Flex>
+          <section>
             <div id="portal" />
-            <AtomicToolbar id="atomicToolbar" />
-            <NavMenu
-              collapsed={this.state.collapsed}
-              onCollapse={this.onCollapse}
-              routeConfig={routes}
-            />
-            <Content
-              className={cx({
-                [collapsedNavClass]: this.state.collapsed,
-              })}
-            >
+            <div className={atomicToolbarClass} id="atomicToolbar" />
+            <NavMenu onCollapse={this.onCollapse} routeConfig={routes} />
+            <Content>
               <Switch>
                 {routes.map(section =>
                   section.map(route => (
@@ -113,8 +105,8 @@ export default class Admin extends Component {
                 <Route path="*" component={NotFound} />
               </Switch>
             </Content>
-          </Flex>
-        </PageWrapper>
+          </section>
+        </div>
       </ThemeProvider>
     );
   }

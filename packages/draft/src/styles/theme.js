@@ -21,4 +21,13 @@ export default {
 
   contentWidth: 1080,
   padding: 15,
+
+  breakpoint: {
+    medium: 782,
+  },
+
+  menuWidth: {
+    open: 160,
+    collapsed: 36,
+  },
 };

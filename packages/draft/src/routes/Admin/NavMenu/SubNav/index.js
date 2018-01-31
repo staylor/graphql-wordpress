@@ -1,25 +1,28 @@
 import React from 'react';
 import { cx } from 'emotion';
-import { SubNav as StyledSubNav, SubNavLink, subNavActiveClass } from './styled';
+import { withTheme } from 'emotion-theming';
+import { SubNav as StyledSubNav, SubNavLink } from './styled';
 
 /* eslint-disable react/prop-types */
 
-export default function SubNav({ location, item, collapsed, hovered }) {
+function SubNav({ theme: { isHovered, isCollapsed }, location, item }) {
   const active = location.pathname.indexOf(item.path) === 0;
   return (
     <StyledSubNav
       className={cx({
         'SubNav-active': active,
-        'SubNav-collapsed': collapsed,
-        'SubNav-hovered': hovered,
-        'SubNav-flyout': (collapsed || !active) && hovered,
+        'SubNav-collapsed': isCollapsed,
+        'SubNav-hovered': isHovered,
+        'SubNav-flyout': (isCollapsed || !active) && isHovered,
       })}
     >
       {item.routes.map(route => (
-        <SubNavLink key={route.path} to={route.path} exact activeClassName={subNavActiveClass}>
+        <SubNavLink key={route.path} to={route.path} exact activeClassName="SubNavLink-active">
           {route.label}
         </SubNavLink>
       ))}
     </StyledSubNav>
   );
 }
+
+export default withTheme(SubNav);

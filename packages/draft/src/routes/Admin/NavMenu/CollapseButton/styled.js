@@ -1,10 +1,15 @@
+import { css } from 'emotion';
 import styled from 'react-emotion';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
+
+const collapsedStyle = css`
+  transform: rotate(180deg);
+`;
 
 export const CollapseButton = styled.button`
   background: none;
   border: none;
-  color: ${theme.colors.text};
+  color: ${themeUtils.colors.text};
   cursor: pointer;
   display: block;
   font-size: 13px;
@@ -17,21 +22,18 @@ export const CollapseButton = styled.button`
   position: relative;
   transition: color 0.1s ease-in-out;
   width: 100%;
+  ${({ theme: { isCollapsed } }) => isCollapsed && collapsedStyle};
 
   &:hover {
-    color: ${theme.colors.black};
-  }
-
-  .NavMenu-collapsed & {
-    transform: rotate(180deg);
+    color: ${themeUtils.colors.black};
   }
 
   @media screen and (max-width: 782px) {
-    transform: rotate(180deg);
+    ${collapsedStyle};
   }
 `;
 
-export const CollapseButtonIcon = styled.i`
+export const buttonIconClass = css`
   display: block;
   height: 34px;
   left: 0;
@@ -54,7 +56,7 @@ export const CollapseButtonIcon = styled.i`
   }
 `;
 
-export const CollapseButtonLabel = styled.i`
+export const buttonLabelClass = css`
   display: block;
   left: 0;
   line-height: 34px;

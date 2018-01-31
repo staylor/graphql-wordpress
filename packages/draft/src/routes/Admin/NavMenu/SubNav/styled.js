@@ -1,13 +1,15 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
 import { NavLink as RRNavLink } from 'react-router-dom';
-import theme from 'styles/theme';
+import themeUtils from 'styles/theme';
+
+const mediumQuery = `@media screen and (max-width: ${themeUtils.breakpoint.medium}px)`;
 
 const flyout = css`
-  background-color: ${theme.colors.dark};
+  background-color: ${themeUtils.colors.dark};
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
   display: block;
-  min-width: 160px;
+  min-width: ${themeUtils.menuWidth.open}px;
   position: absolute;
   top: -1px;
   width: auto;
@@ -15,27 +17,27 @@ const flyout = css`
 `;
 
 export const SubNav = styled.nav`
-  background-color: ${theme.colors.white};
+  background-color: ${themeUtils.colors.white};
   display: none;
-  left: 160px;
+  left: ${themeUtils.menuWidth.open}px;
   padding: 7px 0 8px;
 
   &.SubNav-active {
     display: block;
 
-    @media screen and (max-width: 782px) {
+    ${mediumQuery} {
       display: none;
     }
   }
 
   &.SubNav-collapsed {
     display: none;
-    left: 36px;
+    left: ${themeUtils.menuWidth.collapsed}px;
   }
 
-  @media screen and (max-width: 782px) {
+  ${mediumQuery} {
     display: none;
-    left: 36px;
+    left: ${themeUtils.menuWidth.collapsed}px;
   }
 
   &.SubNav-flyout {
@@ -43,14 +45,14 @@ export const SubNav = styled.nav`
   }
 
   &.SubNav-hovered {
-    @media screen and (max-width: 782px) {
+    ${mediumQuery} {
       ${flyout};
     }
   }
 `;
 
 export const SubNavLink = styled(RRNavLink)`
-  color: ${theme.colors.dark};
+  color: ${themeUtils.colors.dark};
   display: block;
   font-size: 13px;
   letter-spacing: 0.3px;
@@ -60,25 +62,25 @@ export const SubNavLink = styled(RRNavLink)`
 
   &:hover,
   &:active {
-    color: ${theme.colors.black};
+    color: ${themeUtils.colors.pink};
   }
 
   .SubNav-flyout & {
-    color: ${theme.colors.white};
+    color: ${themeUtils.colors.white};
 
     &:hover,
     &:active {
-      color: ${theme.colors.pink};
+      color: ${themeUtils.colors.pink};
     }
   }
-`;
 
-export const subNavActiveClass = css`
-  color: ${theme.colors.black};
-  font-weight: ${theme.fonts.weight.bold};
+  &.SubNavLink-active {
+    color: ${themeUtils.colors.black};
+    font-weight: ${themeUtils.fonts.weight.bold};
 
-  &:hover,
-  &:active {
-    color: ${theme.colors.pink};
+    &:hover,
+    &:active {
+      color: ${themeUtils.colors.black};
+    }
   }
 `;
