@@ -1,9 +1,0 @@
-[ignore]
-<PROJECT_ROOT>/node_modules/config-chain/test/broken.json
-<PROJECT_ROOT>/node_modules/fbjs/.*
-<PROJECT_ROOT>/node_modules/npmconf/test/.*
-
-[options]
-esproposal.decorators=ignore
-module.system.node.resolve_dirname=node_modules
-module.system.node.resolve_dirname=src

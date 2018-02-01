@@ -1,7 +1,0 @@
-fragment SocialSettings_settings on SocialSettings {
-  id
-  facebookUrl
-  facebookAppId
-  twitterUsername
-  instagramUsername
-}

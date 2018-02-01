@@ -1,9 +1,0 @@
-#import "./MediaSettings_settings.graphql"
-
-query MediaSettingsQuery {
-  settings(id: "media") {
-    ... on MediaSettings {
-      ...MediaSettings_settings
-    }
-  }
-}

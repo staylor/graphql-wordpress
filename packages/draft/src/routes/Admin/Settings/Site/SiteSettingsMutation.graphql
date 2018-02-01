@@ -1,7 +1,0 @@
-#import "./SiteSettings_settings.graphql"
-
-mutation UpdateSettingsMutation($id: String!, $input: SiteSettingsInput!) {
-  updateSiteSettings(id: $id, input: $input) {
-    ...SiteSettings_settings
-  }
-}

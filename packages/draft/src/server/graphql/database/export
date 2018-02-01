@@ -1,5 +1,0 @@
-collections=("user" "post" "media" "video" "term" "taxonomy" "show" "settings")
-for i in "${collections[@]}"
-do
-  mongoexport --host $MONGO_URL --ssl -u $MONGO_USER -p $MONGO_PASSWORD --authenticationDatabase admin --db $1 --collection $i --out highforthis.$i.json
-done

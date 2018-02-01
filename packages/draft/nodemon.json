@@ -1,4 +1,0 @@
-{
-  "ext": "js graphql",
-  "watch": ["src/server/graphql", "src/models"]
-}
