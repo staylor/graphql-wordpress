@@ -1,5 +1,6 @@
 import styled from 'react-emotion';
 import { css } from 'emotion';
+import facepaint from 'facepaint';
 import themeUtils from 'styles/theme';
 import responsive from 'styles/responsive';
 
@@ -96,31 +97,19 @@ export const buttonStyles = css`
   }
 `;
 
-export const buttonColors = css`
-  background: ${themeUtils.buttons.base.background};
-  border-color: ${themeUtils.buttons.base.border};
-  box-shadow: ${themeUtils.buttons.base.boxShadow};
-  color: ${themeUtils.buttons.base.color};
+const pseudo = facepaint([':active', ':focus', ':hover']);
 
-  &:active {
-    background: ${themeUtils.buttons.base.active.background};
-    border-color: ${themeUtils.buttons.base.active.border};
-    box-shadow: ${themeUtils.buttons.base.active.boxShadow};
-  }
+const generateButtonColors = c =>
+  css(
+    pseudo({
+      background: [c.background, c.active.background, c.focus.background, c.hover.background],
+      borderColor: [c.border, c.active.border, c.focus.border, c.hover.border],
+      boxShadow: [c.boxShadow, c.active.boxShadow, c.focus.boxShadow],
+      color: [c.color, null, c.focus.color, c.hover.color],
+    })
+  );
 
-  &:focus {
-    background: ${themeUtils.buttons.base.focus.background};
-    border-color: ${themeUtils.buttons.base.focus.border};
-    box-shadow: ${themeUtils.buttons.base.focus.boxShadow};
-    color: ${themeUtils.buttons.base.focus.color};
-  }
-
-  &:hover {
-    background: ${themeUtils.buttons.base.hover.background};
-    border-color: ${themeUtils.buttons.base.hover.border};
-    color: ${themeUtils.buttons.base.hover.color};
-  }
-`;
+export const buttonColors = generateButtonColors(themeUtils.buttons.base);
 
 export const Button = styled.button`
   ${buttonStyles};
@@ -134,32 +123,12 @@ const largeButtonStyles = css`
   padding: 0 12px 2px;
 `;
 
+const primaryButtonColors = generateButtonColors(themeUtils.buttons.primary);
+
 export const PrimaryButton = styled.button`
   ${largeButtonStyles};
-  background: ${themeUtils.buttons.primary.background};
-  border-color: ${themeUtils.buttons.primary.border};
-  box-shadow: ${themeUtils.buttons.primary.boxShadow};
-  color: ${themeUtils.buttons.primary.color};
+  ${primaryButtonColors};
   text-shadow: ${themeUtils.buttons.primary.textShadow};
-
-  &:active {
-    background: ${themeUtils.buttons.primary.active.background};
-    border-color: ${themeUtils.buttons.primary.active.border};
-    box-shadow: ${themeUtils.buttons.primary.active.boxShadow};
-  }
-
-  &:focus {
-    background: ${themeUtils.buttons.primary.focus.background};
-    border-color: ${themeUtils.buttons.primary.focus.border};
-    box-shadow: ${themeUtils.buttons.primary.focus.boxShadow};
-    color: ${themeUtils.buttons.primary.focus.color};
-  }
-
-  &:hover {
-    background: ${themeUtils.buttons.primary.hover.background};
-    border-color: ${themeUtils.buttons.primary.hover.border};
-    color: ${themeUtils.buttons.primary.hover.color};
-  }
 `;
 
 const smallButtonStyles = css`
