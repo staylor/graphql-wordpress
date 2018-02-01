@@ -1,7 +1,7 @@
-import styled from 'react-emotion';
+import { css } from 'emotion';
 import themeUtils from 'styles/theme';
 
-export const Dropzone = styled.div`
+export const dropzoneClass = css`
   border: 4px dashed ${themeUtils.colors.dark};
   color: ${themeUtils.colors.text};
   display: block;
@@ -10,13 +10,13 @@ export const Dropzone = styled.div`
   width: 600px;
 `;
 
-export const DropzoneInfo = styled.p`
+export const dropzoneInfoClass = css`
   font-size: 20px;
   margin: 70px auto 0;
   text-align: center;
 `;
 
-export const ProgressBar = styled.div`
+export const progressBarClass = css`
   box-sizing: border-box;
   height: 30px;
   font-size: 14px;
@@ -27,12 +27,12 @@ export const ProgressBar = styled.div`
   width: 600px;
 `;
 
-export const ProgressText = styled.div`
+export const progressTextClass = css`
   position: relative;
   z-index: 2;
 `;
 
-export const StatusBar = styled.div`
+export const statusBarClass = css`
   background-color: ${themeUtils.colors.pink};
   height: 30px;
   left: 0;

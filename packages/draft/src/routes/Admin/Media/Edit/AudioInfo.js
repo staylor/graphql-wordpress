@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import filesize from 'filesize';
 import { uploadUrl } from 'utils/media';
-import { CroppedImage } from './styled';
+import { croppedClass } from './styled';
 
 /* eslint-disable react/prop-types */
 
@@ -12,7 +12,7 @@ export default function AudioInfo({ media }) {
   const src = uploadUrl(media.destination, first.fileName);
   const cropInfo = (
     <Fragment>
-      <CroppedImage src={src} />
+      <img className={croppedClass} src={src} alt="" />
       <strong>
         Showing:<br />
       </strong>{' '}

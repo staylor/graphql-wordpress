@@ -12,7 +12,7 @@ import { RowActions, RowTitle, SearchBox } from 'components/ListTable/styled';
 import { offsetToCursor } from 'utils/connection';
 import { uploadUrl } from 'utils/media';
 import { Heading, HeaderAdd } from 'routes/Admin/styled';
-import { Thumbnail, thumbnailColumnClass, titleColumnClass } from './styled';
+import { thumbnailClass, thumbnailColumnClass, titleColumnClass } from './styled';
 import UploadsQuery from './UploadsQuery.graphql';
 
 /* eslint-disable react/prop-types */
@@ -25,7 +25,9 @@ const renderThumbnail = (media, field) => {
   }
   const sorted = [...media[field]];
   sorted.sort((a, b) => a.width - b.width);
-  return <Thumbnail src={uploadUrl(media.destination, sorted[0].fileName)} />;
+  return (
+    <img className={thumbnailClass} src={uploadUrl(media.destination, sorted[0].fileName)} alt="" />
+  );
 };
 
 const columns = [

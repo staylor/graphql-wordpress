@@ -1,4 +1,3 @@
-import styled from 'react-emotion';
 import { css } from 'emotion';
 
 export const thumbnailColumnClass = css`
@@ -9,7 +8,7 @@ export const titleColumnClass = css`
   width: 60%;
 `;
 
-export const Thumbnail = styled.img`
+export const thumbnailClass = css`
   display: block;
   height: auto;
   ${thumbnailColumnClass};

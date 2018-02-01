@@ -10,9 +10,9 @@ import UpdateMediaMutation from './UpdateMediaMutation.graphql';
 import ImageInfo from './ImageInfo';
 import AudioInfo from './AudioInfo';
 import VideoInfo from './VideoInfo';
-import { Audio, Video, CroppedImage } from './styled';
+import { audioClass, videoClass, croppedClass } from './styled';
 
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types, jsx-a11y/media-has-caption */
 
 const mediaFields = [
   {
@@ -32,12 +32,19 @@ const mediaFields = [
         } else {
           src = uploadUrl(media.destination, media.fileName);
         }
-        mediaInfo = <CroppedImage src={src} />;
+        mediaInfo = <img className={croppedClass} src={src} alt="" />;
       } else if (media.type === 'audio') {
-        mediaInfo = <Audio controls src={uploadUrl(media.destination, media.fileName)} />;
+        mediaInfo = (
+          <audio
+            className={audioClass}
+            controls
+            src={uploadUrl(media.destination, media.fileName)}
+          />
+        );
       } else if (media.type === 'video') {
         mediaInfo = (
-          <Video
+          <video
+            className={videoClass}
             preload="metadata"
             width={media.width}
             height={media.height}

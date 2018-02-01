@@ -1,7 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Heading } from 'routes/Admin/styled';
-import { Dropzone, DropzoneInfo, ProgressBar, ProgressText, StatusBar } from './styled';
+import {
+  dropzoneClass,
+  dropzoneInfoClass,
+  progressBarClass,
+  progressTextClass,
+  statusBarClass,
+} from './styled';
 
 export default class Media extends Component {
   state = {};
@@ -74,19 +80,27 @@ export default class Media extends Component {
     return (
       <Fragment>
         <Heading>Upload Media</Heading>
-        <Dropzone onDrop={this.onDrop} onDragOver={e => e.preventDefault()} onDragEnd={() => false}>
-          <DropzoneInfo>Drop files Here</DropzoneInfo>
-        </Dropzone>
+        <div
+          className={dropzoneClass}
+          onDrop={this.onDrop}
+          onDragOver={e => e.preventDefault()}
+          onDragEnd={() => false}
+        >
+          <p className={dropzoneInfoClass}>Drop files Here</p>
+        </div>
         <Fragment>
           {Object.keys(this.state).map(key => {
             const upload = this.state[key];
             return (
-              <ProgressBar key={key}>
-                <ProgressText>
+              <div className={progressBarClass} key={key}>
+                <div className={progressTextClass}>
                   {upload.name} {upload.id ? <Link to={`/media/${upload.id}`}>Edit</Link> : null}
-                </ProgressText>
-                <StatusBar style={{ width: upload.id ? '3px' : `${upload.progress}%` }} />
-              </ProgressBar>
+                </div>
+                <div
+                  className={statusBarClass}
+                  style={{ width: upload.id ? '3px' : `${upload.progress}%` }}
+                />
+              </div>
             );
           })}
         </Fragment>

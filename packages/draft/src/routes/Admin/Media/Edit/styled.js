@@ -1,16 +1,16 @@
-import styled from 'react-emotion';
+import { css } from 'emotion';
 
-export const CroppedImage = styled.img`
+export const croppedClass = css`
   display: block;
   margin: 10px 0;
 `;
 
-export const Audio = styled.audio`
+export const audioClass = css`
   display: block;
   margin: 10px 0 20px;
 `;
 
-export const Video = styled.video`
+export const videoClass = css`
   appearance: none;
   display: block;
   height: auto;
