@@ -1,15 +1,16 @@
 import React from 'react';
 import { cx } from 'emotion';
 import { withTheme } from 'emotion-theming';
-import { SubNav as StyledSubNav, SubNavLink } from './styled';
+import { NavLink } from 'react-router-dom';
+import { subNavClass, subNavLinkClass } from './styled';
 
 /* eslint-disable react/prop-types */
 
 function SubNav({ theme: { isHovered, isCollapsed }, location, item }) {
   const active = location.pathname.indexOf(item.path) === 0;
   return (
-    <StyledSubNav
-      className={cx({
+    <nav
+      className={cx(subNavClass, {
         'SubNav-active': active,
         'SubNav-collapsed': isCollapsed,
         'SubNav-hovered': isHovered,
@@ -17,11 +18,17 @@ function SubNav({ theme: { isHovered, isCollapsed }, location, item }) {
       })}
     >
       {item.routes.map(route => (
-        <SubNavLink key={route.path} to={route.path} exact activeClassName="SubNavLink-active">
+        <NavLink
+          className={subNavLinkClass}
+          key={route.path}
+          to={route.path}
+          exact
+          activeClassName="SubNavLink-active"
+        >
           {route.label}
-        </SubNavLink>
+        </NavLink>
       ))}
-    </StyledSubNav>
+    </nav>
   );
 }
 

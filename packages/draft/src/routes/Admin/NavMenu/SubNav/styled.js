@@ -1,6 +1,4 @@
-import styled from 'react-emotion';
 import { css } from 'emotion';
-import { NavLink as RRNavLink } from 'react-router-dom';
 import themeUtils from 'styles/theme';
 
 const mediumQuery = `@media screen and (max-width: ${themeUtils.breakpoint.medium}px)`;
@@ -16,7 +14,7 @@ const flyout = css`
   z-index: 100000;
 `;
 
-export const SubNav = styled.nav`
+export const subNavClass = css`
   background-color: ${themeUtils.colors.white};
   display: none;
   left: ${themeUtils.menuWidth.open}px;
@@ -51,7 +49,7 @@ export const SubNav = styled.nav`
   }
 `;
 
-export const SubNavLink = styled(RRNavLink)`
+export const subNavLinkClass = css`
   color: ${themeUtils.colors.dark};
   display: block;
   font-size: 13px;
